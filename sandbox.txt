@@ -1,4 +1,4 @@
-$Id: sandbox.txt,v 1.2 2005/02/27 06:32:45 teanan Exp $
+$Id: sandbox.txt,v 1.3 2005/02/27 06:40:21 henoheno Exp $
 * テスト用テキストファイル
 
 ----
@@ -8,4 +8,5 @@ $Id: sandbox.txt,v 1.2 2005/02/27 06:32:45 teanan Exp $
 
 - こんなんでどないでしょう -- henoheno
 - チェックアウトできたっぽいです。 -- teanan
+-- 確認しました。コミットログの漢字コードはEUC/LFになってるっぽいです。CVSごった煮版であればデフォルト設定なので当然といえば当然ですが :) -- henoheno
 
