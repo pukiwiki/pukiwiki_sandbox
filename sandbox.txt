@@ -1,4 +1,4 @@
-$Id: sandbox.txt,v 1.5 2005/02/27 06:58:22 henoheno Exp $
+$Id: sandbox.txt,v 1.6 2005/03/05 04:22:15 teanan Exp $
 * テスト用テキストファイル
 
 ----
@@ -11,3 +11,4 @@ $Id: sandbox.txt,v 1.5 2005/02/27 06:58:22 henoheno Exp $
 -- 確認しました。コミットログの漢字コードはEUC/LFになってるっぽいです。WinCVSごった煮版であればデフォルト設定なので当然といえば当然ですが :) -- henoheno
 -- チェックありがとうございました。これは update と commit のテストになります :D
 --- 感付きました。これはupdateとcommitの仕返しです ;)
+-タグをうってみました。下手するとpukiwiki本体につきそうで怖い (^^;
