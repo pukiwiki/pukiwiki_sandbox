@@ -1,4 +1,4 @@
 $Id;$
 
 test desu -- henoheno
-ÆüËÜ¸ì¤ÎÊ¸¾Ï¤ÈÆüËÜ¸ì¤Î¥³¥ß¥Ã¥È¥í¥°¤òÄÉ²Ã: ¤È¤â¤Ë EUC/LF (FreeBSD ¾å¤Îcvs¥¯¥é¥¤¥¢¥ó¥È¤«¤é¥³¥ß¥Ã¥È) -- henoheno
+“ú–{Œê‚Ì•¶Í‚Æ“ú–{Œê‚ÌƒRƒ~ƒbƒgƒƒO‚ð’Ç‰Á: ‚Æ‚à‚É EUC/LF (FreeBSD ã‚ÌcvsƒNƒ‰ƒCƒAƒ“ƒg‚©‚çƒRƒ~ƒbƒg) -- henoheno
