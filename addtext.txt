@@ -1,3 +1,4 @@
-$Id;$
+$Id: addtext.txt,v 1.2 2005/02/27 16:51:56 teanan Exp $
 
 - ファイルを追加してみます。 -- teanan
+- $Id;$になってた orz -- teanan
