@@ -1,3 +1,4 @@
 $Id;$
 
 test desu -- henoheno
+日本語の文章と日本語のコミットログを追加: ともに EUC/LF (FreeBSD 上のcvsクライアントからコミット) -- henoheno
