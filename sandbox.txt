@@ -1,4 +1,4 @@
-$Id: sandbox.txt,v 1.7 2005/04/05 01:10:23 teanan Exp $
+$Id: sandbox.txt,v 1.8 2005/04/05 01:51:18 teanan Exp $
 * テスト用テキストファイル
 
 ----
@@ -13,3 +13,4 @@ $Id: sandbox.txt,v 1.7 2005/04/05 01:10:23 teanan Exp $
 --- 感付きました。これはupdateとcommitの仕返しです ;)
 -タグをうってみました。下手するとpukiwiki本体につきそうで怖い (^^;
 -MobilePCの環境を構築しました。Crusoe + AirH"(32k-pkt) なのでつらいです ;( -- teanan
+-- mobile用の認証鍵を登録してそれだけでログインできるようにしてみるテスト -- teanan
