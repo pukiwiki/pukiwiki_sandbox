@@ -1,4 +1,4 @@
-$Id: sandbox.txt,v 1.10 2006/02/18 01:05:44 henoheno Exp $
+$Id: sandbox.txt,v 1.11 2006/02/18 01:08:04 henoheno Exp $
 * テスト用テキストファイル
 
 ----
@@ -14,6 +14,6 @@ $Id: sandbox.txt,v 1.10 2006/02/18 01:05:44 henoheno Exp $
 -タグをうってみました。下手するとpukiwiki本体につきそうで怖い (^^;
 -MobilePCの環境を構築しました。Crusoe + AirH"(32k-pkt) なのでつらいです ;( -- teanan
 -- mobile用の認証鍵を登録してそれだけでログインできるようにしてみるテスト -- teanan
-- Windows PC から cygwin openssh + ごった煮版cvs.exeでコミットして、日本語のコミットログが問題無いかどうか再確認。 -- henoheno
--- 続き -- henoheno
+- Windows PC から cygwin openssh + ごった煮版cvs.exeでコミットして、日本語のコミットログが問題無いかどうか再確認。--コマンドラインでは現状Shift-JISで保存されてしまう。 -- henoheno
+-- 続き。設定を行った。WinCVSフロントエンドからコミットした場合は問題なくEUC-JPで保存される。確か一度設定すれば維持されるはず・・・ -- henoheno
 
