@@ -1,4 +1,4 @@
-$Id: sandbox.txt,v 1.12 2006/02/18 01:10:08 henoheno Exp $
+$Id: sandbox.txt,v 1.13 2006/02/18 01:14:07 henoheno Exp $
 * テスト用テキストファイル
 
 ----
@@ -18,4 +18,4 @@ $Id: sandbox.txt,v 1.12 2006/02/18 01:10:08 henoheno Exp $
 ** WinCVSごった煮版の、「コミットログをEUC-JPに変換する機能」周りのテスト
 - Windows PC から cygwin openssh + ごった煮版cvs.exeでコミットして、日本語のコミットログが問題無いかどうか再確認。--コマンドラインでは現状Shift-JISで保存されてしまう。 -- henoheno
 -- 続き。設定を行った。WinCVSフロントエンドからコミットした場合は問題なくEUC-JPで保存される。確か一度設定すれば維持されるはず・・・ -- henoheno
--- 設定後のテスト -- henoheno
+-- 設定後のテスト。コマンドラインからWinCVSごった煮版のcvs.exeを使ったのでは維持されない。以前はWinCVSからだけ使っていたっけか・・・ -- henoheno
