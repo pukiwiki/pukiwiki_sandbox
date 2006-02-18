@@ -1,4 +1,4 @@
-$Id: sandbox.txt,v 1.8 2005/04/05 01:51:18 teanan Exp $
+$Id: sandbox.txt,v 1.9 2006/02/18 00:57:15 henoheno Exp $
 * テスト用テキストファイル
 
 ----
@@ -14,3 +14,4 @@ $Id: sandbox.txt,v 1.8 2005/04/05 01:51:18 teanan Exp $
 -タグをうってみました。下手するとpukiwiki本体につきそうで怖い (^^;
 -MobilePCの環境を構築しました。Crusoe + AirH"(32k-pkt) なのでつらいです ;( -- teanan
 -- mobile用の認証鍵を登録してそれだけでログインできるようにしてみるテスト -- teanan
+-- Windows PC から cygwin openssh + ごった煮版cvs.exeでコミットして、日本語のコミットログが問題無いかどうか再確認。 -- henoheno
