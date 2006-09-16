@@ -2,3 +2,4 @@ $Id;$
 
 test desu -- henoheno
 日本語の文章と日本語のコミットログを追加: ともに EUC/LF (FreeBSD 上のcvsクライアントからコミット) -- henoheno
+- Windows + cygwin + cvsごった煮版20020227 + cygwin ssh (ext server) からテスト中 -- henoheno
