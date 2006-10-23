@@ -1,7 +1,8 @@
 <?php
-// $Id: spam_pickup.php,v 1.1 2006/10/23 12:57:06 henoheno Exp $
+// $Id: spam_pickup.php,v 1.2 2006/10/23 12:59:33 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developer Team
+// License: GPL v2 or (at your option) any later version
 
 error_reporting(E_ALL); // Debug purpose
 
