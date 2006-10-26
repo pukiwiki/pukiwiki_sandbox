@@ -1,7 +1,7 @@
 <?php
-// $Id: spam_pickup.php,v 1.3 2006/10/25 17:58:48 teanan Exp $
+// $Id: spam_pickup.php,v 1.4 2006/10/26 15:21:09 henoheno Exp $
 // Concept-work of spam-uri metrics
-// Copyright (C) 2006 PukiWiki Developer Team
+// Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
 error_reporting(E_ALL); // Debug purpose
@@ -23,6 +23,7 @@ function spam_pickup($string = '')
 		'((?:/[^\s<>"\'\[\]/]+)*/)?' .	// 3:Directory
 		'([^\s<>"\'\[\]]+)?' .			// 4:Path and Query string
 		'#i', $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+	//var_dump(recursive_map('htmlspecialchars', $array));
 	// Shrink $array
 	$_path = 3;
 	foreach(array_keys($array) as $uri) {
@@ -44,9 +45,11 @@ function spam_pickup($string = '')
 		// Anchor tags by preg_match_all()
 		// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
 		// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
+		// [??] <a href=  >Good site!</a> <a href= "#" >test</a>
 		$areas = array();
 		preg_match_all('#<a\b[^>]*href[^>]*>.*?</a\b[^>]*(>)#i',
 			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+		//var_dump(recursive_map('htmlspecialchars', $areas));
 		foreach(array_keys($areas) as $area) {
 			$areas[$area] =  array(
 				$areas[$area][0][1], // [0][1] = Area start (<a href>)
@@ -67,9 +70,12 @@ function spam_pickup($string = '')
 		// [url]http://nasty.example.com/[/url]
 		// [link]http://nasty.example.com/[/link]
 		// [url=http://nasty.example.com]visit http://nasty.example.com/[/url]
+		// [link http://nasty.example.com/]buy something[/link]
+		// ?? [url=][/url]
 		$areas = array();
 		preg_match_all('#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i',
 			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+		//var_dump(recursive_map('htmlspecialchars', $areas));
 		foreach(array_keys($areas) as $area) {
 			$areas[$area] = array(
 				$areas[$area][0][1], // [0][1] = Area start ([url])
@@ -120,12 +126,27 @@ EOF;
 }
 
 
+// e.g. Sanitilze ALL values (Debug purpose): var_dump(recursive_map('htmlspecialchars', $array));
+function recursive_map($func, $array)
+{
+	if (is_array($array)) {
+		if (! empty($array)) {
+			$array = array_map('recursive_map',
+				 array_fill(0, count($array), $func), $array);
+		}
+	} else {
+		$array = $func($array);
+	}
+	return $array;
+}
+
+
 // ---- Show form and result
 echo basename(__FILE__) . '<br />';
 $msg = isset($_POST['msg']) ? $_POST['msg'] : '';
 show_form($msg);
-
 echo '<pre>';
+
 $results = spam_pickup($msg);
 
 // Measure
