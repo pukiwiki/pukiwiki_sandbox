@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.6 2006/10/28 13:54:25 henoheno Exp $
+// $Id: spam_pickup.php,v 1.7 2006/10/28 14:02:34 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -22,7 +22,7 @@ function spam_pickup($string = '')
 			'[^\s<>"\'\[\]:/\#?]+' . 				// FQDN: foo.example.org
 		')' .
 		'(?::([a-z0-9]*))?' .			// 3: Port
-		'((?:/+[^\s<>"\'\[\]/]+)*/)?' .	// 4: Directory path or path-info
+		'((?:/+[^\s<>"\'\[\]/]+)*/+)?' .// 4: Directory path or path-info
 		'([^\s<>"\'\[\]]+)?' .			// 5: File and query string
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
