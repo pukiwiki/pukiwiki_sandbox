@@ -1,41 +1,48 @@
 <?php
-// $Id: spam_pickup.php,v 1.4 2006/10/26 15:21:09 henoheno Exp $
+// $Id: spam_pickup.php,v 1.5 2006/10/28 13:39:28 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
 error_reporting(E_ALL); // Debug purpose
 
-// TODO: Use 'm' multi-line regex option
-
 // Return an array of normalized/parsed URIs in the $string
 // [OK] http://nasty.example.org#nasty_string
 function spam_pickup($string = '')
 {
-	// Picup external URIs: scheme:+//+fqdn(/path)
-	// Not available for IPv6 host, user@password, port
+	// Not available for user@password, IDN
 	$array = array();
 	preg_match_all(
-		'#(https?|\b[a-z0-9]{3,6})' .	// 1:Scheme
-		':?//' .						// "//" or "://"
-		'([^\s<>"\'\[\]\#/]+)' .		// 2:Host (FQDN or IPv4 address)
-		'(?::[a-z0-9]*)?' .				// Port
-		'((?:/[^\s<>"\'\[\]/]+)*/)?' .	// 3:Directory
-		'([^\s<>"\'\[\]]+)?' .			// 4:Path and Query string
-		'#i', $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+		// Refer RFC3986
+		'#(\b[a-z][a-z0-9.+-]{1,8})://' .	// 1: Scheme
+		'(' .
+			// 2: Host
+			'\[[0-9a-f:.]+\]' . '|' .				// IPv6([colon-hex and dot]): RFC2732
+			'(?:[0-9]{1-3}\.){3}[0-9]{1-3}' . '|' .	// IPv4(dot-decimal): 001.22.3.44
+			'[^\s<>"\'\[\]:/\#?]+' . 				// FQDN: foo.example.org
+		')' .
+		'(?::([a-z0-9]*))?' .			// 3: Port
+		'((?:/+[^\s<>"\'\[\]/]+)*/)?' .	// 4: Directory path or path-info
+		'([^\s<>"\'\[\]]+)?' .			// 5: File and query string
+		'#i',
+		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+		 // Tests: ftp://dfshodfs:80/dfsdfs
 	//var_dump(recursive_map('htmlspecialchars', $array));
 	// Shrink $array
-	$_path = 3;
+	$_port = 3;
+	$_path = 4;
 	foreach(array_keys($array) as $uri) {
 		unset($array[$uri][0]); // Matched string itself
 		$offset = $array[$uri][1][1]; // [1][1] = scheme's offset
 		foreach(array_keys($array[$uri]) as $part) {
 			// Remove offsets (with normalization)
 			$array[$uri][$part] =
-				strtolower(urldecode($array[$uri][$part][0]));
+					strtolower(urldecode($array[$uri][$part][0]));
 		}
-		// example.org => example.org/
-		if (! isset($array[$uri][$_path])) $array[$uri][$_path] = '/';
+		
+		if (! isset($array[$uri][$_port])) $array[$uri][$_port] = '';
+		if (! isset($array[$uri][$_path])) $array[$uri][$_path] = '';
+		$array[$uri][$_path] = path_normalize($array[$uri][$_path]);
 		$array[$uri]['offset'] = $offset;
 		$array[$uri]['area']  = 0;
 	}
@@ -92,6 +99,28 @@ function spam_pickup($string = '')
 	return $array;
 }
 
+// Path normalization
+// example.org => example.org/
+// example.org#hoge -> example.org/#hoge
+// example.org/path/a/b/./c////./d -> example.org/path/a/b/c/d
+// Not available:  path/../../../back
+function path_normalize($path = '')
+{
+	if (! is_string($path) || $path == '') {
+		$path = '/';
+	} else {
+		$path = trim($path);
+		$last = ($path[strlen($path) - 1] == '/') ? '/' : '';
+		$array = explode('/', $path);
+		foreach(array_keys($array) as $key) {
+			if ($array[$key] == '' || $array[$key] == '.')
+				 unset($array[$key]);
+		}
+		$path = '/' . implode('/', $array) . $last;
+	}
+	return $path;
+}
+
 // If in doubt, it's a little doubtful
 function area_measure($areas, &$array, $belief = -1, $a_key = 'area', $o_key = 'offset')
 {
@@ -126,6 +155,7 @@ EOF;
 }
 
 
+// Recursive array_map()
 // e.g. Sanitilze ALL values (Debug purpose): var_dump(recursive_map('htmlspecialchars', $array));
 function recursive_map($func, $array)
 {
@@ -155,10 +185,10 @@ $area = 0;
 foreach($results as $result)
 	if (isset($result['area']))
 		$area += $result['area'];
+$average = $count ? ($area / $count) : 'NULL';
 
-echo "TOTAL = $count URIs, AREA_TOTAL = $area, AREA_AVERAGE = " . ($area / $count) . "</br >" . "</br >";
+echo "TOTAL = $count URIs, AREA_TOTAL = $area, AREA_AVERAGE = " . $average . "</br >" . "</br >";
 var_dump($results);
 echo '</pre>';
-
 
 ?>
