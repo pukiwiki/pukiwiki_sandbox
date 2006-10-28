@@ -1,10 +1,9 @@
 <?php
-// $Id: spam.php,v 1.1 2006/10/28 14:08:58 henoheno Exp $
-// Concept-work of spam-uri metrics
+// $Id: spam.php,v 1.2 2006/10/28 14:09:51 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
-// Concept-work of spam-uri metrics
+// Functions for Concept-work of spam-uri metrics
 
 // Return an array of normalized/parsed URIs in the $string
 // [OK] http://nasty.example.org#nasty_string
