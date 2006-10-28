@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.5 2006/10/28 13:39:28 henoheno Exp $
+// $Id: spam_pickup.php,v 1.6 2006/10/28 13:54:25 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -103,7 +103,7 @@ function spam_pickup($string = '')
 // example.org => example.org/
 // example.org#hoge -> example.org/#hoge
 // example.org/path/a/b/./c////./d -> example.org/path/a/b/c/d
-// Not available:  path/../../../back
+// example.org/path/../../a/../back
 function path_normalize($path = '')
 {
 	if (! is_string($path) || $path == '') {
@@ -112,11 +112,28 @@ function path_normalize($path = '')
 		$path = trim($path);
 		$last = ($path[strlen($path) - 1] == '/') ? '/' : '';
 		$array = explode('/', $path);
+
+		// Remove paddings
 		foreach(array_keys($array) as $key) {
 			if ($array[$key] == '' || $array[$key] == '.')
 				 unset($array[$key]);
 		}
-		$path = '/' . implode('/', $array) . $last;
+		// Back-track
+		$tmp = array();
+		foreach($array as $value) {
+			if ($value == '..') {
+				array_pop($tmp);
+			} else {
+				array_push($tmp, $value);
+			}
+		}
+		$array = & $tmp;
+
+		if (empty($array)) {
+			$path = '/';
+		} else {
+			$path = '/' . implode('/', $array) . $last;
+		} 
 	}
 	return $path;
 }
