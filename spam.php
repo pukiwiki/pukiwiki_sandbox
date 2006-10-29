@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.2 2006/10/28 14:09:51 henoheno Exp $
+// $Id: spam.php,v 1.3 2006/10/29 15:04:01 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -157,5 +157,31 @@ function area_measure($areas, &$array, $belief = -1, $a_key = 'area', $o_key = '
 	}
 }
 
+// Simple spam filter (for one text field)
+function pkwk_spamfilter($action, $page, $target = '')
+{
+	$is_spam = false;
+	$pickups = spam_pickup($target);
+	if (! empty($pickups)) {
+		foreach($pickups as $pickup) {
+			if ($pickup['area'] < 0) {
+				$is_spam = TRUE;
+				break;
+			}
+		}
+	}
+	if ($is_spam) {
+		global $notify, $notify_subject;
+		if ($notify) {
+			$footer['ACTION'] = $action;
+			$footer['PAGE']   = & $page;
+			$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
+			$footer['USER_AGENT']  = TRUE;
+			$footer['REMOTE_ADDR'] = TRUE;
+			pkwk_mail_notify($notify_subject . ' [blocked]', $target, $footer);
+		}
+		die("\n");
+	}
+}
 
 ?>
