@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.4 2006/11/01 14:39:12 henoheno Exp $
+// $Id: spam.php,v 1.5 2006/11/01 14:45:18 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -23,7 +23,8 @@ function spam_pickup($string = '')
 		')' .
 		'(?::([a-z0-9]*))?' .			// 3: Port
 		'((?:/+[^\s<>"\'\[\]/]+)*/+)?' .// 4: Directory path or path-info
-		'([^\s<>"\'\[\]]+)?' .			// 5: Rest of all (File and query string)
+		'([^\s<>"\'\[\]\#]+)?' .		// 5: Rest of all
+										//   (File and query string, without flagment)
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	//var_dump(recursive_map('htmlspecialchars', $array));
@@ -105,19 +106,6 @@ function spam_pickup($string = '')
 }
 
 // $array[0] => $array['name']
-function array_rename_key(& $array, $from, $to, $force = FALSE, $default = '')
-{
-	if (isset($array[$from])) {
-		$array[$to] = & $array[$from];
-		unset($array[$from]);
-	} else if ($force) {
-		$array[$to] = $default;
-	} else {
-		return FALSE;
-	}
-	return TRUE;
-}
-
 function array_rename_keys(& $array, $rename = array(), $force = FALSE, $default = '')
 {
     if ($force) {
@@ -188,7 +176,8 @@ function area_measure($areas, &$array, $belief = -1, $a_key = 'area', $o_key = '
 
 	$areas_keys = array_keys($areas);
 	foreach(array_keys($array) as $u_index) {
-		$offset = isset($array[$u_index][$o_key]) ? intval($array[$u_index][$o_key]) : 0;
+		$offset = isset($array[$u_index][$o_key]) ?
+			intval($array[$u_index][$o_key]) : 0;
 		foreach($areas_keys as $a_index) {
 			if (isset($array[$u_index][$a_key])) {
 				$offset_s = intval($areas[$a_index][0]);

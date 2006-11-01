@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.8 2006/10/28 14:08:58 henoheno Exp $
+// $Id: spam_pickup.php,v 1.9 2006/11/01 14:45:25 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -21,6 +21,20 @@ function recursive_map($func, $array)
 		$array = $func($array);
 	}
 	return $array;
+}
+
+// $array[0] => $array['name']
+function array_rename_key(& $array, $from, $to, $force = FALSE, $default = '')
+{
+	if (isset($array[$from])) {
+		$array[$to] = & $array[$from];
+		unset($array[$from]);
+	} else if ($force) {
+		$array[$to] = $default;
+	} else {
+		return FALSE;
+	}
+	return TRUE;
 }
 
 function show_form($string)
