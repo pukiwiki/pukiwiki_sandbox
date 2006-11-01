@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.3 2006/10/29 15:04:01 henoheno Exp $
+// $Id: spam.php,v 1.4 2006/11/01 14:39:12 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -7,6 +7,7 @@
 
 // Return an array of normalized/parsed URIs in the $string
 // [OK] http://nasty.example.org#nasty_string
+// [OK] ftp://dfshodfs:80/dfsdfs
 function spam_pickup($string = '')
 {
 	// Not available for user@password, IDN
@@ -22,36 +23,41 @@ function spam_pickup($string = '')
 		')' .
 		'(?::([a-z0-9]*))?' .			// 3: Port
 		'((?:/+[^\s<>"\'\[\]/]+)*/+)?' .// 4: Directory path or path-info
-		'([^\s<>"\'\[\]]+)?' .			// 5: File and query string
+		'([^\s<>"\'\[\]]+)?' .			// 5: Rest of all (File and query string)
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-		 // Tests: ftp://dfshodfs:80/dfsdfs
 	//var_dump(recursive_map('htmlspecialchars', $array));
 	// Shrink $array
-	$_port = 3;
-	$_path = 4;
+	$parts = array(
+		1 => 'scheme',
+		2 => 'host',
+		3 => 'port',
+		4 => 'path',
+		5 => 'rest',
+		);
 	foreach(array_keys($array) as $uri) {
 		unset($array[$uri][0]); // Matched string itself
-		$offset = $array[$uri][1][1]; // [1][1] = scheme's offset
+		array_rename_keys($array[$uri], $parts, TRUE, array('', 0));
+		$offset = $array[$uri]['scheme'][1]; // Scheme's offset
+
+		// Remove offsets (with normalization)
 		foreach(array_keys($array[$uri]) as $part) {
-			// Remove offsets (with normalization)
 			$array[$uri][$part] =
 					strtolower(urldecode($array[$uri][$part][0]));
 		}
-		
-		if (! isset($array[$uri][$_port])) $array[$uri][$_port] = '';
-		if (! isset($array[$uri][$_path])) $array[$uri][$_path] = '';
-		$array[$uri][$_path] = path_normalize($array[$uri][$_path]);
+
+		$array[$uri]['path'] = path_normalize($array[$uri]['path']);
 		$array[$uri]['offset'] = $offset;
 		$array[$uri]['area']  = 0;
 	}
+	//var_dump(recursive_map('htmlspecialchars', $array));
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
 		// Anchor tags by preg_match_all()
 		// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
 		// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
-		// [??] <a href=  >Good site!</a> <a href= "#" >test</a>
+		// [NG] <a href=  >Good site!</a> <a href= "#" >test</a>
 		$areas = array();
 		preg_match_all('#<a\b[^>]*href[^>]*>.*?</a\b[^>]*(>)#i',
 			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
@@ -98,19 +104,59 @@ function spam_pickup($string = '')
 	return $array;
 }
 
+// $array[0] => $array['name']
+function array_rename_key(& $array, $from, $to, $force = FALSE, $default = '')
+{
+	if (isset($array[$from])) {
+		$array[$to] = & $array[$from];
+		unset($array[$from]);
+	} else if ($force) {
+		$array[$to] = $default;
+	} else {
+		return FALSE;
+	}
+	return TRUE;
+}
+
+function array_rename_keys(& $array, $rename = array(), $force = FALSE, $default = '')
+{
+    if ($force) {
+		foreach($rename as $from => $to) {
+			if (isset($array[$from])) {
+				$array[$to] = & $array[$from];
+				unset($array[$from]);
+			} else  {
+				$array[$to] = $default;
+			}
+		}
+	} else {
+		foreach(array_keys($rename) as $from) {
+			if (! isset($array[$from])) {
+				return FALSE;
+			}
+		}
+		foreach($rename as $from => $to) {
+			$array[$to] = & $array[$from];
+			unset($array[$from]);
+		}
+	}
+	return TRUE;
+}
+
+
 // Path normalization
 // example.org => example.org/
 // example.org#hoge -> example.org/#hoge
 // example.org/path/a/b/./c////./d -> example.org/path/a/b/c/d
 // example.org/path/../../a/../back
-function path_normalize($path = '')
+function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 {
 	if (! is_string($path) || $path == '') {
-		$path = '/';
+		$path = $addroot ? $divider : '';
 	} else {
 		$path = trim($path);
-		$last = ($path[strlen($path) - 1] == '/') ? '/' : '';
-		$array = explode('/', $path);
+		$last = ($path[strlen($path) - 1] == $divider) ? $divider : '';
+		$array = explode($divider, $path);
 
 		// Remove paddings
 		foreach(array_keys($array) as $key) {
@@ -128,12 +174,10 @@ function path_normalize($path = '')
 		}
 		$array = & $tmp;
 
-		if (empty($array)) {
-			$path = '/';
-		} else {
-			$path = '/' . implode('/', $array) . $last;
-		} 
+		$path = $addroot ? $divider : '';
+		if (! empty($array)) $path .= implode($divider, $array) . $last;
 	}
+
 	return $path;
 }
 
