@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.6 2006/11/02 15:17:41 henoheno Exp $
+// $Id: spam.php,v 1.7 2006/11/02 15:19:14 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -31,7 +31,7 @@ function spam_pickup($string = '')
 		'(?::([a-z0-9]{2,}))?' .			// 3: Port
 		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 4: Directory path or path-info
 		'([^\s<>"\'\[\]\#]+)?' .			// 5: File and query string
-											// #: Flagment
+											// #: Fragment
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	//var_dump(recursive_map('htmlspecialchars', $array));
