@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.5 2006/11/01 14:45:18 henoheno Exp $
+// $Id: spam.php,v 1.6 2006/11/02 15:17:41 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -7,9 +7,16 @@
 
 // Return an array of normalized/parsed URIs in the $string
 // [OK] http://nasty.example.org#nasty_string
+// [OK] http://nasty.example.org/foo/xxx#nasty_string/bar
 // [OK] ftp://dfshodfs:80/dfsdfs
+// [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
+// [OK] http://victim.example.org/gphttp://nasty.example.org
 function spam_pickup($string = '')
 {
+	// Preprocess: urldecode() and adding spaces
+	$string = preg_replace('#([a-z][a-z0-9.+-]{1,8}://)#i',
+		' $1', urldecode($string));
+
 	// Not available for user@password, IDN
 	$array = array();
 	preg_match_all(
@@ -21,37 +28,31 @@ function spam_pickup($string = '')
 			'(?:[0-9]{1-3}\.){3}[0-9]{1-3}' . '|' .	// IPv4(dot-decimal): 001.22.3.44
 			'[^\s<>"\'\[\]:/\#?]+' . 				// FQDN: foo.example.org
 		')' .
-		'(?::([a-z0-9]*))?' .			// 3: Port
-		'((?:/+[^\s<>"\'\[\]/]+)*/+)?' .// 4: Directory path or path-info
-		'([^\s<>"\'\[\]\#]+)?' .		// 5: Rest of all
-										//   (File and query string, without flagment)
+		'(?::([a-z0-9]{2,}))?' .			// 3: Port
+		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 4: Directory path or path-info
+		'([^\s<>"\'\[\]\#]+)?' .			// 5: File and query string
+											// #: Flagment
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	//var_dump(recursive_map('htmlspecialchars', $array));
 	// Shrink $array
-	$parts = array(
-		1 => 'scheme',
-		2 => 'host',
-		3 => 'port',
-		4 => 'path',
-		5 => 'rest',
-		);
+	$parts = array(1 => 'scheme', 2 => 'host', 3 => 'port',
+		4 => 'path', 5 => 'file');
+	$default = array('');
 	foreach(array_keys($array) as $uri) {
 		unset($array[$uri][0]); // Matched string itself
-		array_rename_keys($array[$uri], $parts, TRUE, array('', 0));
+		array_rename_keys($array[$uri], $parts, TRUE, $default);
 		$offset = $array[$uri]['scheme'][1]; // Scheme's offset
 
 		// Remove offsets (with normalization)
 		foreach(array_keys($array[$uri]) as $part) {
 			$array[$uri][$part] =
-					strtolower(urldecode($array[$uri][$part][0]));
+					strtolower($array[$uri][$part][0]);
 		}
-
-		$array[$uri]['path'] = path_normalize($array[$uri]['path']);
+		$array[$uri]['path']   = path_normalize($array[$uri]['path']);
 		$array[$uri]['offset'] = $offset;
-		$array[$uri]['area']  = 0;
+		$array[$uri]['area']   = 0;
 	}
-	//var_dump(recursive_map('htmlspecialchars', $array));
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
