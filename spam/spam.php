@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.7 2006/11/02 15:19:14 henoheno Exp $
+// $Id: spam.php,v 1.8 2006/11/02 15:54:56 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -13,9 +13,13 @@
 // [OK] http://victim.example.org/gphttp://nasty.example.org
 function spam_pickup($string = '')
 {
-	// Preprocess: urldecode() and adding spaces
-	$string = preg_replace('#([a-z][a-z0-9.+-]{1,8}://)#i',
-		' $1', urldecode($string));
+	// Preprocess: urldecode() and adding space(s)
+	$string = preg_replace(
+		array(
+			'#(?:https?|ftp):/#',
+			'#\b[a-z][a-z0-9.+-]{1,8}:/#i',
+			'#[a-z][a-z0-9.+-]{1,8}://#i'
+		), ' $0', urldecode($string));
 
 	// Not available for user@password, IDN
 	$array = array();
