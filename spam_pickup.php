@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.9 2006/11/01 14:45:25 henoheno Exp $
+// $Id: spam_pickup.php,v 1.10 2006/11/03 07:47:57 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -68,7 +68,13 @@ foreach($results as $result)
 $average = $count ? ($area / $count) : 'NULL';
 
 echo "TOTAL = $count URIs, AREA_TOTAL = $area, AREA_AVERAGE = " . $average . "</br >" . "</br >";
-var_dump($results);
+var_dump('is_uri_spam($msg)', is_uri_spam($msg));
+
+//$notify = TRUE;
+//var_dump('pkwk_spamfilter($msg)', pkwk_spamfilter('A', 'PAGE', array('msg' => $msg)));
+//echo "\n";
+
+var_dump('$results', $results);
 echo '</pre>';
 
 ?>

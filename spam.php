@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.8 2006/11/02 15:54:56 henoheno Exp $
+// $Id: spam.php,v 1.9 2006/11/03 07:47:57 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -17,11 +17,11 @@ function spam_pickup($string = '')
 	$string = preg_replace(
 		array(
 			'#(?:https?|ftp):/#',
-			'#\b[a-z][a-z0-9.+-]{1,8}:/#i',
+			'#\b[a-z][a-z0-9.+-]{1,8}://#i',
 			'#[a-z][a-z0-9.+-]{1,8}://#i'
 		), ' $0', urldecode($string));
 
-	// Not available for user@password, IDN
+	// URI pickup: Not available for user@password, IDN, Fragment(=ignored)
 	$array = array();
 	preg_match_all(
 		// Refer RFC3986
@@ -35,7 +35,7 @@ function spam_pickup($string = '')
 		'(?::([a-z0-9]{2,}))?' .			// 3: Port
 		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 4: Directory path or path-info
 		'([^\s<>"\'\[\]\#]+)?' .			// 5: File and query string
-											// #: Fragment
+											// #: Fragment(ignored)
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	//var_dump(recursive_map('htmlspecialchars', $array));
@@ -187,6 +187,7 @@ function area_measure($areas, &$array, $belief = -1, $a_key = 'area', $o_key = '
 			if (isset($array[$u_index][$a_key])) {
 				$offset_s = intval($areas[$a_index][0]);
 				$offset_e = intval($areas[$a_index][1]);
+				// [Area => inside <= Area]
 				if ($offset_s < $offset && $offset < $offset_e) {
 					$array[$u_index][$a_key] += $belief;
 				}
@@ -195,31 +196,75 @@ function area_measure($areas, &$array, $belief = -1, $a_key = 'area', $o_key = '
 	}
 }
 
-// Simple spam filter (for one text field)
-function pkwk_spamfilter($action, $page, $target = '')
+function is_uri_spam($target = '')
 {
-	$is_spam = false;
-	$pickups = spam_pickup($target);
-	if (! empty($pickups)) {
-		foreach($pickups as $pickup) {
-			if ($pickup['area'] < 0) {
-				$is_spam = TRUE;
-				break;
+	$is_spam = FALSE;
+	$urinum = 0;
+
+	if (is_array($target)) {
+		foreach($target as $str) {
+			list($is_spam, $_urinum) = is_uri_spam($str);
+			$urinum += $_urinum;
+			if ($is_spam) break;
+		}
+	} else {
+		$pickups = spam_pickup($target);
+		$urinum += count($pickups);
+		if (! empty($pickups)) {
+			// Some users want to post one or two URL, but ...
+			if ($urinum > 2) {
+				$is_spam = TRUE;	// Too many!
+			} else {
+				foreach($pickups as $pickup) {
+					if ($pickup['area'] < 0) {
+						$is_spam = TRUE;
+						break;
+					}
+				}
 			}
 		}
 	}
+
+	return array($is_spam, $urinum);
+}
+
+// Mail to administrator with more measurement data?
+// Simple/fast spam filter (for one text field)
+function pkwk_spamfilter($action, $page, $target = array())
+{
+	$is_spam = FALSE;
+	list($is_spam) = is_uri_spam($target);
+
 	if ($is_spam) {
 		global $notify, $notify_subject;
 		if ($notify) {
 			$footer['ACTION'] = $action;
-			$footer['PAGE']   = & $page;
+			$footer['PAGE']   = '[BLOCKED]: ' . $page;
 			$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
 			$footer['USER_AGENT']  = TRUE;
 			$footer['REMOTE_ADDR'] = TRUE;
-			pkwk_mail_notify($notify_subject . ' [blocked]', $target, $footer);
+
+			// Fields
+			if (is_array($target)) {
+				$tmp = array();
+				foreach($target as $key => $value){
+					$tmp[] = $key . ' = ' . $value . "\n";
+				}
+				$target = implode("\n", $tmp);
+				unset($tmp);
+			}
+
+			pkwk_mail_notify($notify_subject, $target, $footer);
+			unset($footer);
 		}
-		die("\n");
 	}
+
+	if ($is_spam) spam_exit();
+}
+
+function spam_exit()
+{
+	die("\n");
 }
 
 ?>
