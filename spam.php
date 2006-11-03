@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.9 2006/11/03 07:47:57 henoheno Exp $
+// $Id: spam.php,v 1.10 2006/11/03 10:15:38 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -228,9 +228,15 @@ function is_uri_spam($target = '')
 	return array($is_spam, $urinum);
 }
 
+
+// TODO: trackerが変動する事もあり、いっそのこと$postや $vars全てを対象にした方がいい。
+//   そうすれば漏れも無い。
+//   で、メールはひっかけたフィールドだけにするとか。
+//   edit対策としては無視するフィールドを用意するとか。
+
 // Mail to administrator with more measurement data?
 // Simple/fast spam filter (for one text field)
-function pkwk_spamfilter($action, $page, $target = array())
+function pkwk_spamfilter($action, $page, $target = array('title' => ''))
 {
 	$is_spam = FALSE;
 	list($is_spam) = is_uri_spam($target);
@@ -243,18 +249,7 @@ function pkwk_spamfilter($action, $page, $target = array())
 			$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
 			$footer['USER_AGENT']  = TRUE;
 			$footer['REMOTE_ADDR'] = TRUE;
-
-			// Fields
-			if (is_array($target)) {
-				$tmp = array();
-				foreach($target as $key => $value){
-					$tmp[] = $key . ' = ' . $value . "\n";
-				}
-				$target = implode("\n", $tmp);
-				unset($tmp);
-			}
-
-			pkwk_mail_notify($notify_subject, $target, $footer);
+			pkwk_mail_notify($notify_subject,  var_export($target, TRUE), $footer);
 			unset($footer);
 		}
 	}
