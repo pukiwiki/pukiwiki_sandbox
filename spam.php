@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.11 2006/11/03 15:58:00 henoheno Exp $
+// $Id: spam.php,v 1.12 2006/11/03 16:15:00 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -211,8 +211,8 @@ function is_uri_spam($target = '')
 		$pickups = spam_pickup($target);
 		$urinum += count($pickups);
 		if (! empty($pickups)) {
-			// Some users want to post one or two URL, but ...
-			if ($urinum > 2) {
+			// Some users want to post some URLs, but ...
+			if ($urinum > 8) {
 				$is_spam = TRUE;	// Too many!
 			} else {
 				foreach($pickups as $pickup) {
