@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.10 2006/11/03 10:15:38 henoheno Exp $
+// $Id: spam.php,v 1.11 2006/11/03 15:58:00 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -245,7 +245,7 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''))
 		global $notify, $notify_subject;
 		if ($notify) {
 			$footer['ACTION'] = $action;
-			$footer['PAGE']   = '[BLOCKED]: ' . $page;
+			$footer['PAGE']   = '[blocked] ' . $page;
 			$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
 			$footer['USER_AGENT']  = TRUE;
 			$footer['REMOTE_ADDR'] = TRUE;
