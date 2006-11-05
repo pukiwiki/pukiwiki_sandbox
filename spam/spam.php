@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.12 2006/11/03 16:15:00 henoheno Exp $
+// $Id: spam.php,v 1.13 2006/11/05 03:36:40 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -53,7 +53,7 @@ function spam_pickup($string = '')
 			$array[$uri][$part] =
 					strtolower($array[$uri][$part][0]);
 		}
-		$array[$uri]['path']   = path_normalize($array[$uri]['path']);
+		//$array[$uri]['path']   = path_normalize($array[$uri]['path']);
 		$array[$uri]['offset'] = $offset;
 		$array[$uri]['area']   = 0;
 	}
@@ -62,6 +62,7 @@ function spam_pickup($string = '')
 	if (! empty($array)) {
 		// Anchor tags by preg_match_all()
 		// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
+		// [OK] <a href=\'http://nasty.example.com/\' >discount foobar</a> 
 		// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
 		// [NG] <a href=  >Good site!</a> <a href= "#" >test</a>
 		$areas = array();
@@ -110,32 +111,56 @@ function spam_pickup($string = '')
 	return $array;
 }
 
-// $array[0] => $array['name']
-function array_rename_keys(& $array, $rename = array(), $force = FALSE, $default = '')
+// $array['something'] => $array['wanted']
+function array_rename_keys(& $array, $keys = array('from' => 'to'), $force = FALSE, $default = '')
 {
-    if ($force) {
-		foreach($rename as $from => $to) {
-			if (isset($array[$from])) {
-				$array[$to] = & $array[$from];
-				unset($array[$from]);
-			} else  {
-				$array[$to] = $default;
-			}
-		}
-	} else {
-		foreach(array_keys($rename) as $from) {
-			if (! isset($array[$from])) {
+	if (! is_array($array) || ! is_array($keys))
+		return FALSE;
+
+	// Nondestructive test
+	if (! $force)
+		foreach(array_keys($keys) as $from)
+			if (! isset($array[$from]))
 				return FALSE;
-			}
-		}
-		foreach($rename as $from => $to) {
+
+	foreach($keys as $from => $to) {
+		if ($from === $to) continue;
+		if (! $force || isset($array[$from])) {
 			$array[$to] = & $array[$from];
 			unset($array[$from]);
+		} else  {
+			$array[$to] = $default;
 		}
 	}
+
 	return TRUE;
 }
 
+// If in doubt, it's a little doubtful
+function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 'offset')
+{
+	if (! is_array($areas) || ! is_array($array)) return;
+
+	$areas_keys = array_keys($areas);
+	foreach(array_keys($array) as $u_index) {
+		$offset = isset($array[$u_index][$o_key]) ?
+			intval($array[$u_index][$o_key]) : 0;
+		foreach($areas_keys as $a_index) {
+			if (isset($array[$u_index][$a_key])) {
+				$offset_s = intval($areas[$a_index][0]);
+				$offset_e = intval($areas[$a_index][1]);
+				// [Area => inside <= Area]
+				if ($offset_s < $offset && $offset < $offset_e) {
+					$array[$u_index][$a_key] += $belief;
+				}
+			}
+		}
+	}
+}
+
+
+// ---------------------
+// Part Two
 
 // Path normalization
 // example.org => example.org/
@@ -174,28 +199,25 @@ function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 	return $path;
 }
 
-// If in doubt, it's a little doubtful
-function area_measure($areas, &$array, $belief = -1, $a_key = 'area', $o_key = 'offset')
+// Input: '/a/b'
+// Output: array('' => array('a' => array('b' => NULL)))
+function array_tree($string, $delimiter = '/', $reverse = FALSE)
 {
-	if (! is_array($areas) || ! is_array($array)) return;
-
-	$areas_keys = array_keys($areas);
-	foreach(array_keys($array) as $u_index) {
-		$offset = isset($array[$u_index][$o_key]) ?
-			intval($array[$u_index][$o_key]) : 0;
-		foreach($areas_keys as $a_index) {
-			if (isset($array[$u_index][$a_key])) {
-				$offset_s = intval($areas[$a_index][0]);
-				$offset_e = intval($areas[$a_index][1]);
-				// [Area => inside <= Area]
-				if ($offset_s < $offset && $offset < $offset_e) {
-					$array[$u_index][$a_key] += $belief;
-				}
-			}
-		}
+	// Create a branch
+	$tree = NULL;
+	$tmps = explode($delimiter, $string);
+	if (! $reverse) $tmps = array_reverse($tmps);
+	foreach ($tmps as $tmp) {
+		$tree = array($tmp => $tree);
 	}
+	return $tree;
 }
 
+
+// ---------------------
+// Part One : Checker
+
+// Simple/fast spam check
 function is_uri_spam($target = '')
 {
 	$is_spam = FALSE;
@@ -203,6 +225,7 @@ function is_uri_spam($target = '')
 
 	if (is_array($target)) {
 		foreach($target as $str) {
+			// Recurse
 			list($is_spam, $_urinum) = is_uri_spam($str);
 			$urinum += $_urinum;
 			if ($is_spam) break;
@@ -228,12 +251,6 @@ function is_uri_spam($target = '')
 	return array($is_spam, $urinum);
 }
 
-
-// TODO: trackerが変動する事もあり、いっそのこと$postや $vars全てを対象にした方がいい。
-//   そうすれば漏れも無い。
-//   で、メールはひっかけたフィールドだけにするとか。
-//   edit対策としては無視するフィールドを用意するとか。
-
 // Mail to administrator with more measurement data?
 // Simple/fast spam filter (for one text field)
 function pkwk_spamfilter($action, $page, $target = array('title' => ''))
@@ -257,6 +274,8 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''))
 	if ($is_spam) spam_exit();
 }
 
+// Common bahavior for blocking
+// NOTE: Call this function from various blocking feature, to disgueise the reason 'why blocked'
 function spam_exit()
 {
 	die("\n");
