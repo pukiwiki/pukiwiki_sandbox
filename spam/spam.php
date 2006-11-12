@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.13 2006/11/05 03:36:40 henoheno Exp $
+// $Id: spam.php,v 1.14 2006/11/12 04:27:11 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -19,7 +19,7 @@ function spam_pickup($string = '')
 			'#(?:https?|ftp):/#',
 			'#\b[a-z][a-z0-9.+-]{1,8}://#i',
 			'#[a-z][a-z0-9.+-]{1,8}://#i'
-		), ' $0', urldecode($string));
+		), ' $0', rawurldecode($string));
 
 	// URI pickup: Not available for user@password, IDN, Fragment(=ignored)
 	$array = array();
@@ -251,14 +251,31 @@ function is_uri_spam($target = '')
 	return array($is_spam, $urinum);
 }
 
+// ---------------------
+
+// Check User-Agent
+function is_invalid_useragent($ua_name = '' /*, $ua_vars = ''*/ )
+{
+	return $ua_name === '';
+}
+
+// ---------------------
+
 // Mail to administrator with more measurement data?
 // Simple/fast spam filter (for one text field)
 function pkwk_spamfilter($action, $page, $target = array('title' => ''))
 {
 	$is_spam = FALSE;
-	list($is_spam) = is_uri_spam($target);
+
+	//$is_spam =  is_invalid_useragent('NOTYET');
+	if ($is_spam) {
+		$action .= ' (Invalid User-Agent)';
+	} else {
+		list($is_spam) = is_uri_spam($target);
+	}
 
 	if ($is_spam) {
+		// Mail to administrator(s)
 		global $notify, $notify_subject;
 		if ($notify) {
 			$footer['ACTION'] = $action;
@@ -273,6 +290,8 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''))
 
 	if ($is_spam) spam_exit();
 }
+
+// ---------------------
 
 // Common bahavior for blocking
 // NOTE: Call this function from various blocking feature, to disgueise the reason 'why blocked'
