@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.10 2006/11/03 07:47:57 henoheno Exp $
+// $Id: spam_pickup.php,v 1.11 2006/11/12 10:59:56 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -57,24 +57,35 @@ $msg = isset($_POST['msg']) ? $_POST['msg'] : '';
 show_form($msg);
 echo '<pre>';
 
-$results = spam_pickup($msg);
+$pickup = TRUE;
+if ($pickup) {
+	$results = spam_uri_pickup($msg);
 
-// Measure
-$count = count($results);
-$area = 0;
-foreach($results as $result)
-	if (isset($result['area']))
-		$area += $result['area'];
-$average = $count ? ($area / $count) : 'NULL';
+	// Measure
+	$count = count($results);
+	$area = 0;
+	foreach($results as $result)
+		if (isset($result['area']))
+			$area += $result['area'];
+	$average = $count ? ($area / $count) : 'NULL';
 
-echo "TOTAL = $count URIs, AREA_TOTAL = $area, AREA_AVERAGE = " . $average . "</br >" . "</br >";
+	echo "TOTAL = $count URIs, AREA_TOTAL = $area, AREA_AVERAGE = " . $average . "</br >" . "</br >";
+
+	$a = array();
+	var_dump(array_tree('/a/b/c/d/e', '/', false));
+	var_dump($a);
+	echo "<br/>";
+}
+
 var_dump('is_uri_spam($msg)', is_uri_spam($msg));
 
 //$notify = TRUE;
 //var_dump('pkwk_spamfilter($msg)', pkwk_spamfilter('A', 'PAGE', array('msg' => $msg)));
 //echo "\n";
 
-var_dump('$results', $results);
+if ($pickup) {
+	var_dump('$results', $results);
+}
 echo '</pre>';
 
 ?>

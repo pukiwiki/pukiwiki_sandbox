@@ -1,27 +1,17 @@
 <?php
-// $Id: spam.php,v 1.14 2006/11/12 04:27:11 henoheno Exp $
+// $Id: spam.php,v 1.15 2006/11/12 10:59:56 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
 // Functions for Concept-work of spam-uri metrics
 
-// Return an array of normalized/parsed URIs in the $string
+// Return an array of URIs in the $string
 // [OK] http://nasty.example.org#nasty_string
 // [OK] http://nasty.example.org/foo/xxx#nasty_string/bar
 // [OK] ftp://dfshodfs:80/dfsdfs
-// [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
-// [OK] http://victim.example.org/gphttp://nasty.example.org
-function spam_pickup($string = '')
+function uri_pickup($string = '')
 {
-	// Preprocess: urldecode() and adding space(s)
-	$string = preg_replace(
-		array(
-			'#(?:https?|ftp):/#',
-			'#\b[a-z][a-z0-9.+-]{1,8}://#i',
-			'#[a-z][a-z0-9.+-]{1,8}://#i'
-		), ' $0', rawurldecode($string));
-
-	// URI pickup: Not available for user@password, IDN, Fragment(=ignored)
+	// Not available for: user@password, IDN, Fragment(=ignored)
 	$array = array();
 	preg_match_all(
 		// Refer RFC3986
@@ -39,6 +29,7 @@ function spam_pickup($string = '')
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	//var_dump(recursive_map('htmlspecialchars', $array));
+
 	// Shrink $array
 	$parts = array(1 => 'scheme', 2 => 'host', 3 => 'port',
 		4 => 'path', 5 => 'file');
@@ -48,15 +39,45 @@ function spam_pickup($string = '')
 		array_rename_keys($array[$uri], $parts, TRUE, $default);
 		$offset = $array[$uri]['scheme'][1]; // Scheme's offset
 
-		// Remove offsets (with normalization)
+		// Remove offsets for each part
 		foreach(array_keys($array[$uri]) as $part) {
-			$array[$uri][$part] =
-					strtolower($array[$uri][$part][0]);
+			$array[$uri][$part] = & $array[$uri][$part][0];
 		}
-		//$array[$uri]['path']   = path_normalize($array[$uri]['path']);
+
 		$array[$uri]['offset'] = $offset;
 		$array[$uri]['area']   = 0;
 	}
+
+	return $array;
+}
+
+// Preprocess: rawurldecode() and adding space(s) to detect/count some URIs if possible
+// NOTE: It's maybe danger to var_dump() these results.
+// [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
+// [OK] http://victim.example.org/http://nasty.example.org
+function spam_uri_pickup_preprocess($string = '')
+{
+	if (is_string($string)) {
+		return preg_replace(
+			array(
+				'#(?:https?|ftp):/#',
+				'#\b[a-z][a-z0-9.+-]{1,8}://#i',
+				'#[a-z][a-z0-9.+-]{1,8}://#i'
+			),
+			' $0',
+			rawurldecode($string)
+			);
+	} else {
+		return '';
+	}
+}
+
+// Main function of spam-uri pickup
+function spam_uri_pickup($string = '')
+{
+	$string = spam_uri_pickup_preprocess($string);
+
+	$array  = uri_pickup($string);
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
@@ -77,14 +98,6 @@ function spam_pickup($string = '')
 		}
 		area_measure($areas, $array);
 
-		// Various Wiki syntax
-		// [text_or_uri>text_or_uri]
-		// [text_or_uri:text_or_uri]
-		// [text_or_uri|text_or_uri]
-		// [text_or_uri->text_or_uri]
-		// [text_or_uri text_or_uri] // MediaWiki
-		// MediaWiki: [http://nasty.example.com/ visit http://nasty.example.com/]
-
 		// phpBB's "BBCode" by preg_match_all()
 		// [url]http://nasty.example.com/[/url]
 		// [link]http://nasty.example.com/[/link]
@@ -103,9 +116,17 @@ function spam_pickup($string = '')
 		}
 		area_measure($areas, $array);
 
+		// Various Wiki syntax
+		// [text_or_uri>text_or_uri]
+		// [text_or_uri:text_or_uri]
+		// [text_or_uri|text_or_uri]
+		// [text_or_uri->text_or_uri]
+		// [text_or_uri text_or_uri] // MediaWiki
+		// MediaWiki: [http://nasty.example.com/ visit http://nasty.example.com/]
+
 		// Remove 'offset's for area_measure()
-		foreach(array_keys($array) as $key)
-			unset($array[$key]['offset']);
+		//foreach(array_keys($array) as $key)
+		//	unset($array[$key]['offset']);
 	}
 
 	return $array;
@@ -231,7 +252,7 @@ function is_uri_spam($target = '')
 			if ($is_spam) break;
 		}
 	} else {
-		$pickups = spam_pickup($target);
+		$pickups = spam_uri_pickup($target);
 		$urinum += count($pickups);
 		if (! empty($pickups)) {
 			// Some users want to post some URLs, but ...
