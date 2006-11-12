@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.16 2006/11/12 11:21:57 henoheno Exp $
+// $Id: spam.php,v 1.17 2006/11/12 14:09:51 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -57,8 +57,8 @@ function uri_pickup($string = '', $normalize = TRUE)
 	return $array;
 }
 
-// Preprocess: rawurldecode() and adding space(s) to detect/count some URIs if possible
-// NOTE: It's maybe danger to var_dump() these results.
+// Preprocess: rawurldecode() and adding space(s) to detect/count some URIs _if possible_
+// NOTE: It's maybe danger to var_dump(result). [e.g. 'javascript:']
 // [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
 // [OK] http://victim.example.org/http://nasty.example.org
 function spam_uri_pickup_preprocess($string = '')
@@ -78,6 +78,7 @@ function spam_uri_pickup_preprocess($string = '')
 	}
 }
 
+// TODO: Area selection (Check BBCode only, check anchor only, check ...)
 // Main function of spam-uri pickup
 function spam_uri_pickup($string = '')
 {
@@ -280,7 +281,7 @@ function is_uri_spam($target = '')
 
 // ---------------------
 
-// Check User-Agent
+// Check User-Agent (not testing yet)
 function is_invalid_useragent($ua_name = '' /*, $ua_vars = ''*/ )
 {
 	return $ua_name === '';
@@ -288,8 +289,9 @@ function is_invalid_useragent($ua_name = '' /*, $ua_vars = ''*/ )
 
 // ---------------------
 
-// Mail to administrator with more measurement data?
-// Simple/fast spam filter (for one text field)
+// TODO: Multi-metrics (uri, host, user-agent, ...)
+// TODO: Mail to administrator with more measurement data?
+// Simple/fast spam filter ($target: 'a string' or an array())
 function pkwk_spamfilter($action, $page, $target = array('title' => ''))
 {
 	$is_spam = FALSE;
