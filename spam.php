@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.15 2006/11/12 10:59:56 henoheno Exp $
+// $Id: spam.php,v 1.16 2006/11/12 11:21:57 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -9,7 +9,7 @@
 // [OK] http://nasty.example.org#nasty_string
 // [OK] http://nasty.example.org/foo/xxx#nasty_string/bar
 // [OK] ftp://dfshodfs:80/dfsdfs
-function uri_pickup($string = '')
+function uri_pickup($string = '', $normalize = TRUE)
 {
 	// Not available for: user@password, IDN, Fragment(=ignored)
 	$array = array();
@@ -40,10 +40,16 @@ function uri_pickup($string = '')
 		$offset = $array[$uri]['scheme'][1]; // Scheme's offset
 
 		// Remove offsets for each part
-		foreach(array_keys($array[$uri]) as $part) {
-			$array[$uri][$part] = & $array[$uri][$part][0];
+		if ($normalize) {
+			foreach(array_keys($array[$uri]) as $part) {
+				$array[$uri][$part] = strtolower($array[$uri][$part][0]);
+			}
+			$array[$uri]['path'] = path_normalize($array[$uri]['path']);
+		} else {
+			foreach(array_keys($array[$uri]) as $part) {
+				$array[$uri][$part] = & $array[$uri][$part][0];
+			}
 		}
-
 		$array[$uri]['offset'] = $offset;
 		$array[$uri]['area']   = 0;
 	}
