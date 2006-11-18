@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.21 2006/11/18 11:57:28 henoheno Exp $
+// $Id: spam.php,v 1.22 2006/11/18 12:22:11 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -16,6 +16,7 @@ function uri_pickup($string = '', $normalize = TRUE)
 	$array = array();
 	preg_match_all(
 		// Refer RFC3986
+		// scheme://user:pass@host:port/path/or/pathinfo/maybefile.and?query=string#fragment
 		'#(\b[a-z][a-z0-9.+-]{1,8})://' .	// 1: Scheme
 		'(?:' .
 			'([^\s<>"\'\[\]/\#?@]*)' .		// 2: Userinfo (Username)
@@ -53,7 +54,7 @@ function uri_pickup($string = '', $normalize = TRUE)
 		if ($normalize) {
 			$array[$uri]['scheme'] = scheme_normalize($array[$uri]['scheme']);
 			$array[$uri]['host']   = strtolower($array[$uri]['host']);
-			$array[$uri]['port']   = port_normalize($array[$uri]['scheme'], $array[$uri]['port'], FALSE);
+			$array[$uri]['port']   = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
 			$array[$uri]['path']   = path_normalize($array[$uri]['path']);
 		}
 		$array[$uri]['offset'] = $offset;
@@ -196,41 +197,39 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 // ---------------------
 // Part Two
 
-// Scheme normalization (Before port normalization)
+// Scheme normalization
 // snntp://example.org =>  nntps://example.org
-// NOTE: These alias are needed only for anti URI spamming now. See port_normalize().
+// NOTE: Keep the static list simple. See also port_normalize().
 function scheme_normalize($scheme = '')
 {
-	static $aliases;
+	static $aliases = array(
+		'pop'	=> 'pop3',
+		'news'	=> 'nntp',
+		'imap4'	=> 'imap',
+		'snntp'	=> 'nntps',
+		'snews'	=> 'nntps',
+		'spop3'	=> 'pop3s',
+		'pops'	=> 'pop3s',
+	);
 
-	if (! isset($aliases)) {
-		$aliases = array(
-			'pop'	=> 'pop3',
-			'news'	=> 'nntp',
-			'imap4'	=> 'imap',
-			'snntp'	=> 'nntps',
-			'snews'	=> 'nntps',
-			'spop3'	=> 'pop3s',
-			'pops'	=> 'pop3s',
-		);
-	}
-
-	$scheme = strtolower($scheme);
+	$scheme = strtolower(trim($scheme));
 	if (isset($aliases[$scheme])) $scheme = $aliases[$scheme];
 
 	return $scheme;
 }
 
 // Port normalization
-// http://example.org:80/ => http://example.org/
-// http://example.org:8080/ => http://example.org:8080/
-// https://example.org:443/ => https://example.org/
-// NOTE: These alias are needed only for anti URI spamming now
-function port_normalize($scheme, $port = '', $scheme_normalize = TRUE)
+// HTTP://example.org:80/ => http://example.org/
+// HTTP://example.org:8080/ => http://example.org:8080/
+// HTTPS://example.org:443/ => https://example.org/
+function port_normalize($port, $scheme, $scheme_normalize = TRUE)
 {
+	$port = trim($port);
 	if ($port === '') return $port;
 
-	// Refer: http://www.iana.org/assignments/port-numbers
+	// Schemes that users maybe want to add protocol-handlers
+	// to their web browsers. (and attackers want to use ...)
+	// Reference: http://www.iana.org/assignments/port-numbers
 	if ($scheme_normalize) $scheme = scheme_normalize($scheme);
 	switch ($port) {
 		case    21:	if ($scheme == 'ftp')     $port = ''; break;
@@ -262,10 +261,10 @@ function port_normalize($scheme, $port = '', $scheme_normalize = TRUE)
 }
 
 // Path normalization
-// '' => '/'
-// #hoge => /#hoge
-// /path/a/b/./c////./d => /path/a/b/c/d
-// /path/../../a/../back => /back
+// http://example.org => http://example.org/
+// http://example.org#hoge => http://example.org/#hoge
+// http://example.org/path/a/b/./c////./d => http://example.org/path/a/b/c/d
+// http://example.org/path/../../a/../back => http://example.org/back
 function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 {
 	if (! is_string($path) || $path == '') {
@@ -296,20 +295,6 @@ function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 	}
 
 	return $path;
-}
-
-// Input: '/a/b'
-// Output: array('' => array('a' => array('b' => NULL)))
-function array_tree($string, $delimiter = '/', $reverse = FALSE)
-{
-	// Create a branch
-	$tree = NULL;
-	$tmps = explode($delimiter, $string);
-	if (! $reverse) $tmps = array_reverse($tmps);
-	foreach ($tmps as $tmp) {
-		$tree = array($tmp => $tree);
-	}
-	return $tree;
 }
 
 
