@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.19 2006/11/18 06:35:26 henoheno Exp $
+// $Id: spam.php,v 1.20 2006/11/18 09:35:54 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -7,32 +7,39 @@
 
 // Return an array of URIs in the $string
 // [OK] http://nasty.example.org#nasty_string
-// [OK] http://nasty.example.org/foo/xxx#nasty_string/bar
-// [OK] ftp://dfshodfs:80/dfsdfs
+// [OK] http://nasty.example.org:80/foo/xxx#nasty_string/bar
+// [OK] ftp://nasty.example.org:80/dfsdfs
+// [OK] ftp://cnn.example.com&story=breaking_news@10.0.0.1/top_story.htm (from RFC3986)
 function uri_pickup($string = '', $normalize = TRUE)
 {
-	// Not available for: user@password, IDN, Fragment(=ignored)
+	// Not available for: IDN(ignored), Fragment(ignored)
 	$array = array();
 	preg_match_all(
 		// Refer RFC3986
 		'#(\b[a-z][a-z0-9.+-]{1,8})://' .	// 1: Scheme
+		'(?:' .
+			'([^\s<>"\'\[\]/\#?@]*)' .		// 2: Userinfo (Username)
+			'(?:' .
+				':([^\s<>"\'\[\]:/\#?@]*)' . // 3: Userinfo (Password)
+			')?' .
+		'@)?' .
 		'(' .
-			// 2: Host
+			// 4: Host
 			'\[[0-9a-f:.]+\]' . '|' .				// IPv6([colon-hex and dot]): RFC2732
 			'(?:[0-9]{1-3}\.){3}[0-9]{1-3}' . '|' .	// IPv4(dot-decimal): 001.22.3.44
 			'[^\s<>"\'\[\]:/\#?]+' . 				// FQDN: foo.example.org
 		')' .
-		'(?::([a-z0-9]{2,}))?' .			// 3: Port
-		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 4: Directory path or path-info
-		'([^\s<>"\'\[\]\#]+)?' .			// 5: File and query string
+		'(?::([a-z0-9]{2,}))?' .			// 5: Port
+		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 6: Directory path or path-info
+		'([^\s<>"\'\[\]\#]+)?' .			// 7: File and query string
 											// #: Fragment(ignored)
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	//var_dump(recursive_map('htmlspecialchars', $array));
 
 	// Shrink $array
-	$parts = array(1 => 'scheme', 2 => 'host', 3 => 'port',
-		4 => 'path', 5 => 'file');
+	$parts = array(1 => 'scheme', 2 => 'user',  3 => 'pass',
+		4 => 'host', 5 => 'port', 6 => 'path', 7 => 'file');
 	$default = array('');
 	foreach(array_keys($array) as $uri) {
 		unset($array[$uri][0]); // Matched string itself
