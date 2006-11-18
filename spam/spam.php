@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.18 2006/11/18 01:15:41 henoheno Exp $
+// $Id: spam.php,v 1.19 2006/11/18 06:35:26 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -39,16 +39,15 @@ function uri_pickup($string = '', $normalize = TRUE)
 		array_rename_keys($array[$uri], $parts, TRUE, $default);
 		$offset = $array[$uri]['scheme'][1]; // Scheme's offset
 
-		// Remove offsets for each part
+		foreach(array_keys($array[$uri]) as $part) {
+			// Remove offsets for each part
+			$array[$uri][$part] = & $array[$uri][$part][0];
+		}
 		if ($normalize) {
-			foreach(array_keys($array[$uri]) as $part) {
-				$array[$uri][$part] = strtolower($array[$uri][$part][0]);
-			}
-			$array[$uri]['path'] = path_normalize($array[$uri]['path']);
-		} else {
-			foreach(array_keys($array[$uri]) as $part) {
-				$array[$uri][$part] = & $array[$uri][$part][0];
-			}
+			$array[$uri]['scheme'] = scheme_normalize($array[$uri]['scheme']);
+			$array[$uri]['host']   = strtolower($array[$uri]['host']);
+			$array[$uri]['port']   = port_normalize($array[$uri]['scheme'], $array[$uri]['port'], FALSE);
+			$array[$uri]['path']   = path_normalize($array[$uri]['path']);
 		}
 		$array[$uri]['offset'] = $offset;
 		$array[$uri]['area']   = 0;
@@ -189,6 +188,64 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 
 // ---------------------
 // Part Two
+
+// Scheme normalization (Before port normalization)
+// snntp://example.org =>  nntps://example.org
+// NOTE: These alias are needed only for anti URI spamming now. See port_normalize().
+function scheme_normalize($scheme = '')
+{
+	$scheme = strtolower($scheme);
+	switch ($scheme) {
+		case 'pop':   $scheme = 'pop3';  break;
+		case 'news':  $scheme = 'nntp';  break;
+		case 'imap4': $scheme = 'imap';  break;
+		case 'snntp': $scheme = 'nntps'; break;
+		case 'snews': $scheme = 'nntps'; break;
+		case 'spop3': $scheme = 'pop3s'; break;
+		case 'pops':  $scheme = 'pop3s'; break;
+ 	}
+	return $scheme;
+}
+
+// Port normalization
+// http://example.org:80/ => http://example.org/
+// http://example.org:8080/ => http://example.org:8080/
+// https://example.org:443/ => https://example.org/
+// NOTE: These alias are needed only for anti URI spamming now
+function port_normalize($scheme, $port = '', $scheme_normalize = TRUE)
+{
+	if ($port === '') return $port;
+
+	// Refer: http://www.iana.org/assignments/port-numbers
+	if ($scheme_normalize) $scheme = scheme_normalize($scheme);
+	switch ($port) {
+		case    21:	if ($scheme == 'ftp')     $port = ''; break;
+		case    22:	if ($scheme == 'ssh')     $port = ''; break;
+		case    23:	if ($scheme == 'telnet')  $port = ''; break;
+		case    25:	if ($scheme == 'smtp')    $port = ''; break;
+		case    69:	if ($scheme == 'tftp')    $port = ''; break;
+		case    70:	if ($scheme == 'gopher')  $port = ''; break;
+		case    79:	if ($scheme == 'finger')  $port = ''; break;
+		case    80:	if ($scheme == 'http')    $port = ''; break;
+		case   110:	if ($scheme == 'pop3')    $port = ''; break;
+		case   115:	if ($scheme == 'sftp')    $port = ''; break;
+		case   119:	if ($scheme == 'nntp')    $port = ''; break;
+		case   143:	if ($scheme == 'imap')    $port = ''; break;
+		case   194:	if ($scheme == 'irc')     $port = ''; break;
+		case   210:	if ($scheme == 'wais')    $port = ''; break;
+		case   443:	if ($scheme == 'https')   $port = ''; break;
+		case   563:	if ($scheme == 'nntps')   $port = ''; break;
+		case   873:	if ($scheme == 'rsync')   $port = ''; break;
+		case   990:	if ($scheme == 'ftps')    $port = ''; break;
+		case   992:	if ($scheme == 'telnets') $port = ''; break;
+		case   993:	if ($scheme == 'imaps')   $port = ''; break;
+		case   994:	if ($scheme == 'ircs')    $port = ''; break;
+		case   995:	if ($scheme == 'pop3s')   $port = ''; break;
+		case  3306:	if ($scheme == 'mysql')   $port = ''; break;
+	}
+
+	return $port;
+}
 
 // Path normalization
 // '' => '/'
