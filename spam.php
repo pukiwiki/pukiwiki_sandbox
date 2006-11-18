@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.20 2006/11/18 09:35:54 henoheno Exp $
+// $Id: spam.php,v 1.21 2006/11/18 11:57:28 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -201,16 +201,23 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 // NOTE: These alias are needed only for anti URI spamming now. See port_normalize().
 function scheme_normalize($scheme = '')
 {
+	static $aliases;
+
+	if (! isset($aliases)) {
+		$aliases = array(
+			'pop'	=> 'pop3',
+			'news'	=> 'nntp',
+			'imap4'	=> 'imap',
+			'snntp'	=> 'nntps',
+			'snews'	=> 'nntps',
+			'spop3'	=> 'pop3s',
+			'pops'	=> 'pop3s',
+		);
+	}
+
 	$scheme = strtolower($scheme);
-	switch ($scheme) {
-		case 'pop':   $scheme = 'pop3';  break;
-		case 'news':  $scheme = 'nntp';  break;
-		case 'imap4': $scheme = 'imap';  break;
-		case 'snntp': $scheme = 'nntps'; break;
-		case 'snews': $scheme = 'nntps'; break;
-		case 'spop3': $scheme = 'pop3s'; break;
-		case 'pops':  $scheme = 'pop3s'; break;
- 	}
+	if (isset($aliases[$scheme])) $scheme = $aliases[$scheme];
+
 	return $scheme;
 }
 
