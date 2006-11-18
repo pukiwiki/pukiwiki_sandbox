@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.17 2006/11/12 14:09:51 henoheno Exp $
+// $Id: spam.php,v 1.18 2006/11/18 01:15:41 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -99,8 +99,8 @@ function spam_uri_pickup($string = '')
 		//var_dump(recursive_map('htmlspecialchars', $areas));
 		foreach(array_keys($areas) as $area) {
 			$areas[$area] =  array(
-				$areas[$area][0][1], // [0][1] = Area start (<a href>)
-				$areas[$area][1][1], // [1][1] = Area end   (</a>)
+				$areas[$area][0][1], // Area start (<a href>)
+				$areas[$area][1][1], // Area end   (</a>)
 			);
 		}
 		area_measure($areas, $array);
@@ -117,8 +117,8 @@ function spam_uri_pickup($string = '')
 		//var_dump(recursive_map('htmlspecialchars', $areas));
 		foreach(array_keys($areas) as $area) {
 			$areas[$area] = array(
-				$areas[$area][0][1], // [0][1] = Area start ([url])
-				$areas[$area][2][1], // [4][1] = Area end   ([/url])
+				$areas[$area][0][1], // Area start ([url])
+				$areas[$area][2][1], // Area end   ([/url])
 			);
 		}
 		area_measure($areas, $array);
@@ -191,10 +191,10 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 // Part Two
 
 // Path normalization
-// example.org => example.org/
-// example.org#hoge -> example.org/#hoge
-// example.org/path/a/b/./c////./d -> example.org/path/a/b/c/d
-// example.org/path/../../a/../back
+// '' => '/'
+// #hoge => /#hoge
+// /path/a/b/./c////./d => /path/a/b/c/d
+// /path/../../a/../back => /back
 function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 {
 	if (! is_string($path) || $path == '') {
