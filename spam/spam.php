@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.22 2006/11/18 12:22:11 henoheno Exp $
+// $Id: spam.php,v 1.23 2006/11/21 13:42:40 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -10,40 +10,38 @@
 // [OK] http://nasty.example.org:80/foo/xxx#nasty_string/bar
 // [OK] ftp://nasty.example.org:80/dfsdfs
 // [OK] ftp://cnn.example.com&story=breaking_news@10.0.0.1/top_story.htm (from RFC3986)
-function uri_pickup($string = '', $normalize = TRUE)
+function uri_pickup($string = '', $normalize = TRUE,
+	$preserve_rawuri = FALSE, $preserve_chunk = TRUE)
 {
-	// Not available for: IDN(ignored), Fragment(ignored)
+	// Not available for: IDN(ignored)
 	$array = array();
 	preg_match_all(
-		// Refer RFC3986
-		// scheme://user:pass@host:port/path/or/pathinfo/maybefile.and?query=string#fragment
+		// scheme://userinfo@host:port/path/or/pathinfo/maybefile.and?query=string#fragment
+		// Refer RFC3986 (Regex below is not strict)
 		'#(\b[a-z][a-z0-9.+-]{1,8})://' .	// 1: Scheme
 		'(?:' .
 			'([^\s<>"\'\[\]/\#?@]*)' .		// 2: Userinfo (Username)
-			'(?:' .
-				':([^\s<>"\'\[\]:/\#?@]*)' . // 3: Userinfo (Password)
-			')?' .
 		'@)?' .
 		'(' .
-			// 4: Host
+			// 3: Host
 			'\[[0-9a-f:.]+\]' . '|' .				// IPv6([colon-hex and dot]): RFC2732
 			'(?:[0-9]{1-3}\.){3}[0-9]{1-3}' . '|' .	// IPv4(dot-decimal): 001.22.3.44
 			'[^\s<>"\'\[\]:/\#?]+' . 				// FQDN: foo.example.org
 		')' .
-		'(?::([a-z0-9]{2,}))?' .			// 5: Port
-		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 6: Directory path or path-info
-		'([^\s<>"\'\[\]\#]+)?' .			// 7: File and query string
-											// #: Fragment(ignored)
+		'(?::([0-9]*))?' .					// 4: Port
+		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path or path-info
+		'([^\s<>"\'\[\]\#]+)?' .			// 6: File and query string
+		'(?:\#([a-z0-9._~%!$&\'()*+,;=:@-]*))?' .	// 7: Fragment
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
 	//var_dump(recursive_map('htmlspecialchars', $array));
 
 	// Shrink $array
-	$parts = array(1 => 'scheme', 2 => 'user',  3 => 'pass',
-		4 => 'host', 5 => 'port', 6 => 'path', 7 => 'file');
+	static $parts = array(
+		1 => 'scheme', 2 => 'userinfo',
+		3 => 'host', 4 => 'port', 5 => 'path', 6 => 'file', 7 => 'fragment');
 	$default = array('');
 	foreach(array_keys($array) as $uri) {
-		unset($array[$uri][0]); // Matched string itself
 		array_rename_keys($array[$uri], $parts, TRUE, $default);
 		$offset = $array[$uri]['scheme'][1]; // Scheme's offset
 
@@ -51,12 +49,31 @@ function uri_pickup($string = '', $normalize = TRUE)
 			// Remove offsets for each part
 			$array[$uri][$part] = & $array[$uri][$part][0];
 		}
+
 		if ($normalize) {
 			$array[$uri]['scheme'] = scheme_normalize($array[$uri]['scheme']);
 			$array[$uri]['host']   = strtolower($array[$uri]['host']);
 			$array[$uri]['port']   = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
 			$array[$uri]['path']   = path_normalize($array[$uri]['path']);
+
+			//$array[$uri]['uri']    = uri_array_implode($array[$uri]);
+			if ($preserve_rawuri) $array[$uri]['rawuri'] = & $array[$uri][0];
+		} else {
+			$array[$uri]['uri'] = & $array[$uri][0]; // Raw
 		}
+		unset($array[$uri][0]); // Matched string itself
+		if (! $preserve_chunk) {
+			unset(
+				$array[$uri]['scheme'],
+				$array[$uri]['userinfo'],
+				$array[$uri]['host'],
+				$array[$uri]['port'],
+				$array[$uri]['path'],
+				$array[$uri]['file'],
+				$array[$uri]['fragment']
+				);
+		}
+
 		$array[$uri]['offset'] = $offset;
 		$array[$uri]['area']   = 0;
 	}
@@ -91,7 +108,7 @@ function spam_uri_pickup($string = '')
 {
 	$string = spam_uri_pickup_preprocess($string);
 
-	$array  = uri_pickup($string);
+	$array  = uri_pickup($string, FALSE, TRUE, FALSE);
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
@@ -197,12 +214,13 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 // ---------------------
 // Part Two
 
-// Scheme normalization
+// Scheme normalization: Rename the schemes
 // snntp://example.org =>  nntps://example.org
 // NOTE: Keep the static list simple. See also port_normalize().
 function scheme_normalize($scheme = '')
 {
 	static $aliases = array(
+		// alias => normalized
 		'pop'	=> 'pop3',
 		'news'	=> 'nntp',
 		'imap4'	=> 'imap',
@@ -218,44 +236,48 @@ function scheme_normalize($scheme = '')
 	return $scheme;
 }
 
-// Port normalization
+// Port normalization: Suppress the (redundant) default port
 // HTTP://example.org:80/ => http://example.org/
 // HTTP://example.org:8080/ => http://example.org:8080/
 // HTTPS://example.org:443/ => https://example.org/
 function port_normalize($port, $scheme, $scheme_normalize = TRUE)
 {
+	// Schemes that users _maybe_ want to add protocol-handlers
+	// to their web browsers. (and attackers _maybe_ want to use ...)
+	// Reference: http://www.iana.org/assignments/port-numbers
+	static $array = array(
+		// scheme => default port
+		'ftp'     =>    21,
+		'ssh'     =>    22,
+		'telnet'  =>    23,
+		'smtp'    =>    25,
+		'tftp'    =>    69,
+		'gopher'  =>    70,
+		'finger'  =>    79,
+		'http'    =>    80,
+		'pop3'    =>   110,
+		'sftp'    =>   115,
+		'nntp'    =>   119,
+		'imap'    =>   143,
+		'irc'     =>   194,
+		'wais'    =>   210,
+		'https'   =>   443,
+		'nntps'   =>   563,
+		'rsync'   =>   873,
+		'ftps'    =>   990,
+		'telnets' =>   992,
+		'imaps'   =>   993,
+		'ircs'    =>   994,
+		'pop3s'   =>   995,
+		'mysql'   =>  3306,
+	);
+
 	$port = trim($port);
 	if ($port === '') return $port;
 
-	// Schemes that users maybe want to add protocol-handlers
-	// to their web browsers. (and attackers want to use ...)
-	// Reference: http://www.iana.org/assignments/port-numbers
 	if ($scheme_normalize) $scheme = scheme_normalize($scheme);
-	switch ($port) {
-		case    21:	if ($scheme == 'ftp')     $port = ''; break;
-		case    22:	if ($scheme == 'ssh')     $port = ''; break;
-		case    23:	if ($scheme == 'telnet')  $port = ''; break;
-		case    25:	if ($scheme == 'smtp')    $port = ''; break;
-		case    69:	if ($scheme == 'tftp')    $port = ''; break;
-		case    70:	if ($scheme == 'gopher')  $port = ''; break;
-		case    79:	if ($scheme == 'finger')  $port = ''; break;
-		case    80:	if ($scheme == 'http')    $port = ''; break;
-		case   110:	if ($scheme == 'pop3')    $port = ''; break;
-		case   115:	if ($scheme == 'sftp')    $port = ''; break;
-		case   119:	if ($scheme == 'nntp')    $port = ''; break;
-		case   143:	if ($scheme == 'imap')    $port = ''; break;
-		case   194:	if ($scheme == 'irc')     $port = ''; break;
-		case   210:	if ($scheme == 'wais')    $port = ''; break;
-		case   443:	if ($scheme == 'https')   $port = ''; break;
-		case   563:	if ($scheme == 'nntps')   $port = ''; break;
-		case   873:	if ($scheme == 'rsync')   $port = ''; break;
-		case   990:	if ($scheme == 'ftps')    $port = ''; break;
-		case   992:	if ($scheme == 'telnets') $port = ''; break;
-		case   993:	if ($scheme == 'imaps')   $port = ''; break;
-		case   994:	if ($scheme == 'ircs')    $port = ''; break;
-		case   995:	if ($scheme == 'pop3s')   $port = ''; break;
-		case  3306:	if ($scheme == 'mysql')   $port = ''; break;
-	}
+	if (isset($array[$scheme]) && $port == $array[$scheme])
+		$port = ''; // Ignore the defaults
 
 	return $port;
 }
@@ -297,6 +319,40 @@ function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 	return $path;
 }
 
+// An URI array => An URI (See uri_pickup())
+function uri_array_implode($uri = array())
+{
+	if (empty($uri) || ! is_array($uri)) return NULL;
+	
+	$tmp = array();
+	if (isset($uri['scheme']) && $uri['scheme'] !== '') {
+		$tmp[] = & $uri['scheme'];
+		$tmp[] = '://';
+	}
+	if (isset($uri['userinfo']) && $uri['userinfo'] !== '') {
+		$tmp[] = & $uri['userinfo'];
+		$tmp[] = '@';
+	}
+	if (isset($uri['host']) && $uri['host'] !== '') {
+		$tmp[] = & $uri['host'];
+	}
+	if (isset($uri['port']) && $uri['port'] !== '') {
+		$tmp[] = ':';
+		$tmp[] = & $uri['port'];
+	}
+	if (isset($uri['path']) && $uri['path'] !== '') {
+		$tmp[] = & $uri['path'];
+	}
+	if (isset($uri['file']) && $uri['file'] !== '') {
+		$tmp[] = & $uri['file'];
+	}
+	if (isset($uri['fragment']) && $uri['fragment'] !== '') {
+		$tmp[] = '#';
+		$tmp[] = & $uri['fragment'];
+	}
+
+	return implode('', $tmp);
+}
 
 // ---------------------
 // Part One : Checker
