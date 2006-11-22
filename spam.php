@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.23 2006/11/21 13:42:40 henoheno Exp $
+// $Id: spam.php,v 1.24 2006/11/22 13:19:21 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -108,7 +108,7 @@ function spam_uri_pickup($string = '')
 {
 	$string = spam_uri_pickup_preprocess($string);
 
-	$array  = uri_pickup($string, FALSE, TRUE, FALSE);
+	$array  = uri_pickup($string);
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
@@ -357,9 +357,47 @@ function uri_array_implode($uri = array())
 // ---------------------
 // Part One : Checker
 
+
+// TODO: globbing for IP address or something
+// TODO: Ignore list
+// TODO: require_or_include_once(another file)
+function is_badhost($host = '')
+{
+	static $blocklist_regex;
+
+	if (! isset($blocklist_regex)) {
+		$blocklist = array(
+			'.blogspot.com',
+		);
+		foreach ($blocklist as $part) {
+			$blocklist_regex[] = '#\b' . preg_quote($part, '#') . '$#';
+		}
+	}
+
+	foreach ($blocklist_regex as $regex) {
+		if (preg_match($regex, $host)) {
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+// TODO return TRUE or FALSE!
 // Simple/fast spam check
 function is_uri_spam($target = '')
 {
+	static $blocklist = array(
+		'.blogspot.com',
+	);
+	static $blocklist_regex;
+
+	if (! isset($blocklist_regex)) {
+		foreach ($blocklist as $part) {
+			$blocklist_regex[] = '#\b' . preg_quote($part, '#') . '$#';
+		}
+	}
+
 	$is_spam = FALSE;
 	$urinum = 0;
 
@@ -385,6 +423,13 @@ function is_uri_spam($target = '')
 					}
 				}
 			}
+
+			foreach ($pickups as $pickup) {
+				if (is_badhost($pickup['host'])) {
+					$is_spam = TRUE;
+					break;
+				}
+			}
 		}
 	}
 
@@ -401,6 +446,7 @@ function is_invalid_useragent($ua_name = '' /*, $ua_vars = ''*/ )
 
 // ---------------------
 
+// TODO: Separate check-part(s) and mail part
 // TODO: Multi-metrics (uri, host, user-agent, ...)
 // TODO: Mail to administrator with more measurement data?
 // Simple/fast spam filter ($target: 'a string' or an array())
