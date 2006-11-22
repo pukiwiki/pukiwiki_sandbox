@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.24 2006/11/22 13:19:21 henoheno Exp $
+// $Id: spam.php,v 1.25 2006/11/22 15:04:11 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -33,13 +33,15 @@ function uri_pickup($string = '', $normalize = TRUE,
 		'([^\s<>"\'\[\]\#]+)?' .			// 6: File and query string
 		'(?:\#([a-z0-9._~%!$&\'()*+,;=:@-]*))?' .	// 7: Fragment
 		'#i',
-		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE
+	);
 	//var_dump(recursive_map('htmlspecialchars', $array));
 
 	// Shrink $array
 	static $parts = array(
-		1 => 'scheme', 2 => 'userinfo',
-		3 => 'host', 4 => 'port', 5 => 'path', 6 => 'file', 7 => 'fragment');
+		1 => 'scheme', 2 => 'userinfo', 3 => 'host', 4 => 'port',
+		5 => 'path', 6 => 'file', 7 => 'fragment'
+	);
 	$default = array('');
 	foreach(array_keys($array) as $uri) {
 		array_rename_keys($array[$uri], $parts, TRUE, $default);
@@ -71,7 +73,7 @@ function uri_pickup($string = '', $normalize = TRUE,
 				$array[$uri]['path'],
 				$array[$uri]['file'],
 				$array[$uri]['fragment']
-				);
+			);
 		}
 
 		$array[$uri]['offset'] = $offset;
@@ -88,18 +90,45 @@ function uri_pickup($string = '', $normalize = TRUE,
 function spam_uri_pickup_preprocess($string = '')
 {
 	if (is_string($string)) {
-		return preg_replace(
+		// Preprocess
+		$string = rawurldecode($string);
+		
+		// SchemeScheme => Scheme Scheme
+		$string = preg_replace(
 			array(
 				'#(?:https?|ftp):/#',
 				'#\b[a-z][a-z0-9.+-]{1,8}://#i',
 				'#[a-z][a-z0-9.+-]{1,8}://#i'
 			),
 			' $0',
-			rawurldecode($string)
+			$string
+		);
+
+		// Exposure
+		// http://nasty.example.com/?site:someting etc.
+		static $_preg_replace_callback_flip;
+		if (! isset($_preg_replace_callback_flip)) {
+			$_preg_replace_callback_flip= create_function(
+				'$matches',
+				// Means 'http://$2/?site:$1 '
+				'return \'http://\' . $matches[2] . \'/?site:\' .' .
+				' strtolower($matches[1]) . \' \';'
 			);
+		}
+
+		// Something Google: http://www.google.com/supported_domains
+		$string = preg_replace_callback(
+			'#http://([a-z0-9.]+\.google\.[a-z]{2,3}(?:\.[a-z]{2})?)/' .
+			'[a-z0-9?=&.%_+-]+' .			// ?query=foo+
+			'\bsite:([a-z0-9.%_-]+)#i',	// site:nasty.example.com+bar
+			$_preg_replace_callback_flip,
+			$string
+		);
 	} else {
-		return '';
+		$string = '';
 	}
+
+	return $string;
 }
 
 // TODO: Area selection (Check BBCode only, check anchor only, check ...)
