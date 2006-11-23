@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.27 2006/11/23 01:27:56 henoheno Exp $
+// $Id: spam.php,v 1.28 2006/11/23 02:05:03 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -413,10 +413,26 @@ function is_badhost($host = '')
 
 	if (! isset($blocklist_regex)) {
 		$blocklist = array(
+			// Well-known
 			'.blogspot.com',
+
+			// 2006-11 dev
+			'wwwtahoo.com',
+
+			// 2006/11/19 17:50 dev
+			'.google0site.org',
+			'.bigpricesearch.org',
+			'.osfind.org',
+			'.bablomira.biz',
 		);
+
+		$blocklist_regex = array();
 		foreach ($blocklist as $part) {
-			$blocklist_regex[] = '#\b' . preg_quote($part, '#') . '$#';
+			if ($part[0] === '.') {
+				$blocklist_regex[] = '#' . preg_quote($part, '#') . '$#';
+			} else {
+				$blocklist_regex[] = '#^(.*\.)?' . preg_quote($part, '#') . '$#';
+			}
 		}
 	}
 
@@ -433,17 +449,6 @@ function is_badhost($host = '')
 // Simple/fast spam check
 function is_uri_spam($target = '')
 {
-	static $blocklist = array(
-		'.blogspot.com',
-	);
-	static $blocklist_regex;
-
-	if (! isset($blocklist_regex)) {
-		foreach ($blocklist as $part) {
-			$blocklist_regex[] = '#\b' . preg_quote($part, '#') . '$#';
-		}
-	}
-
 	$is_spam = FALSE;
 	$urinum = 0;
 
