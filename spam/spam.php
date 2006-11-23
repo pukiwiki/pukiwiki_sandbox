@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.25 2006/11/22 15:04:11 henoheno Exp $
+// $Id: spam.php,v 1.26 2006/11/23 01:16:13 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -83,50 +83,65 @@ function uri_pickup($string = '', $normalize = TRUE,
 	return $array;
 }
 
+// Domain exposure callback (See spam_uri_pickup_preprocess())
+// http://victim.example.org/?foo+site:nasty.example.com+bar
+// => http://nasty.example.com/?refer=victim.example.org
+function _preg_replace_callback_domain_exposure($matches = array())
+{
+	$result = '';
+
+	// Preserve the victim URI as a complicity or ...
+	if (isset($matches[5])) {
+		$result =
+			$matches[1] . '://' .	// scheme
+			$matches[2] . '/' .		// victim.example.org
+			$matches[3];			// The rest of all (before victim)
+	}
+
+	// Flipped URI
+	$result = 
+		$matches[1] . '://' .	// scheme
+		$matches[4] .			// nasty.example.com
+		'/refer=' . strtolower($matches[2]) . '/' .	// victim.example.org
+		' ' . $result;
+
+	return $result;
+}
+
 // Preprocess: rawurldecode() and adding space(s) to detect/count some URIs _if possible_
 // NOTE: It's maybe danger to var_dump(result). [e.g. 'javascript:']
 // [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
 // [OK] http://victim.example.org/http://nasty.example.org
 function spam_uri_pickup_preprocess($string = '')
 {
-	if (is_string($string)) {
-		// Preprocess
-		$string = rawurldecode($string);
-		
-		// SchemeScheme => Scheme Scheme
-		$string = preg_replace(
-			array(
-				'#(?:https?|ftp):/#',
-				'#\b[a-z][a-z0-9.+-]{1,8}://#i',
-				'#[a-z][a-z0-9.+-]{1,8}://#i'
-			),
-			' $0',
-			$string
-		);
+	if (! is_string($string)) return '';
 
-		// Exposure
-		// http://nasty.example.com/?site:someting etc.
-		static $_preg_replace_callback_flip;
-		if (! isset($_preg_replace_callback_flip)) {
-			$_preg_replace_callback_flip= create_function(
-				'$matches',
-				// Means 'http://$2/?site:$1 '
-				'return \'http://\' . $matches[2] . \'/?site:\' .' .
-				' strtolower($matches[1]) . \' \';'
-			);
-		}
+	$string = rawurldecode($string);
 
-		// Something Google: http://www.google.com/supported_domains
-		$string = preg_replace_callback(
-			'#http://([a-z0-9.]+\.google\.[a-z]{2,3}(?:\.[a-z]{2})?)/' .
-			'[a-z0-9?=&.%_+-]+' .			// ?query=foo+
-			'\bsite:([a-z0-9.%_-]+)#i',	// site:nasty.example.com+bar
-			$_preg_replace_callback_flip,
-			$string
-		);
-	} else {
-		$string = '';
-	}
+	// Domain exposure (See _preg_replace_callback_domain_exposure())
+	$string = preg_replace_callback(
+		array(
+			// Something Google: http://www.google.com/supported_domains
+			'#(http)://([a-z0-9.]+\.google\.[a-z]{2,3}(?:\.[a-z]{2})?)/' .
+			'([a-z0-9?=&.%_+-]+)' .		// ?query=foo+
+			'\bsite:([a-z0-9.%_-]+)' .	// site:nasty.example.com
+			'()' .	// Preserve?
+			'#i',
+		),
+		'_preg_replace_callback_domain_exposure',
+		$string
+	);
+
+	// Scheme exposure (schemescheme => scheme scheme)
+	$string = preg_replace(
+		array(
+			'#(?:https?|ftp):/#',
+			'#\b[a-z][a-z0-9.+-]{1,8}://#i',
+			'#[a-z][a-z0-9.+-]{1,8}://#i'
+		),
+		' $0',
+		$string
+	);
 
 	return $string;
 }
