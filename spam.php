@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.28 2006/11/23 02:05:03 henoheno Exp $
+// $Id: spam.php,v 1.29 2006/11/23 15:02:13 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -413,11 +413,14 @@ function is_badhost($host = '')
 
 	if (! isset($blocklist_regex)) {
 		$blocklist = array(
-			// Well-known
+			// Too much malicious sub-domains
 			'.blogspot.com',
 
 			// 2006-11 dev
 			'wwwtahoo.com',
+
+			// 2006-11 dev
+			'.infogami.com',
 
 			// 2006/11/19 17:50 dev
 			'.google0site.org',
