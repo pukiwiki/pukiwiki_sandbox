@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.26 2006/11/23 01:16:13 henoheno Exp $
+// $Id: spam.php,v 1.27 2006/11/23 01:27:56 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -86,6 +86,8 @@ function uri_pickup($string = '', $normalize = TRUE,
 // Domain exposure callback (See spam_uri_pickup_preprocess())
 // http://victim.example.org/?foo+site:nasty.example.com+bar
 // => http://nasty.example.com/?refer=victim.example.org
+// NOTE: 'refer=' is not so good for (at this time).
+// Consider about using IP address of the victim, try to avoid that.
 function _preg_replace_callback_domain_exposure($matches = array())
 {
 	$result = '';
@@ -102,7 +104,7 @@ function _preg_replace_callback_domain_exposure($matches = array())
 	$result = 
 		$matches[1] . '://' .	// scheme
 		$matches[4] .			// nasty.example.com
-		'/refer=' . strtolower($matches[2]) . '/' .	// victim.example.org
+		'/?refer=' . strtolower($matches[2]) .	// victim.example.org
 		' ' . $result;
 
 	return $result;
