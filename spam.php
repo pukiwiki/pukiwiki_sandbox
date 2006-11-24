@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.30 2006/11/24 11:01:28 henoheno Exp $
+// $Id: spam.php,v 1.31 2006/11/24 11:25:05 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -54,6 +54,12 @@ function uri_pickup($string = '', $normalize = TRUE,
 
 		if ($normalize) {
 			$array[$uri]['scheme'] = scheme_normalize($array[$uri]['scheme']);
+			//if ($array[$uri]['scheme'] === '') {
+			//	// Ignore
+			//	unset ($array[$uri]);
+			//	continue;
+			//}
+			
 			$array[$uri]['host']   = strtolower($array[$uri]['host']);
 			$array[$uri]['port']   = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
 			$array[$uri]['path']   = path_normalize($array[$uri]['path']);
@@ -263,10 +269,16 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 // Scheme normalization: Rename the schemes
 // snntp://example.org =>  nntps://example.org
 // NOTE: Keep the static list simple. See also port_normalize().
-function scheme_normalize($scheme = '')
+function scheme_normalize($scheme = '', $considerd_harmfull = TRUE)
 {
+	// Abbreviations considerable they don't have link intension
+	static $abbrevs = array(
+		'ttp'	=> 'http',
+		'ttps'	=> 'https',
+	);
+
+	// Alias => normalized
 	static $aliases = array(
-		// alias => normalized
 		'pop'	=> 'pop3',
 		'news'	=> 'nntp',
 		'imap4'	=> 'imap',
@@ -277,6 +289,13 @@ function scheme_normalize($scheme = '')
 	);
 
 	$scheme = strtolower(trim($scheme));
+	if (isset($abbrevs[$scheme])) {
+		if ($considerd_harmfull) {
+			$scheme = $abbrevs[$scheme];
+		} else {
+			$scheme = '';
+		}
+	}
 	if (isset($aliases[$scheme])) $scheme = $aliases[$scheme];
 
 	return $scheme;
