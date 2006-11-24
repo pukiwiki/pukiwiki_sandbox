@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.29 2006/11/23 15:02:13 henoheno Exp $
+// $Id: spam.php,v 1.30 2006/11/24 11:01:28 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -134,12 +134,12 @@ function spam_uri_pickup_preprocess($string = '')
 		$string
 	);
 
-	// Scheme exposure (schemescheme => scheme scheme)
+	// URI exposure (uriuri => uri uri)
 	$string = preg_replace(
 		array(
-			'#(?:https?|ftp):/#',
-			'#\b[a-z][a-z0-9.+-]{1,8}://#i',
-			'#[a-z][a-z0-9.+-]{1,8}://#i'
+			'#(?<! )(?:https?|ftp):/#',
+		//	'#[a-z][a-z0-9.+-]{1,8}://#i',
+		//	'#[a-z][a-z0-9.+-]{1,8}://#i'
 		),
 		' $0',
 		$string
