@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.32 2006/11/25 02:37:21 henoheno Exp $
+// $Id: spam.php,v 1.33 2006/11/25 03:31:19 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -458,7 +458,7 @@ function generate_glob_regex($string = '', $divider = '/')
 
 // TODO: Ignore list
 // TODO: require_or_include_once(another file)
-function is_badhost($host = '')
+function is_badhost($hosts = '')
 {
 	static $blocklist_regex;
 
@@ -467,7 +467,7 @@ function is_badhost($host = '')
 		$blocklist = array(
 			// Deny all uri
 			//'*',
-			
+
 			// IP address or ...
 			//'10.20.*.*',	// 10.20.example.com also matches
 			//'\[1\]',
@@ -488,20 +488,21 @@ function is_badhost($host = '')
 			'*.bablomira.biz',
 		);
 		foreach ($blocklist as $part) {
-			$blocklist_regex[] = '#^' . generate_glob_regex($part, '#') . '$#';
+			$blocklist_regex[] = '#^' . generate_glob_regex($part, '#') . '$#i';
 		}
 	}
 
-	$host = strtolower($host);
-	$result = FALSE;
-	foreach ($blocklist_regex as $regex) {
-		if (preg_match($regex, $host)) {
-			$result = TRUE;
-			break;
+	if (! is_array($hosts)) $hosts = array($hosts);
+	foreach($hosts as $host) {
+		if (is_string($host)) $host = '';
+		foreach ($blocklist_regex as $regex) {
+			if (preg_match($regex, $host)) {
+				return TRUE;
+			}
 		}
 	}
 
-	return $result;
+	return FALSE;
 }
 
 // TODO return TRUE or FALSE!
@@ -534,12 +535,11 @@ function is_uri_spam($target = '')
 				}
 			}
 
+			$hosts = array();
 			foreach ($pickups as $pickup) {
-				if (is_badhost($pickup['host'])) {
-					$is_spam = TRUE;
-					break;
-				}
+				$hosts[] = & $pickup['host'];
 			}
+			$is_spam = is_badhost(array_unique($hosts));
 		}
 	}
 
