@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.31 2006/11/24 11:25:05 henoheno Exp $
+// $Id: spam.php,v 1.32 2006/11/25 02:37:21 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -266,9 +266,9 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 // ---------------------
 // Part Two
 
-// Scheme normalization: Rename the schemes
+// Scheme normalization: Renaming the schemes
 // snntp://example.org =>  nntps://example.org
-// NOTE: Keep the static list simple. See also port_normalize().
+// NOTE: Keep the static lists simple. See also port_normalize().
 function scheme_normalize($scheme = '', $considerd_harmfull = TRUE)
 {
 	// Abbreviations considerable they don't have link intension
@@ -422,8 +422,40 @@ function uri_array_implode($uri = array())
 // ---------------------
 // Part One : Checker
 
+function generate_glob_regex($string = '', $divider = '/')
+{
+	static $from = array(
+			0 => '*',
+			1 => '?',
+			2 => '\[',
+			3 => '\]',
+			4 => '[',
+			5 => ']',
+		);
+	static $mid = array(
+			0 => '_AST_',
+			1 => '_QUE_',
+			2 => '_eRBR_',
+			3 => '_eLBR_',
+			4 => '_RBR_',
+			5 => '_LBR_',
+		);
+	static $to = array(
+			0 => '.*',
+			1 => '.',
+			2 => '\[',
+			3 => '\]',
+			4 => '[',
+			5 => ']',
+		);
 
-// TODO: globbing for IP address or something
+	$string = str_replace($from, $mid, $string); // Hide
+	$string = preg_quote($string, $divider);
+	$string = str_replace($mid, $to, $string);   // Unhide
+
+	return $string;
+}
+
 // TODO: Ignore list
 // TODO: require_or_include_once(another file)
 function is_badhost($host = '')
@@ -431,40 +463,45 @@ function is_badhost($host = '')
 	static $blocklist_regex;
 
 	if (! isset($blocklist_regex)) {
+		$blocklist_regex = array();
 		$blocklist = array(
+			// Deny all uri
+			//'*',
+			
+			// IP address or ...
+			//'10.20.*.*',	// 10.20.example.com also matches
+			//'\[1\]',
+			
 			// Too much malicious sub-domains
-			'.blogspot.com',
+			'*.blogspot.com',
 
 			// 2006-11 dev
 			'wwwtahoo.com',
 
 			// 2006-11 dev
-			'.infogami.com',
+			'*.infogami.com',
 
 			// 2006/11/19 17:50 dev
-			'.google0site.org',
-			'.bigpricesearch.org',
-			'.osfind.org',
-			'.bablomira.biz',
+			'*.google0site.org',
+			'*.bigpricesearch.org',
+			'*.osfind.org',
+			'*.bablomira.biz',
 		);
-
-		$blocklist_regex = array();
 		foreach ($blocklist as $part) {
-			if ($part[0] === '.') {
-				$blocklist_regex[] = '#' . preg_quote($part, '#') . '$#';
-			} else {
-				$blocklist_regex[] = '#^(.*\.)?' . preg_quote($part, '#') . '$#';
-			}
+			$blocklist_regex[] = '#^' . generate_glob_regex($part, '#') . '$#';
 		}
 	}
 
+	$host = strtolower($host);
+	$result = FALSE;
 	foreach ($blocklist_regex as $regex) {
 		if (preg_match($regex, $host)) {
-			return TRUE;
+			$result = TRUE;
+			break;
 		}
 	}
 
-	return FALSE;
+	return $result;
 }
 
 // TODO return TRUE or FALSE!
