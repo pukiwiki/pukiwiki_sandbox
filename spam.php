@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.33 2006/11/25 03:31:19 henoheno Exp $
+// $Id: spam.php,v 1.34 2006/11/25 11:40:00 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -63,8 +63,7 @@ function uri_pickup($string = '', $normalize = TRUE,
 			$array[$uri]['host']   = strtolower($array[$uri]['host']);
 			$array[$uri]['port']   = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
 			$array[$uri]['path']   = path_normalize($array[$uri]['path']);
-
-			//$array[$uri]['uri']    = uri_array_implode($array[$uri]);
+			$array[$uri]['uri']    = uri_array_implode($array[$uri]);
 			if ($preserve_rawuri) $array[$uri]['rawuri'] = & $array[$uri][0];
 		} else {
 			$array[$uri]['uri'] = & $array[$uri][0]; // Raw
@@ -509,8 +508,9 @@ function is_badhost($hosts = '')
 // Simple/fast spam check
 function is_uri_spam($target = '')
 {
-	$is_spam = FALSE;
-	$urinum = 0;
+	$is_spam   = FALSE;
+	$urinum    = 0;
+	$non_uniq  = 0;
 
 	if (is_array($target)) {
 		foreach($target as $str) {
@@ -522,11 +522,16 @@ function is_uri_spam($target = '')
 	} else {
 		$pickups = spam_uri_pickup($target);
 		$urinum += count($pickups);
+
 		if (! empty($pickups)) {
-			// Some users want to post some URLs, but ...
-			if ($urinum > 8) {
-				$is_spam = TRUE;	// Too many!
-			} else {
+		
+			// URI quantity
+			if (! $is_spam && $urinum > 8) {
+				$is_spam = TRUE;
+			}
+
+			// Using invalid sytax
+			if (! $is_spam) {
 				foreach($pickups as $pickup) {
 					if ($pickup['area'] < 0) {
 						$is_spam = TRUE;
@@ -535,11 +540,34 @@ function is_uri_spam($target = '')
 				}
 			}
 
-			$hosts = array();
-			foreach ($pickups as $pickup) {
-				$hosts[] = & $pickup['host'];
+			// URI uniqueness (and removing non-uniques)
+			if (! $is_spam) {
+				$uris = array();
+				foreach ($pickups as $key => $pickup) {
+					$uris[$key] = & $pickup['uri'];
+				}
+				$count = count($uris);
+				$uris = array_unique($uris);
+				$non_uniq += $count - count($uris);
+				if ($non_uniq > 3) {  // Allow N times dupe
+					$is_spam = TRUE;
+				} else {
+					foreach (array_diff(array_keys($pickups),
+						array_keys($uris)) as $remove) {
+						unset($pickups[$remove]);
+					}
+				}
+				//var_dump($is_spam, $uris, $pickups, "----");
 			}
-			$is_spam = is_badhost(array_unique($hosts));
+
+			// Bad host
+			if (! $is_spam) {
+				$hosts = array();
+				foreach ($pickups as $pickup) {
+					$hosts[] = & $pickup['host'];
+				}
+				$is_spam = is_badhost(array_unique($hosts));
+			}
 		}
 	}
 
