@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.35 2006/11/25 12:58:20 henoheno Exp $
+// $Id: spam.php,v 1.36 2006/11/25 13:55:34 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -457,7 +457,7 @@ function generate_glob_regex($string = '', $divider = '/')
 
 // TODO: Ignore list
 // TODO: require_or_include_once(another file)
-function is_badhost($hosts = '')
+function is_badhost($hosts = '', $asap = TRUE)
 {
 	static $blocklist_regex;
 
@@ -491,26 +491,36 @@ function is_badhost($hosts = '')
 		}
 	}
 
+	$result = 0;
 	if (! is_array($hosts)) $hosts = array($hosts);
 	foreach($hosts as $host) {
 		if (! is_string($host)) $host = '';
 		foreach ($blocklist_regex as $regex) {
 			if (preg_match($regex, $host)) {
-				return TRUE;
+				++$result;
+				if ($asap) {
+					return $result;
+				} else {
+					break; // Check next host
+				}
 			}
 		}
 	}
 
-	return FALSE;
+	return $result;
 }
 
 // TODO return TRUE or FALSE!
 // Simple/fast spam check
-function check_uri_spam($target = '', $method = array())
+function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 {
-	$is_spam   = FALSE;
-	$quantity  = 0;
-	$non_uniq  = 0;
+	$is_spam  = FALSE;
+	$progress = array(
+		'quantity' => 0,
+		'area'     => 0,
+		'non_uniq' => 0,
+		'badhost'  => 0,
+		);
 
 	if (! is_array($method) || empty($method)) {
 		// Default
@@ -525,47 +535,49 @@ function check_uri_spam($target = '', $method = array())
 	if (is_array($target)) {
 		foreach($target as $str) {
 			// Recurse
-			list($is_spam, $_quantity, $_non_uniq) = check_uri_spam($str, $method);
-			$quantity += $_quantity;
-			$non_uniq += $_non_uniq;
-			if ($is_spam) break;
+			list($is_spam, $_progress) = check_uri_spam($str, $method);
+			$progress['quantity'] += $_progress['quantity'];
+			$progress['non_uniq'] += $_progress['non_uniq'];
+			if ($asap || $is_spam) break;
 		}
 	} else {
 		$pickups = spam_uri_pickup($target);
-		$quantity += count($pickups);
+		$progress['quantity'] += count($pickups);
 
 		if (! empty($pickups)) {
 
 			// URI quantity
-			if (! $is_spam && isset($method['quantity']) &&
-				$quantity > $method['quantity']) {
+			if ((! $is_spam || ! $asap) && isset($method['quantity']) &&
+				$progress['quantity'] > $method['quantity']) {
 				$is_spam = TRUE;
 			}
 			//var_dump($method['quantity'], $is_spam);
 
 			// Using invalid area
-			if (! $is_spam && isset($method['area'])) {
+			if ((! $is_spam || ! $asap) && isset($method['area'])) {
 				foreach($pickups as $pickup) {
 					if ($pickup['area'] < 0) {
+						++$progress['area'];
 						$is_spam = TRUE;
-						break;
+						if ($asap) break;
 					}
 				}
 			}
 			//var_dump($method['area'], $is_spam);
 
 			// URI uniqueness (and removing non-uniques)
-			if (! $is_spam && isset($method['non_uniq'])) {
+			if ((! $is_spam || ! $asap) && isset($method['non_uniq'])) {
 				$uris = array();
 				foreach ($pickups as $key => $pickup) {
 					$uris[$key] = uri_array_implode($pickup);
 				}
 				$count = count($uris);
 				$uris = array_unique($uris);
-				$non_uniq += $count - count($uris);
-				if ($non_uniq > $method['non_uniq']) {
+				$progress['non_uniq'] += $count - count($uris);
+				if ($progress['non_uniq'] > $method['non_uniq']) {
 					$is_spam = TRUE;
-				} else {
+				}
+				if (! $asap || ! $is_spam) {
 					foreach (array_diff(array_keys($pickups),
 						array_keys($uris)) as $remove) {
 						unset($pickups[$remove]);
@@ -577,18 +589,20 @@ function check_uri_spam($target = '', $method = array())
 			//var_dump($method['non_uniq'], $is_spam);
 
 			// Bad host
-			if (! $is_spam && isset($method['badhost'])) {
+			if ((! $is_spam || ! $asap) && isset($method['badhost'])) {
 				$hosts = array();
 				foreach ($pickups as $pickup) {
 					$hosts[] = & $pickup['host'];
 				}
-				$is_spam = is_badhost(array_unique($hosts));
+				$count = is_badhost(array_unique($hosts), $asap);
+				$progress['badhost'] += $count;
+				if ($count !== 0) $is_spam = TRUE;
 			}
 			//var_dump($method['badhost'], $is_spam);
 		}
 	}
 
-	return array($is_spam, $quantity, $non_uniq);
+	return array($is_spam, $progress);
 }
 
 // ---------------------
