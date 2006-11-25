@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.34 2006/11/25 11:40:00 henoheno Exp $
+// $Id: spam.php,v 1.35 2006/11/25 12:58:20 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -63,7 +63,7 @@ function uri_pickup($string = '', $normalize = TRUE,
 			$array[$uri]['host']   = strtolower($array[$uri]['host']);
 			$array[$uri]['port']   = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
 			$array[$uri]['path']   = path_normalize($array[$uri]['path']);
-			$array[$uri]['uri']    = uri_array_implode($array[$uri]);
+			//$array[$uri]['uri']    = uri_array_implode($array[$uri]);
 			if ($preserve_rawuri) $array[$uri]['rawuri'] = & $array[$uri][0];
 		} else {
 			$array[$uri]['uri'] = & $array[$uri][0]; // Raw
@@ -493,7 +493,7 @@ function is_badhost($hosts = '')
 
 	if (! is_array($hosts)) $hosts = array($hosts);
 	foreach($hosts as $host) {
-		if (is_string($host)) $host = '';
+		if (! is_string($host)) $host = '';
 		foreach ($blocklist_regex as $regex) {
 			if (preg_match($regex, $host)) {
 				return TRUE;
@@ -506,32 +506,45 @@ function is_badhost($hosts = '')
 
 // TODO return TRUE or FALSE!
 // Simple/fast spam check
-function is_uri_spam($target = '')
+function check_uri_spam($target = '', $method = array())
 {
 	$is_spam   = FALSE;
-	$urinum    = 0;
+	$quantity  = 0;
 	$non_uniq  = 0;
+
+	if (! is_array($method) || empty($method)) {
+		// Default
+		$method = array(
+			'quantity' => 8,		// Allow N URIs
+			'area'     => TRUE,
+			'non_uniq' => 3,		// Allow N times dupe
+			'badhost'  => TRUE,
+		);
+	}
 
 	if (is_array($target)) {
 		foreach($target as $str) {
 			// Recurse
-			list($is_spam, $_urinum) = is_uri_spam($str);
-			$urinum += $_urinum;
+			list($is_spam, $_quantity, $_non_uniq) = check_uri_spam($str, $method);
+			$quantity += $_quantity;
+			$non_uniq += $_non_uniq;
 			if ($is_spam) break;
 		}
 	} else {
 		$pickups = spam_uri_pickup($target);
-		$urinum += count($pickups);
+		$quantity += count($pickups);
 
 		if (! empty($pickups)) {
-		
+
 			// URI quantity
-			if (! $is_spam && $urinum > 8) {
+			if (! $is_spam && isset($method['quantity']) &&
+				$quantity > $method['quantity']) {
 				$is_spam = TRUE;
 			}
+			//var_dump($method['quantity'], $is_spam);
 
-			// Using invalid sytax
-			if (! $is_spam) {
+			// Using invalid area
+			if (! $is_spam && isset($method['area'])) {
 				foreach($pickups as $pickup) {
 					if ($pickup['area'] < 0) {
 						$is_spam = TRUE;
@@ -539,17 +552,18 @@ function is_uri_spam($target = '')
 					}
 				}
 			}
+			//var_dump($method['area'], $is_spam);
 
 			// URI uniqueness (and removing non-uniques)
-			if (! $is_spam) {
+			if (! $is_spam && isset($method['non_uniq'])) {
 				$uris = array();
 				foreach ($pickups as $key => $pickup) {
-					$uris[$key] = & $pickup['uri'];
+					$uris[$key] = uri_array_implode($pickup);
 				}
 				$count = count($uris);
 				$uris = array_unique($uris);
 				$non_uniq += $count - count($uris);
-				if ($non_uniq > 3) {  // Allow N times dupe
+				if ($non_uniq > $method['non_uniq']) {
 					$is_spam = TRUE;
 				} else {
 					foreach (array_diff(array_keys($pickups),
@@ -557,21 +571,24 @@ function is_uri_spam($target = '')
 						unset($pickups[$remove]);
 					}
 				}
-				//var_dump($is_spam, $uris, $pickups, "----");
+				unset($uris);
+				//var_dump($uris, $pickups);
 			}
+			//var_dump($method['non_uniq'], $is_spam);
 
 			// Bad host
-			if (! $is_spam) {
+			if (! $is_spam && isset($method['badhost'])) {
 				$hosts = array();
 				foreach ($pickups as $pickup) {
 					$hosts[] = & $pickup['host'];
 				}
 				$is_spam = is_badhost(array_unique($hosts));
 			}
+			//var_dump($method['badhost'], $is_spam);
 		}
 	}
 
-	return array($is_spam, $urinum);
+	return array($is_spam, $quantity, $non_uniq);
 }
 
 // ---------------------
@@ -585,10 +602,9 @@ function is_invalid_useragent($ua_name = '' /*, $ua_vars = ''*/ )
 // ---------------------
 
 // TODO: Separate check-part(s) and mail part
-// TODO: Multi-metrics (uri, host, user-agent, ...)
 // TODO: Mail to administrator with more measurement data?
 // Simple/fast spam filter ($target: 'a string' or an array())
-function pkwk_spamfilter($action, $page, $target = array('title' => ''))
+function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array())
 {
 	$is_spam = FALSE;
 
@@ -596,7 +612,7 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''))
 	if ($is_spam) {
 		$action .= ' (Invalid User-Agent)';
 	} else {
-		list($is_spam) = is_uri_spam($target);
+		list($is_spam) = check_uri_spam($target, $method);
 	}
 
 	if ($is_spam) {
