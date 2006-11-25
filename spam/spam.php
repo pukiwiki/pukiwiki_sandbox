@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.38 2006/11/25 14:31:47 henoheno Exp $
+// $Id: spam.php,v 1.39 2006/11/25 15:05:17 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -510,6 +510,17 @@ function is_badhost($hosts = '', $asap = TRUE)
 	return $result;
 }
 
+// Default method and threshold
+function check_uri_spam_method()
+{
+	return array(
+		'quantity' => 8,		// Allow N URIs
+		'area'     => TRUE,
+		'non_uniq' => 3,		// Allow N times dupe
+		'badhost'  => TRUE,
+		);
+}
+
 // TODO return TRUE or FALSE!
 // Simple/fast spam check
 function check_uri_spam($target = '', $method = array(), $asap = TRUE)
@@ -524,13 +535,7 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 		);
 
 	if (! is_array($method) || empty($method)) {
-		// Default
-		$method = array(
-			'quantity' => 8,		// Allow N URIs
-			'area'     => TRUE,
-			'non_uniq' => 3,		// Allow N times dupe
-			'badhost'  => TRUE,
-		);
+		$method = check_uri_spam_method();
 	}
 
 	if (is_array($target)) {
@@ -592,14 +597,17 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 			}
 			//var_dump($method['non_uniq'], $is_spam);
 
+			// Unique host
+			$hosts = array();
+			foreach ($pickups as $pickup) {
+				$hosts[] = & $pickup['host'];
+			}
+			$hosts = array_unique($hosts);
+			$progress['uniqhost'] += count($hosts);
+			//var_dump($method['uniqhost'], $is_spam);
+
 			// Bad host
 			if ((! $is_spam || ! $asap) && isset($method['badhost'])) {
-				$hosts = array();
-				foreach ($pickups as $pickup) {
-					$hosts[] = & $pickup['host'];
-				}
-				$hosts = array_unique($hosts);
-				$progress['uniqhost'] += count($hosts);
 				$count = is_badhost($hosts, $asap);
 				$progress['badhost'] += $count;
 				if ($count !== 0) $is_spam = TRUE;
