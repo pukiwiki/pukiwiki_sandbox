@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.48 2006/11/26 14:25:24 henoheno Exp $
+// $Id: spam.php,v 1.49 2006/11/26 14:41:51 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -574,7 +574,13 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 			$progress['uniqhost']       += $_progress['uniqhost'];
 			$progress['badhost']        += $_progress['badhost'];
 			foreach($_progress['_action'] as $key => $value) {
-				$progress['_action'][$key] = TRUE;
+				if (is_array($value)) {
+					foreach(array_keys($value) as $_key) {
+						$progress['_action'][$key][$_key] = TRUE;
+					}
+				} else {
+					$progress['_action'][$key] = TRUE;
+				}
 			}
 			if ($is_spam && $asap) break;
 		}
