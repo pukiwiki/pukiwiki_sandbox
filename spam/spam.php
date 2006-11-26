@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.39 2006/11/25 15:05:17 henoheno Exp $
+// $Id: spam.php,v 1.40 2006/11/26 02:57:26 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -81,8 +81,7 @@ function uri_pickup($string = '', $normalize = TRUE,
 			);
 		}
 
-		$array[$uri]['offset'] = $offset;
-		$array[$uri]['area']   = 0;
+		$array[$uri]['area']['offset'] = $offset;
 	}
 
 	return $array;
@@ -153,32 +152,48 @@ function spam_uri_pickup_preprocess($string = '')
 	return $string;
 }
 
-// TODO: Area selection (Check BBCode only, check anchor only, check ...)
 // Main function of spam-uri pickup
-function spam_uri_pickup($string = '')
+function spam_uri_pickup($string = '', $area = array())
 {
+	if (! is_array($area) || empty($area)) {
+		$area = array(
+				'anchor' => TRUE,
+				'bbcode' => TRUE,
+			);
+	}
+
 	$string = spam_uri_pickup_preprocess($string);
 
 	$array  = uri_pickup($string);
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
+	
+		$area_shadow = array();
+		foreach(array_keys($array) as $key){
+			$area_shadow[$key] = & $array[$key]['area'];
+			$area_shadow[$key]['anchor'] = 0;
+			$area_shadow[$key]['bbcode'] = 0;
+		}
+
 		// Anchor tags by preg_match_all()
 		// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
 		// [OK] <a href=\'http://nasty.example.com/\' >discount foobar</a> 
 		// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
 		// [NG] <a href=  >Good site!</a> <a href= "#" >test</a>
-		$areas = array();
-		preg_match_all('#<a\b[^>]*href[^>]*>.*?</a\b[^>]*(>)#i',
-			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-		//var_dump(recursive_map('htmlspecialchars', $areas));
-		foreach(array_keys($areas) as $area) {
-			$areas[$area] =  array(
-				$areas[$area][0][1], // Area start (<a href>)
-				$areas[$area][1][1], // Area end   (</a>)
-			);
+		if (isset($area['anchor'])) {
+			$areas = array();
+			preg_match_all('#<a\b[^>]*href[^>]*>.*?</a\b[^>]*(>)#i',
+				 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+			//var_dump(recursive_map('htmlspecialchars', $areas));
+			foreach(array_keys($areas) as $_area) {
+				$areas[$_area] =  array(
+					$areas[$_area][0][1], // Area start (<a href>)
+					$areas[$_area][1][1], // Area end   (</a>)
+				);
+			}
+			area_measure($areas, $area_shadow, -1, 'anchor');
 		}
-		area_measure($areas, $array);
 
 		// phpBB's "BBCode" by preg_match_all()
 		// [url]http://nasty.example.com/[/url]
@@ -186,17 +201,19 @@ function spam_uri_pickup($string = '')
 		// [url=http://nasty.example.com]visit http://nasty.example.com/[/url]
 		// [link http://nasty.example.com/]buy something[/link]
 		// ?? [url=][/url]
-		$areas = array();
-		preg_match_all('#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i',
-			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-		//var_dump(recursive_map('htmlspecialchars', $areas));
-		foreach(array_keys($areas) as $area) {
-			$areas[$area] = array(
-				$areas[$area][0][1], // Area start ([url])
-				$areas[$area][2][1], // Area end   ([/url])
-			);
+		if (isset($area['bbcode'])) {
+			$areas = array();
+			preg_match_all('#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i',
+				 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+			//var_dump(recursive_map('htmlspecialchars', $areas));
+			foreach(array_keys($areas) as $_area) {
+				$areas[$_area] = array(
+					$areas[$_area][0][1], // Area start ([url])
+					$areas[$_area][2][1], // Area end   ([/url])
+				);
+			}
+			area_measure($areas, $area_shadow, -1, 'bbcode');
 		}
-		area_measure($areas, $array);
 
 		// Various Wiki syntax
 		// [text_or_uri>text_or_uri]
@@ -472,7 +489,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 			//'\[1\]',
 			
 			// Too much malicious sub-domains
-			'*.blogspot.com',
+			//'*.blogspot.com',
 
 			// 2006-11 dev
 			'wwwtahoo.com',
@@ -481,10 +498,10 @@ function is_badhost($hosts = '', $asap = TRUE)
 			'*.infogami.com',
 
 			// 2006/11/19 17:50 dev
-			'*.google0site.org',
-			'*.bigpricesearch.org',
-			'*.osfind.org',
-			'*.bablomira.biz',
+			//'*.google0site.org',
+			//'*.bigpricesearch.org',
+			//'*.osfind.org',
+			//'*.bablomira.biz',
 		);
 		foreach ($blocklist as $part) {
 			$blocklist_regex[] = '#^' . generate_glob_regex($part, '#') . '$#i';
@@ -515,8 +532,12 @@ function check_uri_spam_method()
 {
 	return array(
 		'quantity' => 8,		// Allow N URIs
-		'area'     => TRUE,
-		'non_uniq' => 3,		// Allow N times dupe
+		'area'     => array(
+			'total'  => 0,		// Allow N areas
+			'anchor' => 0,		// <a href> HTML tag
+			'bbcode' => 0,		// [url] or [link] BBCode
+			),
+		'non_uniq' => 3,		// Allow N duped (and normalized) URIs
 		'badhost'  => TRUE,
 		);
 }
@@ -528,7 +549,11 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 	$is_spam  = FALSE;
 	$progress = array(
 		'quantity' => 0,
-		'area'     => 0,
+		'area'     => array(
+			'total'  => 0,
+			'anchor' => 0,
+			'bbcode' => 0,
+			),
 		'non_uniq' => 0,
 		'uniqhost' => 0,
 		'badhost'  => 0,
@@ -543,7 +568,9 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 			// Recurse
 			list($is_spam, $_progress) = check_uri_spam($str, $method);
 			$progress['quantity'] += $_progress['quantity'];
-			$progress['area']     += $_progress['area'];
+			$progress['area']['total']  += $_progress['area']['total'];
+			$progress['area']['anchor'] += $_progress['area']['anchor'];
+			$progress['area']['bbcode'] += $_progress['area']['bbcode'];
 			$progress['non_uniq'] += $_progress['non_uniq'];
 			$progress['uniqhost'] += $_progress['uniqhost'];
 			$progress['badhost']  += $_progress['badhost'];
@@ -565,9 +592,16 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 			// Using invalid area
 			if ((! $is_spam || ! $asap) && isset($method['area'])) {
 				foreach($pickups as $pickup) {
-					if ($pickup['area'] < 0) {
-						++$progress['area'];
-						$is_spam = TRUE;
+					// Total
+					$total = 0;
+					foreach ($pickup['area'] as $key => $value) {
+						if ($key == 'offset') continue;
+						$progress['area']['total'] += $value;
+						$progress['area'][$key]    += $value;
+						if ($value < 0) {
+							$is_spam = TRUE;
+							if ($is_spam && $asap) break;
+						}
 						if ($asap) break;
 					}
 				}
