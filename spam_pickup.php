@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.15 2006/11/26 02:20:15 henoheno Exp $
+// $Id: spam_pickup.php,v 1.16 2006/11/26 08:43:45 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -58,17 +58,21 @@ show_form($msg);
 echo '<pre>';
 
 $pickup = TRUE;
-if ($pickup) {
-	$results = spam_uri_pickup($msg);
-}
 
-var_dump('check_uri_spam($msg)', check_uri_spam($msg, array(), FALSE));
+			list($is_spam, $progress) = check_uri_spam($msg, array(), FALSE);
+			if ($is_spam) {
+				$action = 'Blocked by: ' . summarize_check_uri_spam_progress($progress);
+				var_dump($action);
+			}
+
+var_dump('check_uri_spam($msg)', $progress);
 
 //$notify = TRUE;
 //var_dump('pkwk_spamfilter($msg)', pkwk_spamfilter('A', 'PAGE', array('msg' => $msg)));
 //echo "\n";
 
 if ($pickup) {
+	$results = spam_uri_pickup($msg);
 	var_dump('$results', $results);
 }
 echo '</pre>';
