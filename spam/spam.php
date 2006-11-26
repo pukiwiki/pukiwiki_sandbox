@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.41 2006/11/26 06:35:47 henoheno Exp $
+// $Id: spam.php,v 1.42 2006/11/26 07:35:02 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -54,16 +54,13 @@ function uri_pickup($string = '', $normalize = TRUE,
 
 		if ($normalize) {
 			$array[$uri]['scheme'] = scheme_normalize($array[$uri]['scheme']);
-			//if ($array[$uri]['scheme'] === '') {
-			//	// Ignore
-			//	unset ($array[$uri]);
-			//	continue;
-			//}
-			
-			$array[$uri]['host']   = strtolower($array[$uri]['host']);
-			$array[$uri]['port']   = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
-			$array[$uri]['path']   = path_normalize($array[$uri]['path']);
-			//$array[$uri]['uri']    = uri_array_implode($array[$uri]);
+			if ($array[$uri]['scheme'] === '') {
+				unset ($array[$uri]);
+				continue;
+			}
+			$array[$uri]['host'] = strtolower($array[$uri]['host']);
+			$array[$uri]['port'] = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
+			$array[$uri]['path'] = path_normalize($array[$uri]['path']);
 			if ($preserve_rawuri) $array[$uri]['rawuri'] = & $array[$uri][0];
 		} else {
 			$array[$uri]['uri'] = & $array[$uri][0]; // Raw
@@ -114,7 +111,8 @@ function _preg_replace_callback_domain_exposure($matches = array())
 	return $result;
 }
 
-// Preprocess: rawurldecode() and adding space(s) to detect/count some URIs _if possible_
+// Preprocess: rawurldecode() and adding space(s) and something
+// to detect/count some URIs _if possible_
 // NOTE: It's maybe danger to var_dump(result). [e.g. 'javascript:']
 // [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
 // [OK] http://victim.example.org/http://nasty.example.org
@@ -141,7 +139,7 @@ function spam_uri_pickup_preprocess($string = '')
 	// URI exposure (uriuri => uri uri)
 	$string = preg_replace(
 		array(
-			'#(?<! )(?:https?|ftp):/#',
+			'#(?<! )(?:https?|ftp):/#i',
 		//	'#[a-z][a-z0-9.+-]{1,8}://#i',
 		//	'#[a-z][a-z0-9.+-]{1,8}://#i'
 		),
@@ -224,8 +222,8 @@ function spam_uri_pickup($string = '', $area = array())
 		// MediaWiki: [http://nasty.example.com/ visit http://nasty.example.com/]
 
 		// Remove 'offset's for area_measure()
-		//foreach(array_keys($array) as $key)
-		//	unset($array[$key]['offset']);
+		foreach(array_keys($array) as $key)
+			unset($array[$key]['area']['offset']);
 	}
 
 	return $array;
@@ -234,8 +232,7 @@ function spam_uri_pickup($string = '', $area = array())
 // $array['something'] => $array['wanted']
 function array_rename_keys(& $array, $keys = array('from' => 'to'), $force = FALSE, $default = '')
 {
-	if (! is_array($array) || ! is_array($keys))
-		return FALSE;
+	if (! is_array($array) || ! is_array($keys)) return FALSE;
 
 	// Nondestructive test
 	if (! $force)
@@ -518,7 +515,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 				if ($asap) {
 					return $result;
 				} else {
-					break; // Check next host
+					break;
 				}
 			}
 		}
@@ -527,18 +524,18 @@ function is_badhost($hosts = '', $asap = TRUE)
 	return $result;
 }
 
-// Default method and threshold
+// Default (enabled) methods and thresholds
 function check_uri_spam_method()
 {
 	return array(
-		'quantity' => 8,		// Allow N URIs
-		'area'     => array(
+		'quantity'   => 8,	// Allow N URIs
+		'area' => array(
 		//	'total'  => 0,	// Allow N areas total, enabled below
-			'anchor' => 0,	// Area: <a href> HTML tag
-			'bbcode' => 0,	// Area: [url] or [link] BBCode
+			'anchor' => 0,	// Inside <a href> HTML tag
+			'bbcode' => 0,	// Inside [url] or [link] BBCode
 			),
-		'non_uniq' => 3,		// Allow N duped (and normalized) URIs
-		'badhost'  => TRUE,
+		'non_uniq'   => 3,		// Allow N duped (and normalized) URIs
+		'badhost'    => TRUE,	// Check badhost
 		);
 }
 
@@ -548,15 +545,15 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 {
 	$is_spam  = FALSE;
 	$progress = array(
-		'quantity' => 0,
-		'area'     => array(
+		'quantity'   => 0,
+		'area' => array(
 			'total'  => 0,
 			'anchor' => 0,
 			'bbcode' => 0,
 			),
-		'non_uniq' => 0,
-		'uniqhost' => 0,
-		'badhost'  => 0,
+		'non_uniq'   => 0,
+		'uniqhost'   => 0,
+		'badhost'    => 0,
 		);
 
 	if (! is_array($method) || empty($method)) {
@@ -567,20 +564,19 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 		foreach($target as $str) {
 			// Recurse
 			list($is_spam, $_progress) = check_uri_spam($str, $method);
-			$progress['quantity'] += $_progress['quantity'];
+			$progress['quantity']       += $_progress['quantity'];
 			$progress['area']['total']  += $_progress['area']['total'];
 			$progress['area']['anchor'] += $_progress['area']['anchor'];
 			$progress['area']['bbcode'] += $_progress['area']['bbcode'];
-			$progress['non_uniq'] += $_progress['non_uniq'];
-			$progress['uniqhost'] += $_progress['uniqhost'];
-			$progress['badhost']  += $_progress['badhost'];
+			$progress['non_uniq']       += $_progress['non_uniq'];
+			$progress['uniqhost']       += $_progress['uniqhost'];
+			$progress['badhost']        += $_progress['badhost'];
 			if ($asap || $is_spam) break;
 		}
 	} else {
 		$pickups = spam_uri_pickup($target);
-		$progress['quantity'] += count($pickups);
-
 		if (! empty($pickups)) {
+			$progress['quantity'] += count($pickups);
 
 			// URI quantity
 			if ((! $is_spam || ! $asap) && isset($method['quantity']) &&
@@ -630,7 +626,6 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 					}
 				}
 				unset($uris);
-				//var_dump($uris, $pickups);
 			}
 			//var_dump($method['non_uniq'], $is_spam);
 
@@ -658,14 +653,6 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 
 // ---------------------
 
-// Check User-Agent (not testing yet)
-function is_invalid_useragent($ua_name = '' /*, $ua_vars = ''*/ )
-{
-	return $ua_name === '';
-}
-
-// ---------------------
-
 // TODO: Separate check-part(s) and mail part
 // TODO: Mail to administrator with more measurement data?
 // Simple/fast spam filter ($target: 'a string' or an array())
@@ -673,12 +660,8 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 {
 	$is_spam = FALSE;
 
-	//$is_spam =  is_invalid_useragent('NOTYET');
-	if ($is_spam) {
-		$action .= ' (Invalid User-Agent)';
-	} else {
-		list($is_spam) = check_uri_spam($target, $method);
-	}
+	list($is_spam) = check_uri_spam($target, $method);
+	$action = 'Blocked';
 
 	if ($is_spam) {
 		// Mail to administrator(s)
