@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.43 2006/11/26 08:43:45 henoheno Exp $
+// $Id: spam.php,v 1.44 2006/11/26 08:50:43 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -687,7 +687,7 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 {
 	global $notify, $notify_subject;
 
-	list($is_spam, $progress) = check_uri_spam($target, $method);
+	list($is_spam, $progress) = check_uri_spam($target, $method, FALSE);
 
 	// Mail to administrator(s)
 	if ($is_spam && $notify) {
