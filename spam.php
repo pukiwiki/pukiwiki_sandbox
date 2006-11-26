@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.47 2006/11/26 14:00:12 henoheno Exp $
+// $Id: spam.php,v 1.48 2006/11/26 14:25:24 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -564,7 +564,8 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 	if (is_array($target)) {
 		// Recurse
 		foreach($target as $str) {
-			list($is_spam, $_progress) = check_uri_spam($str, $method, $asap);
+			list($_is_spam, $_progress) = check_uri_spam($str, $method, $asap);
+			$is_spam = $is_spam || $_is_spam;
 			$progress['quantity']       += $_progress['quantity'];
 			$progress['area']['total']  += $_progress['area']['total'];
 			$progress['area']['anchor'] += $_progress['area']['anchor'];
@@ -573,11 +574,7 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 			$progress['uniqhost']       += $_progress['uniqhost'];
 			$progress['badhost']        += $_progress['badhost'];
 			foreach($_progress['_action'] as $key => $value) {
-				if (isset($progress['_action'][$key])) {
-					$progress['_action'][$key] += $value;
-				} else {
-					$progress['_action'][$key] =  $value;
-				}
+				$progress['_action'][$key] = TRUE;
 			}
 			if ($is_spam && $asap) break;
 		}
