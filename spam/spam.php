@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.44 2006/11/26 08:50:43 henoheno Exp $
+// $Id: spam.php,v 1.45 2006/11/26 08:55:15 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -683,11 +683,11 @@ function summarize_check_uri_spam_progress($progress = array(), $shownum = TRUE)
 }
 
 // Simple/fast spam filter ($target: 'a string' or an array())
-function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array())
+function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array(), $asap = FALSE)
 {
 	global $notify, $notify_subject;
 
-	list($is_spam, $progress) = check_uri_spam($target, $method, FALSE);
+	list($is_spam, $progress) = check_uri_spam($target, $method, $asap);
 
 	// Mail to administrator(s)
 	if ($is_spam && $notify) {
