@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.40 2006/11/26 02:57:26 henoheno Exp $
+// $Id: spam.php,v 1.41 2006/11/26 06:35:47 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -168,7 +168,7 @@ function spam_uri_pickup($string = '', $area = array())
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
-	
+
 		$area_shadow = array();
 		foreach(array_keys($array) as $key){
 			$area_shadow[$key] = & $array[$key]['area'];
@@ -192,7 +192,7 @@ function spam_uri_pickup($string = '', $area = array())
 					$areas[$_area][1][1], // Area end   (</a>)
 				);
 			}
-			area_measure($areas, $area_shadow, -1, 'anchor');
+			area_measure($areas, $area_shadow, 1, 'anchor');
 		}
 
 		// phpBB's "BBCode" by preg_match_all()
@@ -212,7 +212,7 @@ function spam_uri_pickup($string = '', $area = array())
 					$areas[$_area][2][1], // Area end   ([/url])
 				);
 			}
-			area_measure($areas, $area_shadow, -1, 'bbcode');
+			area_measure($areas, $area_shadow, 1, 'bbcode');
 		}
 
 		// Various Wiki syntax
@@ -473,7 +473,7 @@ function generate_glob_regex($string = '', $divider = '/')
 }
 
 // TODO: Ignore list
-// TODO: require_or_include_once(another file)
+// TODO: require_or_include_once(another file) for Admin
 function is_badhost($hosts = '', $asap = TRUE)
 {
 	static $blocklist_regex;
@@ -533,9 +533,9 @@ function check_uri_spam_method()
 	return array(
 		'quantity' => 8,		// Allow N URIs
 		'area'     => array(
-			'total'  => 0,		// Allow N areas
-			'anchor' => 0,		// <a href> HTML tag
-			'bbcode' => 0,		// [url] or [link] BBCode
+		//	'total'  => 0,	// Allow N areas total, enabled below
+			'anchor' => 0,	// Area: <a href> HTML tag
+			'bbcode' => 0,	// Area: [url] or [link] BBCode
 			),
 		'non_uniq' => 3,		// Allow N duped (and normalized) URIs
 		'badhost'  => TRUE,
@@ -592,18 +592,21 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 			// Using invalid area
 			if ((! $is_spam || ! $asap) && isset($method['area'])) {
 				foreach($pickups as $pickup) {
-					// Total
-					$total = 0;
 					foreach ($pickup['area'] as $key => $value) {
 						if ($key == 'offset') continue;
 						$progress['area']['total'] += $value;
 						$progress['area'][$key]    += $value;
-						if ($value < 0) {
+						if (
+							(isset($method['area']['total']) &&
+								$progress['area']['total'] > $method['area']['total']) ||
+							(isset($method['area'][$key]) &&
+								$progress['area'][$key] > $method['area'][$key])
+							) {
 							$is_spam = TRUE;
 							if ($is_spam && $asap) break;
 						}
-						if ($asap) break;
 					}
+					if ($is_spam && $asap) break;
 				}
 			}
 			//var_dump($method['area'], $is_spam);
