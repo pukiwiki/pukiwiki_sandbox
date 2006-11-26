@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.45 2006/11/26 08:55:15 henoheno Exp $
+// $Id: spam.php,v 1.46 2006/11/26 10:07:35 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -663,9 +663,12 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 // ---------------------
 // Reporting
 
-// Summarize $progress
+// TODO: Show all
+// Summarize $progress (blocked only)
 function summarize_check_uri_spam_progress($progress = array(), $shownum = TRUE)
 {
+	//$list = check_uri_spam_method();
+
 	$tmp = array();
 	foreach (array_keys($progress['_action']) as $_action) {
 		if (is_array($progress['_action'][$_action])) {
@@ -682,36 +685,52 @@ function summarize_check_uri_spam_progress($progress = array(), $shownum = TRUE)
 	return implode(', ', $tmp);
 }
 
-// Simple/fast spam filter ($target: 'a string' or an array())
-function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array(), $asap = FALSE)
-{
-	global $notify, $notify_subject;
-
-	list($is_spam, $progress) = check_uri_spam($target, $method, $asap);
-
-	// Mail to administrator(s)
-	if ($is_spam && $notify) {
-		$footer['BLOCKED'] = 'Blocked by: ' .
-			summarize_check_uri_spam_progress($progress);
-		$footer['ACTION'] = $action;
-		$footer['PAGE']   = '[blocked] ' . $page;
-		$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
-		$footer['USER_AGENT']  = TRUE;
-		$footer['REMOTE_ADDR'] = TRUE;
-		pkwk_mail_notify($notify_subject,  var_export($target, TRUE), $footer);
-		unset($footer);
-	}
-
-	if ($is_spam) spam_exit();
-}
-
 // ---------------------
+// Exit
 
 // Common bahavior for blocking
 // NOTE: Call this function from various blocking feature, to disgueise the reason 'why blocked'
 function spam_exit()
 {
 	die("\n");
+}
+
+
+// ---------------------
+// 
+
+// Simple/fast spam filter ($target: 'a string' or an array())
+function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array(), $asap = FALSE)
+{
+	global $notify;
+
+	list($is_spam, $progress) = check_uri_spam($target, $method, $asap);
+
+	// Mail to administrator(s)
+	if ($is_spam) {
+		if ($notify) {
+			pkwk_spamnotify($action, $page, $target, $progress);
+		}
+		spam_exit();
+	}
+}
+
+// ---------------------
+// PukiWiki original
+
+// Mail to administrator(s)
+function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progress = array())
+{
+	global $notify_subject;
+
+	$footer['BLOCKED'] = 'Blocked by: ' .
+		summarize_check_uri_spam_progress($progress);
+	$footer['ACTION'] = 'Blocked: ' . $action;
+	$footer['PAGE']   = '[blocked] ' . $page;
+	$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
+	$footer['USER_AGENT']  = TRUE;
+	$footer['REMOTE_ADDR'] = TRUE;
+	pkwk_mail_notify($notify_subject,  var_export($target, TRUE), $footer);
 }
 
 ?>
