@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.51 2006/12/02 09:19:51 henoheno Exp $
+// $Id: spam.php,v 1.52 2006/12/02 09:22:37 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -104,11 +104,13 @@ function _preg_replace_callback_domain_exposure($matches = array())
 	}
 
 	// Flipped URI
-	$result = 
-		$matches[1] . '://' .	// scheme
-		$matches[4] .			// nasty.example.com
-		'/?refer=' . strtolower($matches[2]) .	// victim.example.org
-		' ' . $result;
+	if (isset($matches[4])) {
+		$result = 
+			$matches[1] . '://' .	// scheme
+			$matches[4] .			// nasty.example.com
+			'/?refer=' . strtolower($matches[2]) .	// victim.example.org
+			' ' . $result;
+	}
 
 	return $result;
 }
@@ -131,7 +133,7 @@ function spam_uri_pickup_preprocess($string = '')
 			'#(http)://([a-z0-9.]+\.google\.[a-z]{2,3}(?:\.[a-z]{2})?)/' .
 			'([a-z0-9?=&.%_+-]+)' .		// ?query=foo+
 			'\bsite:([a-z0-9.%_-]+)' .	// site:nasty.example.com
-			'()' .	// Preserve?
+			//'()' .	// Preserve or remove?
 			'#i',
 		),
 		'_preg_replace_callback_domain_exposure',
