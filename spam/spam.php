@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.50 2006/12/02 09:14:42 henoheno Exp $
+// $Id: spam.php,v 1.51 2006/12/02 09:19:51 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -534,19 +534,42 @@ function is_badhost($hosts = '', $asap = TRUE)
 }
 
 // Default (enabled) methods and thresholds
-function check_uri_spam_method()
+function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 {
-	return array(
-		'quantity'   => 8,	// Allow N URIs
-		'area' => array(
-		//	'total'  => 0,	// Allow N areas total, enabled below
-			'anchor' => 0,	// Inside <a href> HTML tag
-			'bbcode' => 0,	// Inside [url] or [link] BBCode
-			),
-		'non_uniq'   => 3,		// Allow N duped (and normalized) URIs
-		'badhost'    => TRUE,	// Check badhost
-		);
+	$times  = intval($times);
+	$t_area = intval($t_area);
+
+	// Thresholds
+	$method = array(
+		'quantity' => 8 * $times,	// Allow N URIs
+		'non_uniq' => 3 * $times,	// Allow N duped (and normalized) URIs
+	);
+
+	// Areas
+	$area = array(
+		//'total'  => $t_area,	// Allow N areas total, enabled below
+		'anchor'   => $t_area,	// Inside <a href> HTML tag
+		'bbcode'   => $t_area,	// Inside [url] or [link] BBCode
+	);
+
+	// Rules
+	$rules = array(
+		'badhost'  => TRUE,	// Check badhost
+	);
+
+	// Remove unused
+	foreach (array_keys($method) as $key) {
+		if ($method[$key] < 0) unset($method[$key]);
+	}
+	foreach (array_keys($area) as $key) {
+		if ($area[$key] < 0) unset($area[$key]);
+	}
+	$area  = empty($area) ? array() : array('area' => $area);
+	$rules = $rule ? $rules : array();
+
+	return $method + $area + $rules;
 }
+
 
 // TODO return TRUE or FALSE!
 // Simple/fast spam check
