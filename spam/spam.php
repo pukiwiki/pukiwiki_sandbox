@@ -1,9 +1,11 @@
 <?php
-// $Id: spam.php,v 1.49 2006/11/26 14:41:51 henoheno Exp $
+// $Id: spam.php,v 1.50 2006/12/02 09:14:42 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
 // Functions for Concept-work of spam-uri metrics
+
+if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
 
 // Return an array of URIs in the $string
 // [OK] http://nasty.example.org#nasty_string
@@ -438,79 +440,86 @@ function uri_array_implode($uri = array())
 function generate_glob_regex($string = '', $divider = '/')
 {
 	static $from = array(
-			0 => '*',
-			1 => '?',
-			2 => '\[',
-			3 => '\]',
-			4 => '[',
-			5 => ']',
+			 1 => '*',
+			11 => '?',
+	//		22 => '[',	// Maybe cause regex compilation error (e.g. '[]')
+	//		23 => ']',	//
 		);
 	static $mid = array(
-			0 => '_AST_',
-			1 => '_QUE_',
-			2 => '_eRBR_',
-			3 => '_eLBR_',
-			4 => '_RBR_',
-			5 => '_LBR_',
+			 1 => '_AST_',
+			11 => '_QUE_',
+	//		22 => '_RBR_',
+	//		23 => '_LBR_',
 		);
 	static $to = array(
-			0 => '.*',
-			1 => '.',
-			2 => '\[',
-			3 => '\]',
-			4 => '[',
-			5 => ']',
+			 1 => '.*',
+			11 => '.',
+	//		22 => '[',
+	//		23 => ']',
 		);
 
-	$string = str_replace($from, $mid, $string); // Hide
-	$string = preg_quote($string, $divider);
-	$string = str_replace($mid, $to, $string);   // Unhide
-
-	return $string;
+	if (is_array($string)) {
+		// Recurse
+		return '(?:' .
+			implode('|',	// OR
+				array_map('generate_glob_regex',
+					$string,
+					array_pad(array(), count($string), $divider)
+				)
+			) .
+		')';
+	} else {
+		$string = str_replace($from, $mid, $string); // Hide
+		$string = preg_quote($string, $divider);
+		$string = str_replace($mid, $to, $string);   // Unhide
+		return $string;
+	}
 }
 
 // TODO: Ignore list
-// TODO: require_or_include_once(another file) for Admin
+// TODO: preg_grep() ?
+// TODO: Multi list
 function is_badhost($hosts = '', $asap = TRUE)
 {
-	static $blocklist_regex;
+	static $regex;
 
-	if (! isset($blocklist_regex)) {
-		$blocklist_regex = array();
-		$blocklist = array(
-			// Deny all uri
-			//'*',
+	if (! isset($regex)) {
+		$regex = array();
+		$regex['badhost'] = array();
 
-			// IP address or ...
-			//'10.20.*.*',	// 10.20.example.com also matches
-			//'\[1\]',
-			
-			// Too much malicious sub-domains
-			//'*.blogspot.com',
+		// Sample
+		if (TRUE) {
+			$blocklist['badhost'] = array(
+				//'*',			// Deny all uri
+				//'10.20.*.*',	// 10.20.example.com also matches
+				//'*.blogspot.com',	// Blog services subdomains
+				//array('blogspot.com', '*.blogspot.com')
+			);
+			foreach ($blocklist['badhost'] as $part) {
+				$regex['badhost'][] = '/^' . generate_glob_regex($part) . '$/i';
+			}
+		}
 
-			// 2006-11 dev
-			'wwwtahoo.com',
-
-			// 2006-11 dev
-			'*.infogami.com',
-
-			// 2006/11/19 17:50 dev
-			//'*.google0site.org',
-			//'*.bigpricesearch.org',
-			//'*.osfind.org',
-			//'*.bablomira.biz',
-		);
-		foreach ($blocklist as $part) {
-			$blocklist_regex[] = '#^' . generate_glob_regex($part, '#') . '$#i';
+		// Load
+		if (file_exists(SPAM_INI_FILE)) {
+			$blocklist = array();
+			require(SPAM_INI_FILE);
+			foreach ($blocklist['badhost'] as $part) {
+				$regex['badhost'][] = '/^' . generate_glob_regex($part) . '$/i';
+			}
 		}
 	}
+	//var_dump($regex);
 
 	$result = 0;
 	if (! is_array($hosts)) $hosts = array($hosts);
+
 	foreach($hosts as $host) {
 		if (! is_string($host)) $host = '';
-		foreach ($blocklist_regex as $regex) {
-			if (preg_match($regex, $host)) {
+
+		// badhost
+		foreach ($regex['badhost'] as $_regex) {
+			if (preg_match($_regex, $host)) {
 				++$result;
 				if ($asap) {
 					return $result;
