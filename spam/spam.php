@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.55 2006/12/03 03:33:28 henoheno Exp $
+// $Id: spam.php,v 1.56 2006/12/03 10:40:11 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -409,15 +409,38 @@ function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 
 // Sort query-strings if possible
 // [OK] &&&&f=d&b&d&c&a=0dd  =>  a=0dd&b&c&d&f=d
-function query_normalize($string = '')
+// [OK] nothing==&eg=dummy&eg=padding&eg=foobar  =>  eg=foobar (destructive)
+function query_normalize($string = '', $equal = FALSE, $equal_cutempty = TRUE)
 {
 	$array = explode('&', $string);
 
-	// Remove paddings
+	// Remove '&' paddings
 	foreach(array_keys($array) as $key) {
 		if ($array[$key] == '') {
 			 unset($array[$key]);
 		}
+	}
+
+	// Consider '='-sepalated input and paddings
+	if ($equal) {
+		$equals = $not_equals = array();
+		foreach ($array as $part) {
+			if (strpos($part, '=') === FALSE) {
+				 $not_equals[] = $part;
+			} else {
+				list($key, $value) = explode('=', $part, 2);
+				$value = ltrim($value, '=');
+				if (! $equal_cutempty || $value != '') {
+					$equals[$key] = $value;
+				}
+			}
+		}
+
+		$array = & $not_equals;
+		foreach ($equals as $key => $value) {
+			$array[] = $key . '=' . $value;
+		}
+		unset($equals);
 	}
 
 	natsort($array);
@@ -688,9 +711,10 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 
 				// Destructive normalize of URIs
 				foreach (array_keys($pickups) as $key) {
-					$pickups[$key]['path']     = strtolower($pickups[$key]['path']);
-					$pickups[$key]['file']     = strtolower($pickups[$key]['file']);
-					$pickups[$key]['query']    = strtolower($pickups[$key]['query']);
+					$pickups[$key]['path']  = strtolower($pickups[$key]['path']);
+					$pickups[$key]['file']  = strtolower($pickups[$key]['file']);
+					$pickups[$key]['query'] =
+						strtolower(query_normalize($pickups[$key]['query'], TRUE));
 					$pickups[$key]['fragment'] = ''; // Just ignore
 				}
 
