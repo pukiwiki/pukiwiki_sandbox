@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.54 2006/12/03 03:23:54 henoheno Exp $
+// $Id: spam.php,v 1.55 2006/12/03 03:33:28 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -685,10 +685,19 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 
 			// URI uniqueness (and removing non-uniques)
 			if ((! $is_spam || ! $asap) && isset($method['non_uniq'])) {
-				$uris = array();
-				foreach ($pickups as $key => $pickup) {
-					$uris[$key] = uri_array_implode($pickup);
+
+				// Destructive normalize of URIs
+				foreach (array_keys($pickups) as $key) {
+					$pickups[$key]['path']     = strtolower($pickups[$key]['path']);
+					$pickups[$key]['file']     = strtolower($pickups[$key]['file']);
+					$pickups[$key]['query']    = strtolower($pickups[$key]['query']);
+					$pickups[$key]['fragment'] = ''; // Just ignore
 				}
+
+				$uris = array();
+				foreach (array_keys($pickups) as $key) {
+					$uris[$key] = uri_array_implode($pickups[$key]);
+ 				}
 				$count = count($uris);
 				$uris = array_unique($uris);
 				$progress['non_uniq'] += $count - count($uris);
