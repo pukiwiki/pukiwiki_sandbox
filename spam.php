@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.56 2006/12/03 10:40:11 henoheno Exp $
+// $Id: spam.php,v 1.57 2006/12/03 14:06:54 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -714,7 +714,7 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 					$pickups[$key]['path']  = strtolower($pickups[$key]['path']);
 					$pickups[$key]['file']  = strtolower($pickups[$key]['file']);
 					$pickups[$key]['query'] =
-						strtolower(query_normalize($pickups[$key]['query'], TRUE));
+						query_normalize(strtolower($pickups[$key]['query']), TRUE);
 					$pickups[$key]['fragment'] = ''; // Just ignore
 				}
 
