@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.53 2006/12/03 02:47:35 henoheno Exp $
+// $Id: spam.php,v 1.54 2006/12/03 03:23:54 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -32,8 +32,9 @@ function uri_pickup($string = '', $normalize = TRUE,
 		')' .
 		'(?::([0-9]*))?' .					// 4: Port
 		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path or path-info
-		'([^\s<>"\'\[\]\#]+)?' .			// 6: File and query string
-		'(?:\#([a-z0-9._~%!$&\'()*+,;=:@-]*))?' .	// 7: Fragment
+		'([^\s<>"\'\[\]\#?]+)?' .			// 6: File?
+		'(?:\?([^\s<>"\'\[\]\#]+))?' .		// 7: Query string
+		'(?:\#([a-z0-9._~%!$&\'()*+,;=:@-]*))?' .	// 8: Fragment
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE
 	);
@@ -42,45 +43,50 @@ function uri_pickup($string = '', $normalize = TRUE,
 	// Shrink $array
 	static $parts = array(
 		1 => 'scheme', 2 => 'userinfo', 3 => 'host', 4 => 'port',
-		5 => 'path', 6 => 'file', 7 => 'fragment'
+		5 => 'path', 6 => 'file', 7 => 'query', 8 => 'fragment'
 	);
 	$default = array('');
 	foreach(array_keys($array) as $uri) {
-		array_rename_keys($array[$uri], $parts, TRUE, $default);
-		$offset = $array[$uri]['scheme'][1]; // Scheme's offset
+		$_uri = & $array[$uri];
+		array_rename_keys($_uri, $parts, TRUE, $default);
 
-		foreach(array_keys($array[$uri]) as $part) {
+		$offset = $_uri['scheme'][1]; // Scheme's offset
+		foreach(array_keys($_uri) as $part) {
 			// Remove offsets for each part
-			$array[$uri][$part] = & $array[$uri][$part][0];
+			$_uri[$part] = & $_uri[$part][0];
 		}
 
 		if ($normalize) {
-			$array[$uri]['scheme'] = scheme_normalize($array[$uri]['scheme']);
-			if ($array[$uri]['scheme'] === '') {
+			$_uri['scheme'] = scheme_normalize($_uri['scheme']);
+			if ($_uri['scheme'] === '') {
 				unset ($array[$uri]);
 				continue;
 			}
-			$array[$uri]['host'] = strtolower($array[$uri]['host']);
-			$array[$uri]['port'] = port_normalize($array[$uri]['port'], $array[$uri]['scheme'], FALSE);
-			$array[$uri]['path'] = path_normalize($array[$uri]['path']);
-			if ($preserve_rawuri) $array[$uri]['rawuri'] = & $array[$uri][0];
+			$_uri['host']  = strtolower($_uri['host']);
+			$_uri['port']  = port_normalize($_uri['port'], $_uri['scheme'], FALSE);
+			$_uri['path']  = path_normalize($_uri['path']);
+			$_uri['query'] = query_normalize($_uri['query']);
+			if ($preserve_rawuri) $_uri['rawuri'] = & $_uri[0];
+
+			// DEBUG
+			//$_uri['uri'] = uri_array_implode($_uri);
 		} else {
-			$array[$uri]['uri'] = & $array[$uri][0]; // Raw
+			$_uri['uri'] = & $_uri[0]; // Raw
 		}
-		unset($array[$uri][0]); // Matched string itself
+		unset($_uri[0]); // Matched string itself
 		if (! $preserve_chunk) {
 			unset(
-				$array[$uri]['scheme'],
-				$array[$uri]['userinfo'],
-				$array[$uri]['host'],
-				$array[$uri]['port'],
-				$array[$uri]['path'],
-				$array[$uri]['file'],
-				$array[$uri]['fragment']
+				$_uri['scheme'],
+				$_uri['userinfo'],
+				$_uri['host'],
+				$_uri['port'],
+				$_uri['path'],
+				$_uri['file'],
+				$_uri['query'],
+				$_uri['fragment']
 			);
 		}
-
-		$array[$uri]['area']['offset'] = $offset;
+		$_uri['area']['offset'] = $offset;
 	}
 
 	return $array;
@@ -401,6 +407,23 @@ function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 	return $path;
 }
 
+// Sort query-strings if possible
+// [OK] &&&&f=d&b&d&c&a=0dd  =>  a=0dd&b&c&d&f=d
+function query_normalize($string = '')
+{
+	$array = explode('&', $string);
+
+	// Remove paddings
+	foreach(array_keys($array) as $key) {
+		if ($array[$key] == '') {
+			 unset($array[$key]);
+		}
+	}
+
+	natsort($array);
+	return implode('&', $array);
+}
+
 // An URI array => An URI (See uri_pickup())
 function uri_array_implode($uri = array())
 {
@@ -427,6 +450,10 @@ function uri_array_implode($uri = array())
 	}
 	if (isset($uri['file']) && $uri['file'] !== '') {
 		$tmp[] = & $uri['file'];
+	}
+	if (isset($uri['query']) && $uri['query'] !== '') {
+		$tmp[] = '?';
+		$tmp[] = & $uri['query'];
 	}
 	if (isset($uri['fragment']) && $uri['fragment'] !== '') {
 		$tmp[] = '#';
