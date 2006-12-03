@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.52 2006/12/02 09:22:37 henoheno Exp $
+// $Id: spam.php,v 1.53 2006/12/03 02:47:35 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -573,7 +573,7 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 }
 
 
-// TODO return TRUE or FALSE!
+// TODO: Simplify. !empty(['_action']) just means $is_spam
 // Simple/fast spam check
 function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 {
@@ -750,11 +750,10 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 
 	list($is_spam, $progress) = check_uri_spam($target, $method, $asap);
 
-	// Mail to administrator(s)
 	if ($is_spam) {
-		if ($notify) {
-			pkwk_spamnotify($action, $page, $target, $progress);
-		}
+		// Mail to administrator(s)
+		if ($notify) pkwk_spamnotify($action, $page, $target, $progress);
+		// End
 		spam_exit();
 	}
 }
@@ -767,9 +766,8 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 {
 	global $notify_subject;
 
-	$footer['BLOCKED'] = 'Blocked by: ' .
-		summarize_check_uri_spam_progress($progress);
-	$footer['ACTION'] = 'Blocked: ' . $action;
+	$footer['ACTION'] = 'Blocked by: ' . summarize_check_uri_spam_progress($progress);
+	$footer['COMMENT'] = $action;
 	$footer['PAGE']   = '[blocked] ' . $page;
 	$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
 	$footer['USER_AGENT']  = TRUE;
