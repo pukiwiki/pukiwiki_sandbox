@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.59 2006/12/04 12:53:40 henoheno Exp $
+// $Id: spam.php,v 1.60 2006/12/04 13:34:17 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -467,11 +467,11 @@ function path_normalize($path = '', $divider = '/', $addroot = TRUE)
 	return $path;
 }
 
-// File normalize (Destructive and rough)
-function file_normalize($string = '')
+// DirectoryIndex normalize (Destructive and rough)
+function file_normalize($string = 'index.html.en')
 {
 	static $array = array(
-		'index'			=> TRUE,
+		'index'			=> TRUE,	// Some system can omit the suffix
 		'index.htm'		=> TRUE,
 		'index.html'	=> TRUE,
 		'index.shtml'	=> TRUE,
@@ -479,9 +479,9 @@ function file_normalize($string = '')
 		'index.php'		=> TRUE,
 		'index.php3'	=> TRUE,
 		'index.php4'	=> TRUE,
-		'index.pl'		=> TRUE,
-		'index.py'		=> TRUE,
-		'index.rb'		=> TRUE,
+		//'index.pl'	=> TRUE,
+		//'index.py'	=> TRUE,
+		//'index.rb'	=> TRUE,
 		'index.cgi'		=> TRUE,
 		'default.htm'	=> TRUE,
 		'default.html'	=> TRUE,
@@ -489,7 +489,17 @@ function file_normalize($string = '')
 		'default.aspx'	=> TRUE,
 	);
 
-	if (isset($array[strtolower($string)])) {
+	// Content-negothiation filter:
+	// Roughly removing ISO 639 -like
+	// 2-letter suffixes (See RFC3066)
+	$matches = array();
+	if (preg_match('/(.*)\.[a-z][a-z](?:-[a-z][a-z])?$/i', $string, $matches)) {
+		$_string = $matches[1];
+	} else {
+		$_string = & $string;
+	}
+
+	if (isset($array[strtolower($_string)])) {
 		return '';
 	} else {
 		return $string;
