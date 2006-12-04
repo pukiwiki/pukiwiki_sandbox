@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.58 2006/12/04 12:35:55 henoheno Exp $
+// $Id: spam.php,v 1.59 2006/12/04 12:53:40 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -475,10 +475,13 @@ function file_normalize($string = '')
 		'index.htm'		=> TRUE,
 		'index.html'	=> TRUE,
 		'index.shtml'	=> TRUE,
+		'index.jsp'		=> TRUE,
 		'index.php'		=> TRUE,
-		'index.rb'		=> TRUE,
-		'index.py'		=> TRUE,
+		'index.php3'	=> TRUE,
+		'index.php4'	=> TRUE,
 		'index.pl'		=> TRUE,
+		'index.py'		=> TRUE,
+		'index.rb'		=> TRUE,
 		'index.cgi'		=> TRUE,
 		'default.htm'	=> TRUE,
 		'default.html'	=> TRUE,
