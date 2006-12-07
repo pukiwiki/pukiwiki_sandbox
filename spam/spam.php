@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.60 2006/12/04 13:34:17 henoheno Exp $
+// $Id: spam.php,v 1.61 2006/12/07 14:27:01 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -88,6 +88,8 @@ function uri_pickup($string = '', $normalize = TRUE,
 				$_uri['fragment']
 			);
 		}
+		
+		// Area offset for area_measure()
 		$_uri['area']['offset'] = $offset;
 	}
 
@@ -659,13 +661,14 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 
 	// Areas
 	$area = array(
-		//'total'  => $t_area,	// Allow N areas total, enabled below
-		'anchor'   => $t_area,	// Inside <a href> HTML tag
-		'bbcode'   => $t_area,	// Inside [url] or [link] BBCode
+		//'total' => $t_area,	// Allow N areas total, enabled below
+		'anchor'  => $t_area,	// Inside <a href> HTML tag
+		'bbcode'  => $t_area,	// Inside [url] or [link] BBCode
 	);
 
 	// Rules
 	$rules = array(
+		'uniqhost' => TRUE,	// Show uniq host
 		'badhost'  => TRUE,	// Check badhost
 	);
 
@@ -683,61 +686,53 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 }
 
 // TODO: Simplify $progress data structure
-// TODO: Simplify. !empty(['_action']) just means $is_spam
+// TODO: Simplify. !empty(['is_spam']) just means $is_spam
 // Simple/fast spam check
 function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 {
 	$is_spam  = FALSE;
-	$progress = array(
-		'quantity'   => 0,
-		'area' => array(
-			'total'  => 0,
-			'anchor' => 0,
-			'bbcode' => 0,
-			),
-		'non_uniq'   => 0,
-		'uniqhost'   => 0,
-		'badhost'    => 0,
-		'_action'    => array(),
-		);
-
 	if (! is_array($method) || empty($method)) {
 		$method = check_uri_spam_method();
 	}
+
+	$progress = array(
+		'sum' =>  array(
+			'quantity'    => 0,
+			'uniqhost'    => 0,
+			'non_uniq'    => 0,
+			'badhost'     => 0,
+			'area_total'  => 0,
+			'area_anchor' => 0,
+			'area_bbcode' => 0,
+			),
+		'is_spam' => array(),
+		'method' => & $method,
+	);
+
 
 	if (is_array($target)) {
 		// Recurse
 		foreach($target as $str) {
 			list($_is_spam, $_progress) = check_uri_spam($str, $method, $asap);
 			$is_spam = $is_spam || $_is_spam;
-			$progress['quantity']       += $_progress['quantity'];
-			$progress['area']['total']  += $_progress['area']['total'];
-			$progress['area']['anchor'] += $_progress['area']['anchor'];
-			$progress['area']['bbcode'] += $_progress['area']['bbcode'];
-			$progress['non_uniq']       += $_progress['non_uniq'];
-			$progress['uniqhost']       += $_progress['uniqhost'];
-			$progress['badhost']        += $_progress['badhost'];
-			foreach($_progress['_action'] as $key => $value) {
-				if (is_array($value)) {
-					foreach(array_keys($value) as $_key) {
-						$progress['_action'][$key][$_key] = TRUE;
-					}
-				} else {
-					$progress['_action'][$key] = TRUE;
-				}
+			foreach (array_keys($_progress['sum']) as $key) {
+				$progress['sum'][$key] += $_progress['sum'][$key];
+			}
+			foreach(array_keys($_progress['is_spam']) as $key) {
+				$progress['is_spam'][$key] = TRUE;
 			}
 			if ($is_spam && $asap) break;
 		}
 	} else {
 		$pickups = spam_uri_pickup($target);
 		if (! empty($pickups)) {
-			$progress['quantity'] += count($pickups);
+			$progress['sum']['quantity'] += count($pickups);
 
 			// URI quantity
 			if ((! $is_spam || ! $asap) && isset($method['quantity']) &&
-				$progress['quantity'] > $method['quantity']) {
+				$progress['sum']['quantity'] > $method['quantity']) {
 				$is_spam = TRUE;
-				$progress['_action']['quantity'] = TRUE;
+				$progress['is_spam']['quantity'] = TRUE;
 			}
 			//var_dump($method['quantity'], $is_spam);
 
@@ -746,18 +741,19 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 				foreach($pickups as $pickup) {
 					foreach ($pickup['area'] as $key => $value) {
 						if ($key == 'offset') continue;
-						$progress['area']['total'] += $value;
-						$progress['area'][$key]    += $value;
+						$p_key = 'area_' . $key;
+						$progress['sum']['area_total'] += $value;
+						$progress['sum'][$p_key]       += $value;
 						if (isset($method['area']['total']) &&
-								$progress['area']['total'] > $method['area']['total']) {
+								$progress['sum']['area_total'] > $method['area']['total']) {
 							$is_spam = TRUE;
-							$progress['_action']['area']['total'] = TRUE;
+							$progress['is_spam']['area_total'] = TRUE;
 							if ($is_spam && $asap) break;
 						}
 						if(isset($method['area'][$key]) &&
-								$progress['area'][$key] > $method['area'][$key]) {
+								$progress['sum'][$p_key] > $method['area'][$key]) {
 							$is_spam = TRUE;
-							$progress['_action']['area'][$key] = TRUE;
+							$progress['is_spam'][$p_key] = TRUE;
 							if ($is_spam && $asap) break;
 						}
 					}
@@ -779,10 +775,10 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
  				}
 				$count = count($uris);
 				$uris  = array_unique($uris);
-				$progress['non_uniq'] += $count - count($uris);
-				if ($progress['non_uniq'] > $method['non_uniq']) {
+				$progress['sum']['non_uniq'] += $count - count($uris);
+				if ($progress['sum']['non_uniq'] > $method['non_uniq']) {
 					$is_spam = TRUE;
-					$progress['_action']['non_uniq'] = TRUE;
+					$progress['is_spam']['non_uniq'] = TRUE;
 				}
 				if (! $asap || ! $is_spam) {
 					foreach (array_diff(array_keys($pickups),
@@ -800,15 +796,15 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 				$hosts[] = & $pickup['host'];
 			}
 			$hosts = array_unique($hosts);
-			$progress['uniqhost'] += count($hosts);
+			$progress['sum']['uniqhost'] += count($hosts);
 			//var_dump($method['uniqhost'], $is_spam);
 
 			// Bad host
 			if ((! $is_spam || ! $asap) && isset($method['badhost'])) {
 				$count = is_badhost($hosts, $asap);
-				$progress['badhost'] += $count;
+				$progress['sum']['badhost'] += $count;
 				if ($count !== 0) {
-					$progress['_action']['badhost'] = TRUE;
+					$progress['is_spam']['badhost'] = TRUE;
 					$is_spam = TRUE;
 				}
 			}
@@ -822,22 +818,25 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 // ---------------------
 // Reporting
 
-// TODO: Show all
+// TODO: Don't show unused $method!
 // Summarize $progress (blocked only)
-function summarize_check_uri_spam_progress($progress = array(), $shownum = TRUE)
+function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 {
-	//$list = check_uri_spam_method();
+	$method = $progress['method'];
+	if (isset($method['area'])) {
+		foreach(array_keys($method['area']) as $key) {
+			$method['area_' . $key] = TRUE;
+		}
+	}
 
-	$tmp = array();
-	foreach (array_keys($progress['_action']) as $_action) {
-		if (is_array($progress['_action'][$_action])) {
-			foreach (array_keys($progress['_action'][$_action]) as $_area) {
-				$tmp[] = $_action . '=>' . $_area .
-					($shownum ? '(' . $progress[$_action][$_area] . ')' : '');
+	if ($blockedonly) {
+		$tmp = array_keys($progress['is_spam']);
+	} else {
+		$tmp = array();
+		foreach ($progress['sum'] as $key => $value) {
+			if (isset($method[$key])) {
+				$tmp[] = $key . '(' . $value . ')';
 			}
-		} else {
-			$tmp[] = $_action .
-					($shownum ? '(' . $progress[$_action] . ')' : '');
 		}
 	}
 
@@ -868,7 +867,7 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 
 	if ($is_spam) {
 		// Mail to administrator(s)
-		if ($notify) pkwk_spamnotify($action, $page, $target, $progress);
+		if ($notify) pkwk_spamnotify($action, $page, $target, $progress, $asap);
 		// End
 		spam_exit();
 	}
@@ -878,14 +877,17 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 // PukiWiki original
 
 // Mail to administrator(s)
-function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progress = array())
+function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progress = array(), $asap = FALSE)
 {
 	global $notify_subject;
 
-	$footer['ACTION'] = 'Blocked by: ' . summarize_check_uri_spam_progress($progress);
+	$footer['ACTION']  = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
+	if (! $asap) {
+		$footer['METRICS'] = summarize_spam_progress($progress);
+	}
 	$footer['COMMENT'] = $action;
-	$footer['PAGE']   = '[blocked] ' . $page;
-	$footer['URI']    = get_script_uri() . '?' . rawurlencode($page);
+	$footer['PAGE']    = '[blocked] ' . $page;
+	$footer['URI']     = get_script_uri() . '?' . rawurlencode($page);
 	$footer['USER_AGENT']  = TRUE;
 	$footer['REMOTE_ADDR'] = TRUE;
 	pkwk_mail_notify($notify_subject,  var_export($target, TRUE), $footer);
