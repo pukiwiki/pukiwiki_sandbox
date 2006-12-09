@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.61 2006/12/07 14:27:01 henoheno Exp $
+// $Id: spam.php,v 1.62 2006/12/09 12:18:52 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -668,7 +668,8 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 
 	// Rules
 	$rules = array(
-		'uniqhost' => TRUE,	// Show uniq host
+		'asap'     => FALSE,	// Quit As Soon As Possible
+		'uniqhost' => TRUE,	// Show uniq host (at block notification mail)
 		'badhost'  => TRUE,	// Check badhost
 	);
 
@@ -688,12 +689,13 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 // TODO: Simplify $progress data structure
 // TODO: Simplify. !empty(['is_spam']) just means $is_spam
 // Simple/fast spam check
-function check_uri_spam($target = '', $method = array(), $asap = TRUE)
+function check_uri_spam($target = '', $method = array())
 {
 	$is_spam  = FALSE;
 	if (! is_array($method) || empty($method)) {
 		$method = check_uri_spam_method();
 	}
+	$asap = isset($method['asap']) ? $method['asap'] : TRUE;
 
 	$progress = array(
 		'sum' =>  array(
@@ -713,7 +715,7 @@ function check_uri_spam($target = '', $method = array(), $asap = TRUE)
 	if (is_array($target)) {
 		// Recurse
 		foreach($target as $str) {
-			list($_is_spam, $_progress) = check_uri_spam($str, $method, $asap);
+			list($_is_spam, $_progress) = check_uri_spam($str, $method);
 			$is_spam = $is_spam || $_is_spam;
 			foreach (array_keys($_progress['sum']) as $key) {
 				$progress['sum'][$key] += $_progress['sum'][$key];
@@ -859,15 +861,15 @@ function spam_exit()
 
 // TODO: Record them
 // Simple/fast spam filter ($target: 'a string' or an array())
-function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array(), $asap = FALSE)
+function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array())
 {
 	global $notify;
 
-	list($is_spam, $progress) = check_uri_spam($target, $method, $asap);
+	list($is_spam, $progress) = check_uri_spam($target, $method);
 
 	if ($is_spam) {
 		// Mail to administrator(s)
-		if ($notify) pkwk_spamnotify($action, $page, $target, $progress, $asap);
+		if ($notify) pkwk_spamnotify($action, $page, $target, $progress, $method);
 		// End
 		spam_exit();
 	}
@@ -877,11 +879,14 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 // PukiWiki original
 
 // Mail to administrator(s)
-function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progress = array(), $asap = FALSE)
+function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progress = array(), $method = array())
 {
 	global $notify_subject;
 
+	$asap = isset($method['asap']) ? $method['asap'] : TRUE;
+
 	$footer['ACTION']  = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
+
 	if (! $asap) {
 		$footer['METRICS'] = summarize_spam_progress($progress);
 	}
