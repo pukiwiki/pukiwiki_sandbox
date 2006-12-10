@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.63 2006/12/10 02:31:18 henoheno Exp $
+// $Id: spam.php,v 1.64 2006/12/10 04:01:43 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -238,6 +238,7 @@ function area_pickup($string = '', $method = array())
 }
 
 // If in doubt, it's a little doubtful
+// if (Area => inside <= Area) $brief += -1
 function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 'offset')
 {
 	if (! is_array($areas) || ! is_array($array)) return;
@@ -335,9 +336,9 @@ function spam_uri_pickup($string = '', $area = array())
 {
 	if (! is_array($area) || empty($area)) {
 		$area = array(
-				'anchor' => TRUE,
-				'bbcode' => TRUE,
-			);
+			'anchor' => TRUE,
+			'bbcode' => TRUE,
+		);
 	}
 
 	$string = spam_uri_pickup_preprocess($string);
@@ -632,7 +633,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 				//array('blogspot.com', '*.blogspot.com')
 			);
 			foreach ($blocklist['badhost'] as $part) {
-				$regex['badhost'][] = '/^' . generate_glob_regex($part) . '$/i';
+				$regex['badhost'][$part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
 
@@ -641,22 +642,21 @@ function is_badhost($hosts = '', $asap = TRUE)
 			$blocklist = array();
 			require(SPAM_INI_FILE);
 			foreach ($blocklist['badhost'] as $part) {
-				$regex['badhost'][] = '/^' . generate_glob_regex($part) . '$/i';
+				$regex['badhost'][$part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
 	}
 	//var_dump($regex);
 
-	$result = 0;
+	$result = array();
 	if (! is_array($hosts)) $hosts = array($hosts);
 
 	foreach($hosts as $host) {
 		if (! is_string($host)) $host = '';
-
-		// badhost
-		foreach ($regex['badhost'] as $_regex) {
+		foreach ($regex['badhost'] as $part => $_regex) {
 			if (preg_match($_regex, $host)) {
-				++$result;
+				if (! isset($result[$part]))  $result[$part] = array();
+				$result[$part][] = $host;
 				if ($asap) {
 					return $result;
 				} else {
@@ -825,7 +825,7 @@ function check_uri_spam($target = '', $method = array())
 
 			// Bad host
 			if ((! $is_spam || ! $asap) && isset($method['badhost'])) {
-				$count = is_badhost($hosts, $asap);
+				$count = array_count_leaves(is_badhost($hosts, $asap));
 				$progress['sum']['badhost'] += $count;
 				if ($count !== 0) {
 					$progress['is_spam']['badhost'] = TRUE;
@@ -837,6 +837,20 @@ function check_uri_spam($target = '', $method = array())
 	}
 
 	return array($is_spam, $progress);
+}
+
+// Count leaves
+function array_count_leaves($array = array(), $count_empty_array = FALSE)
+{
+	if (! is_array($array) || (empty($array) && $count_empty_array))
+		return 1;
+
+	// Recurse
+	$result = 0;
+	foreach ($array as $part) {
+		$result += array_count_leaves($part, $count_empty_array);
+	}
+	return $result;
 }
 
 // ---------------------
