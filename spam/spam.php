@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.62 2006/12/09 12:18:52 henoheno Exp $
+// $Id: spam.php,v 1.63 2006/12/10 02:31:18 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -88,7 +88,7 @@ function uri_pickup($string = '', $normalize = TRUE,
 				$_uri['fragment']
 			);
 		}
-		
+
 		// Area offset for area_measure()
 		$_uri['area']['offset'] = $offset;
 	}
@@ -178,6 +178,88 @@ function array_rename_keys(& $array, $keys = array('from' => 'to'), $force = FAL
 }
 
 // ---------------------
+// Area pickup
+
+// Pickup all of markup areas
+function area_pickup($string = '', $method = array())
+{
+	$area = array();
+
+	// Anchor tags by preg_match_all()
+	// [OK] <a href=></a>
+	// [OK] <a href=  >Good site!</a>
+	// [OK] <a href= "#" >test</a>
+	// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
+	// [OK] <a href=\'http://nasty.example.com/\' >discount foobar</a> 
+	// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
+	if (isset($method['anchor'])) {
+		$areas = array();
+		preg_match_all('#<a\b[^>]*\bhref\b[^>]*>.*?</a\b[^>]*(>)#i',
+			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+		//var_dump(recursive_map('htmlspecialchars', $areas));
+		foreach(array_keys($areas) as $_area) {
+			$areas[$_area] =  array(
+				$areas[$_area][0][1], // Area start (<a href>)
+				$areas[$_area][1][1], // Area end   (</a>)
+			);
+		}
+		if (! empty($areas)) $area['anchor'] = $areas;
+	}
+
+	// phpBB's "BBCode" by preg_match_all()
+	// [OK] [url][/url]
+	// [OK] [url]http://nasty.example.com/[/url]
+	// [OK] [link]http://nasty.example.com/[/link]
+	// [OK] [url=http://nasty.example.com]visit http://nasty.example.com/[/url]
+	// [OK] [link http://nasty.example.com/]buy something[/link]
+	if (isset($method['bbcode'])) {
+		$areas = array();
+		preg_match_all('#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i',
+			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+		//var_dump(recursive_map('htmlspecialchars', $areas));
+		foreach(array_keys($areas) as $_area) {
+			$areas[$_area] = array(
+				$areas[$_area][0][1], // Area start ([url])
+				$areas[$_area][2][1], // Area end   ([/url])
+			);
+		}
+		if (! empty($areas)) $area['bbcode'] = $areas;
+	}
+
+	// Various Wiki syntax
+	// [text_or_uri>text_or_uri]
+	// [text_or_uri:text_or_uri]
+	// [text_or_uri|text_or_uri]
+	// [text_or_uri->text_or_uri]
+	// [text_or_uri text_or_uri] // MediaWiki
+	// MediaWiki: [http://nasty.example.com/ visit http://nasty.example.com/]
+
+	return $area;
+}
+
+// If in doubt, it's a little doubtful
+function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 'offset')
+{
+	if (! is_array($areas) || ! is_array($array)) return;
+
+	$areas_keys = array_keys($areas);
+	foreach(array_keys($array) as $u_index) {
+		$offset = isset($array[$u_index][$o_key]) ?
+			intval($array[$u_index][$o_key]) : 0;
+		foreach($areas_keys as $a_index) {
+			if (isset($array[$u_index][$a_key])) {
+				$offset_s = intval($areas[$a_index][0]);
+				$offset_e = intval($areas[$a_index][1]);
+				// [Area => inside <= Area]
+				if ($offset_s < $offset && $offset < $offset_e) {
+					$array[$u_index][$a_key] += $belief;
+				}
+			}
+		}
+	}
+}
+
+// ---------------------
 // Spam-uri pickup
 
 // Domain exposure callback (See spam_uri_pickup_preprocess())
@@ -264,90 +346,30 @@ function spam_uri_pickup($string = '', $area = array())
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
-
-		$area_shadow = array();
-		foreach(array_keys($array) as $key){
-			$area_shadow[$key] = & $array[$key]['area'];
-			$area_shadow[$key]['anchor'] = 0;
-			$area_shadow[$key]['bbcode'] = 0;
-		}
-
-		// Anchor tags by preg_match_all()
-		// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
-		// [OK] <a href=\'http://nasty.example.com/\' >discount foobar</a> 
-		// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
-		// [NG] <a href=  >Good site!</a> <a href= "#" >test</a>
-		if (isset($area['anchor'])) {
-			$areas = array();
-			preg_match_all('#<a\b[^>]*href[^>]*>.*?</a\b[^>]*(>)#i',
-				 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-			//var_dump(recursive_map('htmlspecialchars', $areas));
-			foreach(array_keys($areas) as $_area) {
-				$areas[$_area] =  array(
-					$areas[$_area][0][1], // Area start (<a href>)
-					$areas[$_area][1][1], // Area end   (</a>)
-				);
+		$areas = area_pickup($string, $area);
+		if (! empty($areas)) {
+			$area_shadow = array();
+			foreach(array_keys($array) as $key){
+				$area_shadow[$key] = & $array[$key]['area'];
+				$area_shadow[$key]['anchor'] = 0;
+				$area_shadow[$key]['bbcode'] = 0;
 			}
-			area_measure($areas, $area_shadow, 1, 'anchor');
-		}
-
-		// phpBB's "BBCode" by preg_match_all()
-		// [url]http://nasty.example.com/[/url]
-		// [link]http://nasty.example.com/[/link]
-		// [url=http://nasty.example.com]visit http://nasty.example.com/[/url]
-		// [link http://nasty.example.com/]buy something[/link]
-		// ?? [url=][/url]
-		if (isset($area['bbcode'])) {
-			$areas = array();
-			preg_match_all('#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i',
-				 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-			//var_dump(recursive_map('htmlspecialchars', $areas));
-			foreach(array_keys($areas) as $_area) {
-				$areas[$_area] = array(
-					$areas[$_area][0][1], // Area start ([url])
-					$areas[$_area][2][1], // Area end   ([/url])
-				);
+			if (isset($areas['anchor'])) {
+				area_measure($areas['anchor'], $area_shadow, 1, 'anchor');
 			}
-			area_measure($areas, $area_shadow, 1, 'bbcode');
+			if (isset($areas['bbcode'])) {
+				area_measure($areas['bbcode'], $area_shadow, 1, 'bbcode');
+			}
 		}
-
-		// Various Wiki syntax
-		// [text_or_uri>text_or_uri]
-		// [text_or_uri:text_or_uri]
-		// [text_or_uri|text_or_uri]
-		// [text_or_uri->text_or_uri]
-		// [text_or_uri text_or_uri] // MediaWiki
-		// MediaWiki: [http://nasty.example.com/ visit http://nasty.example.com/]
-
-		// Remove 'offset's for area_measure()
-		foreach(array_keys($array) as $key)
-			unset($array[$key]['area']['offset']);
 	}
+
+	// Remove 'offset's for area_measure()
+	foreach(array_keys($array) as $key)
+		unset($array[$key]['area']['offset']);
 
 	return $array;
 }
 
-// If in doubt, it's a little doubtful
-function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 'offset')
-{
-	if (! is_array($areas) || ! is_array($array)) return;
-
-	$areas_keys = array_keys($areas);
-	foreach(array_keys($array) as $u_index) {
-		$offset = isset($array[$u_index][$o_key]) ?
-			intval($array[$u_index][$o_key]) : 0;
-		foreach($areas_keys as $a_index) {
-			if (isset($array[$u_index][$a_key])) {
-				$offset_s = intval($areas[$a_index][0]);
-				$offset_e = intval($areas[$a_index][1]);
-				// [Area => inside <= Area]
-				if ($offset_s < $offset && $offset < $offset_e) {
-					$array[$u_index][$a_key] += $belief;
-				}
-			}
-		}
-	}
-}
 
 // ---------------------
 // Normalization
