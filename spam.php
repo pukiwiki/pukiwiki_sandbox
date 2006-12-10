@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.65 2006/12/10 05:23:37 henoheno Exp $
+// $Id: spam.php,v 1.66 2006/12/10 05:56:32 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -185,8 +185,8 @@ function area_pickup($string = '', $method = array())
 {
 	$area = array();
 
-	// Anchor tags by preg_match_all()
-	// [OK] <a href=></a>
+	// Anchor tag pair by preg_match_all()
+	// [OK] <a href></a>
 	// [OK] <a href=  >Good site!</a>
 	// [OK] <a href= "#" >test</a>
 	// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
@@ -206,7 +206,7 @@ function area_pickup($string = '', $method = array())
 		if (! empty($areas)) $area['anchor'] = $areas;
 	}
 
-	// phpBB's "BBCode" by preg_match_all()
+	// phpBB's "BBCode" pair by preg_match_all()
 	// [OK] [url][/url]
 	// [OK] [url]http://nasty.example.com/[/url]
 	// [OK] [link]http://nasty.example.com/[/link]
@@ -711,30 +711,31 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 // Simple/fast spam check
 function check_uri_spam($target = '', $method = array())
 {
+	// Init
 	if (! is_array($method) || empty($method)) {
 		$method = check_uri_spam_method();
 	}
-
-	$asap = isset($method['asap']) ? $method['asap'] : TRUE;
-	$sum = array(
-		'quantity'    => 0,
-		'uniqhost'    => 0,
-		'non_uniq'    => 0,
-		'badhost'     => 0,
-		'area_total'  => 0,
-		'area_anchor' => 0,
-		'area_bbcode' => 0,
-	);
-	$is_spam = array();
 	$progress = array(
-		'sum'     => & $sum,
-		'is_spam' => & $is_spam,
+		'sum' => array(
+			'quantity'    => 0,
+			'uniqhost'    => 0,
+			'non_uniq'    => 0,
+			'badhost'     => 0,
+			'area_total'  => 0,
+			'area_anchor' => 0,
+			'area_bbcode' => 0,
+		),
+		'is_spam' => array(),
 		'method'  => & $method,
 	);
+	$sum     = & $progress['sum'];
+	$is_spam = & $progress['is_spam'];
+	$asap = isset($method['asap']) ? $method['asap'] : TRUE;
 
+	// Return if ...
 	if (is_array($target)) {
-		// Recurse
 		foreach($target as $str) {
+			// Recurse
 			$_progress = check_uri_spam($str, $method);
 			foreach (array_keys($_progress['sum']) as $key) {
 				$sum[$key] += $_progress['sum'][$key];
@@ -744,86 +745,88 @@ function check_uri_spam($target = '', $method = array())
 			}
 			if ($asap && $is_spam) break;
 		}
-	} else {
-		$pickups = spam_uri_pickup($target);
-		if (! empty($pickups)) {
-			$sum['quantity'] += count($pickups);
+		return $progress;
+	}
+	$pickups = spam_uri_pickup($target);
+	if (empty($pickups)) {
+		return $progress;
+	}
 
-			// URI quantity
-			if ((! $asap || ! $is_spam) && isset($method['quantity']) &&
-				$sum['quantity'] > $method['quantity']) {
-				$is_spam['quantity'] = TRUE;
-			}
-			//var_dump($method['quantity'], $is_spam);
+	// Check quantity
+	$sum['quantity'] += count($pickups);
+		// URI quantity
+	if ((! $asap || ! $is_spam) && isset($method['quantity']) &&
+		$sum['quantity'] > $method['quantity']) {
+		$is_spam['quantity'] = TRUE;
+	}
+	//var_dump($method['quantity'], $is_spam);
 
-			// Using invalid area
-			if ((! $asap || ! $is_spam) && isset($method['area'])) {
-				foreach($pickups as $pickup) {
-					foreach ($pickup['area'] as $key => $value) {
-						if ($key == 'offset') continue;
-						// Total
-						$sum['area_total'] += $value;
-						if (isset($method['area']['total']) &&
-							$sum['area_total'] > $method['area']['total']) {
-							$is_spam['area_total'] = TRUE;
-							if ($asap && $is_spam) break;
-						}
-						// Each area
-						$p_key = 'area_' . $key;
-						$sum[$p_key] += $value;
-						if(isset($method['area'][$key]) &&
-							$sum[$p_key] > $method['area'][$key]) {
-							$is_spam[$p_key] = TRUE;
-							if ($asap && $is_spam) break;
-						}
-					}
+	// Using invalid area
+	if ((! $asap || ! $is_spam) && isset($method['area'])) {
+		foreach($pickups as $pickup) {
+			foreach ($pickup['area'] as $key => $value) {
+				if ($key == 'offset') continue;
+				// Total
+				$sum['area_total'] += $value;
+				if (isset($method['area']['total']) &&
+					$sum['area_total'] > $method['area']['total']) {
+					$is_spam['area_total'] = TRUE;
+					if ($asap && $is_spam) break;
+				}
+				// Each area
+				$p_key = 'area_' . $key;
+				$sum[$p_key] += $value;
+				if(isset($method['area'][$key]) &&
+					$sum[$p_key] > $method['area'][$key]) {
+					$is_spam[$p_key] = TRUE;
 					if ($asap && $is_spam) break;
 				}
 			}
-			//var_dump($method['area'], $is_spam);
-
-			// URI uniqueness (and removing non-uniques)
-			if ((! $asap || ! $is_spam) && isset($method['non_uniq'])) {
-
-				// Destructive normalize of URIs
-				uri_array_normalize($pickups);
-
-				$uris = array();
-				foreach (array_keys($pickups) as $key) {
-					$uris[$key] = uri_array_implode($pickups[$key]);
- 				}
-				$count = count($uris);
-				$uris  = array_unique($uris);
-				$sum['non_uniq'] += $count - count($uris);
-				if ($sum['non_uniq'] > $method['non_uniq']) {
-					$is_spam['non_uniq'] = TRUE;
-				}
-				if (! $asap || ! $is_spam) {
-					foreach (array_diff(array_keys($pickups),
-						array_keys($uris)) as $remove) {
-						unset($pickups[$remove]);
-					}
-				}
-				unset($uris);
-			}
-			//var_dump($method['non_uniq'], $is_spam);
-
-			// Unique host
-			$hosts = array();
-			foreach ($pickups as $pickup) $hosts[] = & $pickup['host'];
-			$hosts = array_unique($hosts);
-			$sum['uniqhost'] += count($hosts);
-			//var_dump($method['uniqhost'], $is_spam);
-
-			// Bad host
-			if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
-				$count = array_count_leaves(is_badhost($hosts, $asap));
-				$sum['badhost'] += $count;
-				if ($count != 0) $is_spam['badhost'] = TRUE;
-			}
-			//var_dump($method['badhost'], $is_spam);
+			if ($asap && $is_spam) break;
 		}
 	}
+	//var_dump($method['area'], $is_spam);
+
+	// URI uniqueness (and removing non-uniques)
+	if ((! $asap || ! $is_spam) && isset($method['non_uniq'])) {
+
+		// Destructive normalize of URIs
+		uri_array_normalize($pickups);
+
+		$uris = array();
+		foreach (array_keys($pickups) as $key) {
+			$uris[$key] = uri_array_implode($pickups[$key]);
+			}
+		$count = count($uris);
+		$uris  = array_unique($uris);
+		$sum['non_uniq'] += $count - count($uris);
+		if ($sum['non_uniq'] > $method['non_uniq']) {
+			$is_spam['non_uniq'] = TRUE;
+		}
+		if (! $asap || ! $is_spam) {
+			foreach (array_diff(array_keys($pickups),
+				array_keys($uris)) as $remove) {
+				unset($pickups[$remove]);
+			}
+		}
+		unset($uris);
+	}
+	//var_dump($method['non_uniq'], $is_spam);
+
+	// Unique host
+	$hosts = array();
+	foreach ($pickups as $pickup) $hosts[] = & $pickup['host'];
+	$hosts = array_unique($hosts);
+	$sum['uniqhost'] += count($hosts);
+	//var_dump($method['uniqhost'], $is_spam);
+
+	// Bad host
+	if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
+		$count = array_count_leaves(is_badhost($hosts, $asap));
+		$sum['badhost'] += $count;
+		if ($count != 0) $is_spam['badhost'] = TRUE;
+	}
+	//var_dump($method['badhost'], $is_spam);
 
 	return $progress;
 }
