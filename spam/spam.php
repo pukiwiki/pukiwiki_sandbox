@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.66 2006/12/10 05:56:32 henoheno Exp $
+// $Id: spam.php,v 1.67 2006/12/12 14:58:32 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -332,22 +332,15 @@ function spam_uri_pickup_preprocess($string = '')
 }
 
 // Main function of spam-uri pickup
-function spam_uri_pickup($string = '', $area = array())
+function spam_uri_pickup($string = '', $method = array())
 {
-	if (! is_array($area) || empty($area)) {
-		$area = array(
-			'anchor' => TRUE,
-			'bbcode' => TRUE,
-		);
-	}
-
 	$string = spam_uri_pickup_preprocess($string);
 
 	$array  = uri_pickup($string);
 
 	// Area elevation for '(especially external)link' intension
 	if (! empty($array)) {
-		$areas = area_pickup($string, $area);
+		$areas = area_pickup($string, $method);
 		if (! empty($areas)) {
 			$area_shadow = array();
 			foreach(array_keys($array) as $key){
@@ -642,6 +635,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 			$blocklist = array();
 			require(SPAM_INI_FILE);
 			foreach ($blocklist['badhost'] as $part) {
+				if (is_array($part)) $part = implode(', ', $part);
 				$regex['badhost'][$part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
