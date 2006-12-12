@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.67 2006/12/12 14:58:32 henoheno Exp $
+// $Id: spam.php,v 1.68 2006/12/12 15:04:22 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -626,6 +626,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 				//array('blogspot.com', '*.blogspot.com')
 			);
 			foreach ($blocklist['badhost'] as $part) {
+				if (is_array($part)) $part = implode(', ', $part);
 				$regex['badhost'][$part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
