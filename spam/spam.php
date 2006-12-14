@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.68 2006/12/12 15:04:22 henoheno Exp $
+// $Id: spam.php,v 1.69 2006/12/14 15:42:28 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -742,7 +742,7 @@ function check_uri_spam($target = '', $method = array())
 		}
 		return $progress;
 	}
-	$pickups = spam_uri_pickup($target);
+	$pickups = spam_uri_pickup($target, $method['area']);
 	if (empty($pickups)) {
 		return $progress;
 	}
