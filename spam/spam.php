@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.70 2006/12/16 01:55:15 henoheno Exp $
+// $Id: spam.php,v 1.71 2006/12/16 02:01:23 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -347,14 +347,14 @@ function spam_uri_pickup($string = '', $method = array())
 			$area_shadow = array();
 			foreach(array_keys($array) as $key){
 				$area_shadow[$key] = & $array[$key]['area'];
-				$area_shadow[$key]['anchor'] = 0;
-				$area_shadow[$key]['bbcode'] = 0;
+				$area_shadow[$key]['area_anchor'] = 0;
+				$area_shadow[$key]['area_bbcode'] = 0;
 			}
 			if (isset($areas['area_anchor'])) {
-				area_measure($areas['area_anchor'], $area_shadow, 1, 'anchor');
+				area_measure($areas['area_anchor'], $area_shadow, 1, 'area_anchor');
 			}
 			if (isset($areas['area_bbcode'])) {
-				area_measure($areas['area_bbcode'], $area_shadow, 1, 'bbcode');
+				area_measure($areas['area_bbcode'], $area_shadow, 1, 'area_bbcode');
 			}
 		}
 	}
@@ -751,13 +751,12 @@ function check_uri_spam($target = '', $method = array())
 
 	// Using invalid area: anchor
 	if ((! $asap || ! $is_spam) && isset($method['area_anchor'])) {
-		$key   = 'anchor';
-		$p_key = 'area_anchor';
+		$key   = 'area_anchor';
 		foreach($pickups as $pickup) {
-			$sum[$p_key] += $pickup['area'][$key];
-			if(isset($method[$p_key]) &&
-				$sum[$p_key] > $method[$p_key]) {
-				$is_spam[$p_key] = TRUE;
+			$sum[$key] += $pickup['area'][$key];
+			if(isset($method[$key]) &&
+				$sum[$key] > $method[$key]) {
+				$is_spam[$key] = TRUE;
 				if ($asap && $is_spam) break;
 			}
 			if ($asap && $is_spam) break;
@@ -766,13 +765,12 @@ function check_uri_spam($target = '', $method = array())
 
 	// Using invalid area: bbcode
 	if ((! $asap || ! $is_spam) && isset($method['area_bbcode'])) {
-		$key   = 'bbcode';
-		$p_key = 'area_bbcode';
+		$key   = 'area_bbcode';
 		foreach($pickups as $pickup) {
-			$sum[$p_key] += $pickup['area'][$key];
-			if(isset($method[$p_key]) &&
-				$sum[$p_key] > $method[$p_key]) {
-				$is_spam[$p_key] = TRUE;
+			$sum[$key] += $pickup['area'][$key];
+			if(isset($method[$key]) &&
+				$sum[$key] > $method[$key]) {
+				$is_spam[$key] = TRUE;
 				if ($asap && $is_spam) break;
 			}
 			if ($asap && $is_spam) break;
