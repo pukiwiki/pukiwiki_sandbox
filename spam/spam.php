@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.75 2006/12/16 11:57:29 henoheno Exp $
+// $Id: spam.php,v 1.76 2006/12/16 12:53:27 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -644,11 +644,17 @@ function is_badhost($hosts = '', $asap = TRUE)
 				//'10.20.*.*',	// 10.20.example.com also matches
 				//'*.blogspot.com',	// Blog services subdomains
 				//array('blogspot.com', '*.blogspot.com')
+
+				// Viral/Buzz marketers' site, try to make people
+				// as commercial Wiki spammers
+				// http://pukiwiki.sourceforge.jp/image/2006-12-16_wikiviral_pressblog.gif
+				array('pressblog.jp', '*.pressblog.jp'),
 			);
 			foreach ($blocklist['badhost'] as $part) {
-				if (is_array($part)) $part = implode(', ', $part);
-				$regex['badhost'][$part] = '/^' . generate_glob_regex($part) . '$/i';
+				$_part = is_array($part) ? implode(', ', $part) : $part;
+				$regex['badhost'][$_part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
+			var_dump($regex);
 		}
 
 		// Load
@@ -656,8 +662,8 @@ function is_badhost($hosts = '', $asap = TRUE)
 			$blocklist = array();
 			require(SPAM_INI_FILE);
 			foreach ($blocklist['badhost'] as $part) {
-				if (is_array($part)) $part = implode(', ', $part);
-				$regex['badhost'][$part] = '/^' . generate_glob_regex($part) . '$/i';
+				$_part = is_array($part) ? implode(', ', $part) : $part;
+				$regex['badhost'][$_part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
 	}
