@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.71 2006/12/16 02:01:23 henoheno Exp $
+// $Id: spam.php,v 1.72 2006/12/16 02:59:26 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -192,7 +192,7 @@ function area_pickup($string = '', $method = array())
 	// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
 	// [OK] <a href=\'http://nasty.example.com/\' >discount foobar</a> 
 	// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
-	if (isset($method['area_anchor'])) {
+	if (isset($method['uri_anchor'])) {
 		$areas = array();
 		preg_match_all('#<a\b[^>]*\bhref\b[^>]*>.*?</a\b[^>]*(>)#i',
 			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
@@ -202,7 +202,7 @@ function area_pickup($string = '', $method = array())
 				$areas[$_area][1][1], // Area end   (</a>)
 			);
 		}
-		if (! empty($areas)) $area['area_anchor'] = $areas;
+		if (! empty($areas)) $area['uri_anchor'] = $areas;
 	}
 
 	// phpBB's "BBCode" pair by preg_match_all()
@@ -211,7 +211,7 @@ function area_pickup($string = '', $method = array())
 	// [OK] [link]http://nasty.example.com/[/link]
 	// [OK] [url=http://nasty.example.com]visit http://nasty.example.com/[/url]
 	// [OK] [link http://nasty.example.com/]buy something[/link]
-	if (isset($method['area_bbcode'])) {
+	if (isset($method['uri_bbcode'])) {
 		$areas = array();
 		preg_match_all('#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i',
 			 $string, $areas, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
@@ -221,7 +221,7 @@ function area_pickup($string = '', $method = array())
 				$areas[$_area][2][1], // Area end   ([/url])
 			);
 		}
-		if (! empty($areas)) $area['area_bbcode'] = $areas;
+		if (! empty($areas)) $area['uri_bbcode'] = $areas;
 	}
 
 	// Various Wiki syntax
@@ -347,14 +347,14 @@ function spam_uri_pickup($string = '', $method = array())
 			$area_shadow = array();
 			foreach(array_keys($array) as $key){
 				$area_shadow[$key] = & $array[$key]['area'];
-				$area_shadow[$key]['area_anchor'] = 0;
-				$area_shadow[$key]['area_bbcode'] = 0;
+				$area_shadow[$key]['uri_anchor'] = 0;
+				$area_shadow[$key]['uri_bbcode'] = 0;
 			}
-			if (isset($areas['area_anchor'])) {
-				area_measure($areas['area_anchor'], $area_shadow, 1, 'area_anchor');
+			if (isset($areas['uri_anchor'])) {
+				area_measure($areas['uri_anchor'], $area_shadow, 1, 'uri_anchor');
 			}
-			if (isset($areas['area_bbcode'])) {
-				area_measure($areas['area_bbcode'], $area_shadow, 1, 'area_bbcode');
+			if (isset($areas['uri_bbcode'])) {
+				area_measure($areas['uri_bbcode'], $area_shadow, 1, 'uri_bbcode');
 			}
 		}
 	}
@@ -676,9 +676,12 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 		// Thresholds
 		'quantity'    => 8 * $times,	// Allow N URIs
 		'non_uniq'    => 3 * $times,	// Allow N duped (and normalized) URIs
+
 		// Areas
-		'area_anchor' => $t_area,	// Inside <a href> HTML tag
-		'area_bbcode' => $t_area,	// Inside [url] or [link] BBCode
+		//'area_anchor' => $t_area,	// Using <a href> HTML tag
+		//'area_bbcode' => $t_area,	// Using [url] or [link] BBCode
+		'uri_anchor'  => $t_area,	// URI inside <a href> HTML tag
+		'uri_bbcode'  => $t_area,	// URI inside [url] or [link] BBCode
 	);
 	if ($rule) {
 		$bool = array(
@@ -713,6 +716,8 @@ function check_uri_spam($target = '', $method = array())
 			'badhost'     => 0,
 			'area_anchor' => 0,
 			'area_bbcode' => 0,
+			'uri_anchor' => 0,
+			'uri_bbcode' => 0,
 		),
 		'is_spam' => array(),
 		'method'  => & $method,
@@ -749,31 +754,35 @@ function check_uri_spam($target = '', $method = array())
 		$is_spam['quantity'] = TRUE;
 	}
 
-	// Using invalid area: anchor
-	if ((! $asap || ! $is_spam) && isset($method['area_anchor'])) {
-		$key   = 'area_anchor';
+	// URI: Using invalid area: anchor
+	if ((! $asap || ! $is_spam) && isset($method['uri_anchor'])) {
+		$key = 'uri_anchor';
 		foreach($pickups as $pickup) {
-			$sum[$key] += $pickup['area'][$key];
-			if(isset($method[$key]) &&
-				$sum[$key] > $method[$key]) {
-				$is_spam[$key] = TRUE;
+			if (isset($pickup['area'][$key])) {
+				$sum[$key] += $pickup['area'][$key];
+				if(isset($method[$key]) &&
+					$sum[$key] > $method[$key]) {
+					$is_spam[$key] = TRUE;
+					if ($asap && $is_spam) break;
+				}
 				if ($asap && $is_spam) break;
 			}
-			if ($asap && $is_spam) break;
 		}
 	}
 
-	// Using invalid area: bbcode
-	if ((! $asap || ! $is_spam) && isset($method['area_bbcode'])) {
-		$key   = 'area_bbcode';
+	// URI: Using invalid area: bbcode
+	if ((! $asap || ! $is_spam) && isset($method['uri_bbcode'])) {
+		$key = 'uri_bbcode';
 		foreach($pickups as $pickup) {
-			$sum[$key] += $pickup['area'][$key];
-			if(isset($method[$key]) &&
-				$sum[$key] > $method[$key]) {
-				$is_spam[$key] = TRUE;
+			if (isset($pickup['area'][$key])) {
+				$sum[$key] += $pickup['area'][$key];
+				if(isset($method[$key]) &&
+					$sum[$key] > $method[$key]) {
+					$is_spam[$key] = TRUE;
+					if ($asap && $is_spam) break;
+				}
 				if ($asap && $is_spam) break;
 			}
-			if ($asap && $is_spam) break;
 		}
 	}
 
