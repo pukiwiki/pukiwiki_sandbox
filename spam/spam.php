@@ -1,9 +1,10 @@
 <?php
-// $Id: spam.php,v 1.73 2006/12/16 04:09:46 henoheno Exp $
+// $Id: spam.php,v 1.74 2006/12/16 04:47:07 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
 // Functions for Concept-work of spam-uri metrics
+// (PHP 4 >= 4.3.0): preg_match_all()
 
 if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
 
@@ -194,8 +195,13 @@ function area_pickup($string = '', $method = array())
 	// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
 	$regex = '#<a\b[^>]*\bhref\b[^>]*>.*?</a\b[^>]*(>)#i';
 	if (isset($method['area_anchor'])) {
-		if (preg_match($regex, $string)) {
-			$area['area_anchor'] = TRUE;
+		$key = 'area_anchor';
+		if ($method[$key]) {
+			if (preg_match($regex, $string)) $area[$key] = 1;
+		} else {
+			$areas = array();
+			$res = preg_match_all($regex, $string, $areas, PREG_SET_ORDER);
+			if (! empty($areas)) $area[$key] = $res;
 		}
 	}
 	if (isset($method['uri_anchor'])) {
@@ -218,8 +224,13 @@ function area_pickup($string = '', $method = array())
 	// [OK] [link http://nasty.example.com/]buy something[/link]
 	$regex = '#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i';
 	if (isset($method['area_bbcode'])) {
-		if (preg_match($regex, $string)) {
-			$area['area_bbcode'] = TRUE;
+		$key = 'area_bbcode';
+		if ($method[$key]) {
+			if (preg_match($regex, $string)) $area[$key] = 1;
+		} else {
+			$areas = array();
+			$res = preg_match_all($regex, $string, $areas, PREG_SET_ORDER);
+			if (! empty($areas)) $area[$key] = $res;
 		}
 	}
 	if (isset($method['uri_bbcode'])) {
@@ -700,7 +711,7 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 	if ($rule) {
 		$bool = array(
 			// Rules
-			'asap'        => FALSE,	// Quit As Soon As Possible
+			//'asap'        => TRUE,	// Quit As Soon As Possible
 			'uniqhost'    => TRUE,	// Show uniq host (at block notification mail)
 			'badhost'     => TRUE,	// Check badhost
 		);
@@ -730,15 +741,15 @@ function check_uri_spam($target = '', $method = array())
 			'badhost'     => 0,
 			'area_anchor' => 0,
 			'area_bbcode' => 0,
-			'uri_anchor' => 0,
-			'uri_bbcode' => 0,
+			'uri_anchor'  => 0,
+			'uri_bbcode'  => 0,
 		),
 		'is_spam' => array(),
 		'method'  => & $method,
 	);
 	$sum     = & $progress['sum'];
 	$is_spam = & $progress['is_spam'];
-	$asap    = isset($method['asap']) ? $method['asap'] : TRUE;
+	$asap    = isset($method['asap']);
 
 	// Return if ...
 	if (is_array($target)) {
@@ -759,8 +770,9 @@ function check_uri_spam($target = '', $method = array())
 	// Area: There's HTML anchor tag
 	if ((! $asap || ! $is_spam) && isset($method['area_anchor'])) {
 		$key = 'area_anchor';
-		if (area_pickup($target, array($key => TRUE))) {
-			$sum[$key]    += 1;
+		$result = area_pickup($target, array($key => $asap));
+		if ($result) {
+			$sum[$key]    += $result[$key];
 			$is_spam[$key] = TRUE;
 		}
 	}
@@ -768,8 +780,9 @@ function check_uri_spam($target = '', $method = array())
 	// Area: There's 'BBCode' linking tag
 	if ((! $asap || ! $is_spam) && isset($method['area_bbcode'])) {
 		$key = 'area_bbcode';
-		if (area_pickup($target, array($key => TRUE))) {
-			$sum[$key]    += 1;
+		$result = area_pickup($target, array($key => $asap));
+		if ($result) {
+			$sum[$key]    += $result[$key];
 			$is_spam[$key] = TRUE;
 		}
 	}
