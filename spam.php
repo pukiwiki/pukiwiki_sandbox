@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.74 2006/12/16 04:47:07 henoheno Exp $
+// $Id: spam.php,v 1.75 2006/12/16 11:57:29 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -42,7 +42,6 @@ function uri_pickup($string = '', $normalize = TRUE,
 		'#i',
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE
 	);
-	//var_dump(recursive_map('htmlspecialchars', $array));
 
 	// Shrink $array
 	static $parts = array(
@@ -185,6 +184,7 @@ function array_rename_keys(& $array, $keys = array('from' => 'to'), $force = FAL
 function area_pickup($string = '', $method = array())
 {
 	$area = array();
+	if (empty($method)) return $area;
 
 	// Anchor tag pair by preg_match and preg_match_all()
 	// [OK] <a href></a>
@@ -195,14 +195,11 @@ function area_pickup($string = '', $method = array())
 	// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
 	$regex = '#<a\b[^>]*\bhref\b[^>]*>.*?</a\b[^>]*(>)#i';
 	if (isset($method['area_anchor'])) {
-		$key = 'area_anchor';
-		if ($method[$key]) {
-			if (preg_match($regex, $string)) $area[$key] = 1;
-		} else {
-			$areas = array();
-			$res = preg_match_all($regex, $string, $areas, PREG_SET_ORDER);
-			if (! empty($areas)) $area[$key] = $res;
-		}
+		$areas = array();
+		$count = isset($method['asap']) ?
+			preg_match($regex, $string) :
+			preg_match_all($regex, $string, $areas);
+		if (! empty($count)) $area['area_anchor'] = $count;
 	}
 	if (isset($method['uri_anchor'])) {
 		$areas = array();
@@ -224,14 +221,11 @@ function area_pickup($string = '', $method = array())
 	// [OK] [link http://nasty.example.com/]buy something[/link]
 	$regex = '#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i';
 	if (isset($method['area_bbcode'])) {
-		$key = 'area_bbcode';
-		if ($method[$key]) {
-			if (preg_match($regex, $string)) $area[$key] = 1;
-		} else {
-			$areas = array();
-			$res = preg_match_all($regex, $string, $areas, PREG_SET_ORDER);
-			if (! empty($areas)) $area[$key] = $res;
-		}
+		$areas = array();
+		$count = isset($method['asap']) ?
+			preg_match($regex, $string) :
+			preg_match_all($regex, $string, $areas, PREG_SET_ORDER);
+		if (! empty($count)) $area['area_bbcode'] = $count;
 	}
 	if (isset($method['uri_bbcode'])) {
 		$areas = array();
@@ -361,12 +355,11 @@ function spam_uri_pickup($string = '', $method = array())
 
 	$array  = uri_pickup($string);
 
-	// Area elevation for '(especially external)link' intension
+	// Area elevation of URIs, for '(especially external)link' intension
 	if (! empty($array)) {
 		$_method = array();
 		if (isset($method['uri_anchor'])) $_method['uri_anchor'] = & $method['uri_anchor'];
 		if (isset($method['uri_bbcode'])) $_method['uri_bbcode'] = & $method['uri_bbcode'];
-
 		$areas = area_pickup($string, $_method, TRUE);
 		if (! empty($areas)) {
 			$area_shadow = array();
@@ -711,7 +704,7 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 	if ($rule) {
 		$bool = array(
 			// Rules
-			//'asap'        => TRUE,	// Quit As Soon As Possible
+			//'asap'      => TRUE,	// Quit or return As Soon As Possible
 			'uniqhost'    => TRUE,	// Show uniq host (at block notification mail)
 			'badhost'     => TRUE,	// Check badhost
 		);
@@ -770,7 +763,8 @@ function check_uri_spam($target = '', $method = array())
 	// Area: There's HTML anchor tag
 	if ((! $asap || ! $is_spam) && isset($method['area_anchor'])) {
 		$key = 'area_anchor';
-		$result = area_pickup($target, array($key => $asap));
+		$_asap = isset($method['asap']) ? array('asap' => TRUE) : array();
+		$result = area_pickup($target, array($key => TRUE) + $_asap);
 		if ($result) {
 			$sum[$key]    += $result[$key];
 			$is_spam[$key] = TRUE;
@@ -780,13 +774,18 @@ function check_uri_spam($target = '', $method = array())
 	// Area: There's 'BBCode' linking tag
 	if ((! $asap || ! $is_spam) && isset($method['area_bbcode'])) {
 		$key = 'area_bbcode';
-		$result = area_pickup($target, array($key => $asap));
+		$_asap = isset($method['asap']) ? array('asap' => TRUE) : array();
+		$result = area_pickup($target, array($key => TRUE) + $_asap);
 		if ($result) {
 			$sum[$key]    += $result[$key];
 			$is_spam[$key] = TRUE;
 		}
 	}
 
+	// Return if ...
+	if ($asap && $is_spam) {
+		return $progress;
+	}
 	// URI Init
 	$pickups = spam_uri_pickup($target, $method);
 	if (empty($pickups)) {
@@ -856,6 +855,11 @@ function check_uri_spam($target = '', $method = array())
 			}
 		}
 		unset($uris);
+	}
+
+	// Return if ...
+	if ($asap && $is_spam) {
+		return $progress;
 	}
 
 	// URI: Unique host
