@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.79 2006/12/17 05:06:29 henoheno Exp $
+// $Id: spam.php,v 1.80 2006/12/17 14:54:23 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -930,9 +930,19 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 
 // Common bahavior for blocking
 // NOTE: Call this function from various blocking feature, to disgueise the reason 'why blocked'
-function spam_exit()
+function spam_exit($mode = '', $data = array())
 {
-	die("\n");
+	switch ($mode) {
+		case '':	echo("\n");	break;
+		case 'dump':
+			echo('<pre>' . "\n");
+			var_dump($data);
+			echo('</pre>' . "\n");
+			break;
+	};
+
+	// Force exit
+	exit;
 }
 
 
@@ -941,17 +951,16 @@ function spam_exit()
 
 // TODO: Record them
 // Simple/fast spam filter ($target: 'a string' or an array())
-function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array())
+function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method = array(), $exitmode = '')
 {
-	global $notify;
-
 	$progress = check_uri_spam($target, $method);
 
 	if (! empty($progress['is_spam'])) {
 		// Mail to administrator(s)
-		if ($notify) pkwk_spamnotify($action, $page, $target, $progress, $method);
-		// End
-		spam_exit();
+		pkwk_spamnotify($action, $page, $target, $progress, $method);
+
+		// Exit
+		spam_exit($exitmode, $progress);
 	}
 }
 
@@ -961,7 +970,9 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 // Mail to administrator(s)
 function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progress = array(), $method = array())
 {
-	global $notify_subject;
+	global $notify, $notify_subject;
+
+	if (! $notify) return;
 
 	$asap = isset($method['asap']);
 
