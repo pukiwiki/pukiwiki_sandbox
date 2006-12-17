@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.77 2006/12/17 03:08:47 henoheno Exp $
+// $Id: spam.php,v 1.78 2006/12/17 03:40:01 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -959,7 +959,7 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 {
 	global $notify_subject;
 
-	$asap = isset($method['asap']) ? $method['asap'] : TRUE;
+	$asap = isset($method['asap']);
 
 	$footer['ACTION']  = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
 
