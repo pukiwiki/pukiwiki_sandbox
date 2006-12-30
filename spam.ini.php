@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.7 2006/12/30 08:33:46 henoheno Exp $
+// $Id: spam.ini.php,v 1.8 2006/12/30 09:25:34 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -18,6 +18,9 @@ $blocklist['badhost'] = array(
 	//     tinyclick.com
 	//       "...stop offering it's free services because
 	//        too many people were taking advantage of it"
+	//
+	// Please notify us about this list with reason:
+	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2/207
 	//
 	'*.0kn.com',		// by shim.net
 	'0rz.tw',
