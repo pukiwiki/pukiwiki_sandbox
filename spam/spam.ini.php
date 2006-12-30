@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.3 2006/12/25 13:59:24 henoheno Exp $
+// $Id: spam.ini.php,v 1.4 2006/12/30 02:07:26 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -53,6 +53,9 @@ $blocklist['badhost'] = array(
 	'bingr.com',
 	'brokenscript.com',
 	'*.browser.to',		// by webalias.com
+	'*.bucksogen.com',
+	'*.bulochka.org',	// by bucksogen.com
+	'*.buzznet.com',
 	'clipurl.com',
 	'*.coolhere.com',	// by hotredirect.com
 	'*.da.cx',
@@ -75,14 +78,18 @@ $blocklist['badhost'] = array(
 	'*.freakz.eu',		// by f2b.be
 	'*.freebiefinders.net',	// by shim.net
 	'*.freegaming.org',	// by shim.net
+	'*.freewebpages.com',
 	'*.fun.to',			// by webalias.com
 	'*.funurl.com',		// by shorturl.com
+	'galeon.com',		// by hispavista.com
+	'*.galeon.com',		// by hispavista.com
 	'gentleurl.net',
 	'*.getto.net',		// by vdirect.com
 	'*.got.to',			// by webalias.com
 	'*.headplug.com',	// by shorturl.com
 	'*.here.ws',		// by active.ws
 	'*.hereweb.com',	// by shorturl.com
+	'*.hispavista.com',
 	'*.hitart.com',		// by shorturl.com
 	'*.homepagehere.com',	// by hotredirect.com
 	'*.hothere.com',	// by hotredirect.com
@@ -96,6 +103,8 @@ $blocklist['badhost'] = array(
 	'*.iscool.net',
 	'*.isfun.net',		// by iscool.net
 	'kat.cc',
+	'*.korzhik.org',	// by bucksogen.com
+	'*.kovrizhka.org',	// by bucksogen.com
 	'lame.name',
 	'*.latest-info.com',// by webalias.com
 	'*.learn.to',		// by webalias.com
@@ -127,8 +136,11 @@ $blocklist['badhost'] = array(
 	'*.ouch.ws',		// by active.ws
 	'*.pagehere.com',	// by hotredirect.com
 	'*.paulding.net',
+	'*.pirozhok.org',	// by bucksogen.com
+	'*.plushka.org',	// by bucksogen.com
 	'pnope.com',
 	'*.premium.ws',		// by active.ws
+	'*.pryanik.org',	// by bucksogen.com
 	'qrl.jp',
 	'qurl.net',
 	'*.r8.org',			// by ne1.net
@@ -162,6 +174,7 @@ $blocklist['badhost'] = array(
 	'*.ssr.be',			// by f2b.be
 	'*.stop.to',		// by webalias.com
 	'*.such.info',		// by active.ws
+	'*.sushka.org',		// by bucksogen.com
 	'*.surfhere.net',	// by hotredirect.com
 	'surl.dk',			// by s-url.dk
 	'*.thrill.to',		// by webalias.com
@@ -183,7 +196,7 @@ $blocklist['badhost'] = array(
 	'*.uncutuncensored.com',	// by webalias.com
 	'*.up.to',			// by webalias.com
 	'*.uploadr.com',
-	'url.vg',
+	'url.vg',	// by jeremyjohnstone.com
 	'url4.net',
 	'*.url4.net',
 	'urlcut.com',
