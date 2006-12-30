@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.6 2006/12/30 03:15:44 henoheno Exp $
+// $Id: spam.ini.php,v 1.7 2006/12/30 08:33:46 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -47,6 +47,7 @@ $blocklist['badhost'] = array(
 	'*.8m.com',			// by freeservers.com
 	'*.8m.net',			// by freeservers.com
 	'*.8k.com',			// by freeservers.com
+	'*.abwb.org',
 	'active.ws',
 	'*.alturl.com',		// by shorturl.com
 	'*.andmuchmore.com',// by webalias.com
@@ -90,6 +91,7 @@ $blocklist['badhost'] = array(
 	'ffwd.to',
 	'*.filetap.com',	// by shorturl.com
 	'flingk.com',
+	'fm7.biz',
 	'*.fornovices.com',	// by webalias.com
 	'*.fr.fm',			// by ulimit.com
 	'*.fr.st',			// by ulimit.com
@@ -100,12 +102,14 @@ $blocklist['badhost'] = array(
 	'*.freehosting.net',// by freeservers.com
 	'*.freeservers.com',
 	'*.freewebpages.com',
+	'fype.com',
 	'*.fun.to',			// by webalias.com
 	'*.funurl.com',		// by shorturl.com
 	'galeon.com',		// by hispavista.com
 	'*.galeon.com',		// by hispavista.com
 	'gentleurl.net',
 	'*.getto.net',		// by vdirect.com
+	'goonlink.com',
 	'*.got.to',			// by webalias.com
 	'*.gq.nu',			// by freeservers.com
 	'*.gr.st',			// by ulimit.com
@@ -131,6 +135,7 @@ $blocklist['badhost'] = array(
 	'*.it.st',			// by ulimit.com
 	'*.itgo.com',		// by freeservers.com
 	'*.iwarp.com',		// by freeservers.com
+	'jemurl.com',
 	'*.java-fan.com',	// by ulimit.com
 	'kat.cc',
 	'*.korzhik.org',	// by bucksogen.com
@@ -161,6 +166,7 @@ $blocklist['badhost'] = array(
 	'*.ne1.net',
 	'*.netbounce.com',	// by vdirect.com
 	'*.netbounce.net',	// by vdirect.com
+	'nlug.org',			// by Nashville Linux Users Group
 	'*.notlong.com',
 	'*.official.ws',	// by active.ws
 	'*.oneaddress.net',	// by vdirect.com
@@ -202,6 +208,7 @@ $blocklist['badhost'] = array(
 	'shurl.org',
 	'shurl.net',
 	'simurl.com',
+	'skiltechurl.com',
 	'skocz.pl',
 	'*.snapto.net',		// by vdirect.com
 	'snipurl.com',
