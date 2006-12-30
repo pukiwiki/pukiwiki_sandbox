@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.82 2006/12/30 02:06:30 henoheno Exp $
+// $Id: spam.php,v 1.83 2006/12/30 07:44:07 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -697,21 +697,21 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 
 	$positive = array(
 		// Thresholds
-		'quantity'    => 8 * $times,	// Allow N URIs
-		'non_uniq'    => 3 * $times,	// Allow N duped (and normalized) URIs
+		'quantity'     => 8 * $times,	// Allow N URIs
+		'non_uniquri'  => 3 * $times,	// Allow N duped (and normalized) URIs
 
 		// Areas
-		'area_anchor' => $t_area,	// Using <a href> HTML tag
-		'area_bbcode' => $t_area,	// Using [url] or [link] BBCode
-		//'uri_anchor'  => $t_area,	// URI inside <a href> HTML tag
-		//'uri_bbcode'  => $t_area,	// URI inside [url] or [link] BBCode
+		'area_anchor'  => $t_area,	// Using <a href> HTML tag
+		'area_bbcode'  => $t_area,	// Using [url] or [link] BBCode
+		//'uri_anchor' => $t_area,	// URI inside <a href> HTML tag
+		//'uri_bbcode' => $t_area,	// URI inside [url] or [link] BBCode
 	);
 	if ($rule) {
 		$bool = array(
 			// Rules
-			//'asap'      => TRUE,	// Quit or return As Soon As Possible
-			'uniqhost'    => TRUE,	// Show uniq host (at block notification mail)
-			'badhost'     => TRUE,	// Check badhost
+			//'asap'   => TRUE,	// Quit or return As Soon As Possible
+			'uniqhost' => TRUE,	// Show uniq host (at block notification mail)
+			'badhost'  => TRUE,	// Check badhost
 		);
 	} else {
 		$bool = array();
@@ -735,7 +735,7 @@ function check_uri_spam($target = '', $method = array())
 		'sum' => array(
 			'quantity'    => 0,
 			'uniqhost'    => 0,
-			'non_uniq'    => 0,
+			'non_uniquri' => 0,
 			'badhost'     => 0,
 			'area_anchor' => 0,
 			'area_bbcode' => 0,
@@ -849,7 +849,7 @@ function check_uri_spam($target = '', $method = array())
 	}
 
 	// URI: Uniqueness (and removing non-uniques)
-	if ((! $asap || ! $is_spam) && isset($method['non_uniq'])) {
+	if ((! $asap || ! $is_spam) && isset($method['non_uniquri'])) {
 
 		// Destructive normalize of URIs
 		uri_array_normalize($pickups);
@@ -860,9 +860,9 @@ function check_uri_spam($target = '', $method = array())
 		}
 		$count = count($uris);
 		$uris  = array_unique($uris);
-		$sum['non_uniq'] += $count - count($uris);
-		if ($sum['non_uniq'] > $method['non_uniq']) {
-			$is_spam['non_uniq'] = TRUE;
+		$sum['non_uniquri'] += $count - count($uris);
+		if ($sum['non_uniquri'] > $method['non_uniquri']) {
+			$is_spam['non_uniquri'] = TRUE;
 		}
 		if (! $asap || ! $is_spam) {
 			foreach (array_diff(array_keys($pickups),
