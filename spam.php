@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.81 2006/12/22 16:04:10 henoheno Exp $
+// $Id: spam.php,v 1.82 2006/12/30 02:06:30 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -652,7 +652,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 				array('pressblog.jp', '*.pressblog.jp'),
 			);
 			foreach ($blocklist['badhost'] as $part) {
-				$_part = is_array($part) ? implode(', ', $part) : $part;
+				$_part = is_array($part) ? implode('/', $part) : $part;
 				$regex['badhost'][$_part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
@@ -662,12 +662,11 @@ function is_badhost($hosts = '', $asap = TRUE)
 			$blocklist = array();
 			require(SPAM_INI_FILE);
 			foreach ($blocklist['badhost'] as $part) {
-				$_part = is_array($part) ? implode(', ', $part) : $part;
+				$_part = is_array($part) ? implode('/', $part) : $part;
 				$regex['badhost'][$_part] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
 	}
-	//var_dump($regex);
 
 	$result = array();
 	if (! is_array($hosts)) $hosts = array($hosts);
@@ -759,7 +758,14 @@ function check_uri_spam($target = '', $method = array())
 				$sum[$key] += $_progress['sum'][$key];
 			}
 			foreach(array_keys($_progress['is_spam']) as $key) {
-				$is_spam[$key] = TRUE;
+				if (is_array($_progress['is_spam'][$key])) {
+					// Marge keys
+					foreach(array_keys($_progress['is_spam'][$key]) as $_key) {
+						$is_spam[$key][$_key] = TRUE;
+					}
+				} else {
+					$is_spam[$key] = TRUE;
+				}
 			}
 			if ($asap && $is_spam) break;
 		}
@@ -880,9 +886,14 @@ function check_uri_spam($target = '', $method = array())
 
 	// URI: Bad host
 	if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
-		$count = array_count_leaves(is_badhost($hosts, $asap));
-		$sum['badhost'] += $count;
-		if ($count != 0) $is_spam['badhost'] = TRUE;
+		$badhost = is_badhost($hosts, $asap);
+		if (! empty($badhost)) {
+			$sum['badhost'] += array_count_leaves($badhost);
+			foreach(array_keys($badhost) as $keys) {
+				$is_spam['badhost'][$keys] = TRUE;
+			}
+			unset($badhost);
+		}
 	}
 
 	return $progress;
@@ -980,6 +991,10 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 	$summary['ACTION']  = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
 	if (! $asap) {
 		$summary['METRICS'] = summarize_spam_progress($progress);
+	}
+	if (isset($progress['is_spam']['badhost'])) {
+		$summary['BADHOST'] =
+			implode(', ', array_keys($progress['is_spam']['badhost']));
 	}
 	$summary['COMMENT'] = $action;
 	$summary['PAGE']    = '[blocked] ' . (is_pagename($page) ? $page : '');
