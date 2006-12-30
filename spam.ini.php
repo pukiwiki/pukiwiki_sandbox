@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.5 2006/12/30 02:41:43 henoheno Exp $
+// $Id: spam.ini.php,v 1.6 2006/12/30 03:15:44 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -39,9 +39,14 @@ $blocklist['badhost'] = array(
 	'*.4bb.ru',
 	'*.4mg.com',		// by freeservers.com
 	'*.4x2.net',		// by active.ws
+	'*.4t.com',			// by freeservers.com
 	'5jp.net',
 	'*.6url.com',
+	'*.6x.to',
 	'82m.org',
+	'*.8m.com',			// by freeservers.com
+	'*.8m.net',			// by freeservers.com
+	'*.8k.com',			// by freeservers.com
 	'active.ws',
 	'*.alturl.com',		// by shorturl.com
 	'*.andmuchmore.com',// by webalias.com
@@ -80,6 +85,7 @@ $blocklist['badhost'] = array(
 	'*.escape.to',		// by webalias.com
 	'*.euro.st',		// by ulimit.com
 	'*.f2b.be',			// by f2b.be
+	'*.faithweb.com',	// by freeservers.com
 	'*.fancyurl.com',
 	'ffwd.to',
 	'*.filetap.com',	// by shorturl.com
@@ -91,6 +97,8 @@ $blocklist['badhost'] = array(
 	'*.freakz.eu',		// by f2b.be
 	'*.freebiefinders.net',	// by shim.net
 	'*.freegaming.org',	// by shim.net
+	'*.freehosting.net',// by freeservers.com
+	'*.freeservers.com',
 	'*.freewebpages.com',
 	'*.fun.to',			// by webalias.com
 	'*.funurl.com',		// by shorturl.com
@@ -99,6 +107,7 @@ $blocklist['badhost'] = array(
 	'gentleurl.net',
 	'*.getto.net',		// by vdirect.com
 	'*.got.to',			// by webalias.com
+	'*.gq.nu',			// by freeservers.com
 	'*.gr.st',			// by ulimit.com
 	'*.headplug.com',	// by shorturl.com
 	'*.here.ws',		// by active.ws
@@ -109,6 +118,7 @@ $blocklist['badhost'] = array(
 	'*.hothere.com',	// by hotredirect.com
 	'*.hottestpix.com',	// by webalias.com
 	'*.ht.st',			// by ulimit.com
+	'*.htmlplanet.com',	// by freeservers.com
 	'*.hux.de',
 	'*.i89.us',
 	'*.iceglow.com',
@@ -119,6 +129,8 @@ $blocklist['badhost'] = array(
 	'*.iscool.net',
 	'*.isfun.net',		// by iscool.net
 	'*.it.st',			// by ulimit.com
+	'*.itgo.com',		// by freeservers.com
+	'*.iwarp.com',		// by freeservers.com
 	'*.java-fan.com',	// by ulimit.com
 	'kat.cc',
 	'*.korzhik.org',	// by bucksogen.com
@@ -173,7 +185,9 @@ $blocklist['badhost'] = array(
 	'*.rmcinfo.fr',
 	'*.runboard.com',
 	's-url.net',
+	'*.s5.com',			// by freeservers.com
 	'*.sail.to',		// by webalias.com
+	'*.scriptmania.com',// by freeservers.com
 	'*.sg5.info',
 	'*.shim.net',
 	'shorl.com',
@@ -215,14 +229,16 @@ $blocklist['badhost'] = array(
 	'*.tophonors.com',	// by webalias.com
 	'*.torontonian.com',
 	'*.true.ws',		// by active.ws
+	'*.tvheaven.com',	// by freeservers.com
 	'*.tux.nu',			// by iscool.net
 	'*.tweaker.eu',		// by f2b.be
 	'*.tz4.com',
 	'*.uncutuncensored.com',	// by webalias.com
+	'*.uni.cc',
 	'*.unixlover.com',	// by ulimit.com
 	'*.up.to',			// by webalias.com
 	'*.uploadr.com',
-	'url.vg',	// by jeremyjohnstone.com
+	'url.vg',			// by jeremyjohnstone.com
 	'url4.net',
 	'*.url4.net',
 	'urlcut.com',
