@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.83 2006/12/30 07:44:07 henoheno Exp $
+// $Id: spam.php,v 1.84 2006/12/30 08:01:42 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -689,7 +689,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 	return $result;
 }
 
-// Default (enabled) methods and thresholds
+// Default (enabled) methods and thresholds (for content insertion)
 function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 {
 	$times  = intval($times);
@@ -697,8 +697,9 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 
 	$positive = array(
 		// Thresholds
-		'quantity'     => 8 * $times,	// Allow N URIs
-		'non_uniquri'  => 3 * $times,	// Allow N duped (and normalized) URIs
+		'quantity'     =>  8 * $times,	// Allow N URIs
+		'non_uniqhost' =>  7 * $times,	// Allow N duped (and normalized) Hosts
+		'non_uniquri'  =>  3 * $times,	// Allow N duped (and normalized) URIs
 
 		// Areas
 		'area_anchor'  => $t_area,	// Using <a href> HTML tag
@@ -735,6 +736,7 @@ function check_uri_spam($target = '', $method = array())
 		'sum' => array(
 			'quantity'    => 0,
 			'uniqhost'    => 0,
+			'non_uniqhost'=> 0,
 			'non_uniquri' => 0,
 			'badhost'     => 0,
 			'area_anchor' => 0,
@@ -878,11 +880,22 @@ function check_uri_spam($target = '', $method = array())
 		return $progress;
 	}
 
-	// URI: Unique host
+	// Host: Uniqueness (uniq / non-uniq)
 	$hosts = array();
 	foreach ($pickups as $pickup) $hosts[] = & $pickup['host'];
 	$hosts = array_unique($hosts);
 	$sum['uniqhost'] += count($hosts);
+	if ((! $asap || ! $is_spam) && isset($method['non_uniqhost'])) {
+		$sum['non_uniqhost'] = $sum['quantity'] - $sum['uniqhost'];
+		if ($sum['non_uniqhost'] > $method['non_uniqhost']) {
+			$is_spam['non_uniqhost'] = TRUE;
+		}
+	}
+
+	// Return if ...
+	if ($asap && $is_spam) {
+		return $progress;
+	}
 
 	// URI: Bad host
 	if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
