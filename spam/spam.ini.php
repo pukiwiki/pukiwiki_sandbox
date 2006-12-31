@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.8 2006/12/30 09:25:34 henoheno Exp $
+// $Id: spam.ini.php,v 1.9 2006/12/31 02:47:49 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -52,6 +52,7 @@ $blocklist['badhost'] = array(
 	'*.8k.com',			// by freeservers.com
 	'*.abwb.org',
 	'active.ws',
+	'store.adobe.com',	// Stop it
 	'*.alturl.com',		// by shorturl.com
 	'*.andmuchmore.com',// by webalias.com
 	'*.antiblog.com',	// by shorturl.com
@@ -70,6 +71,7 @@ $blocklist['badhost'] = array(
 	'*.buzznet.com',
 	'*.c0m.st',			// by ulimit.com
 	'*.ca.tc',			// by ulimit.com
+	'*.chicappa.jp',
 	'*.clan.st',		// by ulimit.com
 	'clipurl.com',
 	'*.com02.com',		// by ulimit.com
@@ -147,6 +149,7 @@ $blocklist['badhost'] = array(
 	'*.latest-info.com',// by webalias.com
 	'*.learn.to',		// by webalias.com
 	'linkezy.com',
+	'linkook.com',
 	'*.linux-fan.com',	// by ulimit.com
 	'lnk.in',
 	'*.mac-fan.com',	// by ulimit.com
