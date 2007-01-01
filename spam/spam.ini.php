@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.9 2006/12/31 02:47:49 henoheno Exp $
+// $Id: spam.ini.php,v 1.10 2007/01/01 02:26:08 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -159,6 +159,7 @@ $blocklist['badhost'] = array(
 	'*.minilien.com',	// by digipills.com
 	'*.mirrorz.com',	// by shorturl.com
 	'mo-v.jp',
+	'mooo.jp',
 	'*.moviefever.com',	// by webalias.com
 	'*.mp3.ms',			// by ulimit.com
 	'*.mp3-archives.com',	// by webalias.com
@@ -284,6 +285,104 @@ $blocklist['badhost'] = array(
 	'*.zik.mu',			// by ulimit.com
 	'zippedurl.com',
 	'*.zonehere.com',	// by hotredirect.com
+
+
+	// Web-spaces especially taken advantage of spam
+	'*.blogspot.com',
+	'groups-beta.google.com',
+	'hometown.aol.com',
+	'myblog.de',
+	'myblog.es',
+	'*.nm.ru',
+
+
+	// Jacked contents _without maintenance_
+	// e.g. blog comments, forums, wikis
+	'*.aamad.org',
+	'*.colourware.co.uk',
+	'*.iphpbb.com',
+	'board-z.de',
+	'*.board-z.de',
+	'*.fhmcsa.org.au',
+	'funkdoc.com',
+	'www.homepage-dienste.com',
+	'www.macfaq.net',
+
+
+	// Exclusive spam domains, 
+	// have flavour of links, pills, gamble, erotic, affiliates,
+	// and/or mixed ones
+
+	'portaldiscount.com',
+	'*.portaldiscount.com',
+
+	'*.lovestoryx.com',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
+	'*.loveaffairx.com',// by Boris (seekforweb.com, bbmfree at yahoo.com)
+	'*.onmore.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
+	'*.scfind.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
+	'*.webwork88.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
+
+	'*.axa00.info',		// by Thai Dong Changli (pokurim at gamebox.net)
+	'*.okweb11.org',	// by Thai Dong Changli (pokurim at gamebox.net)
+
+	'informazionicentro.info',	// by opezdol at gmail.com
+	'*.informazionicentro.info',// by opezdol at gmail.com
+	'notiziacentro.info',		// by opezdol at gmail.com
+	'*.notiziacentro.info',		// by opezdol at gmail.com
+
+	'*.adult-chat-world.info',	// by CamsGen (camsgen at model-x.com)
+	'*.adult-sex-chat.info',	// by CamsGen (camsgen at model-x.com)
+	'*.camshost.info',			// by CamsGen (buckster at hotpop.com)
+	'*.camdoors.info',			// by CamsGen (buckster at hotpop.com)
+	'*.chatdoors.info',			// by CamsGen (buckster at hotpop.com)
+	'*.dildo-chat.org',			// by CamsGen (camsgen at model-x.com)
+	'*.live-adult-chat.org',	// by CamsGen (camsgen at model-x.com)
+	'*.sexy-chat-rooms.org',	// by CamsGen (camsgen at model-x.com)
+	'*.swinger-sex-chat.org',	// by CamsGen (camsgen at model-x.com)
+	'*.nasty-sex-chat.org',		// by CamsGen (camsgen at model-x.com)
+	'*.flirt-online.org',		// by CamsGen (camsgen at model-x.com)
+
+	'*.trevisos.org',	// by Marcello Italianore (mital at topo20.org)
+	'*.topo20.org',		// by Marcello Italianore (mital at topo20.org)
+
+	'*.wellcams.com',
+	'*.j8v9.info',	// by wellcams.com
+	'wellcams.biz',	// by wellcams.com
+
+	'*.besturgent.org',		// by Chinu Hua Dzin (graz at rubli.biz)
+	'*.googletalknow.org',	// by Chinu Hua Dzin (graz at rubli.biz)
+	'*.montypythonltd.org',	// by Chinu Hua Dzin (graz at rubli.biz)
+	'*.supersettlemet.org',	// by Chinu Hua Dzin (graz at rubli.biz)
+	'*.thepythonfoxy.org',	// by Chinu Hua Dzin (graz at rubli.biz)
+	'*.ukgamesyahoo.org',	// by Chinu Hua Dzin (graz at rubli.biz)
+	'*.youryahoochat.org',	// by Chinu Hua Dzin (graz at rubli.biz)
+
+	'*.casinoqz.com',
+	'*.dcasinoa.com',	// would be casinoqz.com
+
+	'*.kenogo.com',
+	'*.mycaribbeanpoker.com',	// would be kenogo.com
+
+	// Found as single domain yet
+	'43sexx.org',
+	'*.aimoo.com',
+	'daintyurl.com',
+	'diabetescarelink.com',
+	'*.discutbb.com',
+	'hotscriptonline.info',
+	'italy-search.org',
+	'*.italy-search.org',
+	'*.koosx.org',	// Redirect to nb717.com etc
+	'*.mujiki.com',
+	'sirlook.com',
+	'*.soft2you.info',
+	'softprof.org'
+	'*.stormloader.com',
+	'tops.gen.in',
+	'wapurl.co.uk',
+	'*.webnow.biz',
+	'wellcams.biz',
+	'wwwtahoo.com',	// Typo:yahoo.com
 
 );
 ?>
