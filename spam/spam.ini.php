@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.11 2007/01/01 13:38:51 henoheno Exp $
+// $Id: spam.ini.php,v 1.12 2007/01/01 14:27:45 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -293,7 +293,7 @@ $blocklist['badhost'] = array(
 	// Please notify us about this list with reason:
 	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2%2F208
 
-	// 1. Jacked web-spaces especially taken advantage of
+	// 1. Web-spaces especially taken advantage of
 	'*.0catch.com',
 	'*.20six.nl',
 	'*.9999mb.com',
@@ -315,7 +315,7 @@ $blocklist['badhost'] = array(
 	'*.myblogvoice.com',
 	'*.nm.ru',
 	'*.quickfreehost.com',
-	'*.sbn.bz', // by rin.ru
+	'*.sbn.bz',				// by rin.ru
 	'*.squarespace.com',
 	'*.t35.com',
 	'*.welover.org',
@@ -323,7 +323,7 @@ $blocklist['badhost'] = array(
 	'weblogmaniacs.com',
 	'*.wol.bz', // by sbn.bz (rin.ru)
 
-	// 2. (Seems to have) jacked contents, something implanted
+	// 2. (Seems to be) Jacked contents, something implanted
 	// (e.g. some sort of blog comments, BBSes, forums, wikis)
 	'*.aamad.org',
 	'www.blepharospasm.org',
@@ -344,20 +344,19 @@ $blocklist['badhost'] = array(
 
 
 	// Sample setting of: Exclusive spam domains
-	// have flavor of links, pills, gamble, erotic, affiliates,
-	// and/or mixed ones
+	// seems to have flavor of links, pills, gamble, erotic,
+	// affiliates, and/or mixed ones
 	//
 	// Please notify us about this list with reason:
 	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2/208
 
-	// 1. Domain sets seems to be born to spam you
-
+	// 1. Domain sets (seems to be) born to spam you
 	'*.lovestoryx.com',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.loveaffairx.com',// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.onmore.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.scfind.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.webwork88.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
-
+	//
 	'htewbop.org',		// by Boris (boss at bse-sofia.bg)
 	'*.htewbop.org',	// by Boris (boss at bse-sofia.bg)
 	'*.kimm--d.org',	// by Boris (boss at bse-sofia.bg)
@@ -370,15 +369,15 @@ $blocklist['badhost'] = array(
 	'*.mertnop.org',	// by Boris (boss at bse-sofia.bg)
 	'vasdipv.org',		// by Boris (boss at bse-sofia.bg)
 	'*.vasdipv.org',	// by Boris (boss at bse-sofia.bg)
-
+	//
 	'*.axa00.info',		// by Thai Dong Changli (pokurim at gamebox.net)
 	'*.okweb11.org',	// by Thai Dong Changli (pokurim at gamebox.net)
-
+	//
 	'informazionicentro.info',	// by opezdol at gmail.com
 	'*.informazionicentro.info',// by opezdol at gmail.com
 	'notiziacentro.info',		// by opezdol at gmail.com
 	'*.notiziacentro.info',		// by opezdol at gmail.com
-
+	//
 	'*.adult-chat-world.info',	// by CamsGen (camsgen at model-x.com)
 	'*.adult-sex-chat.info',	// by CamsGen (camsgen at model-x.com)
 	'*.camshost.info',			// by CamsGen (buckster at hotpop.com)
@@ -390,14 +389,14 @@ $blocklist['badhost'] = array(
 	'*.swinger-sex-chat.org',	// by CamsGen (camsgen at model-x.com)
 	'*.nasty-sex-chat.org',		// by CamsGen (camsgen at model-x.com)
 	'*.flirt-online.org',		// by CamsGen (camsgen at model-x.com)
-
+	//
 	'*.trevisos.org',	// by Marcello Italianore (mital at topo20.org)
 	'*.topo20.org',		// by Marcello Italianore (mital at topo20.org)
-
+	//
 	'*.wellcams.com',
-	'*.j8v9.info',	// by wellcams.com
-	'wellcams.biz',	// by wellcams.com
-
+	'*.j8v9.info',		// by wellcams.com
+	'wellcams.biz',		// by wellcams.com
+	//
 	'*.besturgent.org',		// by Chinu Hua Dzin (graz at rubli.biz)
 	'*.googletalknow.org',	// by Chinu Hua Dzin (graz at rubli.biz)
 	'*.montypythonltd.org',	// by Chinu Hua Dzin (graz at rubli.biz)
@@ -405,19 +404,19 @@ $blocklist['badhost'] = array(
 	'*.thepythonfoxy.org',	// by Chinu Hua Dzin (graz at rubli.biz)
 	'*.ukgamesyahoo.org',	// by Chinu Hua Dzin (graz at rubli.biz)
 	'*.youryahoochat.org',	// by Chinu Hua Dzin (graz at rubli.biz)
-
+	//
 	'*.casinoqz.com',
-	'*.dcasinoa.com',	// would be casinoqz.com
-
+	'*.dcasinoa.com',		// would be casinoqz.com
+	//
 	'*.kenogo.com',
 	'*.mycaribbeanpoker.com',	// would be kenogo.com
-
-	'*.koosx.org',	// by Kikimas at mail.net, Redirect to nb717.com etc
-	'*.mmgz.org',	// by Kikimas at mail.net, Redirect to nb717.com etc
-
-	'43sexx.org',	// by Andrey (vdf at lovespb.com)
-	'56porn.org',	// by Andrey (vdf at lovespb.com)
-
+	//
+	'*.koosx.org',		// by Kikimas at mail.net, Redirect to nb717.com etc
+	'*.mmgz.org',		// by Kikimas at mail.net, Redirect to nb717.com etc
+	//
+	'43sexx.org',		// by Andrey (vdf at lovespb.com)
+	'56porn.org',		// by Andrey (vdf at lovespb.com)
+	//
 	'*.flywebs.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
 	'*.hostrim.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
 	'playbit.com',		// by Andrey Zhurikov (zhu1313 at mail.ru)
@@ -449,19 +448,19 @@ $blocklist['badhost'] = array(
 	'portaldiscount.com',
 	'*.portaldiscount.com',
 	'qoclick.net',
-	'relurl.com',			// tiny-like
+	'relurl.com',		// tiny-like
 	'*.scinfo.info',
 	'*.selab.org.ua',
 	'sirlook.com',
 	'*.soft2you.info',
 	'softprof.org'
 	'*.stormloader.com',
-	'tops.gen.in',			// Hiding google:sites
+	'tops.gen.in',		// Hiding google:sites
 	'vasdipv.org',
 	'wapurl.co.uk',
 	'*.webnow.biz',
 	'wellcams.biz',
-	'wwwtahoo.com',			// Typo:yahoo.com
+	'wwwtahoo.com',		// Typo:yahoo.com
 
 );
 ?>
