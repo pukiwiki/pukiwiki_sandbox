@@ -1,9 +1,10 @@
 <?php
-// $Id: spam.ini.php,v 1.10 2007/01/01 02:26:08 henoheno Exp $
+// $Id: spam.ini.php,v 1.11 2007/01/01 13:38:51 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
 
+	// Sample setting of:
 	// Existing URI redirection or masking services,
 	// as known as cheap URI obscuring services today,
 	// for spammers and affiliate users dazed by money.
@@ -287,40 +288,88 @@ $blocklist['badhost'] = array(
 	'*.zonehere.com',	// by hotredirect.com
 
 
-	// Web-spaces especially taken advantage of spam
+	// Sample setting of: Jacked sites (taken advantage of)
+	//
+	// Please notify us about this list with reason:
+	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2%2F208
+
+	// 1. Jacked web-spaces especially taken advantage of
+	'*.0catch.com',
+	'*.20six.nl',
+	'*.9999mb.com',
+	'*.alice.it',
+	'*.alkablog.com'.
+	'*.atfreeforum.com',
+	'*.asphost4free.com',
+	'bloggers.nl',
+	'*.bloggers.nl',
 	'*.blogspot.com',
+	'*.bravenet.com',
+	'*.free-25.de',
+	'*.freelinuxhost.com',	// by 100webspace.com
 	'groups-beta.google.com',
 	'hometown.aol.com',
+	'*.journalscape.com',
 	'myblog.de',
 	'myblog.es',
+	'*.myblogvoice.com',
 	'*.nm.ru',
+	'*.quickfreehost.com',
+	'*.sbn.bz', // by rin.ru
+	'*.squarespace.com',
+	'*.t35.com',
+	'*.welover.org',
+	'*.weblogmaniacs.com',
+	'weblogmaniacs.com',
+	'*.wol.bz', // by sbn.bz (rin.ru)
 
-
-	// Jacked contents _without maintenance_
-	// e.g. blog comments, forums, wikis
+	// 2. (Seems to have) jacked contents, something implanted
+	// (e.g. some sort of blog comments, BBSes, forums, wikis)
 	'*.aamad.org',
+	'www.blepharospasm.org',
 	'*.colourware.co.uk',
 	'*.iphpbb.com',
 	'board-z.de',
 	'*.board-z.de',
 	'*.fhmcsa.org.au',
+	'forum.lixium.fr',
 	'funkdoc.com',
 	'www.homepage-dienste.com',
 	'www.macfaq.net',
+	'www.me4x4.com',
+	'rkphunt.com',
+	'www.saskchamber.com',
+	'selikoff.net',
+	'www.tzaneen.co.za',
 
 
-	// Exclusive spam domains, 
-	// have flavour of links, pills, gamble, erotic, affiliates,
+	// Sample setting of: Exclusive spam domains
+	// have flavor of links, pills, gamble, erotic, affiliates,
 	// and/or mixed ones
+	//
+	// Please notify us about this list with reason:
+	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2/208
 
-	'portaldiscount.com',
-	'*.portaldiscount.com',
+	// 1. Domain sets seems to be born to spam you
 
 	'*.lovestoryx.com',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.loveaffairx.com',// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.onmore.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.scfind.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
 	'*.webwork88.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
+
+	'htewbop.org',		// by Boris (boss at bse-sofia.bg)
+	'*.htewbop.org',	// by Boris (boss at bse-sofia.bg)
+	'*.kimm--d.org',	// by Boris (boss at bse-sofia.bg)
+	'*.gtre--h.org',	// by Boris (boss at bse-sofia.bg)
+	'*.npou--k.org',	// by Boris (boss at bse-sofia.bg)
+	'*.bres--z.org',	// by Boris (boss at bse-sofia.bg)
+	'*.berk--p.org',	// by Boris (boss at bse-sofia.bg)
+	'*.bplo--s.org',	// by Boris (boss at bse-sofia.bg)
+	'*.basdpo.org',		// by Boris (boss at bse-sofia.bg)
+	'*.mertnop.org',	// by Boris (boss at bse-sofia.bg)
+	'vasdipv.org',		// by Boris (boss at bse-sofia.bg)
+	'*.vasdipv.org',	// by Boris (boss at bse-sofia.bg)
 
 	'*.axa00.info',		// by Thai Dong Changli (pokurim at gamebox.net)
 	'*.okweb11.org',	// by Thai Dong Changli (pokurim at gamebox.net)
@@ -363,26 +412,56 @@ $blocklist['badhost'] = array(
 	'*.kenogo.com',
 	'*.mycaribbeanpoker.com',	// would be kenogo.com
 
-	// Found as single domain yet
-	'43sexx.org',
+	'*.koosx.org',	// by Kikimas at mail.net, Redirect to nb717.com etc
+	'*.mmgz.org',	// by Kikimas at mail.net, Redirect to nb717.com etc
+
+	'43sexx.org',	// by Andrey (vdf at lovespb.com)
+	'56porn.org',	// by Andrey (vdf at lovespb.com)
+
+	'*.flywebs.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
+	'*.hostrim.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
+	'playbit.com',		// by Andrey Zhurikov (zhu1313 at mail.ru)
+
+	// 2. Lonely domains (buddies not found yet)
 	'*.aimoo.com',
+	'anewme.org',
+	'*.areaseo.com',
+	'*.bsb3b.info',
+	'*.buzznet.com',
 	'daintyurl.com',
+	'*.dgo5d.info',
 	'diabetescarelink.com',
+	'*.dlekei.info',
 	'*.discutbb.com',
+	'fingerprintmedia.com',
+	'firstdebthelp.com',
 	'hotscriptonline.info',
+	'*.hut1.ru',
+	'implex3.com',
 	'italy-search.org',
 	'*.italy-search.org',
-	'*.koosx.org',	// Redirect to nb717.com etc
+	'*.infogami.com',
 	'*.mujiki.com',
+	'*.okweb12.org',
+	'*.pahuist.info',
+	'*.perevozka777.ru',
+	'*.pokah.lv',
+	'portaldiscount.com',
+	'*.portaldiscount.com',
+	'qoclick.net',
+	'relurl.com',			// tiny-like
+	'*.scinfo.info',
+	'*.selab.org.ua',
 	'sirlook.com',
 	'*.soft2you.info',
 	'softprof.org'
 	'*.stormloader.com',
-	'tops.gen.in',
+	'tops.gen.in',			// Hiding google:sites
+	'vasdipv.org',
 	'wapurl.co.uk',
 	'*.webnow.biz',
 	'wellcams.biz',
-	'wwwtahoo.com',	// Typo:yahoo.com
+	'wwwtahoo.com',			// Typo:yahoo.com
 
 );
 ?>
