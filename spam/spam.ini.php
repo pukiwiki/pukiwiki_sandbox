@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.14 2007/01/02 05:08:47 henoheno Exp $
+// $Id: spam.ini.php,v 1.15 2007/01/02 05:59:05 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -296,7 +296,8 @@ $blocklist['badhost'] = array(
 	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2%2F208
 
 	// 1. Web-spaces especially taken advantage of
-	'*.0catch.com',
+	'*.0catch.com',		// by bluehost.com
+	'*.150m.com',		// NS by 0catch.com
 	'*.20six.nl',
 	'*.9999mb.com',
 	'*.aimoo.com',
@@ -308,11 +309,14 @@ $blocklist['badhost'] = array(
 	'*.bloggers.nl',
 	'*.blogspot.com',
 	'*.bravenet.com',
+	'*.dox.hu',
+	'*.extra.hu',
 	'fingerprintmedia.com',
 	'*.free-25.de',
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'groups-beta.google.com',
 	'hometown.aol.com',
+	'*.ifrance.com',
 	'*.journalscape.com',
 	'myblog.de',
 	'myblog.es',
@@ -370,12 +374,13 @@ $blocklist['badhost'] = array(
 	'*.gtre--h.org',	// by Boris (boss at bse-sofia.bg)
 	'*.npou--k.org',	// by Boris (boss at bse-sofia.bg)
 	'*.bres--z.org',	// by Boris (boss at bse-sofia.bg)
-	'*.berk--p.org',	// by Boris (boss at bse-sofia.bg)
+	'berk--p.org',		// by Boris (boss at bse-sofia.bg)
 	'*.bplo--s.org',	// by Boris (boss at bse-sofia.bg)
 	'*.basdpo.org',		// by Boris (boss at bse-sofia.bg)
 	'*.mertnop.org',	// by Boris (boss at bse-sofia.bg)
 	'vasdipv.org',		// by Boris (boss at bse-sofia.bg)
 	'*.vasdipv.org',	// by Boris (boss at bse-sofia.bg)
+	'vertinds.org',		// by Boris (boss at bse-sofia.bg)
 	//
 	'*.axa00.info',		// by Thai Dong Changli (pokurim at gamebox.net)
 	'*.okweb11.org',	// by Thai Dong Changli (pokurim at gamebox.net)
@@ -446,9 +451,10 @@ $blocklist['badhost'] = array(
 	'tops.gen.in',		// Hiding google:sites. by Kosare (billing at caslim.info)
 	'caslim.info',
 
+	'777-poker.biz',	// by Alexandr (foxwar at foxwar.ispvds.com), Hiding google?q=
+	'*.porn-11.com',	// by Alexandr (foxwar at foxwar.ispvds.com)
 
 	// 2. Lonely domains (buddies not found yet)
-	'777-poker.biz',	// by Alexandr (foxwar at foxwar.ispvds.com)
 	'*.areaseo.com',	// by Antony Carpito (xcentr at lycos.com)
 	'*.dlekei.info',	// by Maxima Bucaro (webmaster at tts2f.info)
 	'*.discutbb.com',	// by Perez Thomas (thomas.jsp at libertysurf.fr)
