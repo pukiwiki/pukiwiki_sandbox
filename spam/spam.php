@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.86 2007/01/01 01:54:54 henoheno Exp $
+// $Id: spam.php,v 1.87 2007/01/02 05:57:51 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -756,14 +756,20 @@ function check_uri_spam($target = '', $method = array())
 		foreach($target as $str) {
 			// Recurse
 			$_progress = check_uri_spam($str, $method);
-			foreach (array_keys($_progress['sum']) as $key) {
-				$sum[$key] += $_progress['sum'][$key];
+			$_sum      = & $_progress['sum'];
+			$_is_spam  = & $_progress['is_spam'];
+			foreach (array_keys($_sum) as $key) {
+				$sum[$key] += $_sum[$key];
 			}
-			foreach(array_keys($_progress['is_spam']) as $key) {
-				if (is_array($_progress['is_spam'][$key])) {
-					// Marge keys
-					foreach(array_keys($_progress['is_spam'][$key]) as $_key) {
-						$is_spam[$key][$_key] = TRUE;
+			foreach(array_keys($_is_spam) as $key) {
+				if (is_array($_is_spam[$key])) {
+					// Marge keys (badhost)
+					foreach(array_keys($_is_spam[$key]) as $_key) {
+						if (! isset($is_spam[$key][$_key])) {
+							$is_spam[$key][$_key] =  $_is_spam[$key][$_key];
+						} else {
+							$is_spam[$key][$_key] += $_is_spam[$key][$_key];
+						}
 					}
 				} else {
 					$is_spam[$key] = TRUE;
@@ -903,7 +909,8 @@ function check_uri_spam($target = '', $method = array())
 		if (! empty($badhost)) {
 			$sum['badhost'] += array_count_leaves($badhost);
 			foreach(array_keys($badhost) as $keys) {
-				$is_spam['badhost'][$keys] = TRUE;
+				$is_spam['badhost'][$keys] =
+					array_count_leaves($badhost[$keys]);
 			}
 			unset($badhost);
 		}
@@ -1006,8 +1013,11 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 		$summary['METRICS'] = summarize_spam_progress($progress);
 	}
 	if (isset($progress['is_spam']['badhost'])) {
-		$summary['BADHOST'] =
-			implode(', ', array_keys($progress['is_spam']['badhost']));
+		$badhost = array();
+		foreach($progress['is_spam']['badhost'] as $glob=>$number) {
+			$badhost[] = $glob . '(' . $number . ')';
+		}
+		$summary['BADHOST'] = implode(', ', $badhost);
 	}
 	$summary['COMMENT'] = $action;
 	$summary['PAGE']    = '[blocked] ' . (is_pagename($page) ? $page : '');
