@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.15 2007/01/02 05:59:05 henoheno Exp $
+// $Id: spam.ini.php,v 1.16 2007/01/02 07:12:13 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -288,6 +288,28 @@ $blocklist['badhost'] = array(
 	'*.zik.mu',			// by ulimit.com
 	'zippedurl.com',
 	'*.zonehere.com',	// by hotredirect.com
+
+
+	// Sample setting of: 
+	// Dynamic DNS or Dynamic IP or DNS services
+	//
+	// Please notify us about this list with reason:
+	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2/207
+	//
+	//
+	//'*.ath.cx',				// by dydns.com
+	//'*.bpa.nu',				// by ddns.ru
+	//'*.dnip.net',
+	//'*.dyndns.*',
+		//'*.dyndns.dk',
+		//'*.dyndns.co.za',
+		//'*.dyndns.org',	// by dydns.com
+		//'*.dyndns.nemox.net',
+	//'*.dynu.com',
+	//'*.shacknet.nu',		// by dydns.com
+	//'*.nerdcamp.net',
+	//'*.zenno.info',
+	//'*.mine.nu',			// by dydns.com
 
 
 	// Sample setting of: Jacked sites (taken advantage of)
