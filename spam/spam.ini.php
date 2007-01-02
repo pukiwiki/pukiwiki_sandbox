@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.13 2007/01/01 14:35:53 henoheno Exp $
+// $Id: spam.ini.php,v 1.14 2007/01/02 05:08:47 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -135,6 +135,7 @@ $blocklist['badhost'] = array(
 	'igoto.co.uk',
 	'*.imegastores.com',// by webalias.com
 	'*.inetgames.com',	// by vdirect.com
+	'*.infogami.com',
 	'*.int.ms',			// by ulimit.com
 	'*.iscool.net',
 	'*.isfun.net',		// by iscool.net
@@ -269,6 +270,7 @@ $blocklist['badhost'] = array(
 	'*.visit.ws',		// by active.ws
 	'*.vze.com',		// by shorturl.com
 	'w3t.org',
+	'wapurl.co.uk',
 	'*.way.to',			// by webalias.com
 	'*.web-freebies.com',	// by webalias.com
 	'*.webalias.com',
@@ -297,6 +299,7 @@ $blocklist['badhost'] = array(
 	'*.0catch.com',
 	'*.20six.nl',
 	'*.9999mb.com',
+	'*.aimoo.com',
 	'*.alice.it',
 	'*.alkablog.com'.
 	'*.atfreeforum.com',
@@ -305,6 +308,7 @@ $blocklist['badhost'] = array(
 	'*.bloggers.nl',
 	'*.blogspot.com',
 	'*.bravenet.com',
+	'fingerprintmedia.com',
 	'*.free-25.de',
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'groups-beta.google.com',
@@ -317,6 +321,7 @@ $blocklist['badhost'] = array(
 	'*.quickfreehost.com',
 	'*.sbn.bz',				// by rin.ru
 	'*.squarespace.com',
+	'*.stormloader.com',
 	'*.t35.com',
 	'*.welover.org',
 	'*.weblogmaniacs.com',
@@ -326,7 +331,9 @@ $blocklist['badhost'] = array(
 	// 2. (Seems to be) Jacked contents, something implanted
 	// (e.g. some sort of blog comments, BBSes, forums, wikis)
 	'*.aamad.org',
+	'anewme.org',
 	'www.blepharospasm.org',
+	'*.buzznet.com',
 	'*.colourware.co.uk',
 	'*.iphpbb.com',
 	'board-z.de',
@@ -345,17 +352,17 @@ $blocklist['badhost'] = array(
 
 	// Sample setting of: Exclusive spam domains
 	// seems to have flavor of links, pills, gamble, erotic,
-	// affiliates, and/or mixed ones
+	// affiliates, finance, and/or mixed ones
 	//
 	// Please notify us about this list with reason:
 	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2/208
 
 	// 1. Domain sets (seems to be) born to spam you
-	'*.lovestoryx.com',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
-	'*.loveaffairx.com',// by Boris (seekforweb.com, bbmfree at yahoo.com)
-	'*.onmore.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
-	'*.scfind.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
-	'*.webwork88.info',	// by Boris (seekforweb.com, bbmfree at yahoo.com)
+	'*.lovestoryx.com',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
+	'*.loveaffairx.com',// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
+	'*.onmore.info',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
+	'*.scfind.info',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
+	'*.webwork88.info',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
 	//
 	'htewbop.org',		// by Boris (boss at bse-sofia.bg)
 	'*.htewbop.org',	// by Boris (boss at bse-sofia.bg)
@@ -372,6 +379,9 @@ $blocklist['badhost'] = array(
 	//
 	'*.axa00.info',		// by Thai Dong Changli (pokurim at gamebox.net)
 	'*.okweb11.org',	// by Thai Dong Changli (pokurim at gamebox.net)
+	'*.okweb12.org',	// by Thai Dong Changli (pokurim at gamebox.net)
+	'*.okweb13.org',	// by Thai Dong Changli (pokurim at gamebox.net)
+	'*.okweb14.org',	// by Thai Dong Changli (pokurim at gamebox.net)
 	//
 	'informazionicentro.info',	// by opezdol at gmail.com
 	'*.informazionicentro.info',// by opezdol at gmail.com
@@ -420,47 +430,44 @@ $blocklist['badhost'] = array(
 	'*.flywebs.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
 	'*.hostrim.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
 	'playbit.com',		// by Andrey Zhurikov (zhu1313 at mail.ru)
+	//
+	'*.bsb3b.info',		// by Son Dittman (webmaster at dgo3d.info)
+	'*.dgo5d.info',		// by Son Dittman (webmaster at dgo3d.info)
+	//
+	'diabetescarelink.com',	// by cooler.infomedia at gmail.com
+	'firstdebthelp.com',	// by cooler.infomedia at gmail.com
+	//
+	'*.pokah.lv',		// by Nikolajs Karpovs (hostmaster at astrons.com)
+	'*.astrons.com',	// by Nikolaj  Karpov  (hostmaster at astrons.com)
+	//
+	'implex3.com',		// by Skar (seocool at bk.ru)
+	'softprof.org',		// by Skar (seocool at bk.ru)
+	//
+	'tops.gen.in',		// Hiding google:sites. by Kosare (billing at caslim.info)
+	'caslim.info',
+
 
 	// 2. Lonely domains (buddies not found yet)
-	'*.aimoo.com',
-	'anewme.org',
-	'*.areaseo.com',
-	'*.bsb3b.info',
-	'*.buzznet.com',
-	'daintyurl.com',
-	'*.dgo5d.info',
-	'diabetescarelink.com',
-	'*.dlekei.info',
-	'*.discutbb.com',
-	'fingerprintmedia.com',
-	'firstdebthelp.com',
-	'hotscriptonline.info',
-	'*.hut1.ru',
-	'implex3.com',
-	'italy-search.org',
+	'777-poker.biz',	// by Alexandr (foxwar at foxwar.ispvds.com)
+	'*.areaseo.com',	// by Antony Carpito (xcentr at lycos.com)
+	'*.dlekei.info',	// by Maxima Bucaro (webmaster at tts2f.info)
+	'*.discutbb.com',	// by Perez Thomas (thomas.jsp at libertysurf.fr)
+	'hotscriptonline.info',	// by Psy Search (admin at psysearch.com)
+	'*.hut1.ru',		// by domains at agava.com
+	'italy-search.org',	// by Alex Yablin (zaharov-alex at yandex.ru)
 	'*.italy-search.org',
-	'*.infogami.com',
-	'*.mujiki.com',
-	'*.okweb12.org',
-	'*.pahuist.info',
-	'*.perevozka777.ru',
-	'*.pokah.lv',
-	'portaldiscount.com',
+	'myfgj.info',		// by Filus (softscript at gmail.com)
+	'*.mujiki.com',		// by Mila Contora (ebumsn at ngs.ru)
+	'*.pahuist.info',	// by Yura (yuralg2005 at yandex.ru)
+	'*.perevozka777.ru',	// by witalik at gmail.com
+	'portaldiscount.com',	// by Mark Tven (bestsaveup at gmail.com)
 	'*.portaldiscount.com',
-	'qoclick.net',
-	'relurl.com',		// tiny-like
-	'*.scinfo.info',
-	'*.selab.org.ua',
+	'qoclick.net',		// by DMITRIY SOLDATENKO
+	'relurl.com',		// tiny-like. by Grzes Tlalka (grzes1111 at interia.pl)
 	'sirlook.com',
-	'*.soft2you.info',
-	'softprof.org',
-	'*.stormloader.com',
-	'tops.gen.in',		// Hiding google:sites
-	'vasdipv.org',
-	'wapurl.co.uk',
-	'*.webnow.biz',
-	'wellcams.biz',
-	'wwwtahoo.com',		// Typo:yahoo.com
+	'*.soft2you.info',	// by Michael (m.frenzy at yahoo.com)
+	'*.webnow.biz',		// by Hsien I Fan (admin at servcomputing.com)
+	'wellcams.biz',		// by Sergey Sergiyenko (studioboss at gmail.com)
 
 );
 ?>
