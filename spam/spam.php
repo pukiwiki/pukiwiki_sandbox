@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.87 2007/01/02 05:57:51 henoheno Exp $
+// $Id: spam.php,v 1.88 2007/01/02 07:19:50 henoheno Exp $
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -698,8 +698,8 @@ function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 	$positive = array(
 		// Thresholds
 		'quantity'     =>  8 * $times,	// Allow N URIs
-		'non_uniqhost' =>  7 * $times,	// Allow N duped (and normalized) Hosts
-		'non_uniquri'  =>  3 * $times,	// Allow N duped (and normalized) URIs
+		'non_uniqhost' =>  3 * $times,	// Allow N duped (and normalized) Hosts
+		'non_uniquri'  =>  0 * $times,	// Allow N duped (and normalized) URIs
 
 		// Areas
 		'area_anchor'  => $t_area,	// Using <a href> HTML tag
