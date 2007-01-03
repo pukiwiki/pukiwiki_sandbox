@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.97 2007/01/03 10:14:26 henoheno Exp $
+// $Id: spam.php,v 1.98 2007/01/03 10:54:55 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -718,6 +718,7 @@ function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 		if (empty($result[$part])) {
 			unset($result[$part]);
 		} else {
+			$hosts = array_diff($hosts, $result[$part]);
 			if ($asap) break;
 		}
 	}
