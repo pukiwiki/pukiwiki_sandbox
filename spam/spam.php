@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.98 2007/01/03 10:54:55 henoheno Exp $
+// $Id: spam.php,v 1.99 2007/01/03 13:31:20 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -1079,11 +1079,14 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 		$summary['DETAIL_BADHOST'] = implode(', ', $badhost);
 	}
 	if (! $asap && $progress['remains']['badhost']) {
-		$summary['DETAIL_NEUTRAL_HOST'] = 
-			preg_replace(
-				'/[^, a-z0-9.-]/i', '',
-				implode(', ', array_keys($progress['remains']['badhost']))
-			);
+		$count = count($progress['remains']['badhost']);
+		$summary['DETAIL_NEUTRAL_HOST'] = $count .
+			' (' .
+				preg_replace(
+					'/[^, a-z0-9.-]/i', '',
+					implode(', ', array_keys($progress['remains']['badhost']))
+				) .
+			')';
 	}
 	$summary['COMMENT'] = $action;
 	$summary['PAGE']    = '[blocked] ' . (is_pagename($page) ? $page : '');
