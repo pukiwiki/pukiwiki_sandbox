@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.92 2007/01/03 08:00:58 henoheno Exp $
+// $Id: spam.php,v 1.93 2007/01/03 08:06:58 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -649,7 +649,7 @@ function generate_glob_regex($string = '', $divider = '/')
 	}
 }
 
-function get_blocklist($listname = '')
+function get_blocklist($list = '')
 {
 	static $regex;
 
@@ -684,20 +684,20 @@ function get_blocklist($listname = '')
 		}
 	}
 
-	if ($listname == '') {
+	if ($list == '') {
 		return $regex;
-	} else if (isset($regex[$listname])) {
-		return $regex[$listname];
+	} else if (isset($regex[$list])) {
+		return $regex[$list];
 	} else {	
 		return array();
 	}
 }
 
-
 // TODO: preg_grep() ?
 function is_badhost($hosts = '', $asap = TRUE)
 {
-	$regex = get_blocklist();
+	$goodhost = get_blocklist('goodhost');
+	$badhost  = get_blocklist('badhost');
 
 	$result = array();
 	if (! is_array($hosts)) $hosts = array($hosts);
@@ -706,7 +706,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 		if (! is_string($host)) continue;
 
 		$is_good = FALSE;
-		foreach ($regex['goodhost'] as $_regex) {
+		foreach ($goodhost as $_regex) {
 			if (preg_match($_regex, $host)) {
 				$is_good = TRUE;
 				break;
@@ -714,7 +714,7 @@ function is_badhost($hosts = '', $asap = TRUE)
 		}
 		if ($is_good) continue;
 
-		foreach ($regex['badhost'] as $part => $_regex) {
+		foreach ($badhost as $part => $_regex) {
 			if (preg_match($_regex, $host)) {
 				if (! isset($result[$part]))  $result[$part] = array();
 				$result[$part][] = $host;
