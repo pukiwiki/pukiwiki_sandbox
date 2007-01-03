@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.29 2007/01/03 10:14:26 henoheno Exp $
+// $Id: spam_pickup.php,v 1.30 2007/01/03 10:56:12 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -23,13 +23,19 @@ function recursive_map($func, $array)
 	return $array;
 }
 
-function show_form($string)
+function show_form($string, $asap)
 {
+	if ($asap) {
+		$asap = ' checked';
+	} else {
+		$asap = '';
+	}
 	$base = basename(__FILE__);
 	$string = htmlspecialchars($string);
 	print <<< EOF
 <form action="$base" method="post">
 	<textarea name="msg" rows="8" cols="80">$string</textarea><br />
+	<input type="checkbox" name="asap" value="on"$asap>asap<br />
 	<input type="submit" name="write" value="Submit" />
 </form>
 <br/>
@@ -39,13 +45,17 @@ EOF;
 
 // ---- Show form and result
 echo basename(__FILE__) . '<br />';
-$msg = isset($_POST['msg']) ? $_POST['msg'] : '';
-show_form($msg);
+$msg  = isset($_POST['msg']) ? $_POST['msg'] : '';
+$asap = isset($_POST['asap']) ? TRUE : FALSE;
+show_form($msg, $asap);
 echo '<pre>';
 
 $pickup = TRUE;
-$progress = array();
-$progress = check_uri_spam(array('a', $msg, 'b'), array(), FALSE);
+$method = check_uri_spam_method();
+if ($asap) {
+	$method['asap'] = TRUE;
+}
+$progress = check_uri_spam(array('a', $msg, 'b'), $method);
 
 if (! empty($progress)) {
 	$action = 'Metrics: ' . summarize_spam_progress($progress, FALSE);
