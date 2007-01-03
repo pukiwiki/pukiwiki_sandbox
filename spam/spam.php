@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.89 2007/01/03 03:24:08 henoheno Exp $
+// $Id: spam.php,v 1.90 2007/01/03 07:05:59 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -648,17 +648,12 @@ function is_badhost($hosts = '', $asap = TRUE)
 		$regex['badhost'] = array();
 
 		// Sample
-		if (TRUE) {
+		if (FALSE) {
 			$blocklist['badhost'] = array(
 				//'*',			// Deny all uri
 				//'10.20.*.*',	// 10.20.example.com also matches
 				//'*.blogspot.com',	// Blog services subdomains
 				//array('blogspot.com', '*.blogspot.com')
-
-				// Viral/Buzz marketers' site, trying to make people
-				// as commercial Wiki spammers
-				// http://pukiwiki.sourceforge.jp/image/2006-12-16_wikiviral_pressblog.gif
-				array('pressblog.jp', '*.pressblog.jp'),
 			);
 			foreach ($blocklist['badhost'] as $part) {
 				$_part = is_array($part) ? implode('/', $part) : $part;
