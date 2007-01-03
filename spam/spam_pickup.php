@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.27 2007/01/02 05:58:31 henoheno Exp $
+// $Id: spam_pickup.php,v 1.28 2007/01/03 06:54:22 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -57,7 +57,7 @@ if (! empty($progress)) {
 			foreach($progress['is_spam']['badhost'] as $glob=>$number) {
 				$badhost[] = $glob . '(' . $number . ')';
 			}
-			var_dump('BADHOST: ' . implode(', ', $badhost));
+			var_dump('DETAIL_BADHOST: ' . implode(', ', $badhost));
 			//var_dump($progress['is_spam']['badhost']);
 		}
 	}
