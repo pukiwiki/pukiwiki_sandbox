@@ -1,13 +1,22 @@
 <?php
-// $Id: spam.php,v 1.88 2007/01/02 07:19:50 henoheno Exp $
-// Copyright (C) 2006 PukiWiki Developers Team
+// $Id: spam.php,v 1.89 2007/01/03 03:24:08 henoheno Exp $
+// Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
 // Functions for Concept-work of spam-uri metrics
 // (PHP 4 >= 4.3.0): preg_match_all(PREG_OFFSET_CAPTURE): $method['uri_XXX'] related feature
-// (PHP 4 >= 4.2.0): var_export(): mail-reporting and dump related
 
 if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
+
+// ---------------------
+// Compat
+
+// (PHP 4 >= 4.2.0): var_export(): mail-reporting and dump related
+if (! function_exists('var_export')) {
+	function var_export() {
+		return 'var_export() is not found' . "\n";
+	}
+}
 
 // ---------------------
 // URI pickup
@@ -1017,7 +1026,7 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 		foreach($progress['is_spam']['badhost'] as $glob=>$number) {
 			$badhost[] = $glob . '(' . $number . ')';
 		}
-		$summary['BADHOST'] = implode(', ', $badhost);
+		$summary['DETAIL_BADHOST'] = implode(', ', $badhost);
 	}
 	$summary['COMMENT'] = $action;
 	$summary['PAGE']    = '[blocked] ' . (is_pagename($page) ? $page : '');
