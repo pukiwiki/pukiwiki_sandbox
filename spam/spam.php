@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.95 2007/01/03 09:44:23 henoheno Exp $
+// $Id: spam.php,v 1.96 2007/01/03 10:05:19 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -60,7 +60,7 @@ function uri_pickup($string = '', $normalize = TRUE,
 			// 3: Host
 			'\[[0-9a-f:.]+\]' . '|' .				// IPv6([colon-hex and dot]): RFC2732
 			'(?:[0-9]{1-3}\.){3}[0-9]{1-3}' . '|' .	// IPv4(dot-decimal): 001.22.3.44
-			'[^\s<>"\'\[\]:/\#?&\\\]+' . 			// FQDN: foo.example.org
+			'[a-z0-9.-]+' . 						// hostname(FQDN) : foo.example.org
 		')' .
 		'(?::([0-9]*))?' .					// 4: Port
 		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path or path-info
