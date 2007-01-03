@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.33 2007/01/03 14:02:35 henoheno Exp $
+// $Id: spam_pickup.php,v 1.34 2007/01/03 14:09:06 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -23,7 +23,7 @@ function recursive_map($func, $array)
 	return $array;
 }
 
-function show_form($string, $asap, $pickup)
+function show_form($string, $asap = FALSE, $progress = TRUE, $pickup = TRUE)
 {
 	if ($asap) {
 		$asap = ' checked';
@@ -35,6 +35,11 @@ function show_form($string, $asap, $pickup)
 	} else {
 		$pickup = '';
 	}
+	if ($progress) {
+		$progress = ' checked';
+	} else {
+		$progress = '';
+	}
 	$base = basename(__FILE__);
 	$string = htmlspecialchars($string);
 	print <<< EOF
@@ -42,6 +47,8 @@ function show_form($string, $asap, $pickup)
 	<textarea name="msg" rows="8" cols="80">$string</textarea><br />
 	<input type="checkbox" name="asap"   id="asap"   value="on"$asap>
 	<label for="asap">asap</label><br />
+	<input type="checkbox" name="progress" id="progress" value="on"$progress>
+	<label for="progress">Show \$progress</label><br />
 	<input type="checkbox" name="pickup" id="pickup" value="on"$pickup>
 	<label for="pickup">Show pickuped URIs</label><br />
 	<input type="submit" name="write" value="Submit" />
@@ -53,10 +60,11 @@ EOF;
 
 // ---- Show form and result
 echo basename(__FILE__) . '<br />';
-$msg    = isset($_POST['msg'])    ? $_POST['msg'] : '';
-$asap   = isset($_POST['asap'])   ? TRUE : FALSE;
-$pickup = isset($_POST['pickup']) ? TRUE : FALSE;
-show_form($msg, $asap, $pickup);
+$msg    = isset($_POST['msg'])      ? $_POST['msg'] : '';
+$asap   = isset($_POST['asap'])     ? TRUE : FALSE;
+$prog   = isset($_POST['progress']) ? TRUE : FALSE;
+$pickup = isset($_POST['pickup'])   ? TRUE : FALSE;
+show_form($msg, $asap, $prog, $pickup);
 echo '<pre>';
 
 $method = check_uri_spam_method();
@@ -89,7 +97,8 @@ if (! empty($progress)) {
 			')'
 		);
 	}
-	var_dump($progress);
+	
+	if ($prog) var_dump($progress);
 }
 
 if ($pickup) {
