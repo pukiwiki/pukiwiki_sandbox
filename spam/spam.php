@@ -1,8 +1,7 @@
 <?php
-// $Id: spam.php,v 1.99 2007/01/03 13:31:20 henoheno Exp $
+// $Id: spam.php,v 1.100 2007/01/03 13:54:39 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
-
 // Functions for Concept-work of spam-uri metrics
 // (PHP 4 >= 4.3.0): preg_match_all(PREG_OFFSET_CAPTURE): $method['uri_XXX'] related feature
 
@@ -350,7 +349,7 @@ function spam_uri_pickup_preprocess($string = '')
 			// Something Google: http://www.google.com/supported_domains
 			'#(http)://([a-z0-9.]+\.google\.[a-z]{2,3}(?:\.[a-z]{2})?)/' .
 			'([a-z0-9?=&.%_+-]+)' .		// ?query=foo+
-			'\bsite:([a-z0-9.%_-]+)' .	// site:nasty.example.com
+			'\bsite:([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// site:nasty.example.com
 			//'()' .	// Preserve or remove?
 			'#i',
 		),
