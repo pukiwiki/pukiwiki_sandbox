@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.16 2007/01/02 07:12:13 henoheno Exp $
+// $Id: spam.ini.php,v 1.17 2007/01/03 03:25:19 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -27,6 +27,7 @@ $blocklist['badhost'] = array(
 	'0rz.tw',
 	'0url.com',
 	'*.1sta.com',		// by shorturl.com
+	'1url.org',
 	'*.24ex.com',		// by shorturl.com
 	'*.2cd.net',		// by shim.net
 	'*.2fear.com',		// by shorturl.com
@@ -102,6 +103,7 @@ $blocklist['badhost'] = array(
 	'*.fr.fm',			// by ulimit.com
 	'*.fr.st',			// by ulimit.com
 	'*.fr.vu',			// by ulimit.com
+	'flingk.com',
 	'*.freakz.eu',		// by f2b.be
 	'*.freebiefinders.net',	// by shim.net
 	'*.freegaming.org',	// by shim.net
@@ -142,6 +144,7 @@ $blocklist['badhost'] = array(
 	'*.it.st',			// by ulimit.com
 	'*.itgo.com',		// by freeservers.com
 	'*.iwarp.com',		// by freeservers.com
+	'jpan.jp',
 	'jemurl.com',
 	'*.java-fan.com',	// by ulimit.com
 	'kat.cc',
@@ -156,6 +159,7 @@ $blocklist['badhost'] = array(
 	'lnk.in',
 	'*.mac-fan.com',	// by ulimit.com
 	'makeashorterlink.com',
+	'mcturl.com',
 	'memurl.com',
 	'minilien.com',		// by digipills.com
 	'*.minilien.com',	// by digipills.com
@@ -317,7 +321,7 @@ $blocklist['badhost'] = array(
 	// Please notify us about this list with reason:
 	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2%2F208
 
-	// 1. Web-spaces especially taken advantage of
+	// 1. Web-spaces taken advantage of
 	'*.0catch.com',		// by bluehost.com
 	'*.150m.com',		// NS by 0catch.com
 	'*.20six.nl',
@@ -338,6 +342,7 @@ $blocklist['badhost'] = array(
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'groups-beta.google.com',
 	'hometown.aol.com',
+	'*.ifastnet.com',
 	'*.ifrance.com',
 	'*.journalscape.com',
 	'myblog.de',
@@ -388,6 +393,7 @@ $blocklist['badhost'] = array(
 	'*.loveaffairx.com',// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
 	'*.onmore.info',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
 	'*.scfind.info',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
+	'*.scinfo.info',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
 	'*.webwork88.info',	// by Boris (admin at seekforweb.com, bbmfree at yahoo.com)
 	//
 	'htewbop.org',		// by Boris (boss at bse-sofia.bg)
@@ -416,6 +422,7 @@ $blocklist['badhost'] = array(
 	'*.notiziacentro.info',		// by opezdol at gmail.com
 	//
 	'*.adult-chat-world.info',	// by CamsGen (camsgen at model-x.com)
+	'*.adult-chat-world.org',	// by CamsGen (camsgen at model-x.com)
 	'*.adult-sex-chat.info',	// by CamsGen (camsgen at model-x.com)
 	'*.camshost.info',			// by CamsGen (buckster at hotpop.com)
 	'*.camdoors.info',			// by CamsGen (buckster at hotpop.com)
@@ -450,9 +457,12 @@ $blocklist['badhost'] = array(
 	//
 	'*.koosx.org',		// by Kikimas at mail.net, Redirect to nb717.com etc
 	'*.mmgz.org',		// by Kikimas at mail.net, Redirect to nb717.com etc
+	'*.zhiyehua.net',	// by Kikimas at mail.net, Redirect to nb717.com etc
 	//
 	'43sexx.org',		// by Andrey (vdf at lovespb.com)
+	'*.43sexx.org',
 	'56porn.org',		// by Andrey (vdf at lovespb.com)
+	'*.56porn.org',
 	//
 	'*.flywebs.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
 	'*.hostrim.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
@@ -472,9 +482,12 @@ $blocklist['badhost'] = array(
 	//
 	'tops.gen.in',		// Hiding google:sites. by Kosare (billing at caslim.info)
 	'caslim.info',
-
+	//
 	'777-poker.biz',	// by Alexandr (foxwar at foxwar.ispvds.com), Hiding google?q=
 	'*.porn-11.com',	// by Alexandr (foxwar at foxwar.ispvds.com)
+	//
+	'*.conto.pl',		// by biuro at nazwa.pl
+	'*.guu.pl',			// by conto.pl (domena at az.pl)
 
 	// 2. Lonely domains (buddies not found yet)
 	'*.areaseo.com',	// by Antony Carpito (xcentr at lycos.com)
