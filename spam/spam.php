@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.90 2007/01/03 07:05:59 henoheno Exp $
+// $Id: spam.php,v 1.91 2007/01/03 07:35:54 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -636,7 +636,6 @@ function generate_glob_regex($string = '', $divider = '/')
 	}
 }
 
-// TODO: Ignore list
 // TODO: preg_grep() ?
 // TODO: Multi list
 function is_badhost($hosts = '', $asap = TRUE)
@@ -645,7 +644,6 @@ function is_badhost($hosts = '', $asap = TRUE)
 
 	if (! isset($regex)) {
 		$regex = array();
-		$regex['badhost'] = array();
 
 		// Sample
 		if (FALSE) {
@@ -665,9 +663,12 @@ function is_badhost($hosts = '', $asap = TRUE)
 		if (file_exists(SPAM_INI_FILE)) {
 			$blocklist = array();
 			require(SPAM_INI_FILE);
-			foreach ($blocklist['badhost'] as $part) {
-				$_part = is_array($part) ? implode('/', $part) : $part;
-				$regex['badhost'][$_part] = '/^' . generate_glob_regex($part) . '$/i';
+			foreach(array('goodhost', 'badhost') as $key) {
+				if (! isset($blocklist[$key])) continue;
+				foreach ($blocklist[$key] as $part) {
+					$_part = is_array($part) ? implode('/', $part) : $part;
+					$regex[$key][$_part] = '/^' . generate_glob_regex($part) . '$/i';
+				}
 			}
 		}
 	}
@@ -676,7 +677,17 @@ function is_badhost($hosts = '', $asap = TRUE)
 	if (! is_array($hosts)) $hosts = array($hosts);
 
 	foreach($hosts as $host) {
-		if (! is_string($host)) $host = '';
+		if (! is_string($host)) continue;
+
+		$is_good = FALSE;
+		foreach ($regex['goodhost'] as $_regex) {
+			if (preg_match($_regex, $host)) {
+				$is_good = TRUE;
+				break;
+			}
+		}
+		if ($is_good) continue;
+
 		foreach ($regex['badhost'] as $part => $_regex) {
 			if (preg_match($_regex, $host)) {
 				if (! isset($result[$part]))  $result[$part] = array();
@@ -689,7 +700,6 @@ function is_badhost($hosts = '', $asap = TRUE)
 			}
 		}
 	}
-
 	return $result;
 }
 
