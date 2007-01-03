@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.19 2007/01/03 07:35:54 henoheno Exp $
+// $Id: spam.ini.php,v 1.20 2007/01/03 15:57:39 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -36,6 +36,7 @@ $blocklist['badhost'] = array(
 	'1url.org',
 	'*.24ex.com',		// by shorturl.com
 	'*.2cd.net',		// by shim.net
+	'2ch2.net',
 	'*.2fear.com',		// by shorturl.com
 	'*.2fortune.com',	// by shorturl.com
 	'*.2freedom.com',	// by shorturl.com
@@ -337,7 +338,12 @@ $blocklist['badhost'] = array(
 	// 1. Web-spaces taken advantage of
 	'*.0catch.com',		// by bluehost.com
 	'*.150m.com',		// NS by 0catch.com
+	'20six.nl',			// by 20six weblog services (postmaster at 20six.nl)
 	'*.20six.nl',
+	'20six.co.uk',		// by 20six weblog services
+	'*.20six.co.uk',
+	'20six.fr',			// by 20six weblog services
+	'*.20six.fr',
 	'*.9999mb.com',
 	'*.aimoo.com',
 	'*.alice.it',
@@ -348,26 +354,30 @@ $blocklist['badhost'] = array(
 	'*.bloggers.nl',
 	'*.blogspot.com',
 	'*.bravenet.com',
+	'*.diaryland.com',
 	'*.dox.hu',
 	'*.extra.hu',
 	'fingerprintmedia.com',
 	'*.free-25.de',
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'groups-beta.google.com',
+	'www.healthcaregroup.com',
 	'hometown.aol.com',
 	'*.ifastnet.com',
 	'*.ifrance.com',
 	'*.journalscape.com',
-	'myblog.de',
-	'myblog.es',
+	'myblog.de',			// by 20six weblog services
+	'myblog.es',			// by 20six weblog services
 	'*.myblogvoice.com',
 	'*.nm.ru',
 	'*.quickfreehost.com',
+	'*.sayt.ws',
 	'*.sbn.bz',				// by rin.ru
 	'*.squarespace.com',
 	'*.stormloader.com',
-	'*.talkthis.com',
 	'*.t35.com',
+	'*.talkthis.com',
+	'thestudentunderground.org',
 	'*.welover.org',
 	'*.weblogmaniacs.com',
 	'weblogmaniacs.com',
@@ -383,16 +393,23 @@ $blocklist['badhost'] = array(
 	'*.iphpbb.com',
 	'board-z.de',
 	'*.board-z.de',
+	'fhmcsa.org.au',
 	'*.fhmcsa.org.au',
 	'forum.lixium.fr',
 	'funkdoc.com',
+	'www.funnyclipcentral.com',
+	'internetincomeclub.com',
 	'www.homepage-dienste.com',
 	'www.macfaq.net',
 	'www.me4x4.com',
+	'www.morerevealed.com',
+	'mountainjusticemedia.org',
 	'rkphunt.com',
 	'www.saskchamber.com',
 	'selikoff.net',
+	'theedgeblueisland.com',
 	'www.tzaneen.co.za',
+	'urgentclick.com',
 
 
 	// Sample setting of: Exclusive spam domains
@@ -442,11 +459,17 @@ $blocklist['badhost'] = array(
 	'*.camdoors.info',			// by CamsGen (buckster at hotpop.com)
 	'*.chatdoors.info',			// by CamsGen (buckster at hotpop.com)
 	'*.dildo-chat.org',			// by CamsGen (camsgen at model-x.com)
+	'*.dildo-chat.info',		// by CamsGen (camsgen at model-x.com)
+	'*.live-adult-chat.info',	// by CamsGen (camsgen at model-x.com)
 	'*.live-adult-chat.org',	// by CamsGen (camsgen at model-x.com)
+	'*.sexy-chat-rooms.info',	// by CamsGen (camsgen at model-x.com)
 	'*.sexy-chat-rooms.org',	// by CamsGen (camsgen at model-x.com)
+	'*.swinger-sex-chat.info',	// by CamsGen (camsgen at model-x.com)
 	'*.swinger-sex-chat.org',	// by CamsGen (camsgen at model-x.com)
+	'*.nasty-sex-chat.info',	// by CamsGen (camsgen at model-x.com)
 	'*.nasty-sex-chat.org',		// by CamsGen (camsgen at model-x.com)
 	'*.flirt-online.org',		// by CamsGen (camsgen at model-x.com)
+	// flirt-online.info is not CamsGen
 	//
 	'*.trevisos.org',	// by Marcello Italianore (mital at topo20.org)
 	'*.topo20.org',		// by Marcello Italianore (mital at topo20.org)
@@ -525,6 +548,8 @@ $blocklist['badhost'] = array(
 	'*.soft2you.info',	// by Michael (m.frenzy at yahoo.com)
 	'*.webnow.biz',		// by Hsien I Fan (admin at servcomputing.com)
 	'wellcams.biz',		// by Sergey Sergiyenko (studioboss at gmail.com)
+	'zlocorp.com',		// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
+	'*.zlocorp.com',
 
 );
 ?>
