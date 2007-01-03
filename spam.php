@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.94 2007/01/03 08:36:11 henoheno Exp $
+// $Id: spam.php,v 1.95 2007/01/03 09:44:23 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -18,7 +18,7 @@ if (! function_exists('var_export')) {
 	}
 }
 
-// (PHP 4 >= 4.2.0): preg_grep() enabels invert option
+// (PHP 4 >= 4.2.0): preg_grep() enables invert option
 function preg_grep_invert($pattern = '//', $input = array())
 {
 	static $invert;
@@ -27,7 +27,12 @@ function preg_grep_invert($pattern = '//', $input = array())
 	if ($invert) {
 		return preg_grep($pattern, $input, PREG_GREP_INVERT);
 	} else {
-		return array_diff($input, preg_grep($pattern, $input));
+		$result = preg_grep($pattern, $input);
+		if ($result) {
+			return array_diff($input, preg_grep($pattern, $input));
+		} else {
+			return $input;
+		}
 	}
 }
 
@@ -693,7 +698,7 @@ function get_blocklist($list = '')
 	}
 }
 
-function is_badhost($hosts = array(), $asap = TRUE)
+function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 {
 	$result = array();
 	if (! is_array($hosts)) $hosts = array($hosts);
@@ -716,6 +721,8 @@ function is_badhost($hosts = array(), $asap = TRUE)
 			if ($asap) break;
 		}
 	}
+
+	$remains = $hosts;
 
 	return $result;
 }
@@ -777,9 +784,11 @@ function check_uri_spam($target = '', $method = array())
 		),
 		'is_spam' => array(),
 		'method'  => & $method,
+		'remains' => array(),
 	);
 	$sum     = & $progress['sum'];
 	$is_spam = & $progress['is_spam'];
+	$remains = & $progress['remains'];
 	$asap    = isset($method['asap']);
 
 	// Return if ...
@@ -789,10 +798,11 @@ function check_uri_spam($target = '', $method = array())
 			$_progress = check_uri_spam($str, $method);
 			$_sum      = & $_progress['sum'];
 			$_is_spam  = & $_progress['is_spam'];
+			$_remains  = & $_progress['remains'];
 			foreach (array_keys($_sum) as $key) {
 				$sum[$key] += $_sum[$key];
 			}
-			foreach(array_keys($_is_spam) as $key) {
+			foreach (array_keys($_is_spam) as $key) {
 				if (is_array($_is_spam[$key])) {
 					// Marge keys (badhost)
 					foreach(array_keys($_is_spam[$key]) as $_key) {
@@ -804,6 +814,11 @@ function check_uri_spam($target = '', $method = array())
 					}
 				} else {
 					$is_spam[$key] = TRUE;
+				}
+			}
+			foreach ($_remains as $key=>$value) {
+				foreach ($value as $_key=>$_value) {
+					$remains[$key][$_key] = $_value;
 				}
 			}
 			if ($asap && $is_spam) break;
@@ -936,7 +951,19 @@ function check_uri_spam($target = '', $method = array())
 
 	// URI: Bad host
 	if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
-		$badhost = is_badhost($hosts, $asap);
+		if ($asap) {
+			$badhost = is_badhost($hosts, $asap);
+		} else {
+			$__remains = array();
+			$badhost = is_badhost($hosts, $asap, $__remains);
+			if ($__remains) {
+				$progress['remains']['badhost'] = array();
+				foreach ($__remains as $value) {
+					$progress['remains']['badhost'][$value] = TRUE;
+				}
+				unset($__remains);
+			}
+		}
 		if (! empty($badhost)) {
 			$sum['badhost'] += array_count_leaves($badhost);
 			foreach(array_keys($badhost) as $keys) {
