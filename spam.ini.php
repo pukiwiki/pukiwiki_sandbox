@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.17 2007/01/03 03:25:19 henoheno Exp $
+// $Id: spam.ini.php,v 1.18 2007/01/03 06:45:01 henoheno Exp $
 // Spam-related setting
 
 $blocklist['badhost'] = array(
@@ -78,6 +78,7 @@ $blocklist['badhost'] = array(
 	'clipurl.com',
 	'*.com02.com',		// by ulimit.com
 	'*.coolhere.com',	// by hotredirect.com
+	'coolurl.de',
 	'*.da.cx',
 	'*.dealtap.com',	// by shorturl.com
 	'dephine.org',
@@ -85,6 +86,7 @@ $blocklist['badhost'] = array(
 	'digbig.com',
 	'*.digipills.com',
 	'doiop.com',
+	'dornenboy.de',		// by coolurl.de
 	'*.ebored.com',		// by shorturl.com
 	'*.echoz.com',		// by shorturl.com
 	'elfurl.com',
@@ -92,6 +94,7 @@ $blocklist['badhost'] = array(
 	'*.en.st',			// by ulimit.com
 	'*.escape.to',		// by webalias.com
 	'*.euro.st',		// by ulimit.com
+	'eyeqweb.com',		// by coolurl.de
 	'*.f2b.be',			// by f2b.be
 	'*.faithweb.com',	// by freeservers.com
 	'*.fancyurl.com',
@@ -121,6 +124,7 @@ $blocklist['badhost'] = array(
 	'*.got.to',			// by webalias.com
 	'*.gq.nu',			// by freeservers.com
 	'*.gr.st',			// by ulimit.com
+	'hardcore-porn.de',	// by coolurl.de
 	'*.headplug.com',	// by shorturl.com
 	'*.here.ws',		// by active.ws
 	'*.hereweb.com',	// by shorturl.com
@@ -159,6 +163,7 @@ $blocklist['badhost'] = array(
 	'lnk.in',
 	'*.mac-fan.com',	// by ulimit.com
 	'makeashorterlink.com',
+	'maschinen-bluten-nicht.de',	// by coolurl.de
 	'mcturl.com',
 	'memurl.com',
 	'minilien.com',		// by digipills.com
@@ -245,6 +250,8 @@ $blocklist['badhost'] = array(
 	'tinypic.com',
 	'tinyr.us',
 	'tinyurl.com',
+	'tinyurl.name',		// by comteche.com
+	'tinyurl.us',		// by comteche.com
 	'*.toolbot.com',
 	'*.tophonors.com',	// by webalias.com
 	'*.torontonian.com',
@@ -353,6 +360,7 @@ $blocklist['badhost'] = array(
 	'*.sbn.bz',				// by rin.ru
 	'*.squarespace.com',
 	'*.stormloader.com',
+	'*.talkthis.com',
 	'*.t35.com',
 	'*.welover.org',
 	'*.weblogmaniacs.com',
@@ -497,12 +505,14 @@ $blocklist['badhost'] = array(
 	'*.hut1.ru',		// by domains at agava.com
 	'italy-search.org',	// by Alex Yablin (zaharov-alex at yandex.ru)
 	'*.italy-search.org',
+	'*.jimka-mmsa.com',	// by Alex Covax (c0vax at mail.ru)
 	'myfgj.info',		// by Filus (softscript at gmail.com)
 	'*.mujiki.com',		// by Mila Contora (ebumsn at ngs.ru)
 	'*.pahuist.info',	// by Yura (yuralg2005 at yandex.ru)
 	'*.perevozka777.ru',	// by witalik at gmail.com
 	'portaldiscount.com',	// by Mark Tven (bestsaveup at gmail.com)
 	'*.portaldiscount.com',
+	'*.prama.info',		// by Juan.Kang at mytrashmail.com
 	'qoclick.net',		// by DMITRIY SOLDATENKO
 	'relurl.com',		// tiny-like. by Grzes Tlalka (grzes1111 at interia.pl)
 	'sirlook.com',
