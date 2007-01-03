@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.93 2007/01/03 08:06:58 henoheno Exp $
+// $Id: spam.php,v 1.94 2007/01/03 08:36:11 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -9,7 +9,7 @@
 if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
 
 // ---------------------
-// Compat
+// Compat etc
 
 // (PHP 4 >= 4.2.0): var_export(): mail-reporting and dump related
 if (! function_exists('var_export')) {
@@ -693,39 +693,30 @@ function get_blocklist($list = '')
 	}
 }
 
-// TODO: preg_grep() ?
-function is_badhost($hosts = '', $asap = TRUE)
+function is_badhost($hosts = array(), $asap = TRUE)
 {
-	$goodhost = get_blocklist('goodhost');
-	$badhost  = get_blocklist('badhost');
-
 	$result = array();
 	if (! is_array($hosts)) $hosts = array($hosts);
+	foreach(array_keys($hosts) as $key) {
+		if (! is_string($hosts[$key])) unset($hosts[$key]);
+	}
+	if (empty($hosts)) return $result;
 
-	foreach($hosts as $host) {
-		if (! is_string($host)) continue;
+	foreach (get_blocklist('goodhost') as $_regex) {
+		$hosts = preg_grep_invert($_regex, $hosts);
+	}
+	if (empty($hosts)) return $result;
 
-		$is_good = FALSE;
-		foreach ($goodhost as $_regex) {
-			if (preg_match($_regex, $host)) {
-				$is_good = TRUE;
-				break;
-			}
-		}
-		if ($is_good) continue;
-
-		foreach ($badhost as $part => $_regex) {
-			if (preg_match($_regex, $host)) {
-				if (! isset($result[$part]))  $result[$part] = array();
-				$result[$part][] = $host;
-				if ($asap) {
-					return $result;
-				} else {
-					break;
-				}
-			}
+	$tmp = array();
+	foreach (get_blocklist('badhost') as $part => $_regex) {
+		$result[$part] = preg_grep($_regex, $hosts);
+		if (empty($result[$part])) {
+			unset($result[$part]);
+		} else {
+			if ($asap) break;
 		}
 	}
+
 	return $result;
 }
 
