@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.91 2007/01/03 07:35:54 henoheno Exp $
+// $Id: spam.php,v 1.92 2007/01/03 08:00:58 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
@@ -15,6 +15,19 @@ if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
 if (! function_exists('var_export')) {
 	function var_export() {
 		return 'var_export() is not found' . "\n";
+	}
+}
+
+// (PHP 4 >= 4.2.0): preg_grep() enabels invert option
+function preg_grep_invert($pattern = '//', $input = array())
+{
+	static $invert;
+	if (! isset($invert)) $invert = defined('PREG_GREP_INVERT');
+
+	if ($invert) {
+		return preg_grep($pattern, $input, PREG_GREP_INVERT);
+	} else {
+		return array_diff($input, preg_grep($pattern, $input));
 	}
 }
 
@@ -636,9 +649,7 @@ function generate_glob_regex($string = '', $divider = '/')
 	}
 }
 
-// TODO: preg_grep() ?
-// TODO: Multi list
-function is_badhost($hosts = '', $asap = TRUE)
+function get_blocklist($listname = '')
 {
 	static $regex;
 
@@ -672,6 +683,21 @@ function is_badhost($hosts = '', $asap = TRUE)
 			}
 		}
 	}
+
+	if ($listname == '') {
+		return $regex;
+	} else if (isset($regex[$listname])) {
+		return $regex[$listname];
+	} else {	
+		return array();
+	}
+}
+
+
+// TODO: preg_grep() ?
+function is_badhost($hosts = '', $asap = TRUE)
+{
+	$regex = get_blocklist();
 
 	$result = array();
 	if (! is_array($hosts)) $hosts = array($hosts);
