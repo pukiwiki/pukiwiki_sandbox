@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.31 2007/01/03 13:31:20 henoheno Exp $
+// $Id: spam_pickup.php,v 1.32 2007/01/03 13:45:43 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -40,8 +40,10 @@ function show_form($string, $asap, $pickup)
 	print <<< EOF
 <form action="$base" method="post">
 	<textarea name="msg" rows="8" cols="80">$string</textarea><br />
-	<input type="checkbox" name="asap" value="on"$asap>asap<br />
-	<input type="checkbox" name="pickup" value="on"$pickup>Show pickuped URIs<br />
+	<input type="checkbox" name="asap"   id="asap"   value="on"$asap>
+	<label for="asap">asap</label><br />
+	<input type="checkbox" name="pickup" id="pickup" value="on"$pickup>
+	<label for="pickup">Show pickuped URIs</label><br />
 	<input type="submit" name="write" value="Submit" />
 </form>
 <br/>
