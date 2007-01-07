@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.22 2007/01/07 09:05:11 henoheno Exp $
+// $Id: spam.ini.php,v 1.23 2007/01/07 15:06:33 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -13,7 +13,8 @@ $blocklist['goodhost'] = array(
 $blocklist['badhost'] = array(
 
 	// Sample setting of:
-	// Existing URI redirection or masking services,
+	// Existing URI redirection or masking services
+	// via HTTP redirection, HTML meta, HTML frame, or JavaScript,
 	// as known as cheap URI obscuring services today,
 	// for spammers and affiliate users dazed by money.
 	//
@@ -81,6 +82,7 @@ $blocklist['badhost'] = array(
 	'bingr.com',
 	'*.be.tf',			// by ulimit.com
 	'*.best.cd',		// by ulimit.com
+	'*.blo.pl',			// HTML frame
 	'brokenscript.com',
 	'*.browser.to',		// by webalias.com
 	'*.bsd-fan.com',	// by ulimit.com
@@ -433,9 +435,11 @@ $blocklist['badhost'] = array(
 	'*.myblogvoice.com',
 	'neweconomics.info',
 	'*.nm.ru',
+	'*.phpbbx.de',
 	'*.quickfreehost.com',
 	'*.sayt.ws',
 	'*.sbn.bz',				// by rin.ru
+	'*.spazioforum.it',
 	'*.squarespace.com',
 	'*.stormloader.com',
 	'*.t35.com',
@@ -446,7 +450,8 @@ $blocklist['badhost'] = array(
 	'*.weblogmaniacs.com',
 	'weblogmaniacs.com',
 	'*.wmjblogs.ru',
-	'*.wol.bz', // by sbn.bz (rin.ru)
+	'*.wol.bz',				 // by sbn.bz (rin.ru)
+	'yourfreebb.de',
 
 	// 2. (Seems to be) Jacked contents, something implanted
 	// (e.g. some sort of blog comments, BBSes, forums, wikis)
@@ -476,6 +481,7 @@ $blocklist['badhost'] = array(
 	'www.morerevealed.com',
 	'mountainjusticemedia.org',
 	'njbodybuilding.com',
+	'omikudzi.ru',
 	'www.privatforum.de',
 	'*.reallifelog.com',
 	'rkphunt.com',
@@ -487,6 +493,7 @@ $blocklist['badhost'] = array(
 	'www.tzaneen.co.za',
 	'urgentclick.com',
 	'www.wvup.edu',
+
 
 	// Sample setting of: Exclusive spam domains
 	// seems to have flavor of links, pills, gamble, online-games, erotic,
@@ -631,7 +638,16 @@ $blocklist['badhost'] = array(
 	'*.entirestar.com',		// by Baer (aakin at yandex.ru)
 	'*.superbuycheap.com',	// by Baer (aakin at yandex.ru)
 	'*.topdircet.com',		// by Baer (aakin at yandex.ru)
-
+	//
+	'tianmieccp.com',	// by jiuhatu kou (newblog9 at gmail.com)
+	'*.tianmieccp.com',
+	'xianqiao.net',		// by jiuhatu kou (newblog9 at gmail.com)
+	'*.xianqiao.net',
+	//
+	'onunicarehealthinsurance.com',	// by  Lawerence Paredes
+	'*.onunicarehealthinsurance.com',
+	'healthinsuranceem.com',		// by Justin Munson
+	'*.healthinsuranceem.com',
 
 	// 2. Lonely domains (buddies not found yet)
 	'19cellar.info',	// by Eduardo Guro (boomouse at gmail.com)
@@ -639,6 +655,7 @@ $blocklist['badhost'] = array(
 	'*.dlekei.info',	// by Maxima Bucaro (webmaster at tts2f.info)
 	'*.discutbb.com',	// by Perez Thomas (thomas.jsp at libertysurf.fr)
 	'*.ec51.com',		// by zhenfei chen (szczffhh_sso at 21cn.net)
+	'fastppc.info',		// by peter conor (fastppc at msn.com)
 	'hotscriptonline.info',	// by Psy Search (admin at psysearch.com)
 	'*.hut1.ru',		// by domains at agava.com
 	'investorvillage.com',
