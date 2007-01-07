@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.21 2007/01/07 07:59:41 henoheno Exp $
+// $Id: spam.ini.php,v 1.22 2007/01/07 09:05:11 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -392,6 +392,7 @@ $blocklist['badhost'] = array(
 	'*.20six.co.uk',
 	'20six.fr',			// by 20six weblog services
 	'*.20six.fr',
+	'*.50megs.com',
 	'*.9999mb.com',
 	'*.aimoo.com',
 	'*.alice.it',
@@ -402,6 +403,7 @@ $blocklist['badhost'] = array(
 	'*.bloggers.nl',
 	'*.blogspot.com',
 	'*.bravenet.com',
+	'dakrats.net',
 	'*.diaryland.com',
 	'*.dox.hu',
 	'*.extra.hu',
@@ -423,6 +425,7 @@ $blocklist['badhost'] = array(
 	'*.ifastnet.com',
 	'*.ifrance.com',
 	'*.journalscape.com',
+	'ltss.luton.ac.uk',
 	'*.monforum.com',
 	'*.monforum.fr',		// by monforum.com
 	'myblog.de',			// by 20six weblog services
@@ -442,6 +445,7 @@ $blocklist['badhost'] = array(
 	'*.welover.org',
 	'*.weblogmaniacs.com',
 	'weblogmaniacs.com',
+	'*.wmjblogs.ru',
 	'*.wol.bz', // by sbn.bz (rin.ru)
 
 	// 2. (Seems to be) Jacked contents, something implanted
@@ -461,19 +465,24 @@ $blocklist['badhost'] = array(
 	'forum.lixium.fr',
 	'funkdoc.com',
 	'*.goodboard.de',
+	'www.homepage-dienste.com',
 	'*.inventforum.com',
 	'www.funnyclipcentral.com',
 	'internetincomeclub.com',
-	'www.homepage-dienste.com',
+	'kevindmurray.com',
 	'www.macfaq.net',
 	'www.me4x4.com',
+	'morallaw.org',
 	'www.morerevealed.com',
 	'mountainjusticemedia.org',
+	'njbodybuilding.com',
+	'www.privatforum.de',
 	'*.reallifelog.com',
 	'rkphunt.com',
 	'www.saskchamber.com',
 	'selikoff.net',
 	'www.setbb.com',
+	'silver-tears.net',
 	'theedgeblueisland.com',
 	'www.tzaneen.co.za',
 	'urgentclick.com',
@@ -504,7 +513,10 @@ $blocklist['badhost'] = array(
 	'*.bplo--s.org',	// by Boris (boss at bse-sofia.bg)
 	'*.basdpo.org',		// by Boris (boss at bse-sofia.bg)
 	'jisu--m.org',		// by Boris (boss at bse-sofia.bg)
+	'kire--z.org',		// by Boris (boss at bse-sofia.bg)
 	'*.mertnop.org',	// by Boris (boss at bse-sofia.bg)
+	'mooa--c.org',		// by Boris (boss at bse-sofia.bg)
+	'nake--h.org',		// by Boris (boss at bse-sofia.bg)
 	'noov--b.org',		// by Boris (boss at bse-sofia.bg)
 	'suke--y.org',		// by Boris (boss at bse-sofia.bg)
 	'vasdipv.org',		// by Boris (boss at bse-sofia.bg)
@@ -615,14 +627,21 @@ $blocklist['badhost'] = array(
 	'*.jpragnarokonline.com',
 	'ragnaroklink.com',		// by Lin Zhi Qiang (mail at pcinc.cn)
 	'*.ragnaroklink.com',
+	//
+	'*.entirestar.com',		// by Baer (aakin at yandex.ru)
+	'*.superbuycheap.com',	// by Baer (aakin at yandex.ru)
+	'*.topdircet.com',		// by Baer (aakin at yandex.ru)
+
 
 	// 2. Lonely domains (buddies not found yet)
+	'19cellar.info',	// by Eduardo Guro (boomouse at gmail.com)
 	'*.areaseo.com',	// by Antony Carpito (xcentr at lycos.com)
 	'*.dlekei.info',	// by Maxima Bucaro (webmaster at tts2f.info)
 	'*.discutbb.com',	// by Perez Thomas (thomas.jsp at libertysurf.fr)
 	'*.ec51.com',		// by zhenfei chen (szczffhh_sso at 21cn.net)
 	'hotscriptonline.info',	// by Psy Search (admin at psysearch.com)
 	'*.hut1.ru',		// by domains at agava.com
+	'investorvillage.com',
 	'italy-search.org',	// by Alex Yablin (zaharov-alex at yandex.ru)
 	'*.italy-search.org',
 	'*.jimka-mmsa.com',	// by Alex Covax (c0vax at mail.ru)
@@ -642,7 +661,6 @@ $blocklist['badhost'] = array(
 	'wellcams.biz',		// by Sergey Sergiyenko (studioboss at gmail.com)
 	'zlocorp.com',		// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'*.zlocorp.com',
-
 
 	// Hosts shown inside the implanted contents
 	// not used via spam, but useful to detect these contents
