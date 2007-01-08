@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.23 2007/01/07 15:06:33 henoheno Exp $
+// $Id: spam.ini.php,v 1.24 2007/01/08 02:24:48 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -587,6 +587,7 @@ $blocklist['badhost'] = array(
 	'*.crapsok.com',
 	'*.onbaccarat.com',		// post with crapsok.com
 	//
+	'*.acgt2005.org',	// by Kikimas at mail.net, Redirect to nb717.com etc
 	'*.koosx.org',		// by Kikimas at mail.net, Redirect to nb717.com etc
 	'*.mmgz.org',		// by Kikimas at mail.net, Redirect to nb717.com etc
 	'*.zhiyehua.net',	// by Kikimas at mail.net, Redirect to nb717.com etc
