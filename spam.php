@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.104 2007/01/06 03:12:20 henoheno Exp $
+// $Id: spam.php,v 1.105 2007/01/08 02:25:32 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -13,7 +13,7 @@ if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
 // (PHP 4 >= 4.2.0): var_export(): mail-reporting and dump related
 if (! function_exists('var_export')) {
 	function var_export() {
-		return 'var_export() is not found' . "\n";
+		return 'var_export() is not found on this server' . "\n";
 	}
 }
 
