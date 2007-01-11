@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.107 2007/01/11 16:06:54 henoheno Exp $
+// $Id: spam.php,v 1.108 2007/01/11 16:21:25 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -348,7 +348,7 @@ function spam_uri_pickup_preprocess($string = '')
 		array(
 			// Something Google: http://www.google.com/supported_domains
 			'#(http)://((?:[a-z0-9.]+\.)?google\.[a-z]{2,3}(?:\.[a-z]{2})?)/' .
-			'([ a-z0-9?=&.%_+-]+)' .					// ?query=foo+bar hoge
+			'([a-z0-9?=&.%_+-]+)' .						// ?query=foo+bar+
 			'\bsite:([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// site:nasty.example.com
 			//'()' .	// Preserve or remove?
 			'#i',
