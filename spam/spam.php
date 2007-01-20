@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.108 2007/01/11 16:21:25 henoheno Exp $
+// $Id: spam.php,v 1.109 2007/01/20 15:43:55 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -346,9 +346,17 @@ function spam_uri_pickup_preprocess($string = '')
 	// Domain exposure (See _preg_replace_callback_domain_exposure())
 	$string = preg_replace_callback(
 		array(
-			// Something Google: http://www.google.com/supported_domains
-			'#(http)://((?:[a-z0-9.]+\.)?google\.[a-z]{2,3}(?:\.[a-z]{2})?)/' .
-			'([a-z0-9?=&.%_+-]+)' .						// ?query=foo+bar+
+			'#(http)://' .
+			'(' .
+				// Something Google: http://www.google.com/supported_domains
+				'(?:[a-z0-9.]+\.)?google\.[a-z]{2,3}(?:\.[a-z]{2})?' .
+				'|' .
+				// AltaVista
+				'(?:[a-z0-9.]+\.)?altavista.com' .
+				
+			')' .
+			'/' .
+			'([a-z0-9?=&.%_/+-]+)' .					// path/?query=foo+bar+
 			'\bsite:([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// site:nasty.example.com
 			//'()' .	// Preserve or remove?
 			'#i',
@@ -356,6 +364,8 @@ function spam_uri_pickup_preprocess($string = '')
 		'_preg_replace_callback_domain_exposure',
 		$string
 	);
+	
+
 
 	// URI exposure (uriuri => uri uri)
 	$string = preg_replace(
