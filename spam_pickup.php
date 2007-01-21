@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.37 2007/01/21 14:51:38 henoheno Exp $
+// $Id: spam_pickup.php,v 1.38 2007/01/21 14:54:57 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -72,11 +72,15 @@ if ($asap) $method['asap'] = TRUE;
 $progress = check_uri_spam(array('a', $msg, 'b'), $method);
 
 if (! empty($progress)) {
-	var_dump('ACTION: Blocked by ' . summarize_spam_progress($progress, TRUE));
-	if (! $asap) {
-		var_dump('METRICS: ' . summarize_spam_progress($progress));
-	}
-	if (! empty($progress['is_spam'])) {
+
+
+	if (empty($progress['is_spam'])) {
+		var_dump('ACTION: Seems not a spam');
+	} else {
+		var_dump('ACTION: Blocked by ' . summarize_spam_progress($progress, TRUE));
+
+		if (! $asap) var_dump('METRICS: ' . summarize_spam_progress($progress));
+
 		$action = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
 		if (isset($progress['is_spam']['badhost'])) {
 			$badhost = array();
@@ -87,6 +91,7 @@ if (! empty($progress)) {
 			//var_dump($progress['is_spam']['badhost']);
 		}
 	}
+
 	if (isset($progress['remains']['badhost'])) {
 		$count = count($progress['remains']['badhost']);
 		var_dump('DETAIL_NEUTRAL_HOST: ' . $count .
