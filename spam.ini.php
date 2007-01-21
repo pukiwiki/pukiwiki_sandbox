@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.27 2007/01/21 13:54:17 henoheno Exp $
+// $Id: spam.ini.php,v 1.28 2007/01/21 14:37:43 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -443,6 +443,7 @@ $blocklist['badhost'] = array(
 	'*.atfreeforum.com',
 	'*.asphost4free.com',
 	'*.beeplog.com',
+	'*.bloggingmylife.com',
 	'bloggers.nl',
 	'*.bloggers.nl',
 	'*.blogharbor.com',
@@ -551,6 +552,7 @@ $blocklist['badhost'] = array(
 	'theedgeblueisland.com',
 	'www.tzaneen.co.za',
 	'urgentclick.com',
+	'wolvas.org.uk',
 	'www.wvup.edu',
 
 
