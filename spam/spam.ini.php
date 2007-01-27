@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.32 2007/01/27 23:18:44 henoheno Exp $
+// $Id: spam.ini.php,v 1.33 2007/01/27 23:37:31 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -483,19 +483,24 @@ $blocklist['badhost'] = array(
 	'*.forumup.co.uk',		// by forumup
 	'*.forumup.co.za',		// by forumup
 	'*.forumup.com',		// by forumup
+	'*.forumup.com.au'		// by forumup
 	'*.forumup.cn',			// by forumup
 	'*.forumup.cz',			// by forumup
 	'*.forumup.de',			// by forumup
 	'*.forumup.dk',			// by forumup
 	'*.forumup.es',			// by forumup
+	'*.forumup.eu',			// by forumup
 	'*.forumup.fr',			// by forumup
 	'*.forumup.gr',			// by forumup
+	'*.forumup.hu',			// by forumup
 	'*.forumup.in',			// by forumup
 	'*.forumup.info',		// by forumup
+	'*.forumup.ir',			// by forumup
 	'*.forumup.it',			// by forumup
 	'*.forumup.jobs',		// by forumup
 	'*.forumup.jp',			// by forumup
 	'*.forumup.lt',			// by forumup
+	'*.forumup.lv',			// by forumup
 	'*.forumup.org',		// by forumup
 	'*.forumup.pl',			// by forumup
 	'*.forumup.name',		// by forumup
@@ -508,6 +513,7 @@ $blocklist['badhost'] = array(
 	'*.forumup.tv',			// by forumup
 	'*.forumup.us',			// by forumup
 	'*.forumup.web.tr',		// by forumup
+	'*.hit.bg',				// by forumup.com ??
 	'*.goodboard.de',
 	'docs.google.com',			// by Google
 	'groups-beta.google.com',	// by Google
@@ -525,6 +531,7 @@ $blocklist['badhost'] = array(
 	'*.iquebec.com',		// by ieurop.net
 	'*.isuisse.com',		// by ieurop.net
 	'*.journalscape.com',
+	'*.land.ru',			// pochta.ru related
 	'limmon.net',
 	'www.limmon.net',
 	'ltss.luton.ac.uk',
