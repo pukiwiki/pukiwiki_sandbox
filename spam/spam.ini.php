@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.29 2007/01/27 04:49:22 henoheno Exp $
+// $Id: spam.ini.php,v 1.30 2007/01/27 09:17:03 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -332,6 +332,7 @@ $blocklist['badhost'] = array(
 	'*.sushka.org',		// by bucksogen.com
 	'*.surfhere.net',	// by hotredirect.com
 	'surl.dk',			// by s-url.dk
+	'surl.ws',
 	'symy.jp',
 	'*.t2u.com',		// by ulimit.com
 	'*.thrill.to',		// by webalias.com
@@ -455,6 +456,7 @@ $blocklist['badhost'] = array(
 	'myblogma.com',
 	'*.blogspot.com',		// by Google
 	'*.bravenet.com',
+	'blogyaz.com',
 	'*.by.ru',
 	'*.kokoom.com',
 	'dakrats.net',
@@ -465,6 +467,7 @@ $blocklist['badhost'] = array(
 	'fingerprintmedia.com',
 	'*.free-25.de',
 	'*.free-bb.com',
+	'*.freeclans.de',
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'www.freeforum.at',
 	'www.forumprofi.de',
@@ -487,6 +490,8 @@ $blocklist['badhost'] = array(
 	'*.iquebec.com',		// by ieurop.net
 	'*.isuisse.com',		// by ieurop.net
 	'*.journalscape.com',
+	'limmon.net',
+	'www.limmon.net',
 	'ltss.luton.ac.uk',
 	'*.monforum.com',
 	'*.monforum.fr',		// by monforum.com
@@ -694,6 +699,8 @@ $blocklist['badhost'] = array(
 	'*.6discount.info',
 	'78porn.org',		// by Andrey (vdf at lovespb.com), "UcoZ WEB-SERVICES"
 	'*.78porn.org',
+	'78rus.info',		// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
+	'*.78rus.info',
 	'92ssex.org',		// by Andrey (vdf at lovespb.com), "ForumGenerator"
 	'*.92ssex.org',
 	'93adult.org',		// by Andrey (vdf at lovespb.com), "ForumGenerator"
@@ -710,6 +717,8 @@ $blocklist['badhost'] = array(
 	'*.lovespb.info',
 	'oursales.info',	// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
 	'*.oursales.info',
+	'olala18.info',		// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
+	'*.olala18.info',
 	'pldk.info',		// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
 	'*.pldk.info',
 	'pornr.info',		// by Andrey (vdf at lovespb.com), "UcoZ WEB-SERVICES"
@@ -732,6 +741,7 @@ $blocklist['badhost'] = array(
 	'*.vny0.info',
 	'wifes1.info',		// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
 	'*.wifes1.info',
+	'*.yerap.info',		// by Kuzma V Safonov (admin at irtes.ru), redirect to activefreehost.com
 	//
 	'*.flywebs.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
 	'*.hostrim.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
@@ -826,9 +836,10 @@ $blocklist['badhost'] = array(
 	'x09x.info',		// by Michael (m.frenzy at yahoo.com)
 	'*.x09x.info',
 	//
+	'*.bingogoldenpalace.info', // by Lebedev Sergey (serega555serega555 at yandex.ru)
 	'*.isuperdrug.com',	// by Lebedev Sergey (serega555serega555 at yandex.ru)
+	'*.pharmacif.info',	// by Lebedev Sergey (serega555serega555 at yandex.ru)
 	'*.vviagra.info',	// by Lebedev Sergey (serega555serega555 at yandex.ru)
-
 
 	// C-2: Lonely domains (buddies not found yet)
 	'19cellar.info',	// by Eduardo Guro (boomouse at gmail.com)
@@ -842,6 +853,7 @@ $blocklist['badhost'] = array(
 	'fastppc.info',		// by peter conor (fastppc at msn.com)
 	'*.fateback.com',	// by LiquidNet Ltd. Redirect to www.japan.jp
 	'*.free-rx.net',	// by Neo-x (neo-xxl at yandex.ru), redirect to activefreehost.com
+	'*.hot4buy.org',	// by Hot Maker (jot at hot4buy.org)
 	'hotscriptonline.info',	// by Psy Search (admin at psysearch.com)
 	'*.hut1.ru',		// by domains at agava.com
 	'investorvillage.com',
