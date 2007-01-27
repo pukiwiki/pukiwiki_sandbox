@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.30 2007/01/27 09:17:03 henoheno Exp $
+// $Id: spam.ini.php,v 1.31 2007/01/27 11:47:51 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -474,6 +474,39 @@ $blocklist['badhost'] = array(
 	'www.forumprofi1.de',	// by forumprofi.de
 	'www.forumprofi2.de',	// by forumprofi.de
 	'www.forumprofi3.de',	// by forumprofi.de
+	'*.forumup.at',			// by forumup
+	'*.forumup.be',			// by forumup
+	'*.forumup.ca',			// by forumup
+	'*.forumup.ch',			// by forumup
+	'*.forumup.co.nz',		// by forumup
+	'*.forumup.co.uk',		// by forumup
+	'*.forumup.co.za',		// by forumup
+	'*.forumup.com',		// by forumup
+	'*.forumup.cn',			// by forumup
+	'*.forumup.cz',			// by forumup
+	'*.forumup.de',			// by forumup
+	'*.forumup.dk',			// by forumup
+	'*.forumup.es',			// by forumup
+	'*.forumup.fr',			// by forumup
+	'*.forumup.gr',			// by forumup
+	'*.forumup.in',			// by forumup
+	'*.forumup.info',		// by forumup
+	'*.forumup.it',			// by forumup
+	'*.forumup.jobs',		// by forumup
+	'*.forumup.jp',			// by forumup
+	'*.forumup.lt',			// by forumup
+	'*.forumup.org',		// by forumup
+	'*.forumup.pl',			// by forumup
+	'*.forumup.name',		// by forumup
+	'*.forumup.net',		// by forumup
+	'*.forumup.nl',			// by forumup
+	'*.forumup.ro',			// by forumup
+	'*.forumup.ru',			// by forumup
+	'*.forumup.se',			// by forumup
+	'*.forumup.sk',			// by forumup
+	'*.forumup.tv',			// by forumup
+	'*.forumup.us',			// by forumup
+	'*.forumup.web.tr',		// by forumup
 	'*.goodboard.de',
 	'docs.google.com',			// by Google
 	'groups-beta.google.com',	// by Google
