@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.33 2007/01/27 23:37:31 henoheno Exp $
+// $Id: spam.ini.php,v 1.34 2007/01/28 10:43:57 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -80,6 +80,7 @@ $blocklist['badhost'] = array(
 	'*.abwb.org',
 	'acnw.de',
 	'active.ws',
+	'atk.jp',
 	'store.adobe.com',	// Stop it
 	'*.alturl.com',		// by shorturl.com
 	'*.andmuchmore.com',// by webalias.com
@@ -212,6 +213,7 @@ $blocklist['badhost'] = array(
 	'*.korzhik.org',	// by bucksogen.com
 	'*.kovrizhka.org',	// by bucksogen.com
 	'krotki.pl',
+	'*.kupisz.pl',
 	'kuso.cc',
 	'lame.name',
 	'*.latest-info.com',// by webalias.com
@@ -286,6 +288,7 @@ $blocklist['badhost'] = array(
 	'*.return.to',		// by webalias.com
 	'*.rmcinfo.fr',
 	'*.ryj.pl',			// by Home.pl Sp. J. (info at home.pl)
+	'rubyurl.com',
 	'*.runboard.com',
 	's-url.net',
 	'*.s5.com',			// by freeservers.com
@@ -483,7 +486,7 @@ $blocklist['badhost'] = array(
 	'*.forumup.co.uk',		// by forumup
 	'*.forumup.co.za',		// by forumup
 	'*.forumup.com',		// by forumup
-	'*.forumup.com.au'		// by forumup
+	'*.forumup.com.au',		// by forumup
 	'*.forumup.cn',			// by forumup
 	'*.forumup.cz',			// by forumup
 	'*.forumup.de',			// by forumup
@@ -513,6 +516,7 @@ $blocklist['badhost'] = array(
 	'*.forumup.tv',			// by forumup
 	'*.forumup.us',			// by forumup
 	'*.forumup.web.tr',		// by forumup
+	'*.freepowerboards.com',
 	'*.hit.bg',				// by forumup.com ??
 	'*.goodboard.de',
 	'docs.google.com',			// by Google
@@ -544,8 +548,11 @@ $blocklist['badhost'] = array(
 	'*.netfast.org',
 	'neweconomics.info',
 	'*.nm.ru',
+	'*.parlaris.com',
 	'*.phpbbx.de',
 	'*.quickfreehost.com',
+	'quizilla.com',
+	'www.quizilla.com',
 	'*.pochta.ru',
 	'*.sayt.ws',
 	'*.sbn.bz',				// by rin.ru
@@ -725,6 +732,7 @@ $blocklist['badhost'] = array(
 	'*.crapsok.com',			// by Devon Adair (postmaster at crapsok.com)
 	'*.onbaccarat.com',			// by Kassandra Dunn (admin at onbaccarat.com), post with crapsok.com
 	'*.the-craps-100.us',		// by Lorrine Ripley (postmaster at the-craps-100.us)
+	'*.atonlineroulette.com',	// by Blaise Johns (hostmaster at atonlineroulette.com), post with mycaribbeanpoker.com
 	//
 	'dbsajax.org',		// by Kikimas at mail.net, Redirect to nb717.com etc
 	'*.dbsajax.org',
@@ -913,6 +921,7 @@ $blocklist['badhost'] = array(
 	'italy-search.org',	// by Alex Yablin (zaharov-alex at yandex.ru)
 	'*.italy-search.org',
 	'*.jimka-mmsa.com',	// by Alex Covax (c0vax at mail.ru)
+	'*.ls.la',			// by Milton McLellan (McLellanMilton at yahoo.com)
 	'myfgj.info',		// by Filus (softscript at gmail.com)
 	'*.mujiki.com',		// by Mila Contora (ebumsn at ngs.ru)
 	'*.pahuist.info',	// by Yura (yuralg2005 at yandex.ru)
@@ -927,6 +936,8 @@ $blocklist['badhost'] = array(
 	'*.webnow.biz',		// by Hsien I Fan (admin at servcomputing.com)
 	'wellcams.biz',		// by Sergey Sergiyenko (studioboss at gmail.com)
 	'*.xpacificpoker.com',// by Hubert Hoffman (support at xpacificpoker.com)
+	'xer-vam.org',		// by Dr. Portillo (aliacsandr85 at yahoo.com)
+	'*.xer-vam.org',
 	'zlocorp.com',		// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'*.zlocorp.com',
 	'*.roin.info',		// by Evgenius (roinse at yandex.ru)
