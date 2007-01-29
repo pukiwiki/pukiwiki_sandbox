@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.34 2007/01/28 10:43:57 henoheno Exp $
+// $Id: spam.ini.php,v 1.35 2007/01/29 21:51:58 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -443,6 +443,7 @@ $blocklist['badhost'] = array(
 	'*.20six.co.uk',
 	'20six.fr',			// by 20six weblog services
 	'*.20six.fr',
+	'*.2page.de',
 	'*.50megs.com',
 	'*.9999mb.com',
 	'*.9k.com',
@@ -465,6 +466,8 @@ $blocklist['badhost'] = array(
 	'dakrats.net',
 	'*.diaryland.com',
 	'*.dox.hu',
+	'dreipage.de',		// by 2page.de
+	'www.dreipage.de',
 	'*.eblog.com.au',
 	'*.extra.hu',
 	'fingerprintmedia.com',
@@ -558,9 +561,12 @@ $blocklist['badhost'] = array(
 	'*.sbn.bz',				// by rin.ru
 	'*.spazioforum.it',
 	'*.squarespace.com',
+	'stickypond.com',
+	'www.stickypond.com',
 	'*.stormloader.com',
 	'*.t35.com',
 	'*.talkthis.com',
+	'telasipforums.com',
 	'thestudentunderground.org',
 	'www.think.ubc.ca',
 	'*.welover.org',
@@ -797,6 +803,9 @@ $blocklist['badhost'] = array(
 	'*.vny0.info',
 	'wifes1.info',		// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
 	'*.wifes1.info',
+	//
+	'*.bequeous.info',	// by David C. Lack (David.C.Lack at dodgeit.com), redirect to activefreehost.com
+	'*.superfreedownload.info',	// by Varsylenko Vladimir (vvm_kz at rambler.ru), redirect to activefreehost.com
 	'*.yerap.info',		// by Kuzma V Safonov (admin at irtes.ru), redirect to activefreehost.com
 	//
 	'*.flywebs.com',	// by Andrey Zhurikov (zhu1313 at mail.ru)
@@ -897,7 +906,10 @@ $blocklist['badhost'] = array(
 	'*.pharmacif.info',			// by Lebedev Sergey (serega555serega555 at yandex.ru)
 	'*.pornsexteen.biz',		// by Lebedev Sergey (serega555serega555 at yandex.ru)
 	'*.vviagra.info',			// by Lebedev Sergey (serega555serega555 at yandex.ru)
-	
+	//
+	'*.cheapestviagraonline.info',	// by Anatol (anatolsenator at gmail.com)
+	'*.buyphentermineworld.info',	// by Anatol (anatolsenator at gmail.com)
+
 	// C-2: Lonely domains (buddies not found yet)
 	'0nline-porno.info',	// by Timyr (timyr at narod.ru)
 	'*.0nline-porno.info',
@@ -905,7 +917,6 @@ $blocklist['badhost'] = array(
 	'*.advancediet.com',// by Shonta Mojica (hostadmin at advancediet.com)
 	'*.areaseo.com',	// by Antony Carpito (xcentr at lycos.com)
 	'bestdiscountpharmacy.biz',	// by John  Brown (john780321 at yahoo.com), 2007-01-27, 61.144.122.45
-	'*.cheapestviagraonline.info',	// by Anatol (anatolsenator at gmail.com)
 	'*.dlekei.info',	// by Maxima Bucaro (webmaster at tts2f.info)
 	'*.discutbb.com',	// by Perez Thomas (thomas.jsp at libertysurf.fr)
 	'dreamteammoney.com',	// dtmurl.com related
@@ -914,8 +925,10 @@ $blocklist['badhost'] = array(
 	'*.fateback.com',	// by LiquidNet Ltd. Redirect to www.japan.jp
 	'*.free-rx.net',	// by Neo-x (neo-xxl at yandex.ru), redirect to activefreehost.com
 	'*.hot4buy.org',	// by Hot Maker (jot at hot4buy.org)
+	'hotnetinfo.info',	// by Lisa Edwards (lisaedwards at ledw.th)
 	'hotscriptonline.info',	// by Psy Search (admin at psysearch.com)
 	'*.hut1.ru',		// by domains at agava.com
+	'*.incbuy.info',	// by Diego T. Murphy (Diego.T.Murphy at incbuy.info)
 	'investorvillage.com',
 	'ismarket.com',		// Google-hiding. intercage.com related IP
 	'italy-search.org',	// by Alex Yablin (zaharov-alex at yandex.ru)
