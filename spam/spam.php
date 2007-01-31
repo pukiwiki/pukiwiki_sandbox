@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.111 2007/01/31 11:28:50 henoheno Exp $
+// $Id: spam.php,v 1.112 2007/01/31 11:34:38 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -671,18 +671,13 @@ function get_blocklist($list = '')
 		$regexs = array();
 
 		// Sample
-		if (FALSE) {
-			$blocklist['badhost'] = array(
-				//'*',			// Deny all uri
-				//'10.20.*.*',	// 10.20.example.com also matches
-				//'*.blogspot.com',	// Blog services subdomains
-				//array('blogspot.com', '*.blogspot.com')
-			);
-			foreach ($blocklist['badhost'] as $part) {
-				$label = is_array($part) ? implode('/', $part) : $part;
-				$regexs['badhost'][$label] = '/^' . generate_glob_regex($part) . '$/i';
-			}
-		}
+		//	$blocklist['badhost'] = array(
+		//		'*',			// Deny all uri
+		//		'10.20.*.*',	// 10.20.example.com also matches
+		//		'*.blogspot.com',	// Blog services subdomains
+		//		array('blogspot.com', '*.blogspot.com'),
+		//		array('net-10.20' => '#^10\.20\.[0-9]+\.[0-9]+$#'),	// 10.20.12345.12 also matches
+		//	);
 
 		// Load
 		if (file_exists(SPAM_INI_FILE)) {
