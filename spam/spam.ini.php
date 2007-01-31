@@ -1,17 +1,18 @@
 <?php
-// $Id: spam.ini.php,v 1.36 2007/01/29 22:21:32 henoheno Exp $
+// $Id: spam.ini.php,v 1.37 2007/01/31 11:28:50 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
-	array(
-		'example.com', '*.example.com',
-		'example.net', '*.example.net',
-		'example.org', '*.example.org'
-	),	// by IANA
+	array('IANA-examples' => '#\.?example\.(?:com|net|org)$#'),	// by IANA
+
+	// Yours
+	//''
+	//''
+	//''
+
 );
 
 $blocklist['badhost'] = array(
-
 
 	// A: Sample setting of
 	// Existing URI redirection or masking services
@@ -92,6 +93,7 @@ $blocklist['badhost'] = array(
 	'aukcje1.pl',
 	'*.better.ws',		// by active.ws
 	'*.bigbig.com',		// by shorturl.com
+	'biglnk.com',
 	'bingr.com',
 	'bittyurl.com',
 	'*.bittyurl.com',

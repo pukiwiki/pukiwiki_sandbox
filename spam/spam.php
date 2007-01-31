@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.110 2007/01/27 23:26:04 henoheno Exp $
+// $Id: spam.php,v 1.111 2007/01/31 11:28:50 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -665,10 +665,10 @@ function generate_glob_regex($string = '', $divider = '/')
 
 function get_blocklist($list = '')
 {
-	static $regex;
+	static $regexs;
 
-	if (! isset($regex)) {
-		$regex = array();
+	if (! isset($regexs)) {
+		$regexs = array();
 
 		// Sample
 		if (FALSE) {
@@ -679,8 +679,8 @@ function get_blocklist($list = '')
 				//array('blogspot.com', '*.blogspot.com')
 			);
 			foreach ($blocklist['badhost'] as $part) {
-				$_part = is_array($part) ? implode('/', $part) : $part;
-				$regex['badhost'][$_part] = '/^' . generate_glob_regex($part) . '$/i';
+				$label = is_array($part) ? implode('/', $part) : $part;
+				$regexs['badhost'][$label] = '/^' . generate_glob_regex($part) . '$/i';
 			}
 		}
 
@@ -691,17 +691,31 @@ function get_blocklist($list = '')
 			foreach(array('goodhost', 'badhost') as $key) {
 				if (! isset($blocklist[$key])) continue;
 				foreach ($blocklist[$key] as $part) {
-					$_part = is_array($part) ? implode('/', $part) : $part;
-					$regex[$key][$_part] = '/^' . generate_glob_regex($part) . '$/i';
+					if (is_array($part)) {
+						if (is_string(key($part))) {
+							// Pre-defined regex
+							$label = key($part);
+							$regex = current($part);
+						} else {
+							// Multiple set (example.com, or example.org, or ...)
+							$label = implode('/', $part);
+							$regex = '/^' . generate_glob_regex($part) . '$/i';
+						}
+					} else {
+						// Single set
+						$label = $part;
+						$regex = '/^' . generate_glob_regex($part) . '$/i';
+					}
+					$regexs[$key][$label] = $regex;
 				}
 			}
 		}
 	}
 
 	if ($list == '') {
-		return $regex;
-	} else if (isset($regex[$list])) {
-		return $regex[$list];
+		return $regexs;
+	} else if (isset($regexs[$list])) {
+		return $regexs[$list];
 	} else {	
 		return array();
 	}
@@ -716,18 +730,18 @@ function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 	}
 	if (empty($hosts)) return $result;
 
-	foreach (get_blocklist('goodhost') as $_regex) {
-		$hosts = preg_grep_invert($_regex, $hosts);
+	foreach (get_blocklist('goodhost') as $regex) {
+		$hosts = preg_grep_invert($regex, $hosts);
 	}
 	if (empty($hosts)) return $result;
 
 	$tmp = array();
-	foreach (get_blocklist('badhost') as $part => $_regex) {
-		$result[$part] = preg_grep($_regex, $hosts);
-		if (empty($result[$part])) {
-			unset($result[$part]);
+	foreach (get_blocklist('badhost') as $label => $regex) {
+		$result[$label] = preg_grep($regex, $hosts);
+		if (empty($result[$label])) {
+			unset($result[$label]);
 		} else {
-			$hosts = array_diff($hosts, $result[$part]);
+			$hosts = array_diff($hosts, $result[$label]);
 			if ($asap) break;
 		}
 	}
