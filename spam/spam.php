@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.112 2007/01/31 11:34:38 henoheno Exp $
+// $Id: spam.php,v 1.113 2007/02/01 14:41:24 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -669,8 +669,6 @@ function get_blocklist($list = '')
 
 	if (! isset($regexs)) {
 		$regexs = array();
-
-		// Sample
 		//	$blocklist['badhost'] = array(
 		//		'*',			// Deny all uri
 		//		'10.20.*.*',	// 10.20.example.com also matches
@@ -678,30 +676,20 @@ function get_blocklist($list = '')
 		//		array('blogspot.com', '*.blogspot.com'),
 		//		array('net-10.20' => '#^10\.20\.[0-9]+\.[0-9]+$#'),	// 10.20.12345.12 also matches
 		//	);
-
-		// Load
 		if (file_exists(SPAM_INI_FILE)) {
 			$blocklist = array();
 			require(SPAM_INI_FILE);
-			foreach(array('goodhost', 'badhost') as $key) {
-				if (! isset($blocklist[$key])) continue;
-				foreach ($blocklist[$key] as $part) {
-					if (is_array($part)) {
-						if (is_string(key($part))) {
-							// Pre-defined regex
-							$label = key($part);
-							$regex = current($part);
-						} else {
-							// Multiple set (example.com, or example.org, or ...)
-							$label = implode('/', $part);
-							$regex = '/^' . generate_glob_regex($part) . '$/i';
-						}
+			foreach(array('goodhost', 'badhost') as $_list) {
+				if (! isset($blocklist[$list])) continue;
+				foreach ($blocklist[$_list] as $key => $part) {
+					if (is_string($key)) {
+						// Treat as pre-defined regex
+						$regexs[$_list][$key] = $part;
 					} else {
-						// Single set
-						$label = $part;
-						$regex = '/^' . generate_glob_regex($part) . '$/i';
+						// Single or multiple globbing (example.com, or example.org, or ...)
+						$label = is_array($part) ? implode('/', $part) : $part;
+						$regexs[$_list][$label] = '/^' . generate_glob_regex($part) . '$/i';
 					}
-					$regexs[$key][$label] = $regex;
 				}
 			}
 		}

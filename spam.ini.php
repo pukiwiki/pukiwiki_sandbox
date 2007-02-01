@@ -1,9 +1,9 @@
 <?php
-// $Id: spam.ini.php,v 1.37 2007/01/31 11:28:50 henoheno Exp $
+// $Id: spam.ini.php,v 1.38 2007/02/01 14:41:24 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
-	array('IANA-examples' => '#\.?example\.(?:com|net|org)$#'),	// by IANA
+	'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
 
 	// Yours
 	//''
