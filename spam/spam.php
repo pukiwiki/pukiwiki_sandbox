@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.116 2007/02/02 14:34:26 henoheno Exp $
+// $Id: spam.php,v 1.117 2007/02/17 13:43:34 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -51,7 +51,7 @@ function uri_pickup($string = '', $normalize = TRUE,
 	preg_match_all(
 		// scheme://userinfo@host:port/path/or/pathinfo/maybefile.and?query=string#fragment
 		// Refer RFC3986 (Regex below is not strict)
-		'#(\b[a-z][a-z0-9.+-]{1,8})://' .	// 1: Scheme
+		'#(\b[a-z][a-z0-9.+-]{1,8}):/+' .	// 1: Scheme
 		'(?:' .
 			'([^\s<>"\'\[\]/\#?@]*)' .		// 2: Userinfo (Username)
 		'@)?' .
