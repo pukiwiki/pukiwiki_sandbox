@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.38 2007/01/21 14:54:57 henoheno Exp $
+// $Id: spam_pickup.php,v 1.39 2007/02/17 13:43:59 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -66,7 +66,48 @@ echo '<br/>';
 
 echo '<pre>';
 
-$method = check_uri_spam_method();
+
+// -----------------------------------------------------
+	$spam = array();
+
+	// Threshold and rules for insertion (default)
+	$spam['method']['_default'] = array(
+		'_comment'     => '_default',
+		'quantity'     =>  8,
+		//'non_uniquri'  =>  3,
+		'non_uniqhost' =>  3,
+		'area_anchor'  =>  0,
+		'area_bbcode'  =>  0,
+		'uniqhost'     => TRUE,
+		'badhost'      => TRUE,
+		//'asap'         => TRUE, // Stop as soon as possible (quick but less-info)
+	);
+	
+	// For editing
+	// NOTE:
+	// Any thresholds may LOCK your contents by
+	// "posting one URL" many times.
+	// Any rules will lock contents that have NG things already.
+	$spam['method']['edit'] = array(
+		// Supposed_by_you(n) * Edit_form_spec(2) * Margin(1.5)
+		'_comment'     => 'edit',
+		//'quantity'     => 60 * 3,
+		//'non_uniquri'  =>  5 * 3,
+		//'non_uniqhost' => 50 * 3,
+		//'area_anchor'  => 30 * 3,
+		//'area_bbcode'  => 15 * 3,
+		'uniqhost'     => TRUE,
+		'badhost'      => TRUE,
+		//'asap'         => TRUE,
+	);
+	
+	
+$method = & $spam['method']['_default'];
+//$method = & $spam['method']['edit'];
+//$method = check_uri_spam_method();
+//var_dump($method);
+// -----------------------------------------------------
+
 if ($asap) $method['asap'] = TRUE;
 
 $progress = check_uri_spam(array('a', $msg, 'b'), $method);
