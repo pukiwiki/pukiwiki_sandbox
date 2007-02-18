@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.43 2007/02/17 14:09:34 henoheno Exp $
+// $Id: spam.ini.php,v 1.44 2007/02/18 03:24:52 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -43,6 +43,7 @@ $blocklist['badhost'] = array(
 	'0url.com',
 	'0zed.info',
 	'12url.org',
+	'1nk.us',
 	'*.1sta.com',		// by shorturl.com
 	'1url.org',
 	'1url.in',
@@ -79,9 +80,11 @@ $blocklist['badhost'] = array(
 	'*.8m.com',			// by freeservers.com
 	'*.8m.net',			// by freeservers.com
 	'*.8k.com',			// by freeservers.com
+	'*.9ax.net'			// by xn6.net
 	'*.abwb.org',
 	'acnw.de',
 	'active.ws',
+	'*.asso.ws',		// xrelay.net - proxid.net
 	'atk.jp',
 	'store.adobe.com',	// Stop it
 	'*.alturl.com',		// by shorturl.com
@@ -118,6 +121,7 @@ $blocklist['badhost'] = array(
 	'*.com02.com',		// by ulimit.com
 	'*.coolhere.com',	// by hotredirect.com
 	'coolurl.de',
+	'*.corp.st',		// xrelay.net - proxid.net
 	'*.da.cx',
 	'dae2.com',
 	'*.dealtap.com',	// by shorturl.com
@@ -139,6 +143,7 @@ $blocklist['badhost'] = array(
 	'eny.pl',
 	'*.escape.to',		// by webalias.com
 	'*.euro.st',		// by ulimit.com
+	'*.euro.tm',		// xrelay.net - proxid.net
 	'eyeqweb.com',		// by coolurl.de
 	'*.f2b.be',			// by f2b.be
 	'*.faithweb.com',	// by freeservers.com
@@ -267,6 +272,7 @@ $blocklist['badhost'] = array(
 	'*.pagehere.com',	// by hotredirect.com
 	'palurl.com',
 	'*.paulding.net',
+	'*.perso.tc',		// xrelay.net - proxid.net 
 	'phpfaber.org',
 	'*.pirozhok.org',	// by bucksogen.com
 	'*.plushka.org',	// by bucksogen.com
@@ -314,12 +320,14 @@ $blocklist['badhost'] = array(
 	'shurl.net',
 	'sid.to',
 	'simurl.com',
+	'*.site.tc',		// xrelay.net - proxid.net
 	'skiltechurl.com',
 	'skocz.pl',
 	'slimurl.jp',
 	'smallurl.eu',
 	'*.snapto.net',		// by vdirect.com
 	'snipurl.com',
+	'*.societe.st',		// xrelay.net - proxid.net
 	'*.sp.st',			// by ulimit.com
 	'sp-nov.net',
 	'splashblog.com',
@@ -397,19 +405,25 @@ $blocklist['badhost'] = array(
 	'wiz.sc',			// tiny.cc related
 	'*.xit.pl',			// by Home.pl Sp. J. (info at home.pl)
 	'*.xlc.pl',			// by Home.pl Sp. J. (info at home.pl)
+	'xhref.com',
+	'*.xn6.net',
 	'xrl.us',			// by metamark.net
 	'*.xxx-posed.com',	// by webalias.com
 	'y11.net',
+	'*.y11.net',
 	'yatuc.com',
 	'yep.it',
 	'yurel.com',
 	'z.la',
 	't.z.la',			// by z.la
 	'zapurl.com',
+	'zarr.co.uk',
 	'*.zik.mu',			// by ulimit.com
 	'zippedurl.com',
 	'*.zonehere.com',	// by hotredirect.com
+	'*.zu5.net',
 	'zuso.tw',
+	'*.zwap.to',
 
 	// A-2: Dynamic DNS, Dynamic IP services, DNS vulnerabilities, or another DNS cases
 	//
@@ -440,6 +454,7 @@ $blocklist['badhost'] = array(
 	// B-1: Web spaces
 	'*.0-st.com',		// by 100 Best Inc (info at 100best.com)
 	'*.0catch.com',		// by bluehost.com
+	'*.0moola.com',
 	'*.150m.com',		// by 100 Best, Inc., NS by 0catch.com
 	'*.2-hi.com',		// by 100 Best Inc (info at 100best.com)
 	'*.20fr.com',		// by 100 Best Inc (info at 100best.com)
@@ -641,6 +656,8 @@ $blocklist['badhost'] = array(
 	'*.wmjblogs.ru',
 	'*.wol.bz',				 // by sbn.bz (rin.ru)
 	'*.wordpress.com',
+	'wsboards.com',
+	'*.wsboards.com',
 	'xeboards.com',
 	'xhostar.com',
 	'blogs.ya.com',
@@ -1082,6 +1099,7 @@ $blocklist['badhost'] = array(
 	'*.baurish.info',
 	'bestdiscountpharmacy.biz',	// by John  Brown (john780321 at yahoo.com), 2007-01-27, 61.144.122.45
 	'bloggerblast.com',	// by B. Kadrie (domains at starwhitehosting.com)
+	'*.businessplace.biz',	// by Grenchenko Ivan Petrovich (eurogogi at yandex.ru)
 	'covertarena.co.uk',// by Wayne Huxtable
 	'd999.info',		// by Peter Vayner (peter.vayner at inbox.ru)
 	'*.d999.info',
@@ -1091,6 +1109,7 @@ $blocklist['badhost'] = array(
 	'*.ec51.com',		// by zhenfei chen (szczffhh_sso at 21cn.net)
 	'fastppc.info',		// by peter conor (fastppc at msn.com)
 	'*.fateback.com',	// by LiquidNet Ltd. Redirect to www.japan.jp
+	'*.free-finding.com',	// by Ny hom (nyhom at yahoo.com)
 	'*.free-rx.net',	// by Neo-x (neo-xxl at yandex.ru), redirect to activefreehost.com
 	'*.google-yahoo-msn.org',	// by Equipe Tecnica Ajato (rambap at yandex.ru)
 	'*.hot4buy.org',	// by Hot Maker (jot at hot4buy.org)
