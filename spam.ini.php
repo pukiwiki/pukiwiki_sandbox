@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.44 2007/02/18 03:24:52 henoheno Exp $
+// $Id: spam.ini.php,v 1.45 2007/02/18 03:28:39 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -80,7 +80,7 @@ $blocklist['badhost'] = array(
 	'*.8m.com',			// by freeservers.com
 	'*.8m.net',			// by freeservers.com
 	'*.8k.com',			// by freeservers.com
-	'*.9ax.net'			// by xn6.net
+	'*.9ax.net',			// by xn6.net
 	'*.abwb.org',
 	'acnw.de',
 	'active.ws',
@@ -441,7 +441,7 @@ $blocklist['badhost'] = array(
 	//'*.nerdcamp.net',
 	//'*.zenno.info',
 	//'*.mine.nu',			// by dydns.com
-	'*.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '*.com'
+	//'*.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '*.com'
 			// and all non-recorded domains redirect to 'agoga.com' now
 
 
