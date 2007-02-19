@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.45 2007/02/18 03:28:39 henoheno Exp $
+// $Id: spam.ini.php,v 1.46 2007/02/19 12:25:31 henoheno Exp $
 // Spam-related setting
 
 $blocklist['goodhost'] = array(
@@ -495,6 +495,7 @@ $blocklist['badhost'] = array(
 	'concepts-mall.com',
 	'*.createmybb.com',
 	'dakrats.net',
+	'*.devil.it',
 	'*.diaryland.com',
 	'*.dox.hu',
 	'dreipage.de',		// by 2page.de
@@ -616,6 +617,7 @@ $blocklist['badhost'] = array(
 	'*.ksiegagosci.info',
 	'*.land.ru',			// pochta.ru related
 	'limmon.net',
+	'*.logme.nl',
 	'ltss.luton.ac.uk',
 	'*.monforum.com',
 	'*.monforum.fr',		// by monforum.com
@@ -1083,6 +1085,9 @@ $blocklist['badhost'] = array(
 	'*.bestother.info',
 	'yaahooo.info',		// by Alice T. Horst (Alice.T.Horst at pookmail.com), redirect to activefreehost.com
 	'*.yaahooo.info',
+	//
+	'*.freebloghost.org',	// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
+	'*.sashawww.info',		// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
 
 	// C-2: Lonely domains (buddies not found yet)
 	'0nline-porno.info',	// by Timyr (timyr at narod.ru)
