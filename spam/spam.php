@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.118 2007/02/19 12:54:25 henoheno Exp $
+// $Id: spam.php,v 1.119 2007/02/19 15:28:42 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -1095,7 +1095,7 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 	$summary['URI']     = get_script_uri() . '?' . rawurlencode($page);
 	$summary['USER_AGENT']  = TRUE;
 	$summary['REMOTE_ADDR'] = TRUE;
-	pkwk_mail_notify($notify_subject,  var_export($target, TRUE), $summary);
+	pkwk_mail_notify($notify_subject,  var_export($target, TRUE), $summary, TRUE);
 }
 
 ?>
