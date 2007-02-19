@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.39 2007/02/17 13:43:59 henoheno Exp $
+// $Id: spam_pickup.php,v 1.40 2007/02/19 12:54:25 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -110,7 +110,12 @@ $method = & $spam['method']['_default'];
 
 if ($asap) $method['asap'] = TRUE;
 
-$progress = check_uri_spam(array('a', $msg, 'b'), $method);
+$progress = check_uri_spam(
+	array(
+		'a http://foobaA.example.com',
+		$msg,
+		'b http://foobarB.example.com'
+	), $method);
 
 if (! empty($progress)) {
 
