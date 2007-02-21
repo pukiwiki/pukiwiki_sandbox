@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.119 2007/02/19 15:28:42 henoheno Exp $
+// $Id: spam.php,v 1.120 2007/02/21 14:19:58 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 // Functions for Concept-work of spam-uri metrics
@@ -671,7 +671,7 @@ function get_blocklist($list = '')
 		$regexs = array();
 		if (file_exists(SPAM_INI_FILE)) {
 			$blocklist = array();
-			require(SPAM_INI_FILE);
+			include(SPAM_INI_FILE);
 			//	$blocklist['badhost'] = array(
 			//		'*.blogspot.com',	// Blog services's subdomains (only)
 			//		'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
