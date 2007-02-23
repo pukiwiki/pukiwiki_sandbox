@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.48 2007/02/23 14:23:26 henoheno Exp $
+// $Id: spam.ini.php,v 1.49 2007/02/23 14:54:58 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -499,6 +499,7 @@ $blocklist['badhost'] = array(
 	'*.beeplog.com',
 	'*.blog.hr',
 	'blogas.lt',
+	'*.blogg.de',
 	'*.bloggingmylife.com',
 	'bloggers.nl',
 	'*.blogharbor.com',
@@ -516,6 +517,7 @@ $blocklist['badhost'] = array(
 	'dreipage.de',		// by 2page.de
 	'*.eblog.com.au',
 	'*.ekiwi.de',
+	'forum.ezedia.net',
 	'*.extra.hu',
 	'fingerprintmedia.com',
 	'*.filelan.com',
@@ -710,6 +712,7 @@ $blocklist['badhost'] = array(
 	'huskerink.com',
 	'hyba.info',
 	'*.hyba.info',
+	'ipwso.org',
 	'internetincomeclub.com',
 	'jloo.org',
 	'*.jloo.org',
@@ -734,6 +737,7 @@ $blocklist['badhost'] = array(
 	'selikoff.net',
 	'setbb.com',
 	'silver-tears.net',
+	'troms-slekt.com',
 	'dir.kzn.ru',			// by Kazan State University
 	'sys.kcn.ru',			// by Kazan State University
 	'theedgeblueisland.com',
@@ -1186,6 +1190,62 @@ $blocklist['badhost'] = array(
 	'*.unatenerezza.com',
 	'volgondilettose.com',	// by Harvey Pry (admin at ematuranza.com)
 	'*.volgondilettose.com',
+	//
+	'bid99df.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.bid99df.info',
+	'bj498uf.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.bj498uf.info',
+	'edeuj84.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.edeuj84.info',
+	'f4mfid.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.f4mfid.info',
+	'g4vf03a.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.g4vf03a.info',
+	'j09j4r.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.j09j4r.info',
+	'jv4r8hv.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.jv4r8hv.info',
+	'k43sd3.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.k43sd3.info',
+	'k4r84d.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.k4r84d.info',
+	'k4rvda.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.k4rvda.info',
+	'k4v0df.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.k4v0df.info',
+	'k903os.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.k903os.info',
+	'k9df93d.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.k9df93d.info',
+	'kv94fd.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.kv94fd.info',
+	'ksjs93.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.ksjs93.info',
+	'l0ks03.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.l0ks03.info',
+	'l9u3jc.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.l9u3jc.info',
+	'lv043a.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.lv043a.info',
+	'nh94h9.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.nh94h9.info',
+	'm94r9d.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.m94r9d.info',
+	's87fvd.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.s87fvd.info',
+	'v3k0d.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.v3k0d.info',
+	'v4r8j4.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.v4r8j4.info',
+	'vf044s.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.vf044s.info',
+	'vj49rs.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.vj49rs.info',
+	'vk498j.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.vk498j.info',
+	'u03jow.info',			// by Cornelius Boyers (admin at edeuj84.info)
+	'*.u03jow.info',
+
 
 	// C-2: Lonely domains (buddies not found yet)
 	'0nline-porno.info',	// by Timyr (timyr at narod.ru)
