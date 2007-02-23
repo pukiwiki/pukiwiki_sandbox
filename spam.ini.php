@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.47 2007/02/23 13:43:29 henoheno Exp $
+// $Id: spam.ini.php,v 1.48 2007/02/23 14:23:26 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -1144,6 +1144,48 @@ $blocklist['badhost'] = array(
 	'*.richcapaldi.com',
 	'shoes-shop.us',		// by Austen Higginbotham
 	'*.shoes-shop.us',
+	//
+	'dronadaarsujf.info',	// by Cortez Shinn (info at goorkkjsaka.info)
+	'*.dronadaarsujf.info',
+	'fromnananaref.info',	// by Cortez Shinn (info at goorkkjsaka.info)
+	'*.fromnananaref.info',
+	'goorkkjsaka.info',		// by Cortez Shinn (info at goorkkjsaka.info)
+	'*.goorkkjsaka.info',
+	'jkdfjjkkdfe.info',		// by Rico Laplant (info at nnjdksfornms.info)
+	'*.jkdfjjkkdfe.info',
+	'jkllloldkjsa.info',	// by Cortez Shinn (info at goorkkjsaka.info)
+	'*.jkllloldkjsa.info',
+	'nnjdksfornms.info',	// by Rico Laplant (info at nnjdksfornms.info)
+	'*.nnjdksfornms.info',
+	'mcmdkkksaoka.info',	// by Cortez Shinn (info at goorkkjsaka.info)
+	'*.mcmdkkksaoka.info',
+	'srattaragfon.info',	// by Cortez Shinn (info at goorkkjsaka.info)
+	'*.srattaragfon.info',
+	'yreifnnonoom.info',	// by Rico Laplant (info at nnjdksfornms.info)
+	'*.yreifnnonoom.info',
+	'zjajjsvgeuds.info',	// by Cortez Shinn (info at goorkkjsaka.info)
+	'*.zjajjsvgeuds.info',
+	//
+	'ancorlontano.com',		// by Harvey Pry (admin at ematuranza.com)
+	'*.ancorlontano.com',
+	'dentroallago.com',		// by Harvey Pry (admin at ematuranza.com)
+	'*.dentroallago.com',
+	'digiovinezza.com',		// by Harvey Pry (admin at ematuranza.com)
+	'*.digiovinezza.com',
+	'ematuranza.com',		// by Harvey Pry (admin at ematuranza.com)
+	'*.ematuranza.com',
+	'ilfango.com',			// by Harvey Pry (admin at ematuranza.com)
+	'*.ilfango.com',
+	'nullarimane.com',		// by Harvey Pry (admin at ematuranza.com)
+	'*.nullarimane.com',
+	'questaimmensa.com',	// by Harvey Pry (admin at ematuranza.com)
+	'*.questaimmensa.com',
+	'tentailvolo.com',		// by Harvey Pry (admin at ematuranza.com)
+	'*.tentailvolo.com',
+	'unatenerezza.com',		// by Harvey Pry (admin at ematuranza.com)
+	'*.unatenerezza.com',
+	'volgondilettose.com',	// by Harvey Pry (admin at ematuranza.com)
+	'*.volgondilettose.com',
 
 	// C-2: Lonely domains (buddies not found yet)
 	'0nline-porno.info',	// by Timyr (timyr at narod.ru)
