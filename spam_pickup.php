@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.40 2007/02/19 12:54:25 henoheno Exp $
+// $Id: spam_pickup.php,v 1.41 2007/02/25 00:35:41 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -64,8 +64,6 @@ $pickup = isset($_POST['pickup'])   ? TRUE : FALSE;
 echo show_form($msg, $asap, $prog, $pickup);
 echo '<br/>';
 
-echo '<pre>';
-
 
 // -----------------------------------------------------
 	$spam = array();
@@ -123,9 +121,13 @@ if (! empty($progress)) {
 	if (empty($progress['is_spam'])) {
 		var_dump('ACTION: Seems not a spam');
 	} else {
-		var_dump('ACTION: Blocked by ' . summarize_spam_progress($progress, TRUE));
+		echo 'ACTION: Blocked by ' . summarize_spam_progress($progress, TRUE);
+		echo '<br />';
 
-		if (! $asap) var_dump('METRICS: ' . summarize_spam_progress($progress));
+		if (! $asap) {
+			echo 'METRICS: ' . summarize_spam_progress($progress);
+			echo '<br />';
+		}
 
 		$action = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
 		if (isset($progress['is_spam']['badhost'])) {
@@ -133,32 +135,40 @@ if (! empty($progress)) {
 			foreach($progress['is_spam']['badhost'] as $glob=>$number) {
 				$badhost[] = $glob . '(' . $number . ')';
 			}
-			var_dump('DETAIL_BADHOST: ' . implode(', ', $badhost));
-			//var_dump($progress['is_spam']['badhost']);
+			echo 'DETAIL_BADHOST: ' . htmlspecialchars(implode(', ', $badhost));
+			echo '<br />';
 		}
 	}
 
 	if (isset($progress['remains']['badhost'])) {
 		$count = count($progress['remains']['badhost']);
-		var_dump('DETAIL_NEUTRAL_HOST: ' . $count .
+		echo 'DETAIL_NEUTRAL_HOST: ' . $count .
 			' (' .
-				preg_replace(
-					'/[^, a-z0-9.-]/i', '',
-					implode(', ', array_keys($progress['remains']['badhost']))
+				htmlspecialchars(
+					preg_replace(
+						'/[^, a-z0-9.-]/i',
+						'',
+						implode(', ', array_keys($progress['remains']['badhost']))
+					)
 				) .
-			')'
-		);
+			')';
+		echo '<br />';
 	}
 	
-	if ($prog) var_dump($progress);
+	if ($prog) {
+		echo '<pre>';
+		htmlspecialchars(var_dump($progress));
+		echo '</pre>';
+	}
 }
 
 if ($pickup) {
+	echo '<pre>';
 	$results = spam_uri_pickup($msg);
 	$results = uri_array_normalize($results, TRUE);
-	var_dump('$results', $results);
+	htmlspecialchars(var_dump('$results', $results));
+	echo '</pre>';
 }
 
-echo '</pre>';
 
 ?>
