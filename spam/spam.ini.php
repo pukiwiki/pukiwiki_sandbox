@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.50 2007/02/24 16:06:05 henoheno Exp $
+// $Id: spam.ini.php,v 1.51 2007/02/25 11:54:47 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -17,6 +17,155 @@ $blocklist['goodhost'] = array(
 );
 
 $blocklist['badhost'] = array(
+
+	// H
+	'*.hacked.at',		// by kickme.to
+
+	'*.hang.at',		// by kickme.to
+	'*.hangup.at',		// by kickme.to
+	'*.has.it',			// by kickme.to
+	'*.hide.at',		// by kickme.to
+	'*.hindu.at',		// by kickme.to
+	'*.htmlpage.at',	// by kickme.to
+	'*.hungarian.at',	// by kickme.to
+	
+	'*.icelandic.at',	// by kickme.to
+	'*.independents.at',// by kickme.to
+	'*.invisible.at',	// by kickme.to
+	'*.is-chillin.it',	// by kickme.to
+	'*.is-groovin.it',	// by kickme.to
+	
+	'*.japanese.at',	// by kickme.to
+	'*.jive.at',		// by kickme.to
+	
+	'*.kickass.at',		// by kickme.to
+	'*.kickme.to',		// by kickme.to
+	'*.kindergarden.at',// by kickme.to
+	'*.knows.it',		// by kickme.to
+	'*.kurd.at',		// by kickme.to
+	
+	'*.labour.at',		// by kickme.to
+	'*.leech.at',		// by kickme.to
+	'*.liberals.at',	// by kickme.to
+	'*.linuxserver.at',	// by kickme.to
+	'*.liqour.at',		// by kickme.to
+	'*.lovez.it',		// by kickme.to
+	
+	'*.makes.it',		// by kickme.to
+	'*.maxed.at',		// by kickme.to
+	'*.means.it',		// by kickme.to
+	'*.meltdown.at',	// by kickme.to
+	'*.methodist.at',	// by kickme.to
+	'*.microcomputers.at',// by kickme.to
+	'*.mingle.at',		// by kickme.to
+	'*.mirror.at',		// by kickme.to
+	'*.moan.at',		// by kickme.to
+	'*.mormons.at',		// by kickme.to
+	'*.musicmix.at',	// by kickme.to
+	
+	'*.nationalists.at',// by kickme.to
+	'*.needz.it',		// by kickme.to
+	'*.nerds.at',		// by kickme.to
+	'*.neuromancer.at',	// by kickme.to
+	'*.newbie.at',		// by kickme.to
+	'*.nicepage.at',	// by kickme.to
+	'*.ninja.at',		// by kickme.to
+	'*.norwegian.at',	// by kickme.to
+	'*.ntserver.at',	// by kickme.to
+	
+	'*.owns.it',		// by kickme.to
+	
+	'*.paint.at',		// by kickme.to
+	'*.palestinian.at',	// by kickme.to
+	'*.phoneme.at',		// by kickme.to
+	'*.phreaking.at',	// by kickme.to
+	'*.playz.it',		// by kickme.to
+	'*.polish.at',		// by kickme.to
+	'*.popmusic.at',	// by kickme.to
+	'*.portuguese.at',	// by kickme.to
+	'*.powermac.at',	// by kickme.to
+	'*.processor.at',	// by kickme.to
+	'*.prospects.at',	// by kickme.to
+	'*.protestant.at',	// by kickme.to
+	
+	'*.rapmusic.at',	// by kickme.to
+	'*.raveparty.at',	// by kickme.to
+	'*.reachme.at',		// by kickme.to
+	'*.reads.it',		// by kickme.to
+	'*.reboot.at',		// by kickme.to
+	'*.relaxed.at',		// by kickme.to
+	'*.republicans.at',	// by kickme.to
+	'*.researcher.at',	// by kickme.to
+	'*.reset.at',		// by kickme.to
+	'*.resolve.at',		// by kickme.to
+	'*.retrocomputers.at',// by kickme.to
+	'*.rockparty.at',	// by kickme.to
+	'*.rocks.it',		// by kickme.to
+	'*.rollover.at',	// by kickme.to
+	'*.rough.at',		// by kickme.to
+	'*.rules.it',		// by kickme.to
+	'*.rumble.at',		// by kickme.to
+	'*.russian.at',		// by kickme.to
+	
+	'*.says.it',		// by kickme.to
+	'*.scared.at',		// by kickme.to
+	'*.seikh.at',		// by kickme.to
+	'*.serbian.at',		// by kickme.to
+	'*.short.as',		// by kickme.to
+	'*.shows.it',		// by kickme.to
+	'*.silence.at',		// by kickme.to
+	'*.simpler.at',		// by kickme.to
+	'*.sinclair.at',	// by kickme.to
+	'*.singz.it',		// by kickme.to
+	'*.slowdown.at',	// by kickme.to
+	'*.socialists.at',	// by kickme.to
+	'*.spanish.at',		// by kickme.to
+	'*.split.at',		// by kickme.to
+	'*.stand.at',		// by kickme.to
+	'*.stoned.at',		// by kickme.to
+	'*.stumble.at',		// by kickme.to
+	'*.supercomputer.at',// by kickme.to
+	'*.surfs.it',		// by kickme.to
+	'*.swedish.at',		// by kickme.to
+	'*.swims.it',		// by kickme.to
+	'*.synagogue.at',	// by kickme.to
+	'*.syntax.at',		// by kickme.to
+	'*.syntaxerror.at',	// by kickme.to
+	
+	'*.techie.at',		// by kickme.to
+	'*.temple.at',		// by kickme.to
+	'*.thinkbig.at',	// by kickme.to
+	'*.thirsty.at',		// by kickme.to
+	'*.throw.at',		// by kickme.to
+	'*.toplist.at',		// by kickme.to
+	'*.trekkie.at',		// by kickme.to
+	'*.trouble.at',		// by kickme.to
+	'*.turkish.at',		// by kickme.to
+	
+	'*.unexplained.at',	// by kickme.to
+	'*.unixserver.at',	// by kickme.to
+	
+	'*.vegetarian.at',	// by kickme.to
+	'*.venture.at',		// by kickme.to
+	'*.verycool.at',	// by kickme.to
+	'*.vic-20.at',		// by kickme.to
+	'*.viewing.at',		// by kickme.to
+	'*.vintagecomputers.at',// by kickme.to
+	'*.virii.at',		// by kickme.to
+	'*.vodka.at',		// by kickme.to
+	
+	'*.wannabe.at',		// by kickme.to
+	'*.webpagedesign.at',// by kickme.to
+	'*.wheels.at',		// by kickme.to
+	'*.whisper.at',		// by kickme.to
+	'*.whiz.at',		// by kickme.to
+	'*.wonderful.at',	// by kickme.to
+	
+	'*.zor.org',		// by kickme.to
+	'*.zx80.at',		// by kickme.to
+	'*.zx81.at',		// by kickme.to
+	'*.zxspectrum.at',	// by kickme.to
+
 
 
 	// A: Sample setting of
@@ -42,19 +191,29 @@ $blocklist['badhost'] = array(
 	// Please notify us about this list with reason:
 	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2/207
 	//
+
+	// 0
 	'*.0kn.com',		// by shim.net
 	'0nz.org',
 	'0rz.tw',
 	'0url.com',
 	'0zed.info',
+
+	// 1
+	'*.1024bit.at',		// by kickme.to
+	'*.128bit.at',		// by kickme.to
 	'12url.org',
 	'*.15h.com',
+	'*.16bit.at',		// by kickme.to
 	'*.1dr.biz',
 	'1nk.us',
 	'*.1sta.com',		// by shorturl.com
 	'1url.org',
 	'1url.in',
+
+	// 2
 	'*.24ex.com',		// by shorturl.com
+	'*.256bit.at',		// by kickme.to
 	'*.2cd.net',		// by shim.net
 	'2ch2.net',
 	'*.2fear.com',		// by shorturl.com
@@ -69,52 +228,99 @@ $blocklist['badhost'] = array(
 	'*.2truth.com',		// by shorturl.com
 	'*.2tunes.com',		// by shorturl.com
 	'*.2ya.com',		// by shorturl.com
+
+	// 3
 	'301url.com',
 	'*.321.cn',			// by active.ws
+	'*.32bit.at',		// by kickme.to
 	'32url.com',
 	'3dg.de',
 	'*.3dg.de',
+
+	// 4
 	'*.4bb.ru',
 	'*.4mg.com',		// by freeservers.com
 	'*.4x2.net',		// by active.ws
 	'*.4t.com',			// by freeservers.com
+
+	// 5
+	'*.512bit.at',		// by kickme.to
 	'5jp.net',
+
+	// 6
+	'*.64bit.at',		// by kickme.to
 	'6url.com',
 	'*.6url.com',
 	'*.6x.to',
+
+	// 7
 	'74678439.com',		// by shortify.com
+
+	// 8
 	'82m.org',
+	'*.8bit.at',		// by kickme.to
 	'*.8l.pl',			// by Home.pl Sp. J. (info at home.pl)
 	'*.8m.com',			// by freeservers.com
 	'*.8m.net',			// by freeservers.com
 	'*.8k.com',			// by freeservers.com
+
+	// 9
 	'*.9ax.net',		// by xn6.net
+
+	// A
 	'*.abwb.org',
 	'acnw.de',
 	'active.ws',
-	'amoo.org',
-	'*.asso.ws',		// xrelay.net - proxid.net
-	'atk.jp',
 	'store.adobe.com',	// Stop it
+	'*.adores.it',		// by kickme.to
+	'*.again.at',		// by kickme.to
+	'*.allday.at',		// by kickme.to
+	'*.alone.at',		// by kickme.to
+	'*.altair.at',		// by kickme.to
 	'*.alturl.com',		// by shorturl.com
+	'*.american.at',	// by kickme.to
+	'*.amiga500.at',	// by kickme.to
+	'*.ammo.at',		// by kickme.to
+	'amoo.org',
+	'*.amplifier.at',	// by kickme.to
+	'*.amstrad.at',		// by kickme.to
 	'*.andmuchmore.com',// by webalias.com
+	'*.anglican.at',	// by kickme.to
+	'*.angry.at',		// by kickme.to
 	'*.antiblog.com',	// by shorturl.com
-	'athomebiz.com',
-	'athomebiz.com',
 	'*.arecool.net',	// by iscool.net
+	'*.around.at',		// by kickme.to
+	'*.arrange.at',		// by kickme.to
+	'*.asso.ws',		// xrelay.net - proxid.net
 	'ataja.es',
+	'atk.jp',
+	'athomebiz.com',
+	'athomebiz.com',
 	'aukcje1.pl',
+	'*.australian.at',	// by kickme.to
+
+	// B
+	'*.baptist.at',		// by kickme.to
+	'*.basque.at',		// by kickme.to
+	'*.battle.at',		// by kickme.to
+	'*.bazooka.at',		// by kickme.to
+	'*.be.tf',			// by ulimit.com
+	'*.berber.at',		// by kickme.to
+	'*.best.cd',		// by ulimit.com
 	'*.better.ws',		// by active.ws
 	'*.bigbig.com',		// by shorturl.com
 	'biglnk.com',
 	'bingr.com',
 	'bittyurl.com',
 	'*.bizz.cc',
-	'*.be.tf',			// by ulimit.com
-	'*.best.cd',		// by ulimit.com
+	'*.blackhole.at',	// by kickme.to
 	'*.blg.pl',			// by Home.pl Sp. J. (info at home.pl)
 	'*.blo.pl',			// HTML frame
 	'blue11.jp',		// by fanznet.jp
+	'*.booze.at',		// by kickme.to
+	'*.bosnian.at',		// by kickme.to
+	'*.brainiac.at',	// by kickme.to
+	'*.brazilian.at',	// by kickme.to
 	'briefurl.com',
 	'brokenscript.com',
 	'*.browser.to',		// by webalias.com
@@ -122,83 +328,146 @@ $blocklist['badhost'] = array(
 	'*.bucksogen.com',
 	'budgethosts.org',
 	'*.bulochka.org',	// by bucksogen.com
+	'*.bummer.at',		// by kickme.to
+	'*.burn.at',		// by kickme.to
 	'*.buzznet.com',
 	'*.bydl.com',
+
+	// C
+	'*.c-64.at',		// by kickme.to
 	'*.c-o.cc',			// by c-o.in
 	'*.c-o.in',
 	'c64.ch',
 	'*.c0m.st',			// by ulimit.com
 	'*.ca.tc',			// by ulimit.com
+	'*.catalonian.at',	// by kickme.to
+	'*.catholic.at',	// by kickme.to
+	'*.chapel.at',		// by kickme.to
 	'checkasite.net',
 	'*.chicappa.jp',
+	'*.chills.it',		// by kickme.to
 	'chopurl.com',
+	'*.christiandemocrats.at',// by kickme.to
 	'*.cjb.net',
 	'*.clan.st',		// by ulimit.com
 	'clipurl.com',
+	'*.cname.at',		// by kickme.to
 	'*.co.nr',
+	'*.colors.at',		// by kickme.to
 	'*.com02.com',		// by ulimit.com
+	'*.commodore.at',	// by kickme.to
+	'*.commodore64.at',	// by kickme.to
+	'*.communists.at',	// by kickme.to
+	'*.conservatives.at',// by kickme.to
+	'*.conspiracy.at',	// by kickme.to
 	'*.cool158.com',	// by cool168.com
 	'*.cool168.com',
+	'*.cooldude.at',	// by kickme.to
 	'*.coolhere.com',	// by hotredirect.com
 	'coolurl.de',
 	'*.corp.st',		// xrelay.net - proxid.net
 	'*.coz.in',			// by c-o.in
 	'*.cq.bz',			// by c-o.in
+	'*.craves.it',		// by kickme.to
+	'*.croatian.at',	// by kickme.to
 	'cutalink.com',
+	'*.cuteboy.at',		// by kickme.to
 	'*.cx.la',			// by dl.am
+
+	// D
 	'*.da.cx',
 	'*.da.ru',
 	'dae2.com',
+	'*.dancemix.at',	// by kickme.to
+	'*.danceparty.at',	// by kickme.to
+	'*.dances.it',		// by kickme.to
+	'*.danish.at',		// by kickme.to
+	'*.dealing.at',		// by kickme.to
 	'*.dealtap.com',	// by shorturl.com
+	'*.deep.at',		// by kickme.to
+	'*.democrats.at',	// by kickme.to
 	'dephine.org',
-	'*.discutbb.com',
 	'digbig.com',
 	'*.digipills.com',
+	'*.digs.it',		// by kickme.to
+	'*.discutbb.com',
+	'*.divxlinks.at',	// by kickme.to
+	'*.divxmovies.at',	// by kickme.to
+	'*.divxstuff.at',	// by kickme.to
+	'*.dizzy.at',		// by kickme.to
 	'*.dl.am',
 	'*.dmdns.com',
+	'*.does.it',		// by kickme.to
 	'doiop.com',
+	'*.dork.at',		// by kickme.to
 	'dornenboy.de',		// by coolurl.de
+	'*.drives.it',		// by kickme.to
 	'drlinky.com',
 	'dtmurl.com',		// by dreamteammoney.com
 	'durl.us',
+	'*.dutch.at',		// by kickme.to
+	'*.dvdlinks.at',	// by kickme.to
 	'*.dvdonly.ru',
+	'*.dvdmovies.at',	// by kickme.to
+	'*.dvdstuff.at',	// by kickme.to
 	'*.dynu.ca',
+
+	// E
 	'*.ebored.com',		// by shorturl.com
 	'*.echoz.com',		// by shorturl.com
 	'elfurl.com',
 	'*.emailme.net',	// by vdirect.com
+	'*.emulators.at',	// by kickme.to
 	'*.en.st',			// by ulimit.com
+	'*.end.at',			// by kickme.to
+	'*.english.at',		// by kickme.to
+	'*.eniac.at',		// by kickme.to
 	'eny.pl',
+	'*.error403.at',	// by kickme.to
+	'*.error404.at',	// by kickme.to
 	'*.escape.to',		// by webalias.com
 	'*.euro.st',		// by ulimit.com
 	'*.euro.tm',		// xrelay.net - proxid.net
+	'*.evangelism.at',	// by kickme.to
+	'*.exhibitionist.at',// by kickme.to
 	'eyeqweb.com',		// by coolurl.de
+
+	// F
 	'*.f2b.be',			// by f2b.be
+	'*.faith.at',		// by kickme.to
 	'*.faithweb.com',	// by freeservers.com
 	'*.fancyurl.com',
-	'url.fibiger.org',
 	'fanznet.com',
 	'ffwd.to',
+	'url.fibiger.org',
+	'*.fight.at',		// by kickme.to
 	'*.filetap.com',	// by shorturl.com
+	'*.finish.at',		// by kickme.to
+	'*.finnish.at',		// by kickme.to
 	'fireme.to',
 	'flingk.com',
 	'fm7.biz',
 	'*.fornovices.com',	// by webalias.com
+	'*.forward.at',		// by kickme.to
 	'*.fr.fm',			// by ulimit.com
 	'*.fr.st',			// by ulimit.com
 	'*.fr.vu',			// by ulimit.com
-	'flingk.com',
 	'*.freakz.eu',		// by f2b.be
+	'*.freebie.at',		// by kickme.to
 	'*.freebiefinders.net',	// by shim.net
 	'*.freegaming.org',	// by shim.net
 	'*.freehosting.net',// by freeservers.com
+	'*.freemp3.at',		// by kickme.to
 	'*.freeservers.com',
 	'*.freewebpages.com',
+	'*.french.at',		// by kickme.to
 	'fyad.org',
 	'fype.com',
 	'*.fun.to',			// by webalias.com
 	'*.funurl.com',		// by shorturl.com
 	'*.fx.to',
+
+	// G
 	'galeon.com',		// by hispavista.com
 	'*.galeon.com',		// by hispavista.com
 	'gentleurl.net',
@@ -213,10 +482,14 @@ $blocklist['badhost'] = array(
 	'*.gourl.org',
 	'*.gq.nu',			// by freeservers.com
 	'*.gr.st',			// by ulimit.com
+	'*.graduatejobs.at',// by kickme.to
 	'greatitem.com',
 	'*.greatitem.com',
+	'*.greenparty.at',	// by kickme.to
+	'*.grunge.at',		// by kickme.to
 	'gzurl.com',
 	'url.grillsportverein.de',
+
 	'hardcore-porn.de',	// by coolurl.de
 	'*.hasballs.com',	// by get2.us
 	'*.headplug.com',	// by shorturl.com
@@ -233,6 +506,7 @@ $blocklist['badhost'] = array(
 	'*.htmlplanet.com',	// by freeservers.com
 	'*.hux.de',
 	'*.hyu.jp',			// by harudake.net
+
 	'*.i89.us',
 	'*.iceglow.com',
 	'ie.to',
@@ -252,12 +526,14 @@ $blocklist['badhost'] = array(
 	'*.iwarp.com',		// by freeservers.com
 	'iwebtool.com',
 	'*.iwebtool.com',
+
 	'jeeee.net',
 	'jemurl.com',
 	'jggj.net',
 	'jpan.jp',
 	'*.java-fan.com',	// by ulimit.com
 	'jmp2.net',			// by URLadmin at ZVXR.Com, DNS arzy.net
+
 	'kat.cc',
 	'katou.in',			// by fanznet.com
 	'kisaweb.com',
@@ -269,6 +545,7 @@ $blocklist['badhost'] = array(
 	'kuerzer.de',
 	'*.kupisz.pl',
 	'kuso.cc',
+
 	'lame.name',
 	'*.latest-info.com',// by webalias.com
 	'*.learn.to',		// by webalias.com
@@ -281,6 +558,7 @@ $blocklist['badhost'] = array(
 	'lnk.in',
 	'linkachi.com',
 	'linkzip.net',
+
 	'*.mac-fan.com',	// by ulimit.com
 	'makeashorterlink.com',
 	'maschinen-bluten-nicht.de',// by coolurl.de
@@ -304,6 +582,7 @@ $blocklist['badhost'] = array(
 	'*.myprivateidaho.com',	// by webalias.com
 	'mytinylink.com',
 	'myurl.in',
+
 	'*.n0.be',			// by f2b.be
 	'*.n3t.nl',			// by f2b.be
 	'*.ne1.net',
@@ -313,6 +592,7 @@ $blocklist['badhost'] = array(
 	'nlug.org',			// by Nashville Linux Users Group
 	'*.notlong.com',
 	'*.nuv.pl',
+
 	'*.official.ws',	// by active.ws
 	'ofzo.be',
 	'*.oneaddress.net',	// by vdirect.com
@@ -321,6 +601,7 @@ $blocklist['badhost'] = array(
 	'ontheway.to',		// by fireme.to
 	'*.op7.net',		// by shim.net
 	'*.ouch.ws',		// by active.ws
+
 	'*.pagehere.com',	// by hotredirect.com
 	'palurl.com',
 	'*.paulding.net',
@@ -332,9 +613,11 @@ $blocklist['badhost'] = array(
 	'*.premium.ws',		// by active.ws
 	'prettylink.com',
 	'*.pryanik.org',	// by bucksogen.com
+
 	'*.qc.tc',			// by ulimit.com
 	'qrl.jp',
 	'qurl.net',
+
 	'*.r8.org',			// by ne1.net
 	'*.radpages.com',	// by webalias.com
 	'redirectme.to',
@@ -349,6 +632,7 @@ $blocklist['badhost'] = array(
 	'rubyurl.com',
 	'*.runboard.com',
 	'runurl.com',
+
 	's-url.net',
 	'*.s5.com',			// by freeservers.com
 	'*.sail.to',		// by webalias.com
@@ -376,6 +660,7 @@ $blocklist['badhost'] = array(
 	'sid.to',
 	'simurl.com',
 	'*.site.tc',		// xrelay.net - proxid.net
+	'*.skracaj.pl',
 	'skiltechurl.com',
 	'skocz.pl',
 	'slimurl.jp',
@@ -400,6 +685,7 @@ $blocklist['badhost'] = array(
 	'surl.dk',			// by s-url.dk
 	'surl.ws',
 	'symy.jp',
+
 	'*.t2u.com',		// by ulimit.com
 	'*.thrill.to',		// by webalias.com
 	'tighturl.com',
@@ -430,6 +716,7 @@ $blocklist['badhost'] = array(
 	'*.tux.nu',			// by iscool.net
 	'*.tweaker.eu',		// by f2b.be
 	'*.tz4.com',
+
 	'uchinoko.in',
 	'*.uncutuncensored.com',// by webalias.com
 	'*.uni.cc',
@@ -448,6 +735,7 @@ $blocklist['badhost'] = array(
 	'urlzip.de',
 	'urlx.org',
 	'utun.jp',
+
 	'*.v9z.com',		// by shim.net
 	'*.vdirect.com',	// by vdirect.com
 	'*.vdirect.net',	// by vdirect.com
@@ -455,6 +743,7 @@ $blocklist['badhost'] = array(
 	'*.veryweird.com',	// by webalias.com
 	'*.visit.ws',		// by active.ws
 	'*.vze.com',		// by shorturl.com
+
 	'w3t.org',
 	'wapurl.co.uk',
 	'*.way.to',			// by webalias.com
@@ -468,17 +757,20 @@ $blocklist['badhost'] = array(
 	'*.wentto.us',		// by get2.us
 	'wittylink.com',
 	'wiz.sc',			// tiny.cc related
+
 	'*.xit.pl',			// by Home.pl Sp. J. (info at home.pl)
 	'*.xlc.pl',			// by Home.pl Sp. J. (info at home.pl)
 	'xhref.com',
 	'*.xn6.net',
 	'xrl.us',			// by metamark.net
 	'*.xxx-posed.com',	// by webalias.com
+
 	'y11.net',
 	'*.y11.net',
 	'yatuc.com',
 	'yep.it',
 	'yurel.com',
+
 	'z.la',
 	't.z.la',			// by z.la
 	'zapurl.com',
@@ -555,10 +847,12 @@ $blocklist['badhost'] = array(
 	'*.aimoo.com',
 	'*.alice.it',
 	'*.alkablog.com',
+	'angelfire.com',	// angelfire.lycos.com
 	'm.askfaq.org',
 	'*.atfreeforum.com',
 	'*.asphost4free.com',
 	'*.beeplog.com',
+	'bestfreeforums.com',
 	'*.blog.hr',
 	'blogas.lt',
 	'*.blogg.de',
@@ -570,6 +864,7 @@ $blocklist['badhost'] = array(
 	'*.bravenet.com',
 	'blogyaz.com',
 	'*.by.ru',
+	'blogs.chueca.com',
 	'concepts-mall.com',
 	'*.createmybb.com',
 	'dakrats.net',
@@ -585,96 +880,27 @@ $blocklist['badhost'] = array(
 	'*.filelan.com',
 	'*.free-25.de',
 	'*.free-bb.com',
+	'freebb.nl',
 	'*.freeclans.de',
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'freeforum.at',
+	'foroswebgratis.com',
 	'*.forum-on.de',
-	'forumprofi.de',
-	'forumprofi1.de',	// by forumprofi.de
-	'forumprofi2.de',	// by forumprofi.de
-	'forumprofi3.de',	// by forumprofi.de
-	'forumup.at',		// by forumup
-	'*.forumup.at',
-	'forumup.be',		// by forumup
-	'*.forumup.be',
-	'forumup.ca',		// by forumup
-	'*.forumup.ca',
-	'forumup.ch',		// by forumup
-	'*.forumup.ch',
-	'forumup.co.nz',	// by forumup
-	'*.forumup.co.nz',
-	'forumup.co.uk',	// by forumup
-	'*.forumup.co.uk',
-	'forumup.co.za',	// by forumup
-	'*.forumup.co.za',
-	'forumup.com',		// by forumup
-	'*.forumup.com',
-	'forumup.com.au',	// by forumup
-	'*.forumup.com.au',
-	'forumup.cn',		// by forumup
-	'*.forumup.cn',
-	'forumup.cz',		// by forumup
-	'*.forumup.cz',
-	'forumup.de',		// by forumup
-	'*.forumup.de',
-	'forumup.dk',		// by forumup
-	'*.forumup.dk',
-	'forumup.es',		// by forumup
-	'*.forumup.es',
-	'forumup.eu',		// by forumup
-	'*.forumup.eu',
-	'forumup.fr',		// by forumup
-	'*.forumup.fr',
-	'forumup.gr',		// by forumup
-	'*.forumup.gr',
-	'forumup.hu',		// by forumup
-	'*.forumup.hu',
-	'forumup.in',		// by forumup
-	'*.forumup.in',
-	'forumup.info',		// by forumup
-	'*.forumup.info',
-	'forumup.ir',		// by forumup
-	'*.forumup.ir',
-	'forumup.it',		// by forumup
-	'*.forumup.it',
-	'forumup.jobs',		// by forumup
-	'*.forumup.jobs',
-	'forumup.jp',		// by forumup
-	'*.forumup.jp',
-	'forumup.lt',		// by forumup
-	'*.forumup.lt',
-	'forumup.lv',		// by forumup
-	'*.forumup.lv',
-	'forumup.org',		// by forumup
-	'*.forumup.org',
-	'forumup.pl',		// by forumup
-	'*.forumup.pl',
-	'forumup.name',		// by forumup
-	'*.forumup.name',
-	'forumup.net',		// by forumup
-	'*.forumup.net',
-	'forumup.nl',		// by forumup
-	'*.forumup.nl',
-	'forumup.ro',		// by forumup
-	'*.forumup.ro',
-	'forumup.ru',		// by forumup
-	'*.forumup.ru',
-	'forumup.se',		// by forumup
-	'*.forumup.se',
-	'forumup.sk',		// by forumup
-	'*.forumup.sk',
-	'forumup.tv',		// by forumup
-	'*.forumup.tv',
-	'forumup.us',		// by forumup
-	'*.forumup.us',
-	'forumup.web.tr',	// by forumup
-	'*.forumup.web.tr',
+	'forumnow.com.br',
+	'*.forumppl.com',
+	'forumprofi' => '#^(?:.*\.)?forumprofi[0-9]*\.de$#',
+	'forumup' => '#^^(?:.*\.)?forumup\.' .
+		'(?:at|be|ca|ch|co\.nz|co\.uk|co\.za|com|com.au|cn|' .
+		'cz|de|dk|es|eu|fr|gr|hu|in|info|ir|it|jobs|jp|lt|' .
+		'lv|org|pl|name|net|nl|ro|ru|se|sk|tv|us|web\.tr)$#',
 	'freepowerboards.com',
 	'*.fws1.com',		// by 100 Best Inc (info at 100best.com)
 	'*.fw-2.com',		// by 100 Best Inc (info at 100best.com)
 	'*.hit.bg',				// by forumup.com ??
 	'*.goodboard.de',
 	'docs.google.com',			// by Google
+	'enunblog.com',
+	'club.giovani.it',
 	'groups-beta.google.com',	// by Google
 	'healthcaregroup.com',
 	'*.hk.pl',				// by info at home.pl
@@ -698,6 +924,8 @@ $blocklist['badhost'] = array(
 	'limmon.net',
 	'*.logme.nl',
 	'ltss.luton.ac.uk',
+	'angelfire.lycos.com',
+	'*.messageboard.nl',
 	'*.monforum.com',
 	'*.monforum.fr',		// by monforum.com
 	'myblog.de',			// by 20six weblog services
@@ -705,15 +933,20 @@ $blocklist['badhost'] = array(
 	'myblog.is',
 	'*.myblogvoice.com',
 	'*.myforum.ro',
+	'*.myxhost.com',
+	'*.narod.ru',
 	'*.netfast.org',
 	'neweconomics.info',
 	'*.nm.ru',
 	'*.on-4.com',			// by 100 Best Inc (info at 100best.com)
 	'*.parlaris.com',
+	'*.phorum.pl',
 	'*.phpbbx.de',
+	'*.pochta.ru',
+	'proboards' => '#^(?:.*\.)proboards[0-9]*\.com$#',
 	'*.quickfreehost.com',
 	'quizilla.com',
-	'*.pochta.ru',
+	'realhp.de',
 	'*.sayt.ws',
 	'*.sbn.bz',				// by rin.ru
 	'*.siamforum.com',
@@ -726,14 +959,18 @@ $blocklist['badhost'] = array(
 	'*.stormloader.com',
 	'*.t35.com',
 	'*.talkthis.com',
+	'tbns.net',
 	'telasipforums.com',
 	'thestudentunderground.org',
 	'think.ubc.ca',
 	'*.up-a.com',			// by 100 Best Inc (info at 100best.com)
 	'*.vidiac.com',
+	'volny.cz',
 	'*.welover.org',
 	'*.web-space.ws',		// by your-websites.com
 	'weblogmaniacs.com',
+	'websitetoolbox.com',
+	'wh-gb.de',
 	'*.wikidot.com',
 	'*.wmjblogs.ru',
 	'*.wol.bz',				 // by sbn.bz (rin.ru)
@@ -741,7 +978,7 @@ $blocklist['badhost'] = array(
 	'wsboards.com',
 	'*.wsboards.com',
 	'xeboards.com',
-	'xhostar.com',
+	'*.xhostar.com',
 	'blogs.ya.com',
 	'yourfreebb.de',
 	'*.your-websites.net',	// by your-websites.com
@@ -759,7 +996,6 @@ $blocklist['badhost'] = array(
 	'board-z.de',
 	'*.board-z.de',
 	'writing.csustan.edu',
-	'deproduction.org',
 	'deproduction.org',
 	'dc503.org',
 	'fhmcsa.org.au',
@@ -1001,6 +1237,8 @@ $blocklist['badhost'] = array(
 	'*.spb78.info',
 	'usacanadauk.info',	// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
 	'*.usacanadauk.info',
+	'v782mks.info',		// by Andrey (vdf at lovespb.com)
+	'*.v782mks.info',
 	'vny0.info',		// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
 	'*.vny0.info',
 	'wifes1.info',		// by Andrey (vdf at lovespb.com), redirect to activefreehost.com
@@ -1012,6 +1250,8 @@ $blocklist['badhost'] = array(
 	'*.allsexonline.info',
 	'bequeous.info',	// by David C. Lack (David.C.Lack at dodgeit.com), redirect to activefreehost.com
 	'*.bequeous.info',
+	'sopius.info',		// by kuzmas (admin at irtes.ru), redirect to activefreehost.com
+	'*.sopius.info',
 	'superfreedownload.info',	// by Varsylenko Vladimir (vvm_kz at rambler.ru), redirect to activefreehost.com
 	'*.superfreedownload.info',
 	'yerap.info',		// by Kuzma V Safonov (admin at irtes.ru), redirect to activefreehost.com
@@ -1098,15 +1338,12 @@ $blocklist['badhost'] = array(
 	'xianqiao.net',		// by jiuhatu kou (newblog9 at gmail.com)
 	'*.xianqiao.net',
 	//
-	'onunicarehealthinsurance.com',	// by  Lawerence Paredes
-	'*.onunicarehealthinsurance.com',
-	'healthinsuranceem.com',		// by Justin Munson
-	'*.healthinsuranceem.com',
-	//
 	'soft2you.info',	// by Michael (m.frenzy at yahoo.com)
 	'*.soft2you.info',
 	'top20health.info',	// by Michael (m.frenzy at yahoo.com)
 	'*.top20health.info',
+	'top20ringtones.info',// by Michael (m.frenzy at yahoo.com)
+	'*.top20ringtones.info',
 	'v09v.info',		// by Michael (m.frenzy at yahoo.com)
 	'*.v09v.info',
 	'x09x.info',		// by Michael (m.frenzy at yahoo.com)
@@ -1179,6 +1416,7 @@ $blocklist['badhost'] = array(
 	'*.yaahooo.info',
 	//
 	'*.freebloghost.org',	// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
+	'*.freeprohosting.org',	// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
 	'*.sashawww.info',		// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
 	//
 	// Car / Home / Life insurance
@@ -1198,12 +1436,30 @@ $blocklist['badhost'] = array(
 	'*.2004heeparea1.org',
 	'21nt.net',				// by Jaida Estabrook
 	'*.21nt.net',
+	'3somes.org',			// by Mauro Tillett
+	'*.3somes.org',
 	'8-f22.com',			// by Larraine Evers
 	'*.8-f22.com',
+	'a40infobahn.com',		// by Amit Nguyen
+	'*.a40infobahn.com',
+	'a4h-squad.com',		// by Ross Locklear
+	'*.a4h-squad.com',
+	'aaadvertisingjobs.com',// by Luciano Frisbie
+	'*.aaadvertisingjobs.com',
 	'acornwebdesign.co.uk',	// by Uriel Dorian
 	'*.acornwebdesign.co.uk',
+	'architectionale.com',	// by Wilbur Cornett
+	'ad-makers.com',		// by Shemeka Arsenault
+	'*.ad-makers.com',
+	'*.architectionale.com',
+	'azstudies.org',		// by Bernardina Walden
+	'*.azstudies.org',
 	'boreholes.org',		// by Flora Reed
 	'*.boreholes.org',
+	'healthinsuranceem.com',		// by Justin Munson
+	'*.healthinsuranceem.com',
+	'onunicarehealthinsurance.com',	// by  Lawerence Paredes
+	'*.onunicarehealthinsurance.com',
 	'mysteryclips.com',		// by Edward Ashford
 	'*.mysteryclips.com',
 	'richcapaldi.com',		// by Kya Haggard
@@ -1318,6 +1574,8 @@ $blocklist['badhost'] = array(
 	'*.advancediet.com',// by Shonta Mojica (hostadmin at advancediet.com)
 	'adultpersonalsclubs.com',	// by Peter (vaspet34 at yahoo.com)
 	'*.adultpersonalsclubs.com',
+	'alfanetwork.info',	// by dante (dantequick at gmail.com)
+	'*.alfanetwork.info',
 	'*.areaseo.com',	// by Antony Carpito (xcentr at lycos.com)
 	'awardspace.com',	// by abuse at awardspace.com, no DirectoryIndex
 	'*.awardspace.com',
