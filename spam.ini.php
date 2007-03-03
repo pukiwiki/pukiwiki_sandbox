@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.55 2007/03/03 16:02:06 henoheno Exp $
+// $Id: spam.ini.php,v 1.56 2007/03/03 16:25:26 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -1333,6 +1333,7 @@ $blocklist['badhost'] = array(
 	'fhmcsa.org.au',
 	'*.fhmcsa.org.au',
 	'forum.lixium.fr',
+	'hullandhull.com',
 	'funkdoc.com',
 	'*.goodboard.de',
 	'homepage-dienste.com',
@@ -1764,6 +1765,8 @@ $blocklist['badhost'] = array(
 	'*.freeprohosting.org',
 	'googlebot-welcome.org',// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
 	'*.googlebot-welcome.org',
+	'icesearch.org',		// "Free Web Hosting"
+	'*.icesearch.org',
 	'phpfreehosting.org',	// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
 	'*.phpfreehosting.org',
 	'sashawww.info',		// "Free Web Hosting" by Dr. Portillo (aliacsandr85 at yahoo.com)
@@ -1774,68 +1777,72 @@ $blocklist['badhost'] = array(
 	'*.xxxse.info',
 	//
 	// Gamble: Roulette, Casino, Poker, Keno, Craps, Baccarat
+	'*.atonlineroulette.com',	// by Blaise Johns
 	'*.atroulette.com',			// by Gino Sand
-	'*.casinoqz.com',			// by Berenice Snow
 	'*.betting-123.com',		// by Joana Caceres
 	'*.betting-i.biz',			// by Joaquina Angus
+	'*.casinoqz.com',			// by Berenice Snow
+	'*.crapsok.com',			// by Devon Adair
 	'*.dcasinoa.com',			// by August Hawkinson
 	'*.e-poker-4u.com',			// by Issac Leibowitz
+	'*.free-dvd-player.biz',	// by Rosario Kidd
+	'*.gaming-123.com',			// by Jennifer Byrne
 	'*.kenogo.com',				// by Adriane Bell
 	'*.mycaribbeanpoker.com',	// by Andy Mullis
-	'*.crapsok.com',			// by Devon Adair
 	'*.onbaccarat.com',			// by Kassandra Dunn
 	'*.poker-123.com',			// by Mallory Patrick (Mallory_Patrick at marketing-support.info)
+	'*.texasholdem-777.com',	// by Savanna Lederman
 	'*.the-craps-100.us',		// by Lorrine Ripley
+	'*.the-online-game-poker-1185.us',	// by Merna Bey
 	'*.the-rule-texas-hold-em-2496.us',	// by Melvina Stamper
 	'*.the-texas-strategy-holdem-1124.us',	// by Neda Frantz
-	'*.atonlineroulette.com',	// by Blaise Johns
 	//
 	// Car / Home / Life / Health / Travel insurance, Loan finance, Mortgage refinance
-	'0q.org',				// by Shamika Curtin
+	'0q.org',					// by Shamika Curtin
 	'*.0q.org',
-	'1-bookmark.com',		// by Sonia Snyder
+	'1-bookmark.com',			// by Sonia Snyder
 	'*.1-bookmark.com',
-	'1day-insurance.com',	// by Kelsie Strouse
+	'1day-insurance.com',		// by Kelsie Strouse
 	'*.1day-insurance.com',
-	'1upinof.com',			// by Diego Johnson
+	'1upinof.com',				// by Diego Johnson
 	'*.1upinof.com',
-	'18wkcf.com',			// by Lexy Bohannon
+	'18wkcf.com',				// by Lexy Bohannon
 	'*.18wkcf.com',
-	'2001werm.org',			// by Raphael Rayburn
+	'2001werm.org',				// by Raphael Rayburn
 	'*.2001werm.org',
-	'2004heeparea1.org',	// by Dinorah Andrews
+	'2004heeparea1.org',		// by Dinorah Andrews
 	'*.2004heeparea1.org',
-	'21nt.net',				// by Jaida Estabrook
+	'21nt.net',					// by Jaida Estabrook
 	'*.21nt.net',
-	'3finfo.com',			// by Damian Pearsall
+	'3finfo.com',				// by Damian Pearsall
 	'*.3finfo.com',
-	'3somes.org',			// by Mauro Tillett
+	'3somes.org',				// by Mauro Tillett
 	'*.3somes.org',
-	'453531.com',			// by Kurt Flannery
+	'453531.com',				// by Kurt Flannery
 	'*.453531.com',
-	'4freesay.com',			// by Eloy Jones
+	'4freesay.com',				// by Eloy Jones
 	'*.4freesay.com',
-	'8-f22.com',			// by Larraine Evers
+	'8-f22.com',				// by Larraine Evers
 	'*.8-f22.com',
-	'a40infobahn.com',		// by Amit Nguyen
+	'a40infobahn.com',			// by Amit Nguyen
 	'*.a40infobahn.com',
-	'a4h-squad.com',		// by Ross Locklear
+	'a4h-squad.com',			// by Ross Locklear
 	'*.a4h-squad.com',
-	'aac2000.org',			// by Randi Turner
+	'aac2000.org',				// by Randi Turner
 	'*.aac2000.org',
-	'aaadvertisingjobs.com',// by Luciano Frisbie
+	'aaadvertisingjobs.com',	// by Luciano Frisbie
 	'*.aaadvertisingjobs.com',
 	'aconspiracyofmountains.com',	// by Lovell Gaines
 	'*.aconspiracyofmountains.com',
-	'acornwebdesign.co.uk',	// by Uriel Dorian
+	'acornwebdesign.co.uk',		// by Uriel Dorian
 	'*.acornwebdesign.co.uk',
 	'activel-learning-site.com',	// by Mateo Conn
 	'*.activel-learning-site.com',
-	'ad-makers.com',		// by Shemeka Arsenault
+	'ad-makers.com',			// by Shemeka Arsenault
 	'*.ad-makers.com',
-	'ada-information.org',	// by Josef Osullivan
+	'ada-information.org',		// by Josef Osullivan
 	'*.ada-information.org',
-	'aequityrefinance.com',	// by Jadwiga Duckworth
+	'aequityrefinance.com',		// by Jadwiga Duckworth
 	'*.aequityrefinance.com',
 	'ahomeloanrefinance.com',	// by Leslie Kinser
 	'*.ahomeloanrefinance.com',
@@ -1845,41 +1852,43 @@ $blocklist['badhost'] = array(
 	'*.ahouserefinance.com',
 	'alderik-production.com',	// by Joan Stiles
 	'*.alderik-production.com',
-	'alltechdata.com',		// by Dom Laporte
+	'alltechdata.com',			// by Dom Laporte
 	'*.alltechdata.com',
-	'angelandcrown.net',	// by Claretta Najera
+	'angelandcrown.net',		// by Claretta Najera
 	'*.angelandcrown.net',
-	'architectionale.com',	// by Wilbur Cornett
+	'architectionale.com',		// by Wilbur Cornett
 	'*.architectionale.com',
-	'arefinancehome.com',	// by Duane Doran
+	'arefinancehome.com',		// by Duane Doran
 	'*.arefinancehome.com',
-	'arefinancinghome.com',	// by Ike Laney
+	'arefinancinghome.com',		// by Ike Laney
 	'*.arefinancinghome.com',
 	'athletic-shoes-e-shop.info',	// by Romelia Money
 	'*.athletic-shoes-e-shop.info',
-	'azstudies.org',		// by Bernardina Walden
+	'auto-buy-rite.com',		// by Asuncion Buie
+	'*.auto-buy-rite.com',
+	'azstudies.org',			// by Bernardina Walden
 	'*.azstudies.org',
-	'babtrek.com',			// by Simonette Mcbrayer
+	'babtrek.com',				// by Simonette Mcbrayer
 	'*.babtrek.com',
-	'babycujo.com',			// by Francisco Akers
+	'babycujo.com',				// by Francisco Akers
 	'*.babycujo.com',
-	'bakeddelights.com',	// by Dave Evenson
+	'bakeddelights.com',		// by Dave Evenson
 	'*.bakeddelights.com',
-	'blursgsu.com',			// by Weston Killian
+	'blursgsu.com',				// by Weston Killian
 	'*.blursgsu.com',
-	'boreholes.org',		// by Flora Reed
+	'boreholes.org',			// by Flora Reed
 	'*.boreholes.org',
 	'breathingassociaiton.org',	// by Alfred Crayton
 	'*.breathingassociaiton.org',
-	'birdingnh.com',		// by Donald Healy
+	'birdingnh.com',			// by Donald Healy
 	'*.birdingnh.com',
-	'bisdragons.org',		// by
+	'bisdragons.org',			// by
 	'*.bisdragons.org',
-	'bronte-foods.com',		// by Kary Pfeiffer
+	'bronte-foods.com',			// by Kary Pfeiffer
 	'*.bronte-foods.com',
 	'buckscountyneighbors.org',	// by Maile Gaffney
 	'*.buckscountyneighbors.org',
-	'buffalofudge.com',		// by Mable Whisenhunt
+	'buffalofudge.com',			// by Mable Whisenhunt
 	'*.buffalofudge.com',
 	'burlisonforcongress.com',	// by Luann King
 	'*.burlisonforcongress.com',
@@ -1891,12 +1900,32 @@ $blocklist['badhost'] = array(
 	'*.ccchoices.org',
 	'cpusa364-northsacramento.com',	// by Dannette Lejeune
 	'*.cpusa364-northsacramento.com',
+	'diannbomkamp.com',			// by Russel Croteau
+	'*.diannbomkamp.com',
+	'dictionary-spanish.us',	// by Jacki Gilbreath
+	'*.dictionary-spanish.us',
 	'e-digital-camera-esite.info',	// by Romaine Cress
 	'*.e-digital-camera-esite.info',
+	'foreignrealtions.org',		// by 
+	'*.foreignrealtions.org',
+	'gcaaa.com',				// by Vallie Jaworski
+	'*.gcaaa.com',
 	'healthinsuranceem.com',	// by Justin Munson
 	'*.healthinsuranceem.com',
+	'ilruralassistgrp.org',		// by 
+	'*.ilruralassistgrp.org',
 	'ithomemortgage.com',		// by Adelaide Towers
 	'*.ithomemortgage.com',
+	'iyoerg.com',				// by 
+	'*.iyoerg.com',
+	'maryandfrank.org',			// by Theodore Apodaca
+	'*.maryandfrank.org',
+	'mysteryclips.com',			// by Edward Ashford
+	'*.mysteryclips.com',
+	'nysdoed.org',				// by 
+	'*nysdoed.org',
+	'nytech-ir.com',			// by Adrien Beals
+	'*.nytech-ir.com',
 	'online-pills-24x7.biz',	// by Aide Hallock
 	'*.online-pills-24x7.biz',
 	'onlinehomeloanrefinance.com',	// by Chaz Lynch
@@ -1905,15 +1934,13 @@ $blocklist['badhost'] = array(
 	'*.onlinehomeloanfinancing.com',
 	'onunicarehealthinsurance.com',	// by  Lawerence Paredes
 	'*.onunicarehealthinsurance.com',
-	'maryandfrank.org',		// by Theodore Apodaca
-	'*.maryandfrank.org',
-	'mysteryclips.com',		// by Edward Ashford
-	'*.mysteryclips.com',
-	'nytech-ir.com',		// by Adrien Beals
-	'*.nytech-ir.com',
-	'richcapaldi.com',		// by Kya Haggard
+	'pet-stars.com',			// by Carmon Luevano
+	'*.pet-stars.com',
+	'quicktvr.com',				// by Vernell Crenshaw
+	'*.quicktvr.com',
+	'richcapaldi.com',			// by Kya Haggard
 	'*.richcapaldi.com',
-	'shoes-shop.us',		// by Austen Higginbotham
+	'shoes-shop.us',			// by Austen Higginbotham
 	'*.shoes-shop.us',
 	'top-finance-sites.com',	// by Maryann Doud
 	'*.top-finance-sites.com',
@@ -2079,10 +2106,15 @@ $blocklist['badhost'] = array(
 	//
 	'brutal-forced.com',	// by Henry Ford (wealth777 at gmail.com)
 	'*.brutal-forced.com',
-	'library-bdsm.com',	// by Henry Ford (wealth777 at gmail.com)
+	'library-bdsm.com',		// by Henry Ford (wealth777 at gmail.com)
 	'*.library-bdsm.com',
-
-
+	//
+	'purerotica.com',	// by Croesus International Inc. (olex at okhei.net)
+	'*.purerotica.com',
+	'servik.net',		// by Croesus International Inc. (olex at okhei.net)
+	'*.servik.net',
+	'withsex.com',		// by Croesus International Inc. (olex at okhei.net)
+	'*.withsex.com',
 
 	// C-2: Lonely domains (buddies not found yet)
 	'0nline-porno.info',	// by Timyr (timyr at narod.ru)
@@ -2148,8 +2180,6 @@ $blocklist['badhost'] = array(
 	'*.php0h.com',
 	'portaldiscount.com',	// by Mark Tven (bestsaveup at gmail.com)
 	'*.portaldiscount.com',
-	'purerotica.com',	// by Croesus International Inc. (olex at okhei.net)
-	'*.purerotica.com',
 	'*.prama.info',		// by Juan.Kang at mytrashmail.com
 	'qoclick.net',		// by DMITRIY SOLDATENKO
 	'relurl.com',		// tiny-like. by Grzes Tlalka (grzes1111 at interia.pl)
