@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.122 2007/03/04 03:59:37 henoheno Exp $
+// $Id: spam.php,v 1.123 2007/03/04 10:50:50 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -684,11 +684,23 @@ function get_blocklist($list = '')
 			foreach(array('goodhost', 'badhost') as $_list) {
 				if (! isset($blocklist[$list])) continue;
 				foreach ($blocklist[$_list] as $key => $value) {
-					if (is_string($key)) {
-						$regexs[$_list][$key] = $value;
+					if (is_array($value)) {
+						$regexs[$_list][$key] = array();
+						foreach($value as $_key => $_value) {
+							if (is_string($_key)) {
+								 $regexs[$_list][$key][$_key] = $_value; // A regex
+							} else {
+								 $regexs[$_list][$key][] =
+									'/^(?:www\.)?' . generate_glob_regex($value, '/') . '$/i';
+							}
+						}
 					} else {
-						$regexs[$_list][$value] =
-							'/^(?:www\.)?' . generate_glob_regex($value, '/') . '$/i';
+						if (is_string($key)) {
+							$regexs[$_list][$key] = $value; // A regex
+						} else {
+							$regexs[$_list][$value] =
+								'/^(?:www\.)?' . generate_glob_regex($value, '/') . '$/i';
+						}
 					}
 				}
 			}
@@ -720,12 +732,24 @@ function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 
 	$tmp = array();
 	foreach (get_blocklist('badhost') as $label => $regex) {
-		$result[$label] = preg_grep($regex, $hosts);
-		if (empty($result[$label])) {
-			unset($result[$label]);
+		if (is_array($regex)) {
+			$result[$label] = array();
+			foreach($regex as $_label => $_regex) {
+				$_group = preg_grep($_regex, $hosts);
+				if ($_group) {
+					$result[$label][$_label] = $_group;
+					$hosts = array_diff($hosts, $_group);
+					if ($asap) break;
+				}
+			}
+			if (empty($result[$label])) unset($result[$label]);
 		} else {
-			$hosts = array_diff($hosts, $result[$label]);
-			if ($asap) break;
+			$_group = preg_grep($regex, $hosts);
+			if ($_group) {
+				$result[$label] = $_group;
+				$hosts = array_diff($hosts, $result[$label]);
+				if ($asap) break;
+			}
 		}
 	}
 
@@ -960,10 +984,8 @@ function check_uri_spam($target = '', $method = array())
 	// URI: Bad host
 	if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
 		$__remains = array();
-		if ($asap) {
-			$badhost = is_badhost($hosts, $asap, $__remains);
-		} else {
-			$badhost = is_badhost($hosts, $asap, $__remains);
+		$badhost = is_badhost($hosts, $asap, $__remains);
+		if (! $asap) {
 			if ($__remains) {
 				$remains['badhost'] = array();
 				foreach ($__remains as $value) {
