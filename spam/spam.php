@@ -1,8 +1,10 @@
 <?php
-// $Id: spam.php,v 1.120 2007/02/21 14:19:58 henoheno Exp $
+// $Id: spam.php,v 1.121 2007/03/04 03:54:55 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
+//
 // Functions for Concept-work of spam-uri metrics
+//
 // (PHP 4 >= 4.3.0): preg_match_all(PREG_OFFSET_CAPTURE): $method['uri_XXX'] related feature
 
 if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
@@ -337,6 +339,7 @@ function _preg_replace_callback_domain_exposure($matches = array())
 // NOTE: It's maybe danger to var_dump(result). [e.g. 'javascript:']
 // [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
 // [OK] http://victim.example.org/http://nasty.example.org
+// TODO: link.toolbot.com, urlx.org
 function spam_uri_pickup_preprocess($string = '')
 {
 	if (! is_string($string)) return '';
@@ -364,8 +367,6 @@ function spam_uri_pickup_preprocess($string = '')
 		'_preg_replace_callback_domain_exposure',
 		$string
 	);
-	
-
 
 	// URI exposure (uriuri => uri uri)
 	$string = preg_replace(
