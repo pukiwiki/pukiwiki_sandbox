@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.123 2007/03/04 10:50:50 henoheno Exp $
+// $Id: spam.php,v 1.124 2007/03/04 12:19:08 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -691,7 +691,7 @@ function get_blocklist($list = '')
 								 $regexs[$_list][$key][$_key] = $_value; // A regex
 							} else {
 								 $regexs[$_list][$key][] =
-									'/^(?:www\.)?' . generate_glob_regex($value, '/') . '$/i';
+									'/^(?:www\.)?' . generate_glob_regex($_value, '/') . '$/i';
 							}
 						}
 					} else {
