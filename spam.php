@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.121 2007/03/04 03:54:55 henoheno Exp $
+// $Id: spam.php,v 1.122 2007/03/04 03:59:37 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -625,6 +625,10 @@ function query_normalize($string = '', $equal = FALSE, $equal_cutempty = TRUE)
 // ---------------------
 // Part One : Checker
 
+// Rough implementation of globbing
+//
+// USAGE: $regex = '/^' . generate_glob_regex('*.txt', '/') . '$/i';
+//
 function generate_glob_regex($string = '', $divider = '/')
 {
 	static $from = array(
