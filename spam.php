@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.125 2007/03/10 01:30:14 henoheno Exp $
+// $Id: spam.php,v 1.126 2007/03/17 06:31:24 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -588,7 +588,7 @@ function file_normalize($string = 'index.html.en')
 	// Roughly removing ISO 639 -like
 	// 2-letter suffixes (See RFC3066)
 	$matches = array();
-	if (preg_match('/(.*)\.[a-z][a-z](?:-[a-z][a-z])?$/i', $string, $matches)) {
+	if (preg_match('/(.+)\.[a-z][a-z](?:-[a-z][a-z])?$/i', $string, $matches)) {
 		$_string = $matches[1];
 	} else {
 		$_string = & $string;
@@ -693,11 +693,11 @@ function is_ip($string = '')
 
 // Generate host (FQDN, IPv4, ...) regex
 // 'localhost'     : Matches with 'localhost' only
-// 'example.org'   : Matches with 'example.org', and 'www.example.org'
+// 'example.org'   : Matches with 'example.org' only (See host_normalize() about 'www')
 // '.example.org'  : Matches with ALL FQDN ended with '.example.org'
 // '*.example.org' : Almost the same of '.example.org' except 'www.example.org'
 // '10.20.30.40'   : Matches with IPv4 address '10.20.30.40' only
-// '192168.'       : Matches with all IPv4 hosts started with '192.'
+// [TODO] '192.'   : Matches with all IPv4 hosts started with '192.'
 // TODO: IPv4, CIDR?, IPv6
 function generate_host_regex($string = '', $divider = '/')
 {
@@ -742,20 +742,10 @@ function get_blocklist($list = '')
 					if (is_array($value)) {
 						$regexs[$_list][$key] = array();
 						foreach($value as $_key => $_value) {
-							if (is_string($_key)) {
-								 $regexs[$_list][$key][$_key] = $_value; // A regex
-							} else {
-								 $regexs[$_list][$key][$_value] =
-									'/^' . generate_host_regex($_value, '/') . '$/i';
-							}
+							get_blocklist_add($regexs[$_list][$key], $_key, $_value);
 						}
 					} else {
-						if (is_string($key)) {
-							$regexs[$_list][$key] = $value; // A regex
-						} else {
-							$regexs[$_list][$value] =
-								'/^' . generate_host_regex($value, '/') . '$/i';
-						}
+						get_blocklist_add($regexs[$_list], $key, $value);
 					}
 				}
 			}
@@ -770,6 +760,16 @@ function get_blocklist($list = '')
 		return array();
 	}
 }
+
+// Subroutine of get_blocklist()
+function get_blocklist_add(& $array, $key = 0, $value = '*.example.org')
+{
+	if (is_string($key)) {
+		$array[$key] = & $value; // Treat $value as a regex
+	} else {
+		$array[$value] = '/^' . generate_host_regex($value, '/') . '$/i';
+	}
+} 
 
 function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 {
@@ -790,27 +790,30 @@ function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 		if (is_array($regex)) {
 			$result[$label] = array();
 			foreach($regex as $_label => $_regex) {
-				$_group = preg_grep($_regex, $hosts);
-				if ($_group) {
-					$result[$label][$_label] = $_group;
-					$hosts = array_diff($hosts, $_group);
-					if ($asap) break;
-				}
+				if (is_badhost_avail($_label, $_regex, $hosts, $result[$label]) && $asap) break;
 			}
 			if (empty($result[$label])) unset($result[$label]);
 		} else {
-			$_group = preg_grep($regex, $hosts);
-			if ($_group) {
-				$result[$label] = $_group;
-				$hosts = array_diff($hosts, $result[$label]);
-				if ($asap) break;
-			}
+			if (is_badhost_avail($label, $regex, $hosts, $result) && $asap) break;
 		}
 	}
 
 	$remains = $hosts;
 
 	return $result;
+}
+
+// Subroutine for is_badhost()
+function is_badhost_avail($label = '*.example.org', $regex = '/^.*\.example\.org$/', & $hosts, & $result)
+{
+	$group = preg_grep($regex, $hosts);
+	if ($group) {
+		$result[$label] = & $group;
+		$hosts = array_diff($hosts, $result[$label]);
+		return TRUE;
+	} else {
+		return FALSE;
+	}
 }
 
 // Default (enabled) methods and thresholds (for content insertion)
@@ -1054,6 +1057,7 @@ function check_uri_spam($target = '', $method = array())
 		}
 		unset($__remains);
 		if (! empty($badhost)) {
+			//var_dump($badhost);	// BADHOST detail
 			$sum['badhost'] += array_count_leaves($badhost);
 			foreach(array_keys($badhost) as $keys) {
 				$is_spam['badhost'][$keys] =
