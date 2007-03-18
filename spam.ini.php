@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.70 2007/03/18 02:58:31 henoheno Exp $
+// $Id: spam.ini.php,v 1.71 2007/03/18 11:55:29 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -356,6 +356,7 @@ $blocklist['badhost'] = array(
 		'*.xlc.pl',
 		'*.hk.pl',
 		'*.home.pl',
+		'*.of.pl',
 	),
 	'hort.net',
 	'*.hotindex.ru',
@@ -870,7 +871,6 @@ $blocklist['badhost'] = array(
 	),
 	'*.uni.cc',
 	'*.uploadr.com',
-	'urlnip.com',		// by Stanley Gutowski (support at soniqhost.com)
 	'jeremyjohnstone.com' => array('url.vg'),
 	'unonic.com' => array(
 		'*.at.tf',	// AlpenNIC
@@ -1871,6 +1871,7 @@ $blocklist['badhost'] = array(
 		'.78rus.info',
 		'.92ssex.org',		// "ForumGenerator"
 		'.93adult.org',		// "ForumGenerator"
+		'.all23.info',
 		'.buy-dge.info',
 		'.buypo.info',
 		'.canadausa.info',	// "UcoZ WEB-SERVICES"
@@ -1927,6 +1928,7 @@ $blocklist['badhost'] = array(
 		'.sovidopad.info',			// by Kuzma
 		'.superfreedownload.info',	// by Varsylenko
 		'.superneeded.info',		// by Varsylenko
+		'.srup.info',				// by Petrov
 		'.yerap.info',				// by Kuzma
 	),
 	// by Andrey Zhurikov (zhu1313 at mail.ru)
@@ -3105,6 +3107,10 @@ $blocklist['badhost'] = array(
 		'.lineage2006.com',
 		'.lineagefirst.com',
 	),
+	'zettahost.com' => array(
+		'.atspace.biz',			// sales at zettahost.com
+		'.atspace.com',			// abuse at zettahost.com
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -3114,6 +3120,7 @@ $blocklist['badhost'] = array(
 	'.180haifa.com',		// by Andrey Letov (andreyletov at yahoo.com)
 	'.19cellar.info',		// by Eduardo Guro (boomouse at gmail.com)
 	'.1gb.cc',				// by Hakan us (hakanus at mail.com)
+	'.3-hosting.net',
 	'.6i6.de',
 	'.advancediet.com',		// by Shonta Mojica (hostadmin at advancediet.com)
 	'.adultpersonalsclubs.com',	// by Peter (vaspet34 at yahoo.com)
@@ -3200,6 +3207,10 @@ $blocklist['badhost'] = array(
 	'.sexforit.com',
 	'.sexmaniacs.org',		// by Yang Chong (chong at x-india.com)
 	'.sirlook.com',
+	'soniqhost.com' => array(	// by Stanley Gutowski (support at soniqhost.com)
+		'*.444mb.com',		// Free hosting
+		'urlnip.com',		// Redirection
+	),
 	'.thehostcity.com',		// Domains by Proxy
 	'.thephentermineonline.info',	// by Kipola (smesh1155 at gmail.com)
 	'.thetinyurl.com',		// by Beth J. Carter (Beth.J.Carter at thetinyurl.com)
