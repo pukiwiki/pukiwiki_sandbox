@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.128 2007/03/25 14:06:42 henoheno Exp $
+// $Id: spam.php,v 1.129 2007/03/25 16:37:26 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -946,6 +946,9 @@ function is_badhost_avail($label = '*.example.org', $regex = '/^.*\.example\.org
 {
 	$group = preg_grep($regex, $hosts);
 	if ($group) {
+
+		// DEBUG var_dump($group); // badhost detail
+
 		$result[$label] = & $group;
 		$hosts = array_diff($hosts, $result[$label]);
 		return TRUE;
@@ -1091,7 +1094,7 @@ function check_uri_spam($target = '', $method = array())
 	if ($asap && $is_spam) return $progress;
 
 	// URI: Pickup
-	$pickups = spam_uri_pickup($target, $method);
+	$pickups = uri_pickup_normalize(spam_uri_pickup($target, $method));
 	//$remains['uri_pickup'] = & $pickups;
 
 	// Return if ...
@@ -1139,8 +1142,6 @@ function check_uri_spam($target = '', $method = array())
 
 	// URI: Uniqueness (and removing non-uniques)
 	if ((! $asap || ! $is_spam) && isset($method['non_uniquri'])) {
-
-		uri_pickup_normalize($pickups);
 
 		$uris = array();
 		foreach (array_keys($pickups) as $key) {
