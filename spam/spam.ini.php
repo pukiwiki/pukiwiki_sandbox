@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.76 2007/03/25 03:00:50 henoheno Exp $
+// $Id: spam.ini.php,v 1.77 2007/03/25 14:07:04 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -1265,6 +1265,7 @@ $blocklist['badhost'] = array(
 		'*.xoompages.com',
 	),
 	'*.50megs.com',		// by hostmaster at northsky.com
+	'*.5gbfree.com',
 	'*.9999mb.com',		// by allan Jerman (prodigy-airsoft at cox.net)
 	'aeonity.com',		// by Emocium Solutions (creativenospam at gmail.com)
 	'*.aimoo.com',
@@ -1804,6 +1805,7 @@ $blocklist['badhost'] = array(
 	'offtextbooks.com',
 	'ofimatika.com',
 	'omikudzi.ru',
+	'openchemist.net',
 	'pataphysics-lab.com',
 	'perl.org.br',
 	'pix4online.co.uk',
