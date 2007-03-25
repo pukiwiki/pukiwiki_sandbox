@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.127 2007/03/25 13:46:43 henoheno Exp $
+// $Id: spam.php,v 1.128 2007/03/25 14:06:42 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -701,14 +701,20 @@ function file_normalize($file = 'index.html.en')
 	if (isset($simple_defaults[$_file])) return '';
 
 
-	// [Apache 2 Content-negotiation (type-map)]
-	// Roughly removing language/character-set/encoding suffixes,
-	// (See Apache 2 document about 'mod_mime' and 'mod_negotiation',
-	//  http://www.iana.org/assignments/character-sets, RFC3066, and ISO 639))
+	// Roughly removing language/character-set/encoding suffixes
+	// References:
+	//  * Apache 2 document about 'Content-negotiaton', 'mod_mime' and 'mod_negotiation'
+	//    http://httpd.apache.org/docs/2.0/content-negotiation.html
+	//    http://httpd.apache.org/docs/2.0/mod/mod_mime.html
+	//    http://httpd.apache.org/docs/2.0/mod/mod_negotiation.html
+	//  * http://www.iana.org/assignments/character-sets
+	//  * RFC3066: Tags for the Identification of Languages
+	//    http://www.ietf.org/rfc/rfc3066.txt
+	//  * ISO 639: codes of 'language names'
 	$suffixes = explode('.', $_file);
 	$body = array_shift($suffixes);
 	if ($suffixes) {
-		// Remove the liast .gz/.z
+		// Remove the last .gz/.z
 		$last_key = end(array_keys($suffixes));
 		if (isset($encoding_suffix[$suffixes[$last_key]])) {
 			unset($suffixes[$last_key]);
