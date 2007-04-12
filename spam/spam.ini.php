@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.81 2007/04/08 05:47:35 henoheno Exp $
+// $Id: spam.ini.php,v 1.82 2007/04/12 14:31:53 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -1506,6 +1506,7 @@ $blocklist['badhost'] = array(
 	'ltss.luton.ac.uk',
 	'*.lycos.it',
 	'angelfire.lycos.com',
+	'mbga.jp',				// by DeNA Co.,Ltd. (barshige at hq.bidders.co.jp, torigoe at hq.bidders.co.jp)
 	'*.messageboard.nl',
 	'mokono GmbH' => array(
 		'*.blog.com.es',
@@ -3640,6 +3641,7 @@ $blocklist['badhost'] = array(
 	'.jimka-mmsa.com',		// by Alex Covax (c0vax at mail.ru), seems not used yet
 	'.joynu.com',			// by lei wang (93065 at qq.com), hidden JavaScript
 	'.kingtools.de',
+	'.kiski.net.in',		// by Aleksandr Krasnik (supermaster at pisem.net), ns *.msn-dns.com
 	'.library-blogs.net',	// by Peter Scott (pscontent at gmail.com)
 	'.lingage.com',			// by huan bing (qbbs at xinoffice.com)
 	'.ls.la',				// by Milton McLellan (McLellanMilton at yahoo.com)
@@ -3706,6 +3708,7 @@ $blocklist['badhost'] = array(
 	'.xamorexxx.net',
 	'.xsessox.com',
 	'.webtools24.net',		// by Michael Helminger (info at ishelminger.de)
+	'.wefas.ru',			// by Andrey M Somov (snmaster at yandex.ru). / not found
 	'.womasia.info',		// by Mark Fidele (markfidele at yahoo.com)
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
