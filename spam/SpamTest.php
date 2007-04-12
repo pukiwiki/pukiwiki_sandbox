@@ -1,8 +1,8 @@
 <?php
-// $Id: SpamTest.php,v 1.1 2007/04/12 14:37:57 henoheno Exp $
+// $Id: SpamTest.php,v 1.2 2007/04/12 14:39:39 henoheno Exp $
 // Copyright (C) 2007 heno
 //
-// Design test case for spam.php
+// Design test case for spam.php (called from runner.php)
 
 if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
 
