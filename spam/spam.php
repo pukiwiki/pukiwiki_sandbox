@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.131 2007/04/22 08:04:19 henoheno Exp $
+// $Id: spam.php,v 1.132 2007/04/22 21:49:08 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -36,6 +36,14 @@ function preg_grep_invert($pattern = '//', $input = array())
 		}
 	}
 }
+
+// Very roughly strings(1)
+function strings($binary = '')
+{
+	// http://www.pcre.org/pcre.txt
+	return preg_replace('/[[:^graph:]]+/', "\n", $binary);
+}
+
 
 // ---------------------
 // URI pickup
