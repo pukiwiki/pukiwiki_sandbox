@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.130 2007/04/11 13:13:33 henoheno Exp $
+// $Id: spam.php,v 1.131 2007/04/22 08:04:19 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -878,7 +878,16 @@ function get_blocklist($list = '')
 			//		'*.blogspot.com',	// Blog services's subdomains (only)
 			//		'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
 			//	);
-			foreach(array('goodhost', 'badhost') as $_list) {
+			if (isset($blocklist['list'])) {
+				$regexs['list'] = & $blocklist['list'];
+			} else {
+				// Default
+				$blocklist['list'] = array(
+					'goodhost' => FALSE,
+					'badhost'  => TRUE,
+				);
+			}
+			foreach(array_keys($blocklist['list']) as $_list) {
 				if (! isset($blocklist[$_list])) continue;
 				foreach ($blocklist[$_list] as $key => $value) {
 					if (is_array($value)) {
@@ -890,6 +899,7 @@ function get_blocklist($list = '')
 						get_blocklist_add($regexs[$_list], $key, $value);
 					}
 				}
+				unset($blocklist[$_list]);
 			}
 		}
 	}
@@ -911,7 +921,7 @@ function get_blocklist_add(& $array, $key = 0, $value = '*.example.org')
 	} else {
 		$array[$value] = '/^' . generate_host_regex($value, '/') . '$/i';
 	}
-} 
+}
 
 function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 {
@@ -924,29 +934,32 @@ function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 	}
 	if (empty($hosts)) return $result;
 
-	foreach (get_blocklist('goodhost') as $regex) {
-		$hosts = preg_grep_invert($regex, $hosts);
-	}
-	if (empty($hosts)) return $result;
-
-	foreach (get_blocklist('badhost') as $label => $regex) {
-		if (is_array($regex)) {
-			$result[$label] = array();
-			foreach($regex as $_label => $_regex) {
-				if (is_badhost_avail($_label, $_regex, $hosts, $result[$label]) && $asap) {
-					break;
+	foreach(get_blocklist('list') as $key=>$value){
+		if ($value) {
+			foreach (get_blocklist($key) as $label => $regex) {
+				if (is_array($regex)) {
+					$result[$label] = array();
+					foreach($regex as $_label => $_regex) {
+						if (is_badhost_avail($_label, $_regex, $hosts, $result[$label]) && $asap) {
+							break;
+						}
+					}
+					if (empty($result[$label])) unset($result[$label]);
+				} else {
+					if (is_badhost_avail($label, $regex, $hosts, $result) && $asap) {
+						break;
+					}
 				}
 			}
-			if (empty($result[$label])) unset($result[$label]);
 		} else {
-			if (is_badhost_avail($label, $regex, $hosts, $result) && $asap) {
-				break;
+			foreach (get_blocklist($key) as $regex) {
+				$hosts = preg_grep_invert($regex, $hosts);
 			}
+			if (empty($hosts)) return $result;
 		}
 	}
 
 	$remains = $hosts;
-
 	return $result;
 }
 

@@ -1,14 +1,30 @@
 <?php
-// $Id: spam.ini.php,v 1.82 2007/04/12 14:31:53 henoheno Exp $
+// $Id: spam.ini.php,v 1.83 2007/04/22 08:04:19 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
 //   Spamdexing http://en.wikipedia.org/wiki/Spamdexing
 
-// NOTE for goodhost and badhost:
+// NOTE:
 //  'example.org' prohibits both 'example.org' AND 'www.example.org'.
 //  '*.example.org' prohibits all subdomains and hosts EXCEPT 'www.example.org'.
 //  '.example.org' prohibits ALL FQDN related 'example.org'.
+
+// NOTE for badhost (only):
+//  'unique_name' = array('a.example.org', 'b.example.org') is treated as a group 'unique_name'.
+
+
+// List of the lists
+$blocklist['list'] = array(
+	'goodhost'		=> FALSE,
+	'badhost A-1'	=> TRUE,
+	'badhost A-2'	=> TRUE,
+	'badhost B-1'	=> TRUE,
+	'badhost B-2'	=> TRUE,
+	'badhost C'		=> TRUE,
+	'badhost'		=> TRUE,
+);
+
 
 $blocklist['goodhost'] = array(
 	'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
@@ -25,12 +41,10 @@ $blocklist['goodhost'] = array(
 
 );
 
-// NOTE for badhost (only):
-//  'unique_name' = array('a.example.org', 'b.example.org') is treated as a group 'unique_name'.
-$blocklist['badhost'] = array(
+// A: Sample setting of
+// Existing URI redirection or masking services
 
-	// A: Sample setting of
-	// Existing URI redirection or masking services
+$blocklist['badhost A-1'] = array(
 
 	// A-1: General redirection services -- by HTML meta, HTML frame, JavaScript,
 	// web-based proxy, DNS subdomains, etc
@@ -1212,6 +1226,9 @@ $blocklist['badhost'] = array(
 	'*.zu5.net',
 	'zuso.tw',
 	'*.zwap.to',
+);
+
+$blocklist['badhost A-2'] = array(
 
 	// A-2: Dynamic DNS, Dynamic IP services, DNS vulnerabilities, or another DNS cases
 	//
@@ -1234,13 +1251,16 @@ $blocklist['badhost'] = array(
 	//'*.zenno.info',
 	//'.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '.com'
 				// and all non-recorded domains redirect to 'agoga.com' now
+);
 
 
-	// B: Sample setting of:
-	// Jacked (taken advantage of) and cleaning-less sites
-	//
-	// Please notify us about this list with reason:
-	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2%2F208
+// B: Sample setting of:
+// Jacked (taken advantage of) and cleaning-less sites
+//
+// Please notify us about this list with reason:
+// http://pukiwiki.sourceforge.jp/dev/?BugTrack2%2F208
+
+$blocklist['badhost B-1'] = array(
 
 	// B-1: Web spaces
 	//
@@ -1797,6 +1817,10 @@ $blocklist['badhost'] = array(
 		'*.your-websites.net',
 		'*.web-space.ws',
 	),
+);
+
+
+$blocklist['badhost B-2'] = array(
 
 	// B-2: Jacked contents, something implanted
 	// (e.g. some sort of blog comments, BBSes, forums, wikis)
@@ -1948,7 +1972,10 @@ $blocklist['badhost'] = array(
 	'yasushi.site.ne.jp',	// One of mixedmedia.net'
 	'youthpeer.org',
 	'*.zenburger.com',
+);
 
+
+$blocklist['badhost C'] = array(
 
 	// C: Sample setting of:
 	// Exclusive spam domains
@@ -3568,7 +3595,6 @@ $blocklist['badhost'] = array(
 	),
 
 
-
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
 	'.0nline-porno.info',	// by Timyr (timyr at narod.ru)
@@ -3721,7 +3747,10 @@ $blocklist['badhost'] = array(
 		'.nana.co.il',
 	),
 	'.mylexus.info',		// by Homer Simpson (simhomer12300 at mail.com), Redirect to Google
+);
 
+
+$blocklist['badhost'] = array(
 	// D: Sample setting of
 	// "third party in good faith"s
 	//
