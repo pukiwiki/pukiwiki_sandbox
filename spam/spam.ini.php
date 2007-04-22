@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.83 2007/04/22 08:04:19 henoheno Exp $
+// $Id: spam.ini.php,v 1.84 2007/04/22 14:00:26 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -2337,7 +2337,9 @@ $blocklist['badhost C'] = array(
 		'.lineagejp-game.com',
 		'.linkcetou.com',
 		'.linrmb.com',		// by zeng xianming (qqvod at qq.com)
+		'.livedoor-game.com',
 		'.lovejpjp.com',
+		'm-phage.com',
 		'.maplestorfy.com',
 		'.mbspro6uic.com',
 		'.netgamelivedoor.com',
@@ -2361,6 +2363,7 @@ $blocklist['badhost C'] = array(
 		'.wikiwiki-game.com',
 		'.yahoo-gamebbs.com',
 		'.ywdgigkb-jp.com',
+		'.yy14-kakiko.com',
 	),
 	'caddd at 126.com' => array(
 		'.chengzhibing.com',	// by chen gzhibing (caddd at 126.com)
@@ -3602,6 +3605,7 @@ $blocklist['badhost C'] = array(
 	'.122mb.com',			// by Alexandru Rusnac (alrusnac at hotmail.com)
 	'.180haifa.com',		// by Andrey Letov (andreyletov at yahoo.com)
 	'.19cellar.info',		// by Eduardo Guro (boomouse at gmail.com)
+	'.1gangmu.com',			// by gangmutangyaoju (wlmx009 at hotmail.com), Seems physing site for ff11-jp.com
 	'.1gb.cc',				// by Hakan us (hakanus at mail.com)
 	'.1gb.in',				// by Sergius Mixman (lancelot.denis at gmail.com)
 	'.0annie.info',
@@ -3709,6 +3713,7 @@ $blocklist['badhost C'] = array(
 	'.sexforit.com',
 	'.sexmaniacs.org',		// by Yang Chong (chong at x-india.com)
 	'.sirlook.com',
+	'.so-net.ws',			// by Todaynic.com Inc, seems a physing site for so-net.jp
 	'.sticy.info',			// by Richard D. Mccall (richardmccall at yahoo.com)
 	'.superrwm.info',		// by Dark Dux (duxdark at yahoo.com)
 	'.thehostcity.com',		// Domains by Proxy
