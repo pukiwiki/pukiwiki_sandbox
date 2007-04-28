@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.134 2007/04/28 06:33:30 henoheno Exp $
+// $Id: spam.php,v 1.135 2007/04/28 12:45:24 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -37,11 +37,41 @@ function preg_grep_invert($pattern = '//', $input = array())
 	}
 }
 
-// Very roughly strings(1)
-function strings($binary = '')
+// Roughly strings(1)
+// http://www.freebsd.org/cgi/man.cgi?query=strings (Man-page of GNU strings)
+// http://www.pcre.org/pcre.txt
+function strings($binary = '', $min_len = 4, $ignore_space = FALSE)
 {
-	// http://www.pcre.org/pcre.txt
-	return preg_replace('/[[:^graph:]]+/', "\n", $binary);
+	if ($ignore_space) {
+		$binary = preg_replace(
+			array(
+				'/(?:[^[:graph:] \t\n]|[\r])+/s',
+				'/[ \t]{2,}/',
+				'/^ /m',
+				'/ $/m',
+			),
+			array(
+				"\n",
+				' ',
+				'',
+				''
+			),
+			 $binary);
+	} else {
+		$binary = preg_replace('/(?:[^[:graph:][:space:]]|[\r])+/s', "\n", $binary);
+	}
+
+	if ($min_len > 1) {
+		$min_len = min(1024, intval($min_len));
+		$binary = 
+			implode("\n",
+				preg_grep('/^.{' . $min_len . ',}/S',
+					explode("\n", $binary)
+				)
+			);
+	}
+
+	return $binary;
 }
 
 
