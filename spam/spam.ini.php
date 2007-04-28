@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.91 2007/04/28 03:00:43 henoheno Exp $
+// $Id: spam.ini.php,v 1.92 2007/04/28 16:19:22 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -1389,6 +1389,7 @@ $blocklist['badhost B-1'] = array(
 	'*.blog.com.es',
 	'*.blog.hr',
 	'*.blog-fx.com',
+	'blogfreely.com',
 	'blogas.lt',
 	'*.blogdrive.com',
 	'*.blogg.de',
@@ -1468,6 +1469,7 @@ $blocklist['badhost B-1'] = array(
 	'*.freeclans.de',
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'freeforum.at',			// by Sandro Wilhelmy
+	'freeforumshosting.com',	// by Adam Roberts (admin at skaidon.co.uk)
 	'*.freeforums.org',		// by 1&1 Internet, Inc. - 1and1.com
 	'FreeWebHostingArea.com' => array(	// or www.freewha.com
 		'*.6te.net',
@@ -1490,6 +1492,7 @@ $blocklist['badhost B-1'] = array(
 		'cz|de|dk|es|eu|fr|gr|hu|in|info|ir|it|jobs|jp|lt|' .
 		'lv|org|pl|name|net|nl|ro|ru|se|sk|tv|us|web\.tr)$#',
 	'*.fory.pl',
+	'*.freemyforum.com',	// by messahost at gmail.com
 	'freepowerboards.com',
 	'*.freepowerboards.com',
 	'*.funpic.de',
@@ -1961,9 +1964,11 @@ $blocklist['badhost B-2'] = array(
 	'forum.lixium.fr',
 	'macfaq.net',
 	'me4x4.com',
+	'microbial-ecology.net',
 	'minsterscouts.org',
 	'morallaw.org',
 	'morerevealed.com',
+	'macronet.org',
 	'mamiya.co.uk',
 	'vcd.mmvcd.com',
 	'Monmouth College' => array('department.monm.edu'),
@@ -2027,6 +2032,7 @@ $blocklist['badhost B-2'] = array(
 	'vacant.org.uk',
 	'Villa Julie College' => array('www4.vjc.edu'),
 	'warping.to',		// Seems (a redirection site, but now) taken advantage of
+	'webarch.com',		// by WebArchitects (webarch at insync.net)
 	'West Virginia University Parkersburg' => array('wvup.edu'),
 	'williamsburgrentals.com',
 	'wolvas.org.uk',
@@ -3735,15 +3741,20 @@ $blocklist['badhost C'] = array(
 		'.free-blog-host.info',
 		'.sucking-boobs.info',
 	),
-	'chub at seznam.cz' => array(	// by Lee Chen Ho
-		'.camerascams.info',	// "CamsGen 1.0"
-		'.camerasera.info',		// "CamsGen 1.0"
-		'.girlcamsworld.info',	// "CamsGen 1.0"
-		'.hiddenlimocams.info',	// "CamsGen 1.0"
-		'.spycamssite.info',	// "CamsGen 1.0"
+	'chub at seznam.cz' => array(	// "CamsGen 1.0" by Lee Chen Ho
+		'.camerascams.info',
+		'.camerasera.info',
+		'.girlcamsworld.info',
+		'.hiddenlimocams.info',
+		'.redlivecams.info',
+		'.spycamsgear.info',
+		'.spycamssite.info',
+		'.supercamsusa.info',
+		'.thecamsnow.info',
 	),
 	'208.70.75.153' => array(
 		'.cerca-no.info',
+		'.cerca-on.info',
 		'.cerca-sv.info',
 	),
 
@@ -3789,6 +3800,7 @@ $blocklist['badhost C'] = array(
 	'*.filthserver.com',	// sales at onlinemarketingservices.biz
 	'.find-stuff.org',		// by Alice Freedman (admin at ip-labs.ru), / 404 Not Found
 	'.forum24.se',
+	'.forumhosting.org',
 	'.free-finding.com',	// by Ny hom (nyhom at yahoo.com)
 	'.free-rx.net',			// by Neo-x (neo-xxl at yandex.ru), redirect to activefreehost.com
 	'.freeblog.ru',			// by Kondrashov Evgeniy Aleksandrovich (evkon at rol.ru), login form only, ns *.nthost.ru
@@ -3797,6 +3809,7 @@ $blocklist['badhost C'] = array(
 	'.game4enjoy.net',		// by huang jinglong (fenlin231 at sina.com)
 	'.ganecity.com',		// by shao tian (huangjinqiang at sina.com)
 	'.gm-exchange.jp',		// RMT
+	'.goamoto.ru',			// by Dmitry E Kotchnev (z2archive at gmail.com)
 	'.good1688.com',		// by Wen Chien Lunz (wzk1219 at yahoo.com.tw), one of them frame to , and whoop.to
 	'.google-pharmacy.com',		// by alex (mdisign1997 at yahoo.com), hiding with urlx.org etc
 	'.google-yahoo-msn.org',	// by Equipe Tecnica Ajato (rambap at yandex.ru)
@@ -3845,6 +3858,7 @@ $blocklist['badhost C'] = array(
 	'.pelican-bulletin.info',	// by Elizabeth K. Perry (redmonk at mail.ru)
 	'.perevozka777.ru',		// by witalik at gmail.com
 	'.pharmacy-style.com',	// by Anrey Markov (ernestppc at yahoo.com)
+	'.pharmacy2online.com',	// by Mike Hiliok (bbong80 at yahoo.com)
 	'.pills-storage.com',	// by 
 	'.plusintedia.com',		// by g yk (abc00623 at 163.com), seems not used now
 	'.popki.ind.in',			// by Aleksandr Krasnik (supermaster at pisem.net)
@@ -3898,7 +3912,6 @@ $blocklist['badhost C'] = array(
 	'.yoi4.net',			// by Ryouhei Nakamura (888 at sympathys.com), tell me why so many blogs with popular issues and _diverted design from blog.livedoor.jp_ around here.
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
-
 
 	// C-3: Not classifiable (information wanted)
 	//
