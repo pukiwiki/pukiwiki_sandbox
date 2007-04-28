@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.90 2007/04/28 02:50:24 henoheno Exp $
+// $Id: spam.ini.php,v 1.91 2007/04/28 03:00:43 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -11,13 +11,14 @@
 //  [3] ".example.org" prohibits ALL "example.org"-related FQDN
 //  (Now you know, [1] + [2] = [3])
 
-// NOTE for badhost (only):
-//  'unique_name' = array('a.example.org', 'b.example.org') is treated as a group 'unique_name'.
-
+// Grouping with array()
+//  'unique_name' => array('a.example.org', 'b.example.org')
+//
 // Guideline to keep group names unique
-//  [1] FQDN with capitalized letter(s)
-//  [2] Mail address of the domain-name owner
-//  [3] Unique name with capitalized letter(s) or spaces, commas, etc
+//   [1] FQDN with capitalized letter(s). Capitalized letters may suggest you this is a group.
+//   [2] Mail address of the domain-name owner
+//   [3] Unique name with capitalized letter(s) or spaces, commas, etc
+//   [4] IP address
 
 
 // List of the lists

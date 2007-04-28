@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.132 2007/04/22 21:49:08 henoheno Exp $
+// $Id: spam.php,v 1.133 2007/04/28 03:00:43 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -931,9 +931,45 @@ function get_blocklist_add(& $array, $key = 0, $value = '*.example.org')
 	}
 }
 
+
+// Blocklist metrics: Separate $host, to $blocked and not blocked
+function blocklist_distiller(& $hosts, $keys = array('goodhost', 'badhost'), $asap = FALSE)
+{
+	if (! is_array($hosts)) $hosts = array($hosts);
+	if (! is_array($keys))  $keys  = array($keys);
+
+	$list = get_blocklist('list');
+	$blocked = array();
+
+	foreach($keys as $key){
+		foreach (get_blocklist($key) as $label => $regex) {
+			if (is_array($regex)) {
+				foreach($regex as $_label => $_regex) {
+					$group = preg_grep($_regex, $hosts);
+					if ($group) {
+						$hosts = array_diff($hosts, $group);
+						$blocked[$key][$label][$_label] = $group;
+						if ($asap && $list[$key]) break;
+					}
+				}
+			} else {
+				$group = preg_grep($regex, $hosts);
+				if ($group) {
+					$hosts = array_diff($hosts, $group);
+					$blocked[$key][$label] = $group;
+					if ($asap && $list[$key]) break;
+				}
+			}
+		}
+	}
+
+	return $blocked;
+}
+
 function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 {
-	$result = array();
+	$remains = array();
+
 	if (! is_array($hosts)) $hosts = array($hosts);
 	foreach(array_keys($hosts) as $key) {
 		if (! is_string($hosts[$key])) {
@@ -942,50 +978,18 @@ function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 	}
 	if (empty($hosts)) return $result;
 
-	foreach(get_blocklist('list') as $key=>$value){
-		if ($value) {
-			foreach (get_blocklist($key) as $label => $regex) {
-				if (is_array($regex)) {
-					$result[$label] = array();
-					foreach($regex as $_label => $_regex) {
-						if (is_badhost_avail($_label, $_regex, $hosts, $result[$label]) && $asap) {
-							break;
-						}
-					}
-					if (empty($result[$label])) unset($result[$label]);
-				} else {
-					if (is_badhost_avail($label, $regex, $hosts, $result) && $asap) {
-						break;
-					}
-				}
-			}
-		} else {
-			foreach (get_blocklist($key) as $regex) {
-				$hosts = preg_grep_invert($regex, $hosts);
-			}
-			if (empty($hosts)) return $result;
+	$list = get_blocklist('list');
+	$blocked = blocklist_distiller($hosts, array_keys($list), $asap);
+	foreach($list as $key=>$type){
+		if (! $type) {
+			unset($blocked[$key]); // Ignore goodhost etc
 		}
 	}
-
 	$remains = $hosts;
-	return $result;
+
+	return $blocked;
 }
 
-// Subroutine for is_badhost()
-function is_badhost_avail($label = '*.example.org', $regex = '/^.*\.example\.org$/', & $hosts, & $result)
-{
-	$group = preg_grep($regex, $hosts);
-	if ($group) {
-
-		// DEBUG var_dump($group); // badhost detail
-
-		$result[$label] = & $group;
-		$hosts = array_diff($hosts, $result[$label]);
-		return TRUE;
-	} else {
-		return FALSE;
-	}
-}
 
 // Default (enabled) methods and thresholds (for content insertion)
 function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
@@ -1225,7 +1229,9 @@ function check_uri_spam($target = '', $method = array())
 		}
 		unset($__remains);
 		if (! empty($badhost)) {
+
 			//var_dump($badhost);	// BADHOST detail
+
 			$sum['badhost'] += array_count_leaves($badhost);
 			foreach(array_keys($badhost) as $keys) {
 				$is_spam['badhost'][$keys] =
@@ -1238,18 +1244,17 @@ function check_uri_spam($target = '', $method = array())
 	return $progress;
 }
 
-// Count leaves
-function array_count_leaves($array = array(), $count_empty_array = FALSE)
+// Count leaves (A leaf = value that is not an array, or an empty array)
+function array_count_leaves($array = array(), $count_empty = FALSE)
 {
-	if (! is_array($array) || (empty($array) && $count_empty_array))
-		return 1;
+	if (! is_array($array) || (empty($array) && $count_empty)) return 1;
 
 	// Recurse
-	$result = 0;
+	$count = 0;
 	foreach ($array as $part) {
-		$result += array_count_leaves($part, $count_empty_array);
+		$count += array_count_leaves($part, $count_empty);
 	}
-	return $result;
+	return $count;
 }
 
 // ---------------------
