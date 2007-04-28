@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.135 2007/04/28 12:45:24 henoheno Exp $
+// $Id: spam.php,v 1.136 2007/04/28 13:13:30 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -47,8 +47,8 @@ function strings($binary = '', $min_len = 4, $ignore_space = FALSE)
 			array(
 				'/(?:[^[:graph:] \t\n]|[\r])+/s',
 				'/[ \t]{2,}/',
-				'/^ /m',
-				'/ $/m',
+				'/^[ \t]/m',
+				'/[ \t]$/m',
 			),
 			array(
 				"\n",
