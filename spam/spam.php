@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.133 2007/04/28 03:00:43 henoheno Exp $
+// $Id: spam.php,v 1.134 2007/04/28 06:33:30 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -224,7 +224,7 @@ function area_pickup($string = '', $method = array())
 	// [OK] <a href="http://nasty.example.com">visit http://nasty.example.com/</a>
 	// [OK] <a href=\'http://nasty.example.com/\' >discount foobar</a> 
 	// [NG] <a href="http://ng.example.com">visit http://ng.example.com _not_ended_
-	$regex = '#<a\b[^>]*\bhref\b[^>]*>.*?</a\b[^>]*(>)#i';
+	$regex = '#<a\b[^>]*\bhref\b[^>]*>.*?</a\b[^>]*(>)#is';
 	if (isset($method['area_anchor'])) {
 		$areas = array();
 		$count = isset($method['asap']) ?
@@ -250,7 +250,7 @@ function area_pickup($string = '', $method = array())
 	// [OK] [link]http://nasty.example.com/[/link]
 	// [OK] [url=http://nasty.example.com]visit http://nasty.example.com/[/url]
 	// [OK] [link http://nasty.example.com/]buy something[/link]
-	$regex = '#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#i';
+	$regex = '#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#is';
 	if (isset($method['area_bbcode'])) {
 		$areas = array();
 		$count = isset($method['asap']) ?
