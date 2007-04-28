@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.89 2007/04/28 01:45:19 henoheno Exp $
+// $Id: spam.ini.php,v 1.90 2007/04/28 02:50:24 henoheno Exp $
 // Spam-related setting
 //
 // Reference:
@@ -9,14 +9,14 @@
 //  [1] "example.org" prohibits both "example.org" AND "www.example.org"
 //  [2] "*.example.org" prohibits subdomains and hosts EXCEPT "www.example.org"
 //  [3] ".example.org" prohibits ALL "example.org"-related FQDN
-//  (You know, [1] + [2] = [3])
+//  (Now you know, [1] + [2] = [3])
 
 // NOTE for badhost (only):
 //  'unique_name' = array('a.example.org', 'b.example.org') is treated as a group 'unique_name'.
 
 // Guideline to keep group names unique
 //  [1] FQDN with capitalized letter(s)
-//  [2] Mail address (with FQDN) of the domain-name owner
+//  [2] Mail address of the domain-name owner
 //  [3] Unique name with capitalized letter(s) or spaces, commas, etc
 
 
@@ -1560,8 +1560,16 @@ $blocklist['badhost B-1'] = array(
 	'ltss.luton.ac.uk',
 	'Lycos' => array(
 		'angelfire.com',	// angelfire.lycos.com
+
 		'*.jubii.dk',	// search., medlem.
+		'*..jubiiblog.co.uk',
 		'*.jubiiblog.com.es',	// by Lycos Europe GmbH
+		'*.jubiiblog.de',
+		'*.jubiiblog.dk',
+		'*.jubiiblog.fr',
+		'*.jubiiblog.it',
+		'*.jubiiblog.nl',
+
 		'*.lycos.at',
 		'*.lycos.ch',
 		'*.lycos.co.uk',
@@ -1571,7 +1579,10 @@ $blocklist['badhost B-1'] = array(
 		'*.lycos.fr',
 		'*.lycos.it',		// by Lycos Europe GmbH
 		'*.lycos.nl',
+
 		'*.spray.se',
+		'*.sprayblog.se'.
+
 		'*.tripod.com',
 	),
 	'mbga.jp',				// by DeNA Co.,Ltd. (barshige at hq.bidders.co.jp, torigoe at hq.bidders.co.jp)
@@ -2483,7 +2494,9 @@ $blocklist['badhost C'] = array(
 		'.ekafoloz.info',
 		'.exidiqe.info',
 		'.gubiwu.info',
+		'.ijizauax.info',	// by ysauuz2341 at iname.com, Billing Email:gray at trafic.name
 		'.jiuuz.info',
+		'.nipud.info',		// by bohox9872 at mindless.com, Billing Email:gray at trafic.name
 		'.olasep.info',
 		'.oueuidop.info',
 		'.oviravy.info',
@@ -3721,6 +3734,17 @@ $blocklist['badhost C'] = array(
 		'.free-blog-host.info',
 		'.sucking-boobs.info',
 	),
+	'chub at seznam.cz' => array(	// by Lee Chen Ho
+		'.camerascams.info',	// "CamsGen 1.0"
+		'.camerasera.info',		// "CamsGen 1.0"
+		'.girlcamsworld.info',	// "CamsGen 1.0"
+		'.hiddenlimocams.info',	// "CamsGen 1.0"
+		'.spycamssite.info',	// "CamsGen 1.0"
+	),
+	'208.70.75.153' => array(
+		'.cerca-no.info',
+		'.cerca-sv.info',
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -3832,8 +3856,8 @@ $blocklist['badhost C'] = array(
 	'.qoclick.net',			// by DMITRIY SOLDATENKO
 	'.relurl.com',			// tiny-like. by Grzes Tlalka (grzes1111 at interia.pl)
 	'.replicaswatch.org',	// by Replin (admin at furnitureblog.org)
-	'.searchadv.com',		// by Jaan Randolph (searchadv at gmail.com)
 	'.roin.info',			// by Evgenius (roinse at yandex.ru)
+	'.searchadv.com',		// by Jaan Randolph (searchadv at gmail.com)
 	'.seek-www.com',		// by Adam Smit (pingpong at mail.md)
 	'.sessocities.net',		// by info at secureserver3.com
 	'.sexamoreit.com',
@@ -3847,7 +3871,9 @@ $blocklist['badhost C'] = array(
 	'.thehostcity.com',		// Domains by Proxy
 	'.thephentermineonline.info',	// by Kipola (smesh1155 at gmail.com)
 	'.thetinyurl.com',		// by Beth J. Carter (Beth.J.Carter at thetinyurl.com)
+	'.thetrendy.info',		// by Harold (Harold.J.Craft at pookmail.com), / is blank
 	'.topmeds10.com',
+	'.tourismworldsite.info',	// by Sipiki (sidor2 at gmail.com)
 	'*.tv-reklama.info',	// by Kozlov Maxim (m_koz at mail.ru)
 	'.twabout.com',			// by qiu wenbing (qiuwenbing at 126.com), content from l2mpt.net
 	'.uaro.info',			// by Neru Pioner (neru at smtp.ru)
@@ -3871,6 +3897,7 @@ $blocklist['badhost C'] = array(
 	'.yoi4.net',			// by Ryouhei Nakamura (888 at sympathys.com), tell me why so many blogs with popular issues and _diverted design from blog.livedoor.jp_ around here.
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
+
 
 	// C-3: Not classifiable (information wanted)
 	//
