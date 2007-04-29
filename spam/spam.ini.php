@@ -1,39 +1,53 @@
 <?php
-// $Id: spam.ini.php,v 1.92 2007/04/28 16:19:22 henoheno Exp $
+// $Id: spam.ini.php,v 1.93 2007/04/29 08:56:20 henoheno Exp $
 // Spam-related setting
+
+// NOTE FOR ADMINISTRATORS:
 //
-// Reference:
-//   Spamdexing http://en.wikipedia.org/wiki/Spamdexing
-
-// NOTE:
-//  [1] "example.org" prohibits both "example.org" AND "www.example.org"
-//  [2] "*.example.org" prohibits subdomains and hosts EXCEPT "www.example.org"
-//  [3] ".example.org" prohibits ALL "example.org"-related FQDN
-//  (Now you know, [1] + [2] = [3])
-
-// Grouping with array()
-//  'unique_name' => array('a.example.org', 'b.example.org')
+// Host selection:
+//   [1] '.example.org'  prohibits ALL "example.org"-related FQDN
+//   [2] '*.example.org' prohibits ONLY subdomains and hosts, EXCEPT "www.example.org"
+//   [3] 'example.org'   prohibits BOTH "example.org" and "www.example.org"
+//   (Now you know, [1] = [2] + [3])
 //
-// Guideline to keep group names unique
-//   [1] FQDN with capitalized letter(s). Capitalized letters may suggest you this is a group.
-//   [2] Mail address of the domain-name owner
-//   [3] Unique name with capitalized letter(s) or spaces, commas, etc
-//   [4] IP address
+// How to write multiple hosts as an group:
+//  'Group Name' => array('a.example.org', 'b.example.com', 'c.example.net'),
+//
+// How to write regular expression:
+//  'Group Name' => '#^(?:.*\.)?what-you-want\.com$#',
+//
+// Guideline to keep group names unique:
+//   - Using capitalized letters, spaces, commas (etc) may suggest you
+//     that probably be a group.
+//   - Unique word examples:
+//     [1] FQDN
+//     [2] Mail address of the domain-name owner
+//     [3] IP address, if these hosts have the same ones
+//     [4] Something unique idea of you
+//
+// Reference: Spamdexing http://en.wikipedia.org/wiki/Spamdexing
 
 
-// List of the lists
 $blocklist['list'] = array(
-	'goodhost'		=> FALSE,
-	'badhost A-1'	=> TRUE,
-	'badhost A-2'	=> TRUE,
-	'badhost B-1'	=> TRUE,
-	'badhost B-2'	=> TRUE,
-	'badhost C'		=> TRUE,
-	'badhost'		=> TRUE,
+	// List of the lists
+
+	//  FALSE	= ignore them
+	//  TRUE	= catch them
+	//  Commented out of the line = do nothing about it
+
+	'goodhost'	=> FALSE,
+	'A-1'		=> TRUE,
+	'A-2'		=> TRUE,
+	'B-1'		=> TRUE,
+	'B-2'		=> TRUE,
+	'C'			=> TRUE,
+	'badhost'	=> TRUE,
 );
 
 
 $blocklist['goodhost'] = array(
+	// Sample setting of ignorance list
+
 	'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
 
 	// PukiWiki-official/dev specific
@@ -51,7 +65,7 @@ $blocklist['goodhost'] = array(
 // A: Sample setting of
 // Existing URI redirection or masking services
 
-$blocklist['badhost A-1'] = array(
+$blocklist['A-1'] = array(
 
 	// A-1: General redirection services -- by HTML meta, HTML frame, JavaScript,
 	// web-based proxy, DNS subdomains, etc
@@ -1246,7 +1260,7 @@ $blocklist['badhost A-1'] = array(
 	'*.zwap.to',
 );
 
-$blocklist['badhost A-2'] = array(
+$blocklist['A-2'] = array(
 
 	// A-2: Dynamic DNS, Dynamic IP services, DNS vulnerabilities, or another DNS cases
 	//
@@ -1278,7 +1292,7 @@ $blocklist['badhost A-2'] = array(
 // Please notify us about this list with reason:
 // http://pukiwiki.sourceforge.jp/dev/?BugTrack2%2F208
 
-$blocklist['badhost B-1'] = array(
+$blocklist['B-1'] = array(
 
 	// B-1: Web spaces
 	//
@@ -1723,8 +1737,7 @@ $blocklist['badhost B-1'] = array(
 	'*.vidiac.com',
 	'volny.cz',
 	'*.welover.org',
-	'Web1000.com' => array(
-		// http://www.web1000.com/register_new2.php
+	'Web1000.com' => array(	// http://www.web1000.com/register_new2.php
 		'*.fasthost.tv',
 		'*.hothost.tv',
 		'*.isgreat.tv',
@@ -1884,7 +1897,7 @@ $blocklist['badhost B-1'] = array(
 );
 
 
-$blocklist['badhost B-2'] = array(
+$blocklist['B-2'] = array(
 
 	// B-2: Jacked contents, something implanted
 	// (e.g. some sort of blog comments, BBSes, forums, wikis)
@@ -2045,7 +2058,7 @@ $blocklist['badhost B-2'] = array(
 );
 
 
-$blocklist['badhost C'] = array(
+$blocklist['C'] = array(
 
 	// C: Sample setting of:
 	// Exclusive spam domains
@@ -2512,7 +2525,7 @@ $blocklist['badhost C'] = array(
 		'.vubiheq.info',
 		'.yvaxat.info',
 	),
-	'carmodelrank.com etc' => array(
+	'Carmodelrank.com etc' => array(
 		'.carmodelrank.com',// by Brianna Dunlord (briasmi at yahoo.com)
 		'.cutestories.net',	// by Brianna Dunlord (briasmi at yahoo.com)
 		'.sturducs.com',
@@ -3924,7 +3937,7 @@ $blocklist['badhost C'] = array(
 );
 
 
-$blocklist['badhost'] = array(
+$blocklist['D'] = array(
 	// D: Sample setting of
 	// "third party in good faith"s
 	//
@@ -3932,7 +3945,10 @@ $blocklist['badhost'] = array(
 	// not used via spam, but maybe useful to detect these contents
 	//
 	// 'RESERVED',
+);
 
+
+$blocklist['Z'] = array(
 	// Z: Yours
 	//
 	//'',
