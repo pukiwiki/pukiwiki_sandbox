@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.136 2007/04/28 13:13:30 henoheno Exp $
+// $Id: spam.php,v 1.137 2007/04/29 14:40:12 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -37,9 +37,13 @@ function preg_grep_invert($pattern = '//', $input = array())
 	}
 }
 
-// Roughly strings(1)
-// http://www.freebsd.org/cgi/man.cgi?query=strings (Man-page of GNU strings)
-// http://www.pcre.org/pcre.txt
+// Roughly strings(1) using PCRE
+// This function is useful to:
+//   * Reduce the size of data, from removing unprintable binary data
+//   * Detect _bare_strings_ from binary data
+// References:
+//   http://www.freebsd.org/cgi/man.cgi?query=strings (Man-page of GNU strings)
+//   http://www.pcre.org/pcre.txt
 function strings($binary = '', $min_len = 4, $ignore_space = FALSE)
 {
 	if ($ignore_space) {
@@ -369,14 +373,31 @@ function _preg_replace_callback_domain_exposure($matches = array())
 // Preprocess: rawurldecode() and adding space(s) and something
 // to detect/count some URIs _if possible_
 // NOTE: It's maybe danger to var_dump(result). [e.g. 'javascript:']
+// [OK] http://victim.example.org/?site:nasty.example.org
+// [OK] http://victim.example.org/nasty.example.org
 // [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
 // [OK] http://victim.example.org/http://nasty.example.org
-// TODO: link.toolbot.com, urlx.org
 function spam_uri_pickup_preprocess($string = '')
 {
 	if (! is_string($string)) return '';
 
 	$string = rawurldecode($string);
+
+	// Domain exposure (simple)
+	// http://victim.example.org/nasty.example.org/path#frag
+	// => http://nasty.example.org/?refer=victim.example.org and original
+	$string = preg_replace(
+		'#http://' .
+		'(' .
+			'ime\.nu' . '|' .	// 2ch.net
+			'ime\.st' . '|' .	// 2ch.net
+			'link\.toolbot\.com' . '|' .
+			'urlx\.org' .
+		')' .
+		'/([a-z0-9.%_-]+\.[a-z0-9.%_-]+)#i',	// nasty.example.org
+		'http://$2/?refer=$1 $0',				// Insert
+		$string
+	);
 
 	// Domain exposure (See _preg_replace_callback_domain_exposure())
 	$string = preg_replace_callback(
