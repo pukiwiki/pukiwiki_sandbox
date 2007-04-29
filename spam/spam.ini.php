@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.94 2007/04/29 09:01:54 henoheno Exp $
+// $Id: spam.ini.php,v 1.95 2007/04/29 11:51:45 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1559,6 +1559,7 @@ $blocklist['B-1'] = array(
 	'*.informe.com',
 	'it168.com',
 	'.iwannaforum.com',
+	'*.jeun.fr',
 	'*.journalscape.com',
 	'*.blog.kataweb.it',
 	'*.kaixo.com',		// blogs.kaixo.com, blogak.kaixo.com
@@ -3512,6 +3513,7 @@ $blocklist['C'] = array(
 	'serchportal at mail.ru' => array(	// by Namu Adin
 		'.cool9f.info',
 		'.dormonde.info',
+		'.faciledor.info',
 		'.getse.info',
 		'.knopki.info',
 		'.xjdor.info',
@@ -3649,67 +3651,25 @@ $blocklist['C'] = array(
 		'.vigrxplus.com',
 		'.wbstnewsletter.com',
 	),
+
+
+
 	'clickx at bk.ru' => array(	// by Alexey Enrertov
-		'.fresgetapple.info',
-		'.fresgetbus.info',
-		'.fresgetclick.info',
-		'.fresgetfind.info',
-		'.fresgetfish.info',
-		'.fresgetnews.info',
-		'.fresgetphp.info',
-		'.fresgetplace.info',
-		'.fresgetpost.info',
-		'.fresgetsearch.info',
-		'.fresgetsrch.info',
-
-		'.fresgirlapple.info',
-		'.fresgirlbus.info',
-		'.fresgirlclick.info',
-		'.fresgirlfind.info',
-		'.fresgirlfish.info',
-		'.fresgirlnews.info',
-		'.fresgirlphp.info',
-		'.fresgirlplace.info',
-		'.fresgirlpost.info',
-		'.fresgirlsearch.info',
-		//'.fresgirlsrch.info',
-
-		'.fresmeetapple.info',
-		'.fresmeetbus.info',
-		'.fresmeetclick.info',
-		'.fresmeetfind.info',
-		'.fresmeetfish.info',
-		'.fresmeetnews.info',
-		'.fresmeetphp.info',
-		'.fresmeetplace.info',
-		'.fresmeetpost.info',
-		'.fresmeetsearch.info',
-		'.fresmeetsrch.info',
-
-		'.fresnewapple.info',
-		'.fresnewbus.info',
-		'.fresnewclick.info',
-		'.fresnewfind.info',
-		'.fresnewfish.info',
-		'.fresnewnews.info',
-		'.fresnewphp.info',
-		'.fresnewplace.info',
-		'.fresnewpost.info',
-		'.fresnewsearch.info',
-		'.fresnewsrch.info',
-
-		'.fresrealapple.info',
-		'.fresrealbus.info',
-		'.fresrealclick.info',
-		'.fresrealfind.info',
-		'.fresrealfish.info',
-		'.fresrealnews.info',
-		'.fresrealphp.info',
-		'.fresrealplace.info',
-		'.fresrealpost.info',
-		'.fresrealsearch.info',
-		'.fresrealsrch.info',
-
+		'.fres**.info' =>
+			'#^(?:.*\.)' .
+			'fres' .
+			'(?:adult|boy|easy|get|girl|meet|new|real)' .
+			'(?:apple|bus|click|find|fish|news|php|place|post|srch|search)' .
+			'\.info$#',
+			// These are not found yet:
+			// fresgirlsrch.info
+			// freseasybus.info
+			// freseasynews.info
+			// freseasyphp.info
+			// freseasyplace.info
+			// freseasysrch.info
+			// fresadultapple.info
+			// fresadultclick.info
 		'.nuhost.info',
 		'.susearch.info',
 	),
@@ -3770,6 +3730,10 @@ $blocklist['C'] = array(
 		'.cerca-no.info',
 		'.cerca-on.info',
 		'.cerca-sv.info',
+	),
+	'87.242.116.81' => array(
+		'.bilbidon.ru',		// by Ilya S Vorobiyov (reginamedom at yandex.ru)
+		'.flating.ru',		// by Sergej L Ivanov (deeeport at yandex.ru)
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -3885,6 +3849,7 @@ $blocklist['C'] = array(
 	'.qoclick.net',			// by DMITRIY SOLDATENKO
 	'.relurl.com',			// tiny-like. by Grzes Tlalka (grzes1111 at interia.pl)
 	'.replicaswatch.org',	// by Replin (admin at furnitureblog.org)
+	'.rigame.info',			// by debra_jordan07 at yahoo.com
 	'.roin.info',			// by Evgenius (roinse at yandex.ru)
 	'.searchadv.com',		// by Jaan Randolph (searchadv at gmail.com)
 	'.seek-www.com',		// by Adam Smit (pingpong at mail.md)
@@ -3908,6 +3873,7 @@ $blocklist['C'] = array(
 	'.uaro.info',			// by Neru Pioner (neru at smtp.ru)
 	'.unctad.net',			// by gfdogfd at lovespb.com
 	'.vacant.org.uk',
+	'.vip-get.info',		// by Jhon Craig (bartes1992 at mail.ru), / forbidden
 	'.virtualsystem.de',
 	'.vdxhost.com',
 	'.webnow.biz',			// by Hsien I Fan (admin at servcomputing.com)
@@ -3926,6 +3892,7 @@ $blocklist['C'] = array(
 	'.yoi4.net',			// by Ryouhei Nakamura (888 at sympathys.com), tell me why so many blogs with popular issues and _diverted design from blog.livedoor.jp_ around here.
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
+
 
 	// C-3: Not classifiable (information wanted)
 	//
