@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.95 2007/04/29 11:51:45 henoheno Exp $
+// $Id: spam.ini.php,v 1.96 2007/04/29 14:50:51 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -3516,6 +3516,7 @@ $blocklist['C'] = array(
 		'.faciledor.info',
 		'.getse.info',
 		'.knopki.info',
+		'.ret5.info',
 		'.xjdor.info',
 		'.zhopki.info',
 	),
