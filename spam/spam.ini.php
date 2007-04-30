@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.96 2007/04/29 14:50:51 henoheno Exp $
+// $Id: spam.ini.php,v 1.97 2007/04/30 16:05:57 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2377,6 +2377,7 @@ $blocklist['C'] = array(
 		'.deco030-cscblog.com',
 		'.din-or.com',
 		'.dtg-gamania.com',
+		'.editco-jp.com',
 		'.ezbbsy.com',
 		'.extd-web.com',
 		'.fanavier.net',
@@ -2451,6 +2452,7 @@ $blocklist['C'] = array(
 		'.runbal-fc2web.com',
 		'.shoopivdoor.com',
 		'.slower-qth.com',
+		'.soultakerbbs.net',
 		'.watcheimpress.com',
 		'.wikiwiki-game.com',
 		'.yahoo-gamebbs.com',
@@ -3786,6 +3788,7 @@ $blocklist['C'] = array(
 	'.freehostia.com',
 	'.goldcoastonlinetutoring.com',	// by Robert Tanenbaum (buildbt at lycos.com)
 	'.game4enjoy.net',		// by huang jinglong (fenlin231 at sina.com)
+	'.gomeodc.com',			// by wang meili (gannipo at yahoo.com.cn), iframe to vviccd520.com
 	'.ganecity.com',		// by shao tian (huangjinqiang at sina.com)
 	'.gm-exchange.jp',		// RMT
 	'.goamoto.ru',			// by Dmitry E Kotchnev (z2archive at gmail.com)
@@ -3877,6 +3880,7 @@ $blocklist['C'] = array(
 	'.vip-get.info',		// by Jhon Craig (bartes1992 at mail.ru), / forbidden
 	'.virtualsystem.de',
 	'.vdxhost.com',
+	'.vviccd520.com',		// by kuang zhang (oulingfeng66 at 163.com), encoded JavaScript
 	'.webnow.biz',			// by Hsien I Fan (admin at servcomputing.com)
 	'.webtools24.net',		// by Michael Helminger (info at ishelminger.de)
 	'.wefas.ru',			// by Andrey M Somov (snmaster at yandex.ru). / not found
