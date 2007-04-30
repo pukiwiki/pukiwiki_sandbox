@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.137 2007/04/29 14:40:12 henoheno Exp $
+// $Id: spam.php,v 1.138 2007/04/30 03:23:33 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -395,7 +395,7 @@ function spam_uri_pickup_preprocess($string = '')
 			'urlx\.org' .
 		')' .
 		'/([a-z0-9.%_-]+\.[a-z0-9.%_-]+)#i',	// nasty.example.org
-		'http://$2/?refer=$1 $0',				// Insert
+		'http://$2/?refer=$1 $0',				// Preserve $0 or remove?
 		$string
 	);
 
@@ -982,7 +982,6 @@ function get_blocklist_add(& $array, $key = 0, $value = '*.example.org')
 	}
 }
 
-
 // Blocklist metrics: Separate $host, to $blocked and not blocked
 function blocklist_distiller(& $hosts, $keys = array('goodhost', 'badhost'), $asap = FALSE)
 {
@@ -1019,24 +1018,15 @@ function blocklist_distiller(& $hosts, $keys = array('goodhost', 'badhost'), $as
 
 function is_badhost($hosts = array(), $asap = TRUE, & $remains)
 {
-	$remains = array();
-
-	if (! is_array($hosts)) $hosts = array($hosts);
-	foreach(array_keys($hosts) as $key) {
-		if (! is_string($hosts[$key])) {
-			unset($hosts[$key]);
-		}
-	}
-	if (empty($hosts)) return $result;
-
 	$list = get_blocklist('list');
+
 	$blocked = blocklist_distiller($hosts, array_keys($list), $asap);
+	$remains = $hosts;
 	foreach($list as $key=>$type){
 		if (! $type) {
 			unset($blocked[$key]); // Ignore goodhost etc
 		}
 	}
-	$remains = $hosts;
 
 	return $blocked;
 }
