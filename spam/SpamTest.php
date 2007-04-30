@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.4 2007/04/30 03:23:45 henoheno Exp $
+// $Id: SpamTest.php,v 1.5 2007/04/30 07:41:09 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -11,15 +11,25 @@ require_once('PHPUnit/PHPUnit.php');
 
 class SpamTest extends PHPUnit_TestCase
 {
+	function setup_string_null()
+	{
+		return array(
+			'[NULL]'	=> NULL,
+			'[TRUE]'	=> TRUE,
+			'[FALSE]'	=> FALSE,
+			'[array(foobar)]' => array('foobar'),
+			'[]'		=> '',
+			'[0]'		=> 0,
+			'[1]'		=> 1
+		);
+	}
+
 	function testFunc_uri_pickup()
 	{
 		// 1st argument: Null
-		$this->assertEquals(0, count(uri_pickup(NULL)));
-		$this->assertEquals(0, count(uri_pickup(TRUE)));
-		$this->assertEquals(0, count(uri_pickup(FALSE)));
-		$this->assertEquals(0, count(uri_pickup(array('foobar'))));
-		$this->assertEquals(0, count(uri_pickup('')));
-		$this->assertEquals(0, count(uri_pickup(0)));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals(0, count(uri_pickup($value)), $key);
+		}
 
 		// 1st argument: Some
 		$test_string = <<<EOF
@@ -76,13 +86,9 @@ EOF;
 	function testFunc_scheme_normalize()
 	{
 		// Null
-		$this->assertEquals('', scheme_normalize(NULL));
-		$this->assertEquals('', scheme_normalize(TRUE));
-		$this->assertEquals('', scheme_normalize(FALSE));
-		$this->assertEquals('', scheme_normalize(array('foobar')));
-		$this->assertEquals('', scheme_normalize(''));
-		$this->assertEquals('', scheme_normalize(0));
-		$this->assertEquals('', scheme_normalize(1));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('', scheme_normalize($value), $key);
+		}
 
 		// CASE
 		$this->assertEquals('http', scheme_normalize('HTTP'));
@@ -108,13 +114,9 @@ EOF;
 	function testFunc_host_normalize()
 	{
 		// Null
-		$this->assertEquals('', host_normalize(NULL));
-		$this->assertEquals('', host_normalize(TRUE));
-		$this->assertEquals('', host_normalize(FALSE));
-		$this->assertEquals('', host_normalize(array('foobar')));
-		$this->assertEquals('', host_normalize(''));
-		$this->assertEquals('', host_normalize(0));
-		$this->assertEquals('', host_normalize(1));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('', host_normalize($value), $key);
+		}
 
 		// Hostname is case-insensitive
 		$this->assertEquals('example.org', host_normalize('ExAMPle.ORG'));
@@ -187,13 +189,9 @@ EOF;
 	function testFunc_path_normalize()
 	{
 		// 1st argument: Null
-		$this->assertEquals('/', path_normalize(NULL));
-		$this->assertEquals('/', path_normalize(TRUE));
-		$this->assertEquals('/', path_normalize(FALSE));
-		$this->assertEquals('/', path_normalize(array('foobar')));
-		$this->assertEquals('/', path_normalize(''));
-		$this->assertEquals('/', path_normalize(0));
-		$this->assertEquals('/', path_normalize(1));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('/', path_normalize($value), $key);
+		}
 
 		// 1st argument: CASE sensitive
 		$this->assertEquals('/ExAMPle', path_normalize('ExAMPle'));
@@ -212,95 +210,91 @@ EOF;
 	function testFunc_file_normalize()
 	{
 		// 1st argument: Null
-		$this->assertEquals('', file_normalize(NULL));
-		$this->assertEquals('', file_normalize(TRUE));
-		$this->assertEquals('', file_normalize(FALSE));
-		$this->assertEquals('', file_normalize(array('foobar')));
-		$this->assertEquals('', file_normalize(''));
-		$this->assertEquals('', file_normalize(0));
-		$this->assertEquals('', file_normalize(1));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('', file_normalize($value), $key);
+		}
 
 		// 1st argument: Cut DirectoryIndexes (Destructive)
-		$this->assertEquals('', file_normalize('default.htm'));
-		$this->assertEquals('', file_normalize('default.html'));
-		$this->assertEquals('', file_normalize('default.asp'));
-		$this->assertEquals('', file_normalize('default.aspx'));
-		$this->assertEquals('', file_normalize('index'));
-		$this->assertEquals('', file_normalize('index.htm'));
-		$this->assertEquals('', file_normalize('index.html'));
-		$this->assertEquals('', file_normalize('index.shtml'));
-		$this->assertEquals('', file_normalize('index.jsp'));
-		$this->assertEquals('', file_normalize('index.php'));
-		$this->assertEquals('', file_normalize('index.php'));
-		$this->assertEquals('', file_normalize('index.php3'));
-		$this->assertEquals('', file_normalize('index.php4'));
-		$this->assertEquals('', file_normalize('index.pl'));
-		$this->assertEquals('', file_normalize('index.py'));
-		$this->assertEquals('', file_normalize('index.rb'));
-		$this->assertEquals('', file_normalize('index.cgi'));
+		foreach(array(
+			'default.htm',
+			'default.html',
+			'default.asp',
+			'default.aspx',
+			'index',
+			'index.htm',
+			'index.html',
+			'index.shtml',
+			'index.jsp',
+			'index.php',
+			'index.php',
+			'index.php3',
+			'index.php4',
+			'index.pl',
+			'index.py',
+			'index.rb',
+			'index.cgi',
 
-		// Apache 2.0.59 default 'index.html' variants
-		$this->assertEquals('', file_normalize('index.html.ca'));
-		$this->assertEquals('', file_normalize('index.html.cz.iso8859-2'));
-		$this->assertEquals('', file_normalize('index.html.de'));
-		$this->assertEquals('', file_normalize('index.html.dk'));
-		$this->assertEquals('', file_normalize('index.html.ee'));
-		$this->assertEquals('', file_normalize('index.html.el'));
-		$this->assertEquals('', file_normalize('index.html.en'));
-		$this->assertEquals('', file_normalize('index.html.es'));
-		$this->assertEquals('', file_normalize('index.html.et'));
-		$this->assertEquals('', file_normalize('index.html.fr'));
-		$this->assertEquals('', file_normalize('index.html.he.iso8859-8'));
-		$this->assertEquals('', file_normalize('index.html.hr.iso8859-2'));
-		$this->assertEquals('', file_normalize('index.html.it'));
-		$this->assertEquals('', file_normalize('index.html.ja.iso2022-jp'));
-		$this->assertEquals('', file_normalize('index.html.ko.euc-kr'));
-		$this->assertEquals('', file_normalize('index.html.lb.utf8'));
-		$this->assertEquals('', file_normalize('index.html.nl'));
-		$this->assertEquals('', file_normalize('index.html.nn'));
-		$this->assertEquals('', file_normalize('index.html.no'));
-		$this->assertEquals('', file_normalize('index.html.po.iso8859-2'));
-		$this->assertEquals('', file_normalize('index.html.pt'));
-		$this->assertEquals('', file_normalize('index.html.pt-br'));
-		$this->assertEquals('', file_normalize('index.html.ru.cp866'));
-		$this->assertEquals('', file_normalize('index.html.ru.cp-1251'));
-		$this->assertEquals('', file_normalize('index.html.ru.iso-ru'));
-		$this->assertEquals('', file_normalize('index.html.ru.koi8-r'));
-		$this->assertEquals('', file_normalize('index.html.ru.utf8'));
-		$this->assertEquals('', file_normalize('index.html.sv'));
-		$this->assertEquals('', file_normalize('index.html.var'));	// default
-		$this->assertEquals('', file_normalize('index.html.zh-cn.gb2312'));
-		$this->assertEquals('', file_normalize('index.html.zh-tw.big5'));
+			// Apache 2.0.59 default 'index.html' variants
+			'index.html.ca',
+			'index.html.cz.iso8859-2',
+			'index.html.de',
+			'index.html.dk',
+			'index.html.ee',
+			'index.html.el',
+			'index.html.en',
+			'index.html.es',
+			'index.html.et',
+			'index.html.fr',
+			'index.html.he.iso8859-8',
+			'index.html.hr.iso8859-2',
+			'index.html.it',
+			'index.html.ja.iso2022-jp',
+			'index.html.ko.euc-kr',
+			'index.html.lb.utf8',
+			'index.html.nl',
+			'index.html.nn',
+			'index.html.no',
+			'index.html.po.iso8859-2',
+			'index.html.pt',
+			'index.html.pt-br',
+			'index.html.ru.cp866',
+			'index.html.ru.cp-1251',
+			'index.html.ru.iso-ru',
+			'index.html.ru.koi8-r',
+			'index.html.ru.utf8',
+			'index.html.sv',
+			'index.html.var',	// default
+			'index.html.zh-cn.gb2312',
+			'index.html.zh-tw.big5',
 
-		$this->assertEquals('', file_normalize('index.html.po.iso8859-2'));
-		$this->assertEquals('', file_normalize('index.html.zh-tw.big5'));
+			'index.html.po.iso8859-2',
+			'index.html.zh-tw.big5',
 
-		$this->assertEquals('', file_normalize('index.ja.en.de.html'));
+			'index.ja.en.de.html',
 		
-		// .gz
-		$this->assertEquals('', file_normalize('index.html.ca.gz'));
-		$this->assertEquals('', file_normalize('index.html.en.ja.ca.z'));
+			// .gz
+			'index.html.ca.gz',
+			'index.html.en.ja.ca.z',
+		) as $arg){
+			$this->assertEquals('', file_normalize($arg));
+		}
 
-	//	$this->assertEquals('foo/', file_normalize('foo/index.html'));
+		//$this->assertEquals('foo/', file_normalize('foo/index.html'));
 
-	//	$this->assertEquals('ExAMPle', file_normalize('ExAMPle'));
-	//	$this->assertEquals('exe.exe', file_normalize('exe.exe'));
-	//	$this->assertEquals('sample.html', file_normalize('sample.html.en'));
-	//	$this->assertEquals('sample.html', file_normalize('sample.html.pt-br'));
-	//	$this->assertEquals('sample.html', file_normalize('sample.html.po.iso8859-2'));
-	//	$this->assertEquals('sample.html', file_normalize('sample.html.zh-tw.big5'));
+		//$this->assertEquals('ExAMPle', file_normalize('ExAMPle'));
+		//$this->assertEquals('exe.exe', file_normalize('exe.exe'));
+		//$this->assertEquals('sample.html', file_normalize('sample.html.en'));
+		//$this->assertEquals('sample.html', file_normalize('sample.html.pt-br'));
+		//$this->assertEquals('sample.html', file_normalize('sample.html.po.iso8859-2'));
+		//$this->assertEquals('sample.html', file_normalize('sample.html.zh-tw.big5'));
 	}
 
 	function testFunc_query_normalize()
 	{
 		// 1st argument: Null
-		$this->assertEquals('', query_normalize(NULL));
-		$this->assertEquals('', query_normalize(TRUE));
-		$this->assertEquals('', query_normalize(FALSE));
-		$this->assertEquals('', query_normalize(array('foobar')));
-		$this->assertEquals('', query_normalize(''));
-		$this->assertEquals('', query_normalize(0));
-		$this->assertEquals('', query_normalize(1));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('', query_normalize($value), $key);
+		}
 
 		$this->assertEquals('a=0dd&b&c&d&f=d', query_normalize('&&&&f=d&b&d&c&a=0dd'));
 		$this->assertEquals('eg=foobar',       query_normalize('nothing==&eg=dummy&eg=padding&eg=foobar'));
@@ -309,13 +303,9 @@ EOF;
 	function testFunc_generate_glob_regex()
 	{
 		// 1st argument: Null
-		$this->assertEquals('', generate_glob_regex(NULL));
-		$this->assertEquals('', generate_glob_regex(TRUE));
-		$this->assertEquals('', generate_glob_regex(FALSE));
-		$this->assertEquals('', generate_glob_regex(array('foobar')));
-		$this->assertEquals('', generate_glob_regex(''));
-		$this->assertEquals('', generate_glob_regex(0));
-		$this->assertEquals('', generate_glob_regex(1));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('', generate_glob_regex($value), $key);
+		}
 
 		$this->assertEquals('.*\.txt', generate_glob_regex('*.txt'));
 		$this->assertEquals('A.A',     generate_glob_regex('A?A'));
@@ -324,13 +314,9 @@ EOF;
 	function testFunc_generate_host_regex()
 	{
 		// 1st argument: Null
-		$this->assertEquals('', generate_host_regex(NULL));
-		$this->assertEquals('', generate_host_regex(TRUE));
-		$this->assertEquals('', generate_host_regex(FALSE));
-		$this->assertEquals('', generate_host_regex(array('foobar')));
-		$this->assertEquals('', generate_host_regex(''));
-		$this->assertEquals('', generate_host_regex(0));
-		$this->assertEquals('', generate_host_regex(1));
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('', generate_host_regex($value), $key);
+		}
 
 		$this->assertEquals('localhost',             generate_host_regex('localhost'));
 		$this->assertEquals('example\.org',          generate_host_regex('example.org'));
