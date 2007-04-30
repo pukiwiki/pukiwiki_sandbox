@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.3 2007/04/22 21:48:33 henoheno Exp $
+// $Id: SpamTest.php,v 1.4 2007/04/30 03:23:45 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -371,10 +371,10 @@ EOF;
 		// get_blocklist()
 		// ALL
 		$array = get_blocklist();
-		$this->assertTrue(isset($array['badhost C']));
+		$this->assertTrue(isset($array['C']));
 		$this->assertTrue(isset($array['goodhost']));
 		// badhost
-		$array = get_blocklist('badhost B-1');
+		$array = get_blocklist('B-1');
 		$this->assertTrue(isset($array['*.blogspot.com']));
 		// goodhost
 		$array = get_blocklist('goodhost');
@@ -383,11 +383,26 @@ EOF;
 
 	function testFunc_is_badhost()
 	{
-		// is_badhost_avail()
-
-		// is_badhost()
 		$remains = array();
-		$this->assertTrue(is_badhost('something...blogspot.com', TRUE, $remains));
+
+		// FALSE (Nothing)
+		$this->assertEquals(array(), is_badhost(array(), TRUE, $remains));
+
+		// TRUE
+		$this->assertEquals(
+			array(
+				'B-1' => array(
+					'*.blogspot.com' => array(
+						'=.blogspot.com'
+					)
+				)
+			),
+			is_badhost('=.blogspot.com', TRUE, $remains)
+		);
+
+		// $remains
+		is_badhost('nothing', TRUE, $remains);
+		$this->assertEquals(array(0 => 'nothing'), $remains);
 	}
 }
 
