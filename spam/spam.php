@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.139 2007/05/01 05:04:39 henoheno Exp $
+// $Id: spam.php,v 1.140 2007/05/01 05:29:19 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1262,6 +1262,7 @@ function check_uri_spam($target = '', $method = array())
 		foreach($list as $key=>$type){
 			if (! $type) unset($blocked[$key]); // Ignore goodhost etc
 		}
+		unset($list);
 
  		if (! $asap && $hosts) {
 			$remains['badhost'] = array();
@@ -1296,6 +1297,12 @@ function array_count_leaves($array = array(), $count_empty = FALSE)
 		$count += array_count_leaves($part, $count_empty);
 	}
 	return $count;
+}
+
+// Merge two leaves
+function array_merge_leaves($array1 = array(), $array2 = array())
+{
+	return array_merge_recursive($array1, $array2);
 }
 
 // ---------------------
