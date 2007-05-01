@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.5 2007/04/30 07:41:09 henoheno Exp $
+// $Id: SpamTest.php,v 1.6 2007/05/01 05:04:39 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -369,12 +369,12 @@ EOF;
 
 	function testFunc_is_badhost()
 	{
-		$remains = array();
-
 		// FALSE (Nothing)
-		$this->assertEquals(array(), is_badhost(array(), TRUE, $remains));
+		$this->assertEquals(FALSE,   is_badhost(array(), FALSE, TRUE));
+		$this->assertEquals(array(), is_badhost(array(), FALSE, FALSE));
 
 		// TRUE
+		$this->assertEquals(TRUE,    is_badhost('=.blogspot.com', FALSE, TRUE));
 		$this->assertEquals(
 			array(
 				'B-1' => array(
@@ -383,12 +383,8 @@ EOF;
 					)
 				)
 			),
-			is_badhost('=.blogspot.com', TRUE, $remains)
+			is_badhost('=.blogspot.com', FALSE, FALSE)
 		);
-
-		// $remains
-		is_badhost('nothing', TRUE, $remains);
-		$this->assertEquals(array(0 => 'nothing'), $remains);
 	}
 }
 

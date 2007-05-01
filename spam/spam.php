@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.138 2007/04/30 03:23:33 henoheno Exp $
+// $Id: spam.php,v 1.139 2007/05/01 05:04:39 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1016,19 +1016,16 @@ function blocklist_distiller(& $hosts, $keys = array('goodhost', 'badhost'), $as
 	return $blocked;
 }
 
-function is_badhost($hosts = array(), $asap = TRUE, & $remains)
+// Simple example for badhost (not used now)
+function is_badhost($hosts = array(), $asap = TRUE, $bool = TRUE)
 {
 	$list = get_blocklist('list');
-
 	$blocked = blocklist_distiller($hosts, array_keys($list), $asap);
-	$remains = $hosts;
 	foreach($list as $key=>$type){
-		if (! $type) {
-			unset($blocked[$key]); // Ignore goodhost etc
-		}
+		if (! $type) unset($blocked[$key]); // Ignore goodhost etc
 	}
 
-	return $blocked;
+	return $bool ? ! empty($blocked) : $blocked;
 }
 
 
@@ -1256,29 +1253,32 @@ function check_uri_spam($target = '', $method = array())
 	// Return if ...
 	if ($asap && $is_spam) return $progress;
 
-	// URI: Bad host
+	// URI: Bad host (Separate good/bad hosts from $hosts)
 	if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
-		$__remains = array();
-		$badhost = is_badhost($hosts, $asap, $__remains);
-		if (! $asap) {
-			if ($__remains) {
-				$remains['badhost'] = array();
-				foreach ($__remains as $value) {
-					$remains['badhost'][$value] = TRUE;
-				}
+
+		// is_badhost()
+		$list = get_blocklist('list');
+		$blocked = blocklist_distiller($hosts, array_keys($list), $asap);
+		foreach($list as $key=>$type){
+			if (! $type) unset($blocked[$key]); // Ignore goodhost etc
+		}
+
+ 		if (! $asap && $hosts) {
+			$remains['badhost'] = array();
+			foreach ($hosts as $value) {
+				$remains['badhost'][$value] = TRUE;
 			}
 		}
-		unset($__remains);
-		if (! empty($badhost)) {
 
-			//var_dump($badhost);	// BADHOST detail
+		if (! empty($blocked)) {
 
-			$sum['badhost'] += array_count_leaves($badhost);
-			foreach(array_keys($badhost) as $keys) {
+			//var_dump($blocked);	// BADHOST detail
+
+			$sum['badhost'] += array_count_leaves($blocked);
+			foreach(array_keys($blocked) as $keys) {
 				$is_spam['badhost'][$keys] =
-					array_count_leaves($badhost[$keys]);
+					array_count_leaves($blocked[$keys]);
 			}
-			unset($badhost);
 		}
 	}
 
