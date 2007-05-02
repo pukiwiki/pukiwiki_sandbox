@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.98 2007/05/01 06:01:42 henoheno Exp $
+// $Id: spam.ini.php,v 1.99 2007/05/02 01:53:53 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -847,6 +847,7 @@ $blocklist['A-1'] = array(
 	'relic.net',
 	'rezma.info',
 	'rio.st',
+	'rlink.org',
 	'*.rmcinfo.fr',
 	'rubyurl.com',
 	'*.runboard.com',
@@ -1908,6 +1909,7 @@ $blocklist['B-2'] = array(
 	'3gmicro.com',			// by Dean Anderson (dean at nobullcomputing.com)
 	'aac.com',
 	'*.aamad.org',
+	'ad-pecjak.si',
 	'agnt.org',
 	'alwanforthearts.org',
 	'*.anchor.net.au',
@@ -2061,6 +2063,7 @@ $blocklist['B-2'] = array(
 	'yasushi.site.ne.jp',	// One of mixedmedia.net'
 	'youthpeer.org',
 	'*.zenburger.com',
+	'Zope/Python Users Group of Washington, DC' => array('zpugdc.org'),
 );
 
 
@@ -3749,6 +3752,7 @@ $blocklist['C'] = array(
 		'.cerca-no.info',
 		'.cerca-on.info',
 		'.cerca-sv.info',
+		'.cerca-tr.info',
 	),
 	'87.242.116.81' => array(
 		'.bilbidon.ru',		// by Ilya S Vorobiyov (reginamedom at yandex.ru)
