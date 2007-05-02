@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.140 2007/05/01 05:29:19 henoheno Exp $
+// $Id: spam.php,v 1.141 2007/05/02 10:01:19 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1329,6 +1329,23 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 	return implode(', ', $tmp);
 }
 
+function summarize_detail_badhost($is_spam_badhost = array())
+{
+	$badhost = array();
+	foreach($is_spam_badhost as $glob=>$number) {
+		$badhost[] = $glob . '(' . $number . ')';
+	}
+	return implode(', ', $badhost);
+
+}
+
+function summarize_detail_newtral($remains_badhost = array())
+{
+	return count($remains_badhost) .
+		' (' . implode(', ', array_keys($remains_badhost)) . ')';
+}
+
+
 // ---------------------
 // Exit
 
@@ -1385,21 +1402,10 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 		$summary['METRICS'] = summarize_spam_progress($progress);
 	}
 	if (isset($progress['is_spam']['badhost'])) {
-		$badhost = array();
-		foreach($progress['is_spam']['badhost'] as $glob=>$number) {
-			$badhost[] = $glob . '(' . $number . ')';
-		}
-		$summary['DETAIL_BADHOST'] = implode(', ', $badhost);
+		$summary['DETAIL_BADHOST'] = summarize_detail_badhost($progress['is_spam']['badhost']);
 	}
 	if (! $asap && $progress['remains']['badhost']) {
-		$count = count($progress['remains']['badhost']);
-		$summary['DETAIL_NEUTRAL_HOST'] = $count .
-			' (' .
-				preg_replace(
-					'/[^, a-z0-9.-]/i', '',
-					implode(', ', array_keys($progress['remains']['badhost']))
-				) .
-			')';
+		$summary['DETAIL_NEUTRAL_HOST'] = summarize_detail_newtral($progress['remains']['badhost']);
 	}
 	$summary['COMMENT'] = $action;
 	$summary['PAGE']    = '[blocked] ' . (is_pagename($page) ? $page : '');

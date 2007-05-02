@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.43 2007/03/25 13:46:43 henoheno Exp $
+// $Id: spam_pickup.php,v 1.44 2007/05/02 10:01:19 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -132,27 +132,15 @@ if (! empty($progress)) {
 
 		$action = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
 		if (isset($progress['is_spam']['badhost'])) {
-			$badhost = array();
-			foreach($progress['is_spam']['badhost'] as $glob=>$number) {
-				$badhost[] = $glob . '(' . $number . ')';
-			}
-			echo 'DETAIL_BADHOST: ' . htmlspecialchars(implode(', ', $badhost));
+			echo 'DETAIL_BADHOST: ' .
+				htmlspecialchars(summarize_detail_badhost($progress['is_spam']['badhost']));
 			echo '<br />';
 		}
 	}
 
 	if (isset($progress['remains']['badhost'])) {
-		$count = count($progress['remains']['badhost']);
-		echo 'DETAIL_NEUTRAL_HOST: ' . $count .
-			' (' .
-				htmlspecialchars(
-					preg_replace(
-						'/[^, a-z0-9.-]/i',
-						'',
-						implode(', ', array_keys($progress['remains']['badhost']))
-					)
-				) .
-			')';
+		echo 'DETAIL_NEUTRAL_HOST: ' .
+			htmlspecialchars(summarize_detail_newtral($progress['remains']['badhost']));
 		echo '<br />';
 	}
 	
