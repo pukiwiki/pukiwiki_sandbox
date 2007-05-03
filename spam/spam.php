@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.143 2007/05/03 14:31:54 henoheno Exp $
+// $Id: spam.php,v 1.144 2007/05/03 15:30:46 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1350,20 +1350,23 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 	return implode(', ', $tmp);
 }
 
-function summarize_detail_badhost($is_spam_badhost = array())
+function summarize_detail_badhost($progress = array())
 {
+	if (! isset($progress['is_spam']['badhost'])) return '';
+
 	$badhost = array();
-	foreach($is_spam_badhost as $glob=>$number) {
+	foreach($progress['is_spam']['badhost'] as $glob=>$number) {
 		$badhost[] = $glob . '(' . $number . ')';
 	}
 	return implode(', ', $badhost);
-
 }
 
-function summarize_detail_newtral($remains_badhost = array())
+function summarize_detail_newtral($progress = array())
 {
-	return count($remains_badhost) .
-		' (' . implode(', ', array_keys($remains_badhost)) . ')';
+	if (! isset($progress['remains']['badhost'])) return '';
+
+	return count($progress['remains']['badhost']) .
+		' (' . implode(', ', array_keys($progress['remains']['badhost'])) . ')';
 }
 
 
@@ -1422,12 +1425,13 @@ function pkwk_spamnotify($action, $page, $target = array('title' => ''), $progre
 	if (! $asap) {
 		$summary['METRICS'] = summarize_spam_progress($progress);
 	}
-	if (isset($progress['is_spam']['badhost'])) {
-		$summary['DETAIL_BADHOST'] = summarize_detail_badhost($progress['is_spam']['badhost']);
-	}
-	if (! $asap && $progress['remains']['badhost']) {
-		$summary['DETAIL_NEUTRAL_HOST'] = summarize_detail_newtral($progress['remains']['badhost']);
-	}
+
+	$tmp = summarize_detail_badhost($progress);
+	if ($tmp != '') $summary['DETAIL_BADHOST'] = $tmp;
+
+	$tmp = summarize_detail_newtral($progress);
+	if (! $asap && $tmp != '') $summary['DETAIL_NEUTRAL_HOST'] = $tmp;
+
 	$summary['COMMENT'] = $action;
 	$summary['PAGE']    = '[blocked] ' . (is_pagename($page) ? $page : '');
 	$summary['URI']     = get_script_uri() . '?' . rawurlencode($page);

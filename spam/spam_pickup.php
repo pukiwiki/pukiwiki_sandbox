@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.44 2007/05/02 10:01:19 henoheno Exp $
+// $Id: spam_pickup.php,v 1.45 2007/05/03 15:30:46 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -126,27 +126,26 @@ if (! empty($progress)) {
 		echo '<br />';
 
 		if (! $asap) {
-			echo 'METRICS: ' . summarize_spam_progress($progress);
-			echo '<br />';
+			echo 'METRICS: ' . summarize_spam_progress($progress) . '<br />';
 		}
 
 		$action = 'Blocked by: ' . summarize_spam_progress($progress, TRUE);
-		if (isset($progress['is_spam']['badhost'])) {
-			echo 'DETAIL_BADHOST: ' .
-				htmlspecialchars(summarize_detail_badhost($progress['is_spam']['badhost']));
-			echo '<br />';
+
+		$tmp = summarize_detail_badhost($progress);
+		if ($tmp != '') {
+			echo 'DETAIL_BADHOST: ' . htmlspecialchars($tmp) . '<br />';
 		}
 	}
 
-	if (isset($progress['remains']['badhost'])) {
-		echo 'DETAIL_NEUTRAL_HOST: ' .
-			htmlspecialchars(summarize_detail_newtral($progress['remains']['badhost']));
-		echo '<br />';
+	$tmp = summarize_detail_newtral($progress);
+	if (! $asap && $tmp != '') {
+		echo 'DETAIL_NEUTRAL_HOST: ' . htmlspecialchars($tmp) . '<br />';
 	}
 	
 	if ($prog) {
 		echo '<pre>';
-		htmlspecialchars(var_dump($progress));
+		echo '$progress:' . "\n";
+		echo htmlspecialchars(var_export($progress, TRUE));
 		echo '</pre>';
 	}
 }
@@ -154,7 +153,8 @@ if (! empty($progress)) {
 if ($pickup) {
 	echo '<pre>';
 	$results = uri_pickup_normalize(spam_uri_pickup($msg));
-	htmlspecialchars(var_dump('$results', $results));
+	echo '$results:' . "\n";
+	echo htmlspecialchars(var_export($results, TRUE));
 	echo '</pre>';
 }
 ?>
