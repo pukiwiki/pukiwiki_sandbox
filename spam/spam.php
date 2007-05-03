@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.142 2007/05/03 12:39:15 henoheno Exp $
+// $Id: spam.php,v 1.143 2007/05/03 14:31:54 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1072,7 +1072,7 @@ function check_uri_spam($target = '', $method = array())
 	// Return value
 	$progress = array(
 		'method'  => array(
-			// Theme to do  => Dummy or optional value or optional array()
+			// Theme to do  => Dummy, optional value, or optional array()
 			//'quantity'    => 8,
 			//'uniqhost'    => TRUE,
 			//'non_uniqhost'=> 3,
@@ -1110,14 +1110,14 @@ function check_uri_spam($target = '', $method = array())
 		if (! isset($sum[$key])) $sum[$key] = 0;
 	}
 
-	// Recurse
 	if (is_array($target)) {
 		foreach($target as $str) {
-			// Recurse
-			$_progress = check_uri_spam($str, $method);
-			$_sum      = & $_progress['sum'];
-			$_is_spam  = & $_progress['is_spam'];
-			$_remains  = & $_progress['remains'];
+			if (! is_string($str)) continue;
+
+			$_progress = check_uri_spam($str, $method);	// Recurse
+
+			// Merge $sum
+			$_sum = & $_progress['sum'];
 			foreach (array_keys($_sum) as $key) {
 				if (! isset($sum[$key])) {
 					$sum[$key] = & $_sum[$key];
@@ -1125,6 +1125,9 @@ function check_uri_spam($target = '', $method = array())
 					$sum[$key] += $_sum[$key];
 				}
 			}
+
+			// Merge $is_spam
+			$_is_spam = & $_progress['is_spam'];
 			foreach (array_keys($_is_spam) as $key) {
 				if (is_array($_is_spam[$key])) {
 					// Marge keys (badhost)
@@ -1137,9 +1140,13 @@ function check_uri_spam($target = '', $method = array())
 					}
 				} else {
 					$is_spam[$key] = TRUE;
+					if ($asap) break;
 				}
 			}
-			foreach ($_remains as $key=>$value) {
+			if ($asap && $is_spam) break;
+
+			// Merge $remains
+			foreach ($_progress['remains'] as $key=>$value) {
 				foreach ($value as $_key=>$_value) {
 					if (is_int($_key)) {
 						$remains[$key][]      = $_value;
@@ -1148,8 +1155,6 @@ function check_uri_spam($target = '', $method = array())
 					}
 				}
 			}
-			if (! empty($_error)) $error += $_error;
-			if ($asap && $is_spam) break;
 		}
 		return $progress;
 	}
