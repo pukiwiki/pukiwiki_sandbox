@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.144 2007/05/03 15:30:46 henoheno Exp $
+// $Id: spam.php,v 1.145 2007/05/04 13:43:59 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1091,7 +1091,14 @@ function check_uri_spam($target = '', $method = array())
 			// one or more spam will be included
 			// in this report
 		),
-		'remains' => array(
+		'blocked' => array(
+			// Hosts blocked
+			//'category' => array(
+			//	'host',
+			//)
+		),
+		'hosts' => array(
+			// Hosts not blocked
 		),
 	);
 
@@ -1099,7 +1106,8 @@ function check_uri_spam($target = '', $method = array())
 	$sum     = & $progress['sum'];
 	$is_spam = & $progress['is_spam'];
 	$progress['method'] = & $method;	// Argument
-	$remains = & $progress['remains'];
+	$blocked = & $progress['blocked'];
+	$hosts   = & $progress['hosts'];
 	$asap    = isset($method['asap']);
 
 	// Init
@@ -1129,33 +1137,23 @@ function check_uri_spam($target = '', $method = array())
 			// Merge $is_spam
 			$_is_spam = & $_progress['is_spam'];
 			foreach (array_keys($_is_spam) as $key) {
-				if (is_array($_is_spam[$key])) {
-					// Marge keys (badhost)
-					foreach(array_keys($_is_spam[$key]) as $_key) {
-						if (! isset($is_spam[$key][$_key])) {
-							$is_spam[$key][$_key] = & $_is_spam[$key][$_key];
-						} else {
-							$is_spam[$key][$_key] += $_is_spam[$key][$_key];
-						}
-					}
-				} else {
-					$is_spam[$key] = TRUE;
-					if ($asap) break;
-				}
+				$is_spam[$key] = TRUE;
+				if ($asap) break;
 			}
 			if ($asap && $is_spam) break;
 
-			// Merge $remains
-			foreach ($_progress['remains'] as $key=>$value) {
-				foreach ($value as $_key=>$_value) {
-					if (is_int($_key)) {
-						$remains[$key][]      = $_value;
-					} else {
-						$remains[$key][$_key] = $_value;
-					}
-				}
-			}
+			// Merge $blocked
+			// TODO: about numeric keys, unique the hosts
+			$blocked = array_merge_recursive($blocked, $_progress['blocked']);
+
+			// Merge $hosts
+			// TODO: about numeric keys, unique the hosts
+			$hosts = array_merge_recursive($hosts, $_progress['hosts']);
 		}
+
+		// Recount $sum['badhost']
+		$sum['badhost'] = array_count_leaves($blocked);
+
 		return $progress;
 	}
 
@@ -1260,7 +1258,6 @@ function check_uri_spam($target = '', $method = array())
 	if ($asap && $is_spam) return $progress;
 
 	// Host: Uniqueness (uniq / non-uniq)
-	$hosts = array();
 	foreach ($pickups as $pickup) $hosts[] = & $pickup['host'];
 	$hosts = array_unique($hosts);
 	$sum['uniqhost'] += count($hosts);
@@ -1285,23 +1282,7 @@ function check_uri_spam($target = '', $method = array())
 		}
 		unset($list);
 
- 		if (! $asap && $hosts) {
-			$remains['badhost'] = array();
-			foreach ($hosts as $value) {
-				$remains['badhost'][$value] = TRUE;
-			}
-		}
-
-		if (! empty($blocked)) {
-
-			//var_dump($blocked);	// BADHOST detail
-
-			$sum['badhost'] += array_count_leaves($blocked);
-			foreach(array_keys($blocked) as $keys) {
-				$is_spam['badhost'][$keys] =
-					array_count_leaves($blocked[$keys]);
-			}
-		}
+		if (! empty($blocked)) $is_spam['badhost'] = TRUE;
 	}
 
 	return $progress;
@@ -1340,7 +1321,7 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 		$method = & $progress['method'];
 		if (isset($progress['sum'])) {
 			foreach ($progress['sum'] as $key => $value) {
-				if (isset($method[$key])) {
+				if (isset($method[$key]) && $value) {
 					$tmp[] = $key . '(' . $value . ')';
 				}
 			}
@@ -1354,19 +1335,14 @@ function summarize_detail_badhost($progress = array())
 {
 	if (! isset($progress['is_spam']['badhost'])) return '';
 
-	$badhost = array();
-	foreach($progress['is_spam']['badhost'] as $glob=>$number) {
-		$badhost[] = $glob . '(' . $number . ')';
-	}
-	return implode(', ', $badhost);
+	return var_export($progress['blocked'], TRUE);
 }
 
 function summarize_detail_newtral($progress = array())
 {
-	if (! isset($progress['remains']['badhost'])) return '';
+	if (empty($progress['hosts'])) return '';
 
-	return count($progress['remains']['badhost']) .
-		' (' . implode(', ', array_keys($progress['remains']['badhost'])) . ')';
+	return var_export($progress['hosts'], TRUE);
 }
 
 
