@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.6 2007/05/01 05:04:39 henoheno Exp $
+// $Id: SpamTest.php,v 1.7 2007/05/04 14:42:28 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -22,6 +22,121 @@ class SpamTest extends PHPUnit_TestCase
 			'[0]'		=> 0,
 			'[1]'		=> 1
 		);
+	}
+
+	function testFunc_array_count_leaves()
+	{
+		// Empty array = 0, if option is not set
+		$array = array();
+		$this->assertEquals(0, array_count_leaves($array, FALSE));
+		$this->assertEquals(1, array_count_leaves($array, TRUE));
+		$array = array(
+			array(
+				array()
+			)
+		);
+		$this->assertEquals(0, array_count_leaves($array, FALSE));
+		$this->assertEquals(1, array_count_leaves($array, TRUE));
+
+		// One leaf = 1
+		foreach(array(NULL, TRUE, FALSE, -1, 0, 1, '', 'foobar') as $value) {
+			$this->assertEquals(1, array_count_leaves($value, FALSE));
+			$this->assertEquals(1, array_count_leaves($value, TRUE));
+		}
+
+		// Compisite
+		$array = array(
+			1,
+			'v1',
+			array(),	// Empty array
+			array(
+				2,
+				'v2',
+				'k1' => TRUE,
+				'k2' => FALSE,
+				'k3' => array(),	// Empty array
+				'k4' => array(
+					3,
+					'v3',
+					'k5' => NULL,
+					'k6' => array(),	// Empty array
+				),
+			),
+			'k7'  => 4,
+			'k8'  => 'v4',
+			'k9'  => array(),	// Empty array
+			'k10' => array(
+				5,
+				'v5',
+				'k11' => NULL,
+				'k12' => array(),	// Empty array
+			),
+		);
+		$this->assertEquals(14, array_count_leaves($array, FALSE));
+		$this->assertEquals(19, array_count_leaves($array, TRUE));
+	}
+
+	function testFunc_array_merge_leaves()
+	{
+		$array1 = array(2);
+		$array2 = array(1);
+		$result = array(2, 1);
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
+		// All NUMERIC keys are always renumbered from 0
+		$array1 = array('10' => 'f3');
+		$array2 = array('10' => 'f4');
+		$result = array('f3', 'f4');
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
+		// One more thing ...
+		$array1 = array('20' => 'f5');
+		$array2 = array();
+		$result = array('f5');
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
+		// Non-numeric keys and values will be marged as you think
+		$array1 = array('a' => 'f1');
+		$array2 = array('a' => 'f2');
+		$result = array('a' => array('f1', 'f2'));
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
+		// Non-numeric keys: An array and a value will be marged
+		$array1 = array('b' => array('k1'));
+		$array2 = array('b' => 'k2');
+		$result = array('b' => array('k1', 'k2'));
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
+		// Combination
+		$array1 = array(
+			2,
+			'a' => 'f1',
+			'10' => 'f3',
+			'20' => 'f5',
+			'b' => array('k1'),
+		);
+		$array2 = array(
+			1,
+			'a' => 'f2',
+			'10' => 'f4',
+			'b' => 'k2',
+		);
+		$result = array (
+			2,
+			'a' => array (
+				'f1',
+				'f2',
+			),
+			'f3',
+			'f5',
+			'b' => array (
+				'k1',
+				'k2',
+			),
+			1,
+			'f4',
+		);
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
 	}
 
 	function testFunc_uri_pickup()

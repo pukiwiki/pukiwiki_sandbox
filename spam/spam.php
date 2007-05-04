@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.145 2007/05/04 13:43:59 henoheno Exp $
+// $Id: spam.php,v 1.146 2007/05/04 14:44:06 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1143,12 +1143,10 @@ function check_uri_spam($target = '', $method = array())
 			if ($asap && $is_spam) break;
 
 			// Merge $blocked
-			// TODO: about numeric keys, unique the hosts
-			$blocked = array_merge_recursive($blocked, $_progress['blocked']);
+			$blocked = array_merge_leaves($blocked, $_progress['blocked']);
 
 			// Merge $hosts
-			// TODO: about numeric keys, unique the hosts
-			$hosts = array_merge_recursive($hosts, $_progress['hosts']);
+			$hosts   = array_merge_leaves($hosts,   $_progress['hosts']);
 		}
 
 		// Recount $sum['badhost']
@@ -1301,9 +1299,10 @@ function array_count_leaves($array = array(), $count_empty = FALSE)
 	return $count;
 }
 
-// Merge two leaves
-function array_merge_leaves($array1 = array(), $array2 = array())
+// Merge two leaves' value
+function array_merge_leaves(& $array1, & $array2)
 {
+	// All NUMERIC keys are always renumbered from 0
 	return array_merge_recursive($array1, $array2);
 }
 
