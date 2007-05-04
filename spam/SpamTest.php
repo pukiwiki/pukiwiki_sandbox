@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.7 2007/05/04 14:42:28 henoheno Exp $
+// $Id: SpamTest.php,v 1.8 2007/05/04 14:54:21 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -136,6 +136,20 @@ class SpamTest extends PHPUnit_TestCase
 			1,
 			'f4',
 		);
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
+		// ----
+
+		// Values will not be unique now
+		$array1 = array(5, 4);
+		$array2 = array(4, 5);
+		$result = array(5, 4, 4, 5);
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
+		// One more thing ...
+		$array1 = array('b' => array('k3'));
+		$array2 = array('b' => 'k3');
+		$result = array('b' => array('k3', 'k3'));
 		$this->assertEquals($result, array_merge_leaves($array1, $array2));
 	}
 
