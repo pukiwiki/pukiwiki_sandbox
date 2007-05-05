@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.154 2007/05/05 08:49:10 henoheno Exp $
+// $Id: spam.php,v 1.155 2007/05/05 10:01:59 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -41,13 +41,21 @@ function preg_grep_invert($pattern = '//', $input = array())
 
 // Very roughly, shrink the lines of var_export()
 // NOTE: If the same data exists, it must be corrupted.
-function var_export_shrink($expression, $return = FALSE)
+function var_export_shrink($expression, $return = FALSE, $ignore_numeric_keys = FALSE)
 {
 	$result =preg_replace(
 		// Remove a newline and spaces
 		'# => \n *array \(#', ' => array (',
 		var_export($expression, TRUE)
 	);
+
+	if ($ignore_numeric_keys) {
+		$result =preg_replace(
+			// Remove numeric keys
+			'#^( *)[0-9]+ => #m', '$1',
+			$result
+		);
+	}
 
 	if ($return) {
 		return $result;
@@ -1386,7 +1394,7 @@ function array_merge_leaves(& $array1, & $array2, $unique_values = TRUE, $renumb
 	return $array;
 }
 
-// Shrink array('key' => array('key')) to array('key')
+// Shrink array('key' => array('key')) to array('key') (Not used now)
 function array_shrink_leaves(& $array)
 {
 	if (! is_array($array)) return $array;
@@ -1410,6 +1418,25 @@ function array_shrink_leaves(& $array)
 	return $array;
 }
 
+// array-leave to flat array() (with unique)
+function array_flat_leaves($array)
+{
+	//var_dump($array);
+	if (! is_array($array)) return $array;
+
+	$tmp = array();
+	foreach($array as $key => $value) {
+		if (is_array($value)) {
+			foreach(array_flat_leaves($value) as $_value) {
+				$tmp[$_value] = TRUE;
+			}
+		} else {
+			$tmp[$value] = TRUE;
+		}
+	}
+
+	return array_keys($tmp);
+}
 
 // ---------------------
 // Reporting
@@ -1437,9 +1464,21 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 
 function summarize_detail_badhost($progress = array())
 {
-	if (! isset($progress['is_spam']['badhost'])) return '';
+	if (! isset($progress['blocked'])) return '';
 
-	return var_export_shrink(array_shrink_leaves($progress['blocked']), TRUE);
+	$blocked = array();
+	foreach($progress['blocked'] as $list => $lvalue) {
+		foreach($lvalue as $group => $gvalue) {
+			$flat = implode(', ', array_flat_leaves($gvalue));
+			if ($flat == $group) {
+				$blocked[$list][]       = $flat;
+			} else {
+				$blocked[$list][$group] = $flat;
+			}
+		}
+	}
+
+	return var_export_shrink($blocked, TRUE, TRUE);
 }
 
 function summarize_detail_newtral($progress = array())
