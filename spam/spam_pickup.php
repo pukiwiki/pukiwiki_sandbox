@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.46 2007/05/04 13:43:59 henoheno Exp $
+// $Id: spam_pickup.php,v 1.47 2007/05/05 07:09:33 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -140,8 +140,7 @@ if (! empty($progress)) {
 
 	$tmp = summarize_detail_newtral($progress);
 	if (! $asap && $tmp != '') {
-		echo 'DETAIL_NEUTRAL_HOST: ' .
-				str_replace('  ', '&nbsp; ', nl2br("\n" . htmlspecialchars($tmp). "\n"));
+		echo 'DETAIL_NEUTRAL_HOST: ' . htmlspecialchars($tmp);
 	}
 	
 	if ($prog) {

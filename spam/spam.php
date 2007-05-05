@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.149 2007/05/05 06:36:50 henoheno Exp $
+// $Id: spam.php,v 1.150 2007/05/05 07:09:33 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1357,7 +1357,7 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 	return implode(', ', $tmp);
 }
 
-// Very roughly shrink the lines of var_export()
+// Very roughly, shrink the lines of var_export()
 // NOTE: If the same data exists, it must be corrupted.
 function var_export_shrink($expression, $return = FALSE)
 {
@@ -1384,9 +1384,16 @@ function summarize_detail_badhost($progress = array())
 
 function summarize_detail_newtral($progress = array())
 {
-	if (empty($progress['hosts'])) return '';
+	if (! isset($progress['hosts']) || ! is_array($progress['hosts'])) return '';
 
-	return var_export_shrink($progress['hosts'], TRUE);
+	// Sort by domain
+	$tmp = array();
+	foreach($progress['hosts'] as $value) {
+		$tmp[strrev($value)] = $value;
+	}
+	ksort($tmp);
+
+	return implode(', ', $tmp);
 }
 
 
