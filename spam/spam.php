@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.156 2007/05/05 10:54:29 henoheno Exp $
+// $Id: spam.php,v 1.157 2007/05/05 13:58:39 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1103,7 +1103,6 @@ function is_badhost($hosts = array(), $asap = TRUE, $bool = TRUE)
 	return $bool ? ! empty($blocked) : $blocked;
 }
 
-
 // Default (enabled) methods and thresholds (for content insertion)
 function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 {
@@ -1394,48 +1393,24 @@ function array_merge_leaves(& $array1, & $array2, $unique_values = TRUE, $renumb
 	return $array;
 }
 
-// Shrink array('key' => array('key')) to array('key') (Not used now)
-function array_shrink_leaves(& $array)
+// An array-leaves to a flat array
+function array_flat_leaves($array, $unique = TRUE)
 {
 	if (! is_array($array)) return $array;
 
-	foreach($array as $key => $value){
-		// Recurse. Removing more leaves beforehand
-		if (is_array($value)) array_shrink_leaves($array[$key]);
-	}
-
 	$tmp = array();
-	foreach($array as $key => $value){
-		if (is_array($value)) {
-			$count = count($value);
-			if ($count == 1 && current($value) == $key) {
-				unset($array[$key]);
-				$array[] = $key;
-			}
-		}
-	}
-
-	return $array;
-}
-
-// array-leave to flat array() (with unique)
-function array_flat_leaves($array)
-{
-	//var_dump($array);
-	if (! is_array($array)) return $array;
-
-	$tmp = array();
-	foreach($array as $key => $value) {
-		if (is_array($value)) {
-			foreach(array_flat_leaves($value) as $_value) {
-				$tmp[$_value] = TRUE;
+	foreach(array_keys($array) as $key) {
+		if (is_array($array[$key])) {
+			// Recurse
+			foreach(array_flat_leaves($array[$key]) as $_value) {
+				$tmp[] = $_value;
 			}
 		} else {
-			$tmp[$value] = TRUE;
+			$tmp[] = & $array[$key];
 		}
 	}
 
-	return array_keys($tmp);
+	return $unique ? array_values(array_unique($tmp)) : $tmp;
 }
 
 // ---------------------
@@ -1466,6 +1441,7 @@ function summarize_detail_badhost($progress = array())
 {
 	if (! isset($progress['blocked']) || empty($progress['blocked'])) return '';
 
+	// Flat per group
 	$blocked = array();
 	foreach($progress['blocked'] as $list => $lvalue) {
 		foreach($lvalue as $group => $gvalue) {
@@ -1475,6 +1451,17 @@ function summarize_detail_badhost($progress = array())
 			} else {
 				$blocked[$list][$group] = $flat;
 			}
+		}
+	}
+
+	// Shrink per list
+	// From: 'A-1' => array('ie.to')
+	// To:   'A-1' => 'ie.to'
+	foreach($blocked as $list => $lvalue) {
+		if (is_array($lvalue) &&
+		   count($lvalue) == 1 &&
+		   is_numeric(key($lvalue))) {
+		    $blocked[$list] = current($lvalue);
 		}
 	}
 

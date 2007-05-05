@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.10 2007/05/05 08:49:10 henoheno Exp $
+// $Id: SpamTest.php,v 1.11 2007/05/05 13:58:39 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -179,17 +179,6 @@ class SpamTest extends PHPUnit_TestCase
 		$array2 = array('b' => 'k3');
 		$result = array('b' => array('k3'));
 		$this->assertEquals($result, array_merge_leaves($array1, $array2));
-	}
-
-	function testFunc_array_shrink_leaves()
-	{
-		$array  = array('key' => array('key'));
-		$result = array('key');
-		$this->assertEquals($result, array_shrink_leaves($array));
-
-		$array  = array('key' => array('key' => array('key' => array('key'))));
-		$result = array('key');
-		$this->assertEquals($result, array_shrink_leaves($array));
 	}
 
 	function testFunc_uri_pickup()
