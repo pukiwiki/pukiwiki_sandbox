@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.153 2007/05/05 08:02:39 henoheno Exp $
+// $Id: spam.php,v 1.154 2007/05/05 08:49:10 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -34,6 +34,26 @@ function preg_grep_invert($pattern = '//', $input = array())
 		} else {
 			return $input;
 		}
+	}
+}
+
+// ----
+
+// Very roughly, shrink the lines of var_export()
+// NOTE: If the same data exists, it must be corrupted.
+function var_export_shrink($expression, $return = FALSE)
+{
+	$result =preg_replace(
+		// Remove a newline and spaces
+		'# => \n *array \(#', ' => array (',
+		var_export($expression, TRUE)
+	);
+
+	if ($return) {
+		return $result;
+	} else {
+		echo   $result;
+		return NULL;
 	}
 }
 
@@ -113,6 +133,16 @@ function strings($binary = '', $min_len = 4, $ignore_space = FALSE)
 	}
 
 	return $binary;
+}
+
+// Reverse $string with specified delimiter
+function delimiter_reverse($string = 'foo.bar.example.com', $from_delim = '.', $to_delim = '.')
+{
+	if (! is_string($string) || ! is_string($from_delim) || ! is_string($to_delim))
+		return $string;
+
+	// com.example.bar.foo
+	return implode($to_delim, array_reverse(explode($from_delim, $string)));
 }
 
 
@@ -1356,6 +1386,30 @@ function array_merge_leaves(& $array1, & $array2, $unique_values = TRUE, $renumb
 	return $array;
 }
 
+// Shrink array('key' => array('key')) to array('key')
+function array_shrink_leaves(& $array)
+{
+	if (! is_array($array)) return $array;
+
+	foreach($array as $key => $value){
+		// Recurse. Removing more leaves beforehand
+		if (is_array($value)) array_shrink_leaves($array[$key]);
+	}
+
+	$tmp = array();
+	foreach($array as $key => $value){
+		if (is_array($value)) {
+			$count = count($value);
+			if ($count == 1 && current($value) == $key) {
+				unset($array[$key]);
+				$array[] = $key;
+			}
+		}
+	}
+
+	return $array;
+}
+
 
 // ---------------------
 // Reporting
@@ -1381,39 +1435,11 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 	return implode(', ', $tmp);
 }
 
-// Very roughly, shrink the lines of var_export()
-// NOTE: If the same data exists, it must be corrupted.
-function var_export_shrink($expression, $return = FALSE)
-{
-	$result =preg_replace(
-		// Remove a newline and spaces
-		'# => \n *array \(#', ' => array (',
-		var_export($expression, TRUE)
-	);
-
-	if ($return) {
-		return $result;
-	} else {
-		echo   $result;
-		return NULL;
-	}
-}
-
 function summarize_detail_badhost($progress = array())
 {
 	if (! isset($progress['is_spam']['badhost'])) return '';
 
-	return var_export_shrink($progress['blocked'], TRUE);
-}
-
-// Reverse $string with specified delimiter
-function delimiter_reverse($string = 'foo.bar.example.com', $from_delim = '.', $to_delim = '.')
-{
-	if (! is_string($string) || ! is_string($from_delim) || ! is_string($to_delim))
-		return $string;
-
-	// com.example.bar.foo
-	return implode($to_delim, array_reverse(explode($from_delim, $string)));
+	return var_export_shrink(array_shrink_leaves($progress['blocked']), TRUE);
 }
 
 function summarize_detail_newtral($progress = array())
