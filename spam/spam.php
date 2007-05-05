@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.157 2007/05/05 13:58:39 henoheno Exp $
+// $Id: spam.php,v 1.158 2007/05/05 16:02:53 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -462,7 +462,7 @@ function spam_uri_pickup_preprocess($string = '')
 	// http://victim.example.org/nasty.example.org/path#frag
 	// => http://nasty.example.org/?refer=victim.example.org and original
 	$string = preg_replace(
-		'#http://' .
+		'#h?ttp://' .
 		'(' .
 			'ime\.nu' . '|' .	// 2ch.net
 			'ime\.st' . '|' .	// 2ch.net
@@ -470,6 +470,23 @@ function spam_uri_pickup_preprocess($string = '')
 			'urlx\.org' .
 		')' .
 		'/([a-z0-9.%_-]+\.[a-z0-9.%_-]+)#i',	// nasty.example.org
+		'http://$2/?refer=$1 $0',				// Preserve $0 or remove?
+		$string
+	);
+
+	// Domain exposure (gate-big5)
+	// http://victim.example.org/gate/big5/nasty.example.org/path
+	// => http://nasty.example.org/?refer=victim.example.org and original
+	$string = preg_replace(
+		'#h?ttp://' .
+		'(' .
+			'big5.51job.com'	 . '|' .
+			'big5.china.com'	 . '|' .
+			'big5.xinhuanet.com' . '|' .
+		')' .
+		'/gate/big5' .
+		'/([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .
+		 '#i',	// nasty.example.org
 		'http://$2/?refer=$1 $0',				// Preserve $0 or remove?
 		$string
 	);
