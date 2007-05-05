@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.155 2007/05/05 10:01:59 henoheno Exp $
+// $Id: spam.php,v 1.156 2007/05/05 10:54:29 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1464,7 +1464,7 @@ function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 
 function summarize_detail_badhost($progress = array())
 {
-	if (! isset($progress['blocked'])) return '';
+	if (! isset($progress['blocked']) || empty($progress['blocked'])) return '';
 
 	$blocked = array();
 	foreach($progress['blocked'] as $list => $lvalue) {
