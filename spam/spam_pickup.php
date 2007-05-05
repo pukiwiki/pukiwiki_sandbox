@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.47 2007/05/05 07:09:33 henoheno Exp $
+// $Id: spam_pickup.php,v 1.48 2007/05/05 07:33:31 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -134,7 +134,7 @@ if (! empty($progress)) {
 		$tmp = summarize_detail_badhost($progress);
 		if ($tmp != '') {
 			echo 'DETAIL_BADHOST: ' . 
-				str_replace('  ', '&nbsp; ', nl2br("\n" . htmlspecialchars($tmp). "\n"));
+				str_replace('  ', '&nbsp; ', nl2br(htmlspecialchars($tmp). "\n"));
 		}
 	}
 
