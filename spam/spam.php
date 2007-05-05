@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.151 2007/05/05 07:22:00 henoheno Exp $
+// $Id: spam.php,v 1.152 2007/05/05 07:28:33 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1394,7 +1394,9 @@ function delimiter_reverse($string = 'foo.bar.example.com', $from_delim = '.', $
 
 function summarize_detail_newtral($progress = array())
 {
-	if (! isset($progress['hosts']) || ! is_array($progress['hosts'])) return '';
+	if (! isset($progress['hosts'])    ||
+	    ! is_array($progress['hosts']) ||
+	    empty($progress['hosts'])) return '';
 
 	// Sort by domain
 	$tmp = array();
@@ -1403,7 +1405,7 @@ function summarize_detail_newtral($progress = array())
 	}
 	ksort($tmp);
 
-	return implode(', ', $tmp);
+	return count($tmp) . ' (' .implode(', ', $tmp) . ')';
 }
 
 
