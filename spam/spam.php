@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.150 2007/05/05 07:09:33 henoheno Exp $
+// $Id: spam.php,v 1.151 2007/05/05 07:22:00 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1382,6 +1382,16 @@ function summarize_detail_badhost($progress = array())
 	return var_export_shrink($progress['blocked'], TRUE);
 }
 
+// Reverse $string with specified delimiter
+function delimiter_reverse($string = 'foo.bar.example.com', $from_delim = '.', $to_delim = '.')
+{
+	if (! is_string($string) || ! is_string($from_delim) || ! is_string($to_delim))
+		return $string;
+
+	// com.example.bar.foo
+	return implode($to_delim, array_reverse(explode($from_delim, $string)));
+}
+
 function summarize_detail_newtral($progress = array())
 {
 	if (! isset($progress['hosts']) || ! is_array($progress['hosts'])) return '';
@@ -1389,7 +1399,7 @@ function summarize_detail_newtral($progress = array())
 	// Sort by domain
 	$tmp = array();
 	foreach($progress['hosts'] as $value) {
-		$tmp[strrev($value)] = $value;
+		$tmp[delimiter_reverse($value)] = $value;
 	}
 	ksort($tmp);
 
