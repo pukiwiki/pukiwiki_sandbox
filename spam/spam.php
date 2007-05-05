@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.152 2007/05/05 07:28:33 henoheno Exp $
+// $Id: spam.php,v 1.153 2007/05/05 08:02:39 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -54,7 +54,23 @@ function array_unique_recursive($array = array())
 			}
 		}
 	}
-	
+
+	return $array;
+}
+
+// Renumber all numeric keys from 0
+function array_renumber_numeric_keys(& $array)
+{
+	if (! is_array($array)) return $array;
+
+	$count = -1;
+	$tmp = array();
+	foreach($array as $key => $value){
+		if (is_array($value)) array_renumber_numeric_keys($array[$key]);	// Recurse
+		if (is_numeric($key)) $tmp[$key] = ++$count;
+	}
+	array_rename_keys($array, $tmp);
+
 	return $array;
 }
 
@@ -1163,12 +1179,18 @@ function check_uri_spam($target = '', $method = array())
 			}
 			if ($asap && $is_spam) break;
 
-			// Merge $blocked
-			$blocked = array_merge_leaves($blocked, $_progress['blocked']);
-
-			// Merge $hosts
-			$hosts   = array_merge_leaves($hosts,   $_progress['hosts']);
+			// Merge only
+			$blocked = array_merge_leaves($blocked, $_progress['blocked'], FALSE, FALSE);
+			$hosts   = array_merge_leaves($hosts,   $_progress['hosts'],   FALSE, FALSE);
 		}
+
+		// Unique values
+		$blocked = array_unique_recursive($blocked);
+		$hosts   = array_unique_recursive($hosts);
+
+		// Renumber numeric keys
+		array_renumber_numeric_keys($blocked);
+		array_renumber_numeric_keys($hosts);
 
 		// Recount $sum['badhost']
 		$sum['badhost'] = array_count_leaves($blocked);
@@ -1321,13 +1343,15 @@ function array_count_leaves($array = array(), $count_empty = FALSE)
 }
 
 // Merge two leaves' value
-function array_merge_leaves(& $array1, & $array2, $unique_values = TRUE)
+function array_merge_leaves(& $array1, & $array2, $unique_values = TRUE, $renumber_numeric = TRUE)
 {
-	// All NUMERIC keys are always renumbered from 0
 	$array = array_merge_recursive($array1, $array2);
 
 	// Redundant values (and keys) are vanished
 	if ($unique_values) $array = array_unique_recursive($array);
+
+	// All NUMERIC keys are always renumbered from 0
+	if ($renumber_numeric) array_renumber_numeric_keys($array);
 
 	return $array;
 }
