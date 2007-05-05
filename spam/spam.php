@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.147 2007/05/04 14:55:36 henoheno Exp $
+// $Id: spam.php,v 1.148 2007/05/05 04:59:31 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -35,6 +35,27 @@ function preg_grep_invert($pattern = '//', $input = array())
 			return $input;
 		}
 	}
+}
+
+// Remove redundant values from array()
+function array_unique_recursive($array = array())
+{
+	if (! is_array($array)) return $array;
+
+	$tmp = array();
+	foreach($array as $key => $value){
+		if (is_array($value)) {
+			$array[$key] = array_unique_recursive($value);
+		} else {
+			if (isset($tmp[$value])) {
+				unset($array[$key]);
+			} else {
+				$tmp[$value] = TRUE;
+			}
+		}
+	}
+	
+	return $array;
 }
 
 // Roughly strings(1) using PCRE
@@ -1143,11 +1164,9 @@ function check_uri_spam($target = '', $method = array())
 			if ($asap && $is_spam) break;
 
 			// Merge $blocked
-			// TODO: unique the hosts
 			$blocked = array_merge_leaves($blocked, $_progress['blocked']);
 
 			// Merge $hosts
-			// TODO: unique the hosts
 			$hosts   = array_merge_leaves($hosts,   $_progress['hosts']);
 		}
 
@@ -1302,11 +1321,17 @@ function array_count_leaves($array = array(), $count_empty = FALSE)
 }
 
 // Merge two leaves' value
-function array_merge_leaves(& $array1, & $array2)
+function array_merge_leaves(& $array1, & $array2, $unique_values = TRUE)
 {
 	// All NUMERIC keys are always renumbered from 0
-	return array_merge_recursive($array1, $array2);
+	$array = array_merge_recursive($array1, $array2);
+
+	// Redundant values (and keys) are vanished
+	if ($unique_values) $array = array_unique_recursive($array);
+
+	return $array;
 }
+
 
 // ---------------------
 // Reporting

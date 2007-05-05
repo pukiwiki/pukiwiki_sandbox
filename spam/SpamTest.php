@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.8 2007/05/04 14:54:21 henoheno Exp $
+// $Id: SpamTest.php,v 1.9 2007/05/05 04:59:31 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -76,8 +76,38 @@ class SpamTest extends PHPUnit_TestCase
 		$this->assertEquals(19, array_count_leaves($array, TRUE));
 	}
 
+	function testPhpFunc_array_unique()
+	{
+		$this->assertEquals(array(1), array_unique(array(1, 1)));
+
+		// Keys are preserved, array()s inside are preserved
+		$this->assertEquals(
+			array(0, 2 => array(1, 1), 3 => 2),
+			array_unique(
+				array(0, 0, array(1, 1), 2, 2)
+			)
+		);
+
+		// Keys are preserved
+		$this->assertEquals(
+			array(0, 2 => array(1, 1), 3 => 2),
+			array_unique(array(0, 0, array(1, 1), 2, 2))
+		);
+
+		// ONLY the first array() is preserved
+		$this->assertEquals(
+			array(0 => array(1, 1)),
+			array_unique(array_unique(array(0 => array(1, 1), 'a' => array(2,2), 'b' => array(3, 3))))
+		);
+	}
+
 	function testFunc_array_merge_leaves()
 	{
+		$array1 = array(1);
+		$array2 = array(1);
+		$result = array(1);
+		$this->assertEquals($result, array_merge_leaves($array1, $array2));
+
 		$array1 = array(2);
 		$array2 = array(1);
 		$result = array(2, 1);
@@ -138,18 +168,16 @@ class SpamTest extends PHPUnit_TestCase
 		);
 		$this->assertEquals($result, array_merge_leaves($array1, $array2));
 
-		// ----
-
-		// Values will not be unique now
+		// Values will not be unique?
 		$array1 = array(5, 4);
 		$array2 = array(4, 5);
-		$result = array(5, 4, 4, 5);
+		$result = array(5, 4);
 		$this->assertEquals($result, array_merge_leaves($array1, $array2));
 
 		// One more thing ...
 		$array1 = array('b' => array('k3'));
 		$array2 = array('b' => 'k3');
-		$result = array('b' => array('k3', 'k3'));
+		$result = array('b' => array('k3'));
 		$this->assertEquals($result, array_merge_leaves($array1, $array2));
 	}
 
