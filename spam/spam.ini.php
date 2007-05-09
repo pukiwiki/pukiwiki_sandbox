@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.101 2007/05/06 06:30:45 henoheno Exp $
+// $Id: spam.ini.php,v 1.102 2007/05/09 15:08:48 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1387,7 +1387,7 @@ $blocklist['B-1'] = array(
 	'*.alluwant.de',
 	'AOL.com' =>	// http://about.aol.com/international_services
 		'/^(?:chezmoi|home|homes|hometown|journals|user)\.' .
-		'(aol|americaonline)\.' .
+		'(?:aol|americaonline)\.' .
 		'(?:ca|co\.uk|com|com\.au|com.mx|de)$/',
 		// Rough but works
 	'Apple.com' => array('idisk.mac.com'),
@@ -1607,14 +1607,14 @@ $blocklist['B-1'] = array(
 		'*.sblog.cz',
 	),
 	'limmon.net',
-	'livedoor Co., Ltd.' => array(
+	'Livedoor.com' => array(
 		'blog.livedoor.jp',
 		'*.blog.livedoor.com',	// redirection
 	),
 	'*.livejournal.com',
 	'*.logme.nl',
 	'ltss.luton.ac.uk',
-	'Lycos' => array(
+	'Lycos.com' => array(
 		'angelfire.com',	// angelfire.lycos.com
 
 		'*.jubii.dk',	// search., medlem.
@@ -1710,7 +1710,7 @@ $blocklist['B-1'] = array(
 	'*.pochta.ru',
 	'*.portbb.com',
 	'powerwebmaster.de',
-	'ProBoards' => '#^(?:.*\.)proboards[0-9]*\.com$#',
+	'ProBoards' => '#^.*\.proboards[0-9]*\.com$#',
 	'*.probook.de',
 	'*.prohosting.com',	// by Nick Wood (admin at dns-solutions.net)
 	'*.quickfreehost.com',
@@ -2118,7 +2118,10 @@ $blocklist['B-2'] = array(
 	'University of Northern Colorado' => array('unco.edu'),
 	'xsgaming.com',			// Jacked
 	'.xthost.info',			// by Michael Renz (dhost at mykuhl.de)
-	'Yahoo! Inc.' => array('uk.groups.yahoo.com'),
+	'Yahoo.com' => array(
+		'blog.360.yahoo.com',
+		'*.groups.yahoo.com'
+	),
 	'yasushi.site.ne.jp',	// One of mixedmedia.net'
 	'youthpeer.org',
 	'*.zenburger.com',
@@ -2587,6 +2590,7 @@ $blocklist['C'] = array(
 		'.viagra-kaufen.org',	// by Chong Li (chongli at mederotica.com)
 	),
 	'gray at trafic.name' => array(	// by Billing Name:Gray, Billing Email:gray at trafic.name
+		'.auase.info',		// by ilemavyq7461 at techie.com
 		'.axeboxew.info',	// by zygeu220 at writeme.com
 		'.boluzuhy.info',	// by pikico5419 at post.com
 		'.ekafoloz.info',	// by nuzunyly8401 at techie.com
@@ -2609,6 +2613,7 @@ $blocklist['C'] = array(
 		'.ragibe.info',		// by ehome4458 at myself.com
 		'.ucazib.info',		// by gorare7222 at consultant.com
 		'.udaxu.info',		// by gubima4007 at usa.com
+		'.ulycigop.info',	// by unodyqil6241 at mindless.com
 		'.vubiheq.info',	// by uisujih5849 at hotmail.com
 		'.yvaxat.info',		// by koqun9660 at mindless.com
 		'.yxyzauiq.info',	// by robemuq8455 at cheerful.com
@@ -3702,6 +3707,7 @@ $blocklist['C'] = array(
 		'.cialis-compare-levitra-viagra.info',	// by David Theissen
 		'.cheap-online-viagra.info',	// by David Theissen
 		'.drugcleansing.net',		// by David Zajwzran
+		'.men-health-zone.com',		// by David Theissen
 		'.purchase-viagra.info',	// by David Theissen
 		'.realdrunkengirls.biz',	// by David Theissen
 		'.sextoyslife.com',			// by David Zajwzran
@@ -3725,6 +3731,7 @@ $blocklist['C'] = array(
 		'.popular-people.info',
 		'.safe-health.info',
 		'.star-celebrities.info',
+		'.top5-auto.info',
 		'.top5-cars.info',
 		'.vip-furniture.info',
 		'.vip-pc.info',
@@ -3757,7 +3764,7 @@ $blocklist['C'] = array(
 	),
 	'clickx at bk.ru' => array(	// by Alexey Enrertov
 		'.fres**.info' =>
-			'#^(?:.*\.)' .
+			'#^(?:.*\.)?' .
 			'fres' .
 			'(?:adult|boy|easy|get|girl|meet|new|real|strong|the)' .
 			'(?:apple|bus|click|find|fish|news|php|place|post|srch|search)' .
@@ -3783,20 +3790,6 @@ $blocklist['C'] = array(
 		'.bdjyw.net',		// by gaoyun, infected images, iframe to 5944.net's VBScript
 		'.5944.net',
 	),
-	'ns *.italydns.info' => array(
-		'.subit01.org',
-		'.subit02.org',
-		'.subit03.org',
-		'.subit04.org',
-		'.subit05.org',
-		'.subit06.org',
-		'.subit01.info',
-		'.subit02.info',
-		'.subit03.info',
-		'.subit04.info',
-		'.subit05.info',
-		'.subit06.info',
-	),
 	'zerberster at gmail.com' => array(	// by Curtis D. Pick, / not found
 		'.maxrentcar.info',
 		'.newsonyericsson.info',
@@ -3804,6 +3797,7 @@ $blocklist['C'] = array(
 	),
 	'kopper1970 at gmail.com' => array(
 		'.cardealerall.info',		// by Green
+		'.donatecarsales.info',		// by Sipil
 		'.ringtonewilly.info',		// by Sipil
 		'.travelstraveling.info',	// by Chinik
 		'.viagrabuyonline.org',		// by Sipil
@@ -3855,6 +3849,18 @@ $blocklist['C'] = array(
 		'.cerca-sv.info',		// 208.70.75.153
 		'.cerca-te.info',		// 208.70.75.153
 		'.cerca-tr.info',		// 208.70.75.153
+		'.subit01.org',			// 208.70.75.153, ns *.italydns.info
+		'.subit02.org',			// 208.70.75.153, ns *.italydns.info
+		'.subit03.org',			// 208.70.75.153, ns *.italydns.info
+		'.subit04.org',			// 208.70.75.153, ns *.italydns.info
+		'.subit05.org',			// 208.70.75.153, ns *.italydns.info
+		'.subit06.org',			// 208.70.75.153, ns *.italydns.info
+		'.subit01.info',		// 208.70.75.153, ns *.italydns.info
+		'.subit02.info',		// 208.70.75.153, ns *.italydns.info
+		'.subit03.info',		// 208.70.75.153, ns *.italydns.info
+		'.subit04.info',		// 208.70.75.153, ns *.italydns.info
+		'.subit05.info',		// 208.70.75.153, ns *.italydns.info
+		'.subit06.info',		// 208.70.75.153, ns *.italydns.info
 	),
 	'ernestppc at yahoo.com' => array(	// by Anrey Markov (ernestppc at yahoo.com)
 		'.5-base.com',
@@ -3875,6 +3881,35 @@ $blocklist['C'] = array(
 	'smesh1155 at gmail.com' => array(
 		'.hospitalforyou.info',			// by Gimmi
 		'.thephentermineonline.info',	// by Kipola
+	),
+	'supermaster at pisem.net' => array(	// by Aleksandr Krasnik (supermaster at pisem.net), ns *.msn-dns.com
+		'.kiski.net.in',
+		'.siski.co.in',
+	),
+	'tiptronikmike at mail.com' => array(
+		'tiptronikmike at mail.com' => '#^(?:.*\.)?[irvyz][0-5]sex\.info$#',
+		// by Michael Tronik (tiptronikmike at mail.com), e.g. 
+		// by Martin Brest (brestmartinjan at yahoo.com), e.g. 74.52.150.242
+		// by Adulterra Inkognita (inkognitaadulterra at yahoo.com), e.g. 74.52.150.244
+		//'.i0sex.info',		// Michael
+		//'.i1sex.info',		// Michael
+		//'.i2sex.info',		// Martin
+		//'.i3sex.info',		// Martin
+		//'.i4sex.info',		// Adulterra
+		//'.i5sex.info',		// Adulterra
+		//[irvyz]6sex.info not found
+		'.i8sex.info',			// by Martin
+	),
+	'skuarlytronald at mail.com' => array(
+		'.girlsfreewild.info',		// by Ronald Skuarlyt (skuarlytronald at mail.com), the same / with i4sex.info, post with z2sex.info, 64.27.13.120
+		'.girlsgoingmad.info',		// 64.27.13.120
+		'.girlsgonewildside.info',	// 64.27.13.120
+	),
+	'66.232.109.250' => array(
+		'.1626pornporno.info',
+		'.1851pornporno.info',
+		'.1876pornporno.info',
+		'.476pornporno.info',
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -3933,6 +3968,7 @@ $blocklist['C'] = array(
 	'.free-rx.net',			// by Neo-x (neo-xxl at yandex.ru), redirect to activefreehost.com
 	'.freeblog.ru',			// by Kondrashov Evgeniy Aleksandrovich (evkon at rol.ru), login form only, ns *.nthost.ru
 	'.freehostia.com',
+	'.freeliveringtones.com',	// by Silan (lippe1988 at gmail.com)
 	'.freemobilephonesworld.info',	// by andresid (andresid1 at yandex.ru)
 	'.goldcoastonlinetutoring.com',	// by Robert Tanenbaum (buildbt at lycos.com)
 	'.game4enjoy.net',		// by huang jinglong (fenlin231 at sina.com)
@@ -3965,12 +4001,12 @@ $blocklist['C'] = array(
 	'.jimka-mmsa.com',		// by Alex Covax (c0vax at mail.ru), seems not used yet
 	'.joynu.com',			// by lei wang (93065 at qq.com), hidden JavaScript
 	'.kingtools.de',
-	'.kiski.net.in',		// by Aleksandr Krasnik (supermaster at pisem.net), ns *.msn-dns.com
 	'.leucainfo.com',
 	'.library-blogs.net',	// by Peter Scott (pscontent at gmail.com)
 	'.lingage.com',			// by huan bing (qbbs at xinoffice.com)
 	'.link-keeper.net',		// 210.172.108.236 (257.xrea.com)
 	'.ls.la',				// by Milton McLellan (McLellanMilton at yahoo.com)
+	'.mamaha.info',			// by Alex Klimovsky (paganec at gmail.com), seems now constructiong
 	'.manseekingwomanx.com',	// by Bill Peterson (coccooc at fastmail.fm)
 	'.medpharmaworldguide.com',	// by Nick Ivchenkov (signmark at gmail.com), / not found
 	'.milfxxxpass.com',		// by Morozov Pavlik (rulets at gmail.com)
