@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.158 2007/05/05 16:02:53 henoheno Exp $
+// $Id: spam.php,v 1.159 2007/05/11 15:25:36 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1108,18 +1108,6 @@ function blocklist_distiller(& $hosts, $keys = array('goodhost', 'badhost'), $as
 	return $blocked;
 }
 
-// Simple example for badhost (not used now)
-function is_badhost($hosts = array(), $asap = TRUE, $bool = TRUE)
-{
-	$list = get_blocklist('list');
-	$blocked = blocklist_distiller($hosts, array_keys($list), $asap);
-	foreach($list as $key=>$type){
-		if (! $type) unset($blocked[$key]); // Ignore goodhost etc
-	}
-
-	return $bool ? ! empty($blocked) : $blocked;
-}
-
 // Default (enabled) methods and thresholds (for content insertion)
 function check_uri_spam_method($times = 1, $t_area = 0, $rule = TRUE)
 {
@@ -1234,17 +1222,13 @@ function check_uri_spam($target = '', $method = array())
 			if ($asap && $is_spam) break;
 
 			// Merge only
-			$blocked = array_merge_leaves($blocked, $_progress['blocked'], FALSE, FALSE);
-			$hosts   = array_merge_leaves($hosts,   $_progress['hosts'],   FALSE, FALSE);
+			$blocked = array_merge_recursive($blocked, $_progress['blocked']);
+			$hosts   = array_merge_recursive($hosts,   $_progress['hosts']);
 		}
 
 		// Unique values
 		$blocked = array_unique_recursive($blocked);
 		$hosts   = array_unique_recursive($hosts);
-
-		// Renumber numeric keys
-		array_renumber_numeric_keys($blocked);
-		array_renumber_numeric_keys($hosts);
 
 		// Recount $sum['badhost']
 		$sum['badhost'] = array_count_leaves($blocked);
@@ -1396,20 +1380,6 @@ function array_count_leaves($array = array(), $count_empty = FALSE)
 	return $count;
 }
 
-// Merge two leaves' value
-function array_merge_leaves(& $array1, & $array2, $unique_values = TRUE, $renumber_numeric = TRUE)
-{
-	$array = array_merge_recursive($array1, $array2);
-
-	// Redundant values (and keys) are vanished
-	if ($unique_values) $array = array_unique_recursive($array);
-
-	// All NUMERIC keys are always renumbered from 0
-	if ($renumber_numeric) array_renumber_numeric_keys($array);
-
-	return $array;
-}
-
 // An array-leaves to a flat array
 function array_flat_leaves($array, $unique = TRUE)
 {
@@ -1430,10 +1400,27 @@ function array_flat_leaves($array, $unique = TRUE)
 	return $unique ? array_values(array_unique($tmp)) : $tmp;
 }
 
+// An array() to an array leaf
+function array_leaf($array = array('A', 'B', 'C.D'), $array_all = FALSE)
+{
+	$leaf = array();
+	$tmp  = & $leaf;
+	foreach($array as $arg) {
+		if (! is_string($arg) && ! is_int($arg)) continue;
+		$tmp[$arg] = array();
+		$parent    = & $tmp;
+		$tmp       = & $tmp[$arg];
+	}
+
+	if (! $array_all) $parent = key($parent);
+
+	return $leaf;	// array('A' => array('B' => 'C.D'))
+}
+
+
 // ---------------------
 // Reporting
 
-// TODO: Don't show unused $method!
 // Summarize $progress (blocked only)
 function summarize_spam_progress($progress = array(), $blockedonly = FALSE)
 {
