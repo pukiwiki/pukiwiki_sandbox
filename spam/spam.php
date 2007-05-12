@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.159 2007/05/11 15:25:36 henoheno Exp $
+// $Id: spam.php,v 1.160 2007/05/12 09:19:49 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1401,7 +1401,7 @@ function array_flat_leaves($array, $unique = TRUE)
 }
 
 // An array() to an array leaf
-function array_leaf($array = array('A', 'B', 'C.D'), $array_all = FALSE)
+function array_leaf($array = array('A', 'B', 'C.D'), $stem = FALSE, $edge = array())
 {
 	$leaf = array();
 	$tmp  = & $leaf;
@@ -1411,8 +1411,11 @@ function array_leaf($array = array('A', 'B', 'C.D'), $array_all = FALSE)
 		$parent    = & $tmp;
 		$tmp       = & $tmp[$arg];
 	}
-
-	if (! $array_all) $parent = key($parent);
+	if ($stem) {
+		$parent[key($parent)] = & $edge;
+	} else {
+		$parent = key($parent);
+	}
 
 	return $leaf;	// array('A' => array('B' => 'C.D'))
 }
@@ -1478,14 +1481,37 @@ function summarize_detail_newtral($progress = array())
 	    ! is_array($progress['hosts']) ||
 	    empty($progress['hosts'])) return '';
 
-	// Sort by domain
-	$tmp = array();
-	foreach($progress['hosts'] as $value) {
-		$tmp[delimiter_reverse($value)] = $value;
+	$result = '';
+	if (FALSE) {
+		// Sort by domain
+		$tmp = array();
+		foreach($progress['hosts'] as $value) {
+			$tmp[delimiter_reverse($value)] = $value;
+		}
+		ksort($tmp, SORT_STRING);
+		$result = count($tmp) . ' (' .implode(', ', $tmp) . ')';
+	} else {
+		$tmp = array();
+		foreach($progress['hosts'] as $value) {
+			$tmp = array_merge_recursive(
+				$tmp,
+				array_leaf(explode('.', delimiter_reverse($value) . '.'), TRUE, $value)
+			);
+		}
+		ksort($tmp);
+		foreach($tmp as $key => $value) {
+			ksort($tmp[$key]);
+			foreach($value as $_key => $_value) {
+				ksort($tmp[$key][$_key]);
+				$tmp[$key][$_key] = implode(', ', array_flat_leaves($_value));
+			}
+		}
+		
+		//$tmp = array_unique_recursive($tmp); // Buggy?
+		$result = var_export_shrink($tmp, TRUE, TRUE);
 	}
-	ksort($tmp);
 
-	return count($tmp) . ' (' .implode(', ', $tmp) . ')';
+	return $result;
 }
 
 
