@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.102 2007/05/09 15:08:48 henoheno Exp $
+// $Id: spam.ini.php,v 1.103 2007/05/13 03:57:08 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -244,6 +244,7 @@ $blocklist['A-1'] = array(
 		'*.cx.la',
 		'*.dl.am',
 	),
+	'*.dl.pl',
 	'*.dmdns.com',
 	'doiop.com',
 	'Ideas para Nuevos Mercados SL' => array(
@@ -1094,6 +1095,7 @@ $blocklist['A-1'] = array(
 	'urlx.org',
 	'useurl.us',		// by Edward Beauchamp (mail at ebvk.com)
 	'utun.jp',
+	'uxxy.com',
 	'*.v27.net',
 	'V3.com by FortuneCity.com' => array(
 		// http://www.v3.com/sub-domain-list.shtml
@@ -1590,6 +1592,7 @@ $blocklist['B-1'] = array(
 	'*.ihateclowns.net',
 	'*.iphorum.com',
 	'*.blog.ijijiji.com',
+	'*.info.com',
 	'*.informe.com',
 	'it168.com',
 	'.iwannaforum.com',
@@ -3828,8 +3831,11 @@ $blocklist['C'] = array(
 		'.thecamsnow.info',
 	),
 	'87.242.116.81' => array(
+		'.axit.ru',			// by Sergej L Ivanov (deeeport at yandex.ru)
 		'.bilbidon.ru',		// by Ilya S Vorobiyov (reginamedom at yandex.ru)
 		'.flating.ru',		// by Sergej L Ivanov (deeeport at yandex.ru)
+		'.kalisto.ru',		// by Vladimir I Sokolov (azimut at gmail.ru)
+		'.sanartuk.ru',		// by Vladimir I Noskov (hoskv2003 at gmail.ru)
 	),
 	'orgitaly2 at ya.ru' => array(	// by Orgitaly2 (orgitaly2 at ya.ru), encoded JavaScript
 		'.cerca-sx.org',
@@ -3911,6 +3917,29 @@ $blocklist['C'] = array(
 		'.1876pornporno.info',
 		'.476pornporno.info',
 	),
+	'LiveAdultHost.com' => array(	// by Daniel Simeonov (dsim at mbox.contact.bg)
+		'.compactxxx.com',
+		'.eadulthost.com',
+		'.eadultview.com',
+		'.eroticpool.net',
+		'.ipornservice.com',
+		'.liveadulthost.com',
+		'.nudepal.com',
+		'.sweetservers.com',
+	),
+	'support at orgija.org' => array(
+		'.assfuckporn.org',
+		'.dosugmos.org',
+		'.fuckporn.org',
+		'.girlsdosug.org',
+		'.girlsporno.org',
+		'.moscowintim.org',
+		'.pornass.org',
+		'.pornopussy.org',
+		'.progirlsporn.org',
+		'.pussypornogirls.org',
+	),
+
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -4009,6 +4038,7 @@ $blocklist['C'] = array(
 	'.mamaha.info',			// by Alex Klimovsky (paganec at gmail.com), seems now constructiong
 	'.manseekingwomanx.com',	// by Bill Peterson (coccooc at fastmail.fm)
 	'.medpharmaworldguide.com',	// by Nick Ivchenkov (signmark at gmail.com), / not found
+	'.megvideochatlive.info',	// Bad seo
 	'.milfxxxpass.com',		// by Morozov Pavlik (rulets at gmail.com)
 	'.myfgj.info',			// by Filus (softscript at gmail.com)
 	'.mujiki.com',			// by Mila Contora (ebumsn at ngs.ru)
