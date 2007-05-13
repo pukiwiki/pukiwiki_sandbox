@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.160 2007/05/12 09:19:49 henoheno Exp $
+// $Id: spam.php,v 1.161 2007/05/13 04:50:09 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -179,7 +179,7 @@ function uri_pickup($string = '')
 			// 3: Host
 			'\[[0-9a-f:.]+\]' . '|' .				// IPv6([colon-hex and dot]): RFC2732
 			'(?:[0-9]{1,3}\.){3}[0-9]{1,3}' . '|' .	// IPv4(dot-decimal): 001.22.3.44
-			'[a-z0-9.-]+' . 						// hostname(FQDN) : foo.example.org
+			'[a-z0-9][a-z0-9.-]+[a-z0-9]' . 		// hostname(FQDN) : foo.example.org
 		')' .
 		'(?::([0-9]*))?' .					// 4: Port
 		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path or path-info
@@ -1498,15 +1498,20 @@ function summarize_detail_newtral($progress = array())
 				array_leaf(explode('.', delimiter_reverse($value) . '.'), TRUE, $value)
 			);
 		}
-		ksort($tmp);
+		ksort($tmp, SORT_STRING);
+
+		$tmp = array_joinkey_leaf($tmp, '.', TRUE, TRUE);
+		$tmp = array_joinkey_leaf($tmp, '.', TRUE, FALSE);
+		$tmp = array_joinkey_leaf($tmp, '.', TRUE, FALSE);
+		//$tmp = array_joinkey_leaf($tmp, '.', TRUE, FALSE);
+
 		foreach($tmp as $key => $value) {
-			ksort($tmp[$key]);
-			foreach($value as $_key => $_value) {
-				ksort($tmp[$key][$_key]);
-				$tmp[$key][$_key] = implode(', ', array_flat_leaves($_value));
+			if (is_array($value)) {
+				ksort($tmp[$key]);
+				$tmp[$key] = implode(', ', array_flat_leaves($value));
 			}
 		}
-		
+
 		//$tmp = array_unique_recursive($tmp); // Buggy?
 		$result = var_export_shrink($tmp, TRUE, TRUE);
 	}
@@ -1514,6 +1519,28 @@ function summarize_detail_newtral($progress = array())
 	return $result;
 }
 
+
+function array_joinkey_leaf($array = array('A' => array('B' => 'C.D')),
+	$delim = '.', $reverse = FALSE, $allowmulti = FALSE)
+{
+	if (! is_array($array)) return $array;
+
+	$result = array();
+	foreach(array_keys($array) as $key) {
+		if (! is_array($array[$key]) || (! $allowmulti && count($array[$key]) > 1)) {
+			$result[$key] = & $array[$key];	// Do nothing
+		} else {
+			foreach(array_keys($array[$key]) as $_key) {
+				$joinkey = $reverse ?
+					$_key . $delim . $key :
+					$key  . $delim . $_key;
+				$result[$joinkey] = & $array[$key][$_key];
+			}
+		}
+	}
+
+	return $result; // array('A.B' => 'C.D')
+}
 
 // ---------------------
 // Exit
