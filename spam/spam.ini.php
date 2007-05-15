@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.103 2007/05/13 03:57:08 henoheno Exp $
+// $Id: spam.ini.php,v 1.104 2007/05/15 12:45:23 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2521,6 +2521,7 @@ $blocklist['C'] = array(
 		'.ragnarok-sara.com',
 		'.ragnarok-search.com',
 		'.ragnaroklink.com',
+		'.rinku-livedoor.com',
 		'.rmt-lineagecanopus.com',
 		'.rmt-navip.com',
 		'.rmt-ranloki.com',
@@ -2532,6 +2533,7 @@ $blocklist['C'] = array(
 		'.shoopivdoor.com',
 		'.slower-qth.com',
 		'.soultakerbbs.net',
+		'.toriningena.net',
 		'.watcheimpress.com',
 		'.wikiwiki-game.com',
 		'.yahoo-gamebbs.com',
@@ -3313,10 +3315,11 @@ $blocklist['C'] = array(
 		'.pangzigame.com',		// by qiuqingshan
 		'.playncsoft.net',
 	),
-	'abc00613 at 163.com' => array(	// by guo yong, seems not used now
+	'abc00613 at 163.com' => array(	// by guo yong
 		'.avtw1068.com',
-		'.dj5566.org',	// by yongchao li (abc00613 at 163.com)
+		'.dj5566.org',			// by yongchao li
 		'.djkkk66990.com',
+		'.lingamesjp.com',		// by guo jinlong
 	),
 	'thomas.jsp at libertysurf.fr' => array(	// by Perez Thomas
 		'.cmonfofo.com',
@@ -3939,6 +3942,10 @@ $blocklist['C'] = array(
 		'.progirlsporn.org',
 		'.pussypornogirls.org',
 	),
+	'125.65.112.93' => array(
+		'.gamanir.com',		// by yangjianhe (upload888 at 126.com), malicious file
+		'.twurbbs.com',		// by mingzhong ni (ggyydiy at 163.com)
+	),
 
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -3991,6 +3998,7 @@ $blocklist['C'] = array(
 	'.ffxiforums.net',		// by Zhang xiaolong (mail at 33986.com), hidden VBScript
 	'*.filthserver.com',	// sales at onlinemarketingservices.biz
 	'.find-stuff.org',		// by Alice Freedman (admin at ip-labs.ru), / 404 Not Found
+	'.firstdrugstorezone.info',	// by Goose (boris208 at yandex.ru)
 	'.forum24.se',
 	'.forumhosting.org',
 	'.free-finding.com',	// by Ny hom (nyhom at yahoo.com)
@@ -4069,6 +4077,7 @@ $blocklist['C'] = array(
 	'.relurl.com',			// tiny-like. by Grzes Tlalka (grzes1111 at interia.pl)
 	'.replicaswatch.org',	// by Replin (admin at furnitureblog.org)
 	'.rigame.info',			// by debra_jordan07 at yahoo.com
+	'.rmt-trade.com',		// by wang chun (dlxykj at 126.com), rmt
 	'.roin.info',			// by Evgenius (roinse at yandex.ru)
 	'.searchadv.com',		// by Jaan Randolph (searchadv at gmail.com)
 	'.seek-www.com',		// by Adam Smit (pingpong at mail.md)
