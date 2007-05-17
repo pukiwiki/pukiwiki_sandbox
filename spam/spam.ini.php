@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.105 2007/05/17 15:20:11 henoheno Exp $
+// $Id: spam.ini.php,v 1.106 2007/05/17 15:24:17 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -3598,7 +3598,7 @@ $blocklist['C'] = array(
 		'.npous.info',
 		'.obgju.info',
 	),
-	'fateback.com' => array(	// by LiquidNet Ltd. (president at fateback.com), redirect to www.japan.jp
+	'FateBack.com' => array(	// by LiquidNet Ltd. (president at fateback.com), redirect to www.japan.jp
 		'.bebto.com',
 		'.fateback.com',
 		'.undonet.com',
