@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.106 2007/05/17 15:24:17 henoheno Exp $
+// $Id: spam.ini.php,v 1.107 2007/05/18 12:29:46 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -201,6 +201,7 @@ $blocklist['A-1'] = array(
 	'c64.ch',
 	'c711.com',
 	'checkasite.net',
+	'url.chefhost.com',
 	'*.chicappa.jp',
 	'chilicity.com',
 	'big5.china.com',
