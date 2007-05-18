@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.161 2007/05/13 04:50:09 henoheno Exp $
+// $Id: spam.php,v 1.162 2007/05/18 11:18:51 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -171,7 +171,7 @@ function uri_pickup($string = '')
 	preg_match_all(
 		// scheme://userinfo@host:port/path/or/pathinfo/maybefile.and?query=string#fragment
 		// Refer RFC3986 (Regex below is not strict)
-		'#(\b[a-z][a-z0-9.+-]{1,8}):/+' .	// 1: Scheme
+		'#(\b[a-z][a-z0-9.+-]{1,8}):[/\\\]+' .	// 1: Scheme
 		'(?:' .
 			'([^\s<>"\'\[\]/\#?@]*)' .		// 2: Userinfo (Username)
 		'@)?' .
@@ -1500,28 +1500,27 @@ function summarize_detail_newtral($progress = array())
 		}
 		ksort($tmp, SORT_STRING);
 
-		$tmp = array_joinkey_leaf($tmp, '.', TRUE, TRUE);
-		$tmp = array_joinkey_leaf($tmp, '.', TRUE, FALSE);
-		$tmp = array_joinkey_leaf($tmp, '.', TRUE, FALSE);
-		//$tmp = array_joinkey_leaf($tmp, '.', TRUE, FALSE);
+		separate_and_joinkey_leaves($tmp, '.', TRUE, TRUE);
+		separate_and_joinkey_leaves($tmp, '.', TRUE, FALSE);
+		separate_and_joinkey_leaves($tmp, '.', TRUE, FALSE);
+		//separate_and_joinkey_leaves($tmp, '.', TRUE, FALSE);
 
 		foreach($tmp as $key => $value) {
 			if (is_array($value)) {
 				ksort($tmp[$key]);
-				$tmp[$key] = implode(', ', array_flat_leaves($value));
+		//		$tmp[$key] = implode(', ', array_flat_leaves($value));
 			}
 		}
 
-		//$tmp = array_unique_recursive($tmp); // Buggy?
 		$result = var_export_shrink($tmp, TRUE, TRUE);
 	}
 
 	return $result;
 }
 
-
-function array_joinkey_leaf($array = array('A' => array('B' => 'C.D')),
-	$delim = '.', $reverse = FALSE, $allowmulti = FALSE)
+function separate_and_joinkey_leaves(
+	& $array,	// array('A' => array('B' => 'C.D')),
+	$delim = '.', $reversejoin = FALSE, $allowmulti = FALSE)
 {
 	if (! is_array($array)) return $array;
 
@@ -1530,8 +1529,9 @@ function array_joinkey_leaf($array = array('A' => array('B' => 'C.D')),
 		if (! is_array($array[$key]) || (! $allowmulti && count($array[$key]) > 1)) {
 			$result[$key] = & $array[$key];	// Do nothing
 		} else {
+			var_dump($array[$key]);
 			foreach(array_keys($array[$key]) as $_key) {
-				$joinkey = $reverse ?
+				$joinkey = $reversejoin ?
 					$_key . $delim . $key :
 					$key  . $delim . $_key;
 				$result[$joinkey] = & $array[$key][$_key];
@@ -1539,8 +1539,11 @@ function array_joinkey_leaf($array = array('A' => array('B' => 'C.D')),
 		}
 	}
 
+	$array = & $result;
+
 	return $result; // array('A.B' => 'C.D')
 }
+
 
 // ---------------------
 // Exit
