@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.162 2007/05/18 11:18:51 henoheno Exp $
+// $Id: spam.php,v 1.163 2007/05/18 12:10:19 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1016,11 +1016,18 @@ function generate_host_regex($string = '', $divider = '/')
 	}
 }
 
-function get_blocklist($list = '')
+function get_blocklist($list = '', $exhaust = FALSE)
 {
-	static $regexs;
+	static $f_exhaust = FALSE, $regexs;
 
+	if ($exhaust) {
+		$f_exhaust = TRUE;
+		$regexs    = NULL;
+		return array();
+	}
 	if (! isset($regexs)) {
+		if ($f_exhaust) die(__FUNCTION__ . '(): Memory already dropped');
+
 		$regexs = array();
 		if (file_exists(SPAM_INI_FILE)) {
 			$blocklist = array();
@@ -1055,11 +1062,11 @@ function get_blocklist($list = '')
 		}
 	}
 
-	if ($list == '') {
+	if ($list === '') {
 		return $regexs;	// ALL
 	} else if (isset($regexs[$list])) {
 		return $regexs[$list];
-	} else {	
+	} else {
 		return array();
 	}
 }
@@ -1453,7 +1460,7 @@ function summarize_detail_badhost($progress = array())
 	foreach($progress['blocked'] as $list => $lvalue) {
 		foreach($lvalue as $group => $gvalue) {
 			$flat = implode(', ', array_flat_leaves($gvalue));
-			if ($flat == $group) {
+			if ($flat === $group) {
 				$blocked[$list][]       = $flat;
 			} else {
 				$blocked[$list][$group] = $flat;
@@ -1529,7 +1536,6 @@ function separate_and_joinkey_leaves(
 		if (! is_array($array[$key]) || (! $allowmulti && count($array[$key]) > 1)) {
 			$result[$key] = & $array[$key];	// Do nothing
 		} else {
-			var_dump($array[$key]);
 			foreach(array_keys($array[$key]) as $_key) {
 				$joinkey = $reversejoin ?
 					$_key . $delim . $key :
