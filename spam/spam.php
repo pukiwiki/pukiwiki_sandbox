@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.163 2007/05/18 12:10:19 henoheno Exp $
+// $Id: spam.php,v 1.164 2007/05/18 14:12:40 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1016,19 +1016,20 @@ function generate_host_regex($string = '', $divider = '/')
 	}
 }
 
-function get_blocklist($list = '', $exhaust = FALSE)
+function get_blocklist($list = '', $dispose = FALSE)
 {
-	static $f_exhaust = FALSE, $regexs;
+	static $f_dispose = FALSE, $regexes;
 
-	if ($exhaust) {
-		$f_exhaust = TRUE;
-		$regexs    = NULL;
+	if ($dispose) {
+		$f_dispose = TRUE;
+		$regexes   = NULL;	// Unset
 		return array();
 	}
-	if (! isset($regexs)) {
-		if ($f_exhaust) die(__FUNCTION__ . '(): Memory already dropped');
 
-		$regexs = array();
+	if (! isset($regexes)) {
+		if ($f_dispose) die(__FUNCTION__ . '(): Memory already disposed');
+
+		$regexes = array();
 		if (file_exists(SPAM_INI_FILE)) {
 			$blocklist = array();
 			include(SPAM_INI_FILE);
@@ -1037,7 +1038,7 @@ function get_blocklist($list = '', $exhaust = FALSE)
 			//		'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
 			//	);
 			if (isset($blocklist['list'])) {
-				$regexs['list'] = & $blocklist['list'];
+				$regexes['list'] = & $blocklist['list'];
 			} else {
 				// Default
 				$blocklist['list'] = array(
@@ -1049,12 +1050,12 @@ function get_blocklist($list = '', $exhaust = FALSE)
 				if (! isset($blocklist[$_list])) continue;
 				foreach ($blocklist[$_list] as $key => $value) {
 					if (is_array($value)) {
-						$regexs[$_list][$key] = array();
+						$regexes[$_list][$key] = array();
 						foreach($value as $_key => $_value) {
-							get_blocklist_add($regexs[$_list][$key], $_key, $_value);
+							get_blocklist_add($regexes[$_list][$key], $_key, $_value);
 						}
 					} else {
-						get_blocklist_add($regexs[$_list], $key, $value);
+						get_blocklist_add($regexes[$_list], $key, $value);
 					}
 				}
 				unset($blocklist[$_list]);
@@ -1063,9 +1064,9 @@ function get_blocklist($list = '', $exhaust = FALSE)
 	}
 
 	if ($list === '') {
-		return $regexs;	// ALL
-	} else if (isset($regexs[$list])) {
-		return $regexs[$list];
+		return $regexes;	// ALL
+	} else if (isset($regexes[$list])) {
+		return $regexes[$list];
 	} else {
 		return array();
 	}
@@ -1558,8 +1559,14 @@ function separate_and_joinkey_leaves(
 // NOTE: Call this function from various blocking feature, to disgueise the reason 'why blocked'
 function spam_exit($mode = '', $data = array())
 {
+	// Dispose
+	get_blocklist(NULL, TRUE);
+
+	$exit = TRUE;
 	switch ($mode) {
-		case '':	echo("\n");	break;
+		case '':
+			echo("\n");
+			break;
 		case 'dump':
 			echo('<pre>' . "\n");
 			echo htmlspecialchars(var_export($data, TRUE));
@@ -1567,8 +1574,7 @@ function spam_exit($mode = '', $data = array())
 			break;
 	};
 
-	// Force exit
-	exit;
+	if ($exit) exit;	// Force exit
 }
 
 
