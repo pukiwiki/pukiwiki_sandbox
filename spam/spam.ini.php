@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.107 2007/05/18 12:29:46 henoheno Exp $
+// $Id: spam.ini.php,v 1.108 2007/05/19 10:16:22 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2116,9 +2116,18 @@ $blocklist['B-2'] = array(
 		'ez.asn.und.edu',
 	),
 	'The University of Alabama' => array('bama.ua.edu'),
+	'unisonscotlandlaw.co.uk',
+	'University of Nebraska Lincoln' => array('ftp.ianr.unl.edu'),
+	'University of Northern Colorado' => array('unco.edu'),
+	'University of Toronto' => array(
+		'environment.utoronto.ca',
+		'grail.oise.utoronto.ca',
+		'utsc.utoronto.ca',
+	),
 	'urgentclick.com',
 	'vacant.org.uk',
 	'Villa Julie College' => array('www4.vjc.edu'),
+	'Vail Valley Foundation' => array('.vvf.org'),
 	'wabson.org',
 	'warping.to',		// Seems (a redirection site, but now) taken advantage of
 	'webarch.com',		// by WebArchitects (webarch at insync.net)
@@ -2127,9 +2136,6 @@ $blocklist['B-2'] = array(
 	'williamsburgrentals.com',
 	'wolvas.org.uk',
 	'wookiewiki.org',
-	'unisonscotlandlaw.co.uk',
-	'University of Nebraska Lincoln' => array('ftp.ianr.unl.edu'),
-	'University of Northern Colorado' => array('unco.edu'),
 	'xsgaming.com',			// Jacked
 	'.xthost.info',			// by Michael Renz (dhost at mykuhl.de)
 	'Yahoo.com' => array(
@@ -3756,6 +3762,7 @@ $blocklist['C'] = array(
 		'.movie1945.com',		// by Zhang Teng, content from lineage.jp, hidden JavaScript
 	),
 	'mk_slowman at yahoo.com' => array(	// by Mike Slowman (mk_slowman at yahoo.com)
+		'.auto-fgen.info',
 		'.fast-marketing.info',
 		'.from-usa.info',
 		'.generic-pharm.info',
@@ -3867,41 +3874,63 @@ $blocklist['C'] = array(
 		'.kalisto.ru',		// by Vladimir I Sokolov (azimut at gmail.ru)
 		'.sanartuk.ru',		// by Vladimir I Noskov (hoskv2003 at gmail.ru)
 	),
-	'orgitaly2 at ya.ru' => array(	// by Orgitaly2 (orgitaly2 at ya.ru), encoded JavaScript
-		'.cerc-on.info',		// 208.70.75.153, ns *.italydns.info
-		'.cerc-te.info',		// by Ru Lee (cerca-tree at ya.ru), 208.70.75.153, ns *.italydns.info
+	'208.70.75.153' => array(
+		'.cerc-fi.info',		// by Kon Bi (cerca-two at ya.ru), 208.70.75.153
+		'.cerc-fo.info',		// by Kon Bi (cerca-two at ya.ru), 208.70.75.153
+		'.cerc-no.info',		// by Ru Lee (cerca-tree at ya.ru), 208.70.75.153
+		'.cerc-on.info',		// 208.70.75.153
+		'.cerc-sv.info',		// by Ru Lee (cerca-tree at ya.ru)
+		'.cerc-sx.org',			// by Kon Bi (cerca-two at ya.ru), 208.70.75.153
+		'.cerc-te.info',		// by Ru Lee (cerca-tree at ya.ru), 208.70.75.153
+		'.cerc-tr.info',		// 208.70.75.153
+		'.cerc-tw.info',		// 208.70.75.153
 
+		'.cerc-fi.org',			// by Kon Bi (cerca-two at ya.ru), 208.70.75.153
+		'.cerc-fo.org',			// by Kon Bi (cerca-two at ya.ru), 208.70.75.153
+		'.cerc-no.org',			// by Ru Lee (cerca-tree at ya.ru), 208.70.75.153
+		'.cerc-on.org',			// by cerca-one at ya.ru, 208.70.75.153
+		'.cerc-sv.org',			// by Ru Lee (cerca-tree at ya.ru), 208.70.75.153
+		'.cerc-sx.org',			// by Kon Bi (cerca-two at ya.ru), 208.70.75.153
+		'.cerc-te.org',			// by Ru Lee (cerca-tree at ya.ru), 208.70.75.153
+		'.cerc-tr.org',			// by cerca-one at ya.ru, 208.70.75.153
+		'.cerc-tw.org',			// by cerca-one at ya.ru, 208.70.75.153
+
+		'.cerca-fi.org',		// by orgitaly1 at ya.ru, 208.70.75.153
 		'.cerca-fo.info',		// 208.70.75.153
 		'.cerca-no.info',		// 208.70.75.153
 		'.cerca-on.info',		// 208.70.75.153
 		'.cerca-sv.info',		// 208.70.75.153
+		'.cerca-sx.org',		// by orgitaly2 at ya.ru, 208.70.75.153
 		'.cerca-te.info',		// 208.70.75.153
 		'.cerca-tr.info',		// 208.70.75.153
 
-		'.cerc-fi.org',			// by Kon Bi (cerca-two at ya.ru), 208.70.75.153, ns *.italydns.info
 		'.cerca-sx.org',
 		'.cerca-tr.org',		// orgitaly1 at ya.ru
 
 		'.ricerca-fiv.org',		// orgitaly1 at ya.ru
-		'.ricerca-fo.info',		// 208.70.75.153, equals to ricerca-one.org
-		'.ricerca-one.org',
+
+		'.ricerca-fo.info',		// 208.70.75.153
+
+		'.ricerca-one.org',		// 208.70.75.153
+
 		'.ricerca-sv.org',
 		'.ricerca-sx.org',
 		'.ricerca-te.org',
 		'.ricerca-tw.org',		// orgitaly1 at ya.ru
 
-		'.subit01.org',			// 208.70.75.153, ns *.italydns.info
-		'.subit02.org',			// 208.70.75.153, ns *.italydns.info
-		'.subit03.org',			// 208.70.75.153, ns *.italydns.info
-		'.subit04.org',			// 208.70.75.153, ns *.italydns.info
-		'.subit05.org',			// 208.70.75.153, ns *.italydns.info
-		'.subit06.org',			// 208.70.75.153, ns *.italydns.info
-		'.subit01.info',		// 208.70.75.153, ns *.italydns.info
-		'.subit02.info',		// 208.70.75.153, ns *.italydns.info
-		'.subit03.info',		// 208.70.75.153, ns *.italydns.info
-		'.subit04.info',		// 208.70.75.153, ns *.italydns.info
-		'.subit05.info',		// 208.70.75.153, ns *.italydns.info
-		'.subit06.info',		// 208.70.75.153, ns *.italydns.info
+		'.subit01.org',			// 208.70.75.153
+		'.subit02.org',			// 208.70.75.153
+		'.subit03.org',			// 208.70.75.153
+		'.subit04.org',			// 208.70.75.153
+		'.subit05.org',			// 208.70.75.153
+		'.subit06.org',			// 208.70.75.153
+
+		'.subit01.info',		// 208.70.75.153
+		'.subit02.info',		// 208.70.75.153
+		'.subit03.info',		// 208.70.75.153
+		'.subit04.info',		// 208.70.75.153
+		'.subit05.info',		// 208.70.75.153
+		'.subit06.info',		// 208.70.75.153
 	),
 	'ernestppc at yahoo.com' => array(	// by Anrey Markov (ernestppc at yahoo.com)
 		'.5-base.com',
@@ -3979,9 +4008,10 @@ $blocklist['C'] = array(
 		'.gamanir.com',		// by yangjianhe (upload888 at 126.com), malicious file
 		'.twurbbs.com',		// by mingzhong ni (ggyydiy at 163.com)
 	),
-	'81.0.195.148' => array(
+	'81.0.195.148' => array(	// Says: "GOOGLE LOVES ME!!!", I don't think so.
 		'.abobrinha.org',
 		'.seriedelcaribe2006.org',
+		'.refugeeyouthinamerica.com',
 	),
 	'skip_20022 at yahoo.com' => array(
 		'.besthealth06.org',	// by yakon, "Free Web Hosting Services" but "BestHealth"
