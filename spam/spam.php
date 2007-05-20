@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.164 2007/05/18 14:12:40 henoheno Exp $
+// $Id: spam.php,v 1.165 2007/05/20 02:22:56 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1016,18 +1016,18 @@ function generate_host_regex($string = '', $divider = '/')
 	}
 }
 
-function get_blocklist($list = '', $dispose = FALSE)
+function get_blocklist($list = '')
 {
 	static $f_dispose = FALSE, $regexes;
 
-	if ($dispose) {
+	if ($list === NULL) {
 		$f_dispose = TRUE;
 		$regexes   = NULL;	// Unset
 		return array();
 	}
 
 	if (! isset($regexes)) {
-		if ($f_dispose) die(__FUNCTION__ . '(): Memory already disposed');
+		if ($f_dispose === TRUE) die(__FUNCTION__ . '(): Memory already disposed');
 
 		$regexes = array();
 		if (file_exists(SPAM_INI_FILE)) {
@@ -1560,7 +1560,7 @@ function separate_and_joinkey_leaves(
 function spam_exit($mode = '', $data = array())
 {
 	// Dispose
-	get_blocklist(NULL, TRUE);
+	get_blocklist(NULL);
 
 	$exit = TRUE;
 	switch ($mode) {
