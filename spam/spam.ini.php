@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.108 2007/05/19 10:16:22 henoheno Exp $
+// $Id: spam.ini.php,v 1.109 2007/05/20 13:21:34 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2450,112 +2450,156 @@ $blocklist['C'] = array(
 	),
 	'mail at pcinc.cn' => array(
 		// Domains by Lin Zhi Qiang
-		// NOTE: pcinc.cn -- by Lin Zhi Qiang (lin80 at 21cn.com)
-		'.18girl-av.com',
-		'.23styles.com',
-		'.6828teacup.com',
-		'.aaa-livedoor.net',
-		'.acyberhome.com',
-		'.a-hatena.com',
+		// NOTE: pcinc.cn -- 125.65.112.13 by Lin Zhi Qiang (lin80 at 21cn.com)
+
+		// 125.65.112.11
+		// The same IP: web001.cdnhost.cn, *.w19.cdnhost.cn
+		'shoopivdoor.w19.cdnhost.cn',	// web001.cdnhost.cn
+		'.shoopivdoor.com',
+
+		// 125.65.112.12
+		// The same IP: web003.cdnhost.cn, *.w16.cdnhost.cn
+		'.hosetaibei.com',
+		'.playsese.com',
+
+		// 125.65.112.13
+		// The same IP: web006.cdnhost.cn, *.w9.cdnhost.cn
 		'.ahatena.com',
-		'.aehatena-jp.com',
 		'.asdsdgh-jp.com',
-		'.aurasoul-visjp.com',
-		'.bbs-qrcode.com',
-		'.biglobe-ne.com',
-		'.blog-ekndesign.com',
-		'.blog-livedoor.net',
-		'.blogplaync.com',
-		'.cityblog-fc2web.com',
-		'.cityhokkai.com',
 		'.conecojp.net',
-		'.d-jamesinfo.com',
-		'.deco030-cscblog.com',
+		'.game-oekakibbs.com',
+		'.geocitygame.com',
+		'.gsisdokf.net',
+		'.korunowish.com',
+		'.netgamelivedoor.com',
+		'.soultakerbbs.net',
+		'.yahoo-gamebbs.com',
+		'.ywdgigkb-jp.com',
+
+		// 125.65.112.14
+		// The same IP: web007.cdnhost.cn, *.w12.cdnhost.cn
+		'.acyberhome.com',
+		'.bbs-qrcode.com',
+		'.gamesroro.com',
+		'.gameyoou.com',
+		'.gangnu.com',
+		'.goodclup.com',
+		'.lineage321.com',
+		'.linkcetou.com',
+		'.ragnarok-bbs.com',
+		'.ragnarok-game.com',
+		'.rmt-navip.com',
+		'.watcheimpress.com',
+
+		// 125.65.112.15
+		// The same IP: web008.cdnhost.cn, *.w11.cdnhost.cn
+		'.18girl-av.com',
+		'.aurasoul-visjp.com',
+		'.gamaniaech.com',
+		'.game-mmobbs.com',
+		'.gameslin.net',
+		'.gemnnammobbs.com',
+		'.gogolineage.net',
+		'.grandchasse.com',
+		'.jpragnarokonline.com',
+		'.jprmthome.com',
+		'.maplestorfy.com',
+		'.nothing-wiki.com',
+		'.ragnarok-sara.com',
+		'.rmt-lineagecanopus.com',
+		'.rmt-ranloki.com',
+		'.rogamesline.com',
+		'.roprice.com',
+
+		// The same IP: web013.cdnhost.cn
+		'.ragnaroklink.com',	// 125.65.112.22
+
+		// The same IP: web016.cdnhost.cn
+		'.twyaooplay.com',		// 125.65.112.31
+
+		// 125.65.112.32
+		// The same IP: web037.cdnhost.cn
+		'.raginfoy.com',
+		'.ragnarokgvg.com',
+		'.rentalbbs-livedoor.com',
+		'.samples112xrea.com',
+
+		// 125.65.112.88
+		// The same IP: web015.cdnhost.cn
+		'.a-hatena.com',
+		'.biglobe-ne.com',
+		'.blogplaync.com',
 		'.din-or.com',
 		'.dtg-gamania.com',
+		'.fcty-net.com',
+		'.game-fc2blog.com',
+		'.gameurdr.com',
+		'.getamped-garm.com',
+		'.interzq.com',
+		'.linbbs.com', 			// by zeng xianming (qqvod at qq.com). www.linbbs.com is the same ip of www.game-fc2blog.com(222.77.185.101) at 2007/03/11
+		'.ragnarok-search.com',
+		'.rinku-livedoor.com',
+
+		// 125.65.112.91
+		// The same IP: web004.cdnhost.cn
+		'.6828teacup.com',
+		'.blog-livedoor.net',
+		'.cityblog-fc2web.com',
+		'.deco030-cscblog.com',
+		'.imbbs2t4u.com',
+		'.k5dionne.com',
+		'.lineagejp-game.com',
+		'.mbspro6uic.com',
+		'.slower-qth.com',
+		'.wikiwiki-game.com',
+
+		// 125.65.112.93
+		// The same IP: web022.cdnhost.cn
+		'.aaa-livedoor.net',
+		'.cityhokkai.com',		// web022.cdnhost.cn
+		'.fanavier.net',
+		'.geocitylinks.com',	// web022.cdnhost.cn
+		'.kuronowish.net',		// web022.cdnhost.cn
+		'.ro-bot.net',
+
+		// 125.65.112.95
+		// The same IP: web035.cdnhost.cn, web039.cdnhost.cn
+		'.23styles.com',
+		'.aehatena-jp.com',
+		'.blog-ekndesign.com',
+		'.d-jamesinfo.com',
 		'.editco-jp.com',
 		'.ezbbsy.com',
 		'.extd-web.com',
-		'.fanavier.net',
-		'.fcty-net.com',
-		'.gamaniaech.com',
-		'.game-fc2blog.com',
-		'.game-oekakibbs.com',
-		'.game-mmobbs.com',
 		'.game62chjp.net',
 		'.gamegohi.com',
-		'.games-nifty.com',
-		'.gameslin.net',
 		'.gamesmusic-realcgi.net',
 		'.gamesragnaroklink.net',
-		'.gamesroro.com',
-		'.gemnnammobbs.com',
-		'.gameurdr.com',
-		'.gameyoou.com',
-		'.gangnu.com',
-		'.geocitygame.com',
-		'.geocitylinks.com',
-		'.getamped-garm.com',
-		'.gogolineage.net',
-		'.goodclup.com',
-		'.grandchasse.com',
-		'.gsisdokf.net',
 		'.homepage-nifty.com',
-		'.homepage3-nifty.com',
-		'.hosetaibei.com',
 		'.ie6xp.com',
-		'.imbbs2t4u.com',
-		'.interzq.com',
 		'.irisdti-jp.com',
 		'.jklomo-jp.com',
-		'.jpragnarokonline.com',
-		'.jprmthome.com',
 		'.jpxpie6-7net.com',
-		'.kaukoo.com',		// by zeng xianming (expshell at 163.com)
-		'.k5dionne.com',
-		'.korunowish.com',
-		'.kuronowish.net',
 		'.lian-game.com',
-		'.linbbs.com', 		// by zeng xianming (qqvod at qq.com). www.linbbs.com is the same ip of www.game-fc2blog.com(222.77.185.101) at 2007/03/11
 		'.lineage-bbs.com',
 		'.lineage1bbs.com',
-		'.lineage321.com',
-		'.lineagejp-game.com',
-		'.linkcetou.com',
-		'.linrmb.com',		// by zeng xianming (qqvod at qq.com)
 		'.livedoor-game.com',
 		'.lovejpjp.com',
 		'.m-phage.com',
-		'.maplestorfy.com',
-		'.mbspro6uic.com',
-		'.netgamelivedoor.com',
-		'.nothing-wiki.com',
-		'.playsese.com',
-		'.ptxk.com',		// by zeng xianming (zxmdiy at gmail.com)
 		'.plusd-itmedia.com',
-		'.ragnarok-bbs.com',
-		'.ragnarok-game.com',
-		'.ragnarok-sara.com',
-		'.ragnarok-search.com',
-		'.ragnaroklink.com',
-		'.rinku-livedoor.com',
-		'.rmt-lineagecanopus.com',
-		'.rmt-navip.com',
-		'.rmt-ranloki.com',
-		'.ro-bot.net',
-		'.rogamesline.com',
-		'.roprice.com',
-		'.rormb.com',		// by zeng xianming (qqvod at qq.com)
 		'.runbal-fc2web.com',
-		'.shoopivdoor.com',
-		'.slower-qth.com',
-		'.soultakerbbs.net',
 		'.toriningena.net',
-		'.watcheimpress.com',
-		'.wikiwiki-game.com',
-		'.yahoo-gamebbs.com',
-		'.ywdgigkb-jp.com',
 		'.yy14-kakiko.com',
+
+		// 228.14.153.219.broad.cq.cq.dynamic.163data.com.cn
+		'.kaukoo.com',			// 219.153.14.228, by zeng xianming (expshell at 163.com)
+		'.linrmb.com',			// 219.153.14.228, by zeng xianming (qqvod at qq.com)
+
+		'.ptxk.com',			// 222.73.236.239, by zeng xianming (zxmdiy at gmail.com)
+		'.rormb.com',			// 222.73.236.239, by zeng xianming (qqvod at qq.com)
+
+		'.games-nifty.com',		// 255.255.255.255 now
+		'.homepage3-nifty.com',	// 255.255.255.255 now
 	),
 	'caddd at 126.com' => array(
 		'.chengzhibing.com',	// by chen gzhibing
@@ -2567,10 +2611,10 @@ $blocklist['C'] = array(
 		'.twmsn-ga.com',		// by guo zhi wei, iframe to grandchasse.com
 	),
 	'nuigiym2 at 163.com' => array(	// by fly bg
-		'.linainfo.net',
-		'.lineagalink.com',
-		'.lineagecojp.com',
-		'.ragnarokonlina.com',
+		'.linainfo.net',		// Seems IP not allocated now
+		'.lineagalink.com',		// 220.247.157.99
+		'.lineagecojp.com',		// 61.139.126.10
+		'.ragnarokonlina.com',	// 220.247.158.99
 	),
 	'aakin at yandex.ru' => array(	// by Baer
 		'.entirestar.com',
@@ -3308,13 +3352,13 @@ $blocklist['C'] = array(
 		'.vvvw.info',
 	),
 	'support at 51g.net' => array(	// iframe www.lovetw.webnow.biz
-		'.ftplin.com',		// by Yongchun Liao
-		'.jplin.com',		// by Yongchun Liao
-		'.jplineage.com',	// by Yongchun Liao
-		'.jplingood.com',
-		'.linenew.com',
-		'.lyftp.com',		// Yongchun Liao (weboy at 51g.net)
-		'.yzlin.com',
+		'.ftplin.com',		// 125.65.112.15, by Yongchun Liao
+		'.jplin.com',		// 125.65.112.15, by Yongchun Liao
+		'.jplineage.com',	// 221.238.195.113, by Yongchun Liao
+		'.jplingood.com',	// 125.65.112.15
+		'.linenew.com',		// 203.191.148.96
+		'.lyftp.com',		// 218.5.77.17,   by Yongchun Liao (weboy at 51g.net)
+		'.yzlin.com',		// 220.162.244.36
 	),
 	'Betty.J.Pelletier at pookmail.com' => array(	// by Betty J. Pelletier
 		'.1111mb.com',
@@ -3338,18 +3382,18 @@ $blocklist['C'] = array(
 		'.453787.com',
 	),
 	'anpaul541000 at 163.com' => array(	// by su qiuqing
-		'.cetname.com',
-		'.jpgamer.net',
-		'.jpplay.net',			// iframe www.lovetw.webnow.biz
-		'.lovejptt.com',
-		'.pangzigame.com',		// by qiuqingshan
-		'.playncsoft.net',
+		'.cetname.com',			// 222.77.185.87
+		'.jpgamer.net',			// 220.247.157.106
+		'.jpplay.net',			// 222.77.185.87, iframe www.lovetw.webnow.biz
+		'.lovejptt.com',		// 222.77.185.87
+		'.pangzigame.com',		// 220.247.134.136, by qiuqingshan
+		'.playncsoft.net',		// 220.247.157.106
 	),
 	'abc00613 at 163.com' => array(	// by guo yong
-		'.avtw1068.com',
-		'.dj5566.org',			// by yongchao li
-		'.djkkk66990.com',
-		'.lingamesjp.com',		// by guo jinlong
+		'.avtw1068.com',		// 64.74.223.11
+		'.dj5566.org',			// Seems IP not allocated now, by yongchao li
+		'.djkkk66990.com',		// 68.178.232.99
+		'.lingamesjp.com',		// 219.153.13.23(8.myadmin.cn),  by guo jinlong
 	),
 	'thomas.jsp at libertysurf.fr' => array(	// by Perez Thomas
 		'.cmonfofo.com',
@@ -3362,9 +3406,9 @@ $blocklist['C'] = array(
 		'.tageom.info',
 	),
 	'Inpros.net' => array(	// by Hayato Hikari (hikari at t-dm.co.jp)
-		'.inpros.biz',			// redirect to inpros.net
-		'.inpros.net',
-		'.gametradeonline.jp',	// by Hayato Hikari, RMT
+		'.inpros.biz',			// 38.99.91.137, redirect to inpros.net
+		'.inpros.net',			// 202.181.98.79
+		'.gametradeonline.jp',	// 210.188.204.233, by Hayato Hikari, RMT
 	),
 	'szczffhh_sso at 21cn.net' => array(	// by zhenfei chen
 		'.ec51.com',
