@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.112 2007/05/28 12:58:36 henoheno Exp $
+// $Id: spam.ini.php,v 1.113 2007/05/31 16:05:38 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -169,15 +169,6 @@ $blocklist['A-1'] = array(
 	'bittyurl.com',
 	'*.bizz.cc',
 	'*.blo.pl',
-	'Fanznet.jp' => array(	// by takahashi nakaba (nakaba.takahashi at gmail.com)
-		'blue11.jp',
-		'fanznet.com',
-		'katou.in',
-		'mymap.in',
-		'saitou.in',
-		'satou.in',
-		'susan.in',
-	),
 	'briefurl.com',
 	'brokenscript.com',
 	'BucksoGen.com' => array(
@@ -277,7 +268,8 @@ $blocklist['A-1'] = array(
 		'*.tweaker.eu',
 	),
 	'*.fancyurl.com',
-	'Fanznet.com' => array(
+	'Fanznet.jp' => array(	// by takahashi nakaba (nakaba.takahashi at gmail.com)
+		'blue11.jp',
 		'fanznet.com',
 		'katou.in',
 		'mymap.in',
@@ -411,8 +403,7 @@ $blocklist['A-1'] = array(
 		'*.hispavista.com',
 		'.galeon.com',
 	),
-	// by Home.pl Sp. J. (info at home.pl), redirections and forums
-	'Home.pl' => array(
+	'Home.pl' => array(	// by Home.pl Sp. J. (info at home.pl), redirections and forums
 		'*.8l.pl',
 		'*.blg.pl',
 		'*.czytajto.pl',
@@ -1123,8 +1114,7 @@ $blocklist['A-1'] = array(
 	'utun.jp',
 	'uxxy.com',
 	'*.v27.net',
-	'V3.com by FortuneCity.com' => array(
-		// http://www.v3.com/sub-domain-list.shtml
+	'V3.com by FortuneCity.com' => array(	// http://www.v3.com/sub-domain-list.shtml
 		'*.all.at',
 		'*.back.to',
 		'*.beam.at',
@@ -1601,6 +1591,7 @@ $blocklist['B-1'] = array(
 	'*.hit.bg',				// by forumup.com ??
 	'*.host-page.com',
 	'*.hostingclub.de',
+	'forums.hspn.com',
 	'*.hut2.ru',
 	'IC.cz' => array(
 		'*.ezin.cz',		// internetcentrum at gmail.com, ns ignum.com, ignum.cz
@@ -2091,6 +2082,7 @@ $blocklist['B-2'] = array(
 	'Monmouth College' => array('department.monm.edu'),
 	'mountainjusticemedia.org',
 	'*.mybbland.com',
+	'mydlstore.com',
 	'North Carolina A&T State University' => array(
 		'ncat.edu',
 		'my.ncat.edu',
@@ -4141,6 +4133,10 @@ $blocklist['C'] = array(
 		'.google-yahoo-msn.org',
 		'.expedia-travel.org',
 	),
+	'admin at newestsearch.com' => array(	// by Gibrel Sitce
+		'.emr5ce.org',
+		'.wfe7nv.org',
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -4265,6 +4261,7 @@ $blocklist['C'] = array(
 	'.pelican-bulletin.info',	// by Elizabeth K. Perry (redmonk at mail.ru)
 	'.perevozka777.ru',		// by witalik at gmail.com
 	'.pharmacy2online.com',	// by Mike Hiliok (bbong80 at yahoo.com)
+	'.pharmacyonlinenet.com',	// Mark Williams (sania at zmail.ru), hidden JavaScript
 	'.pills-storage.com',	// by 
 	'.plusintedia.com',		// by g yk (abc00623 at 163.com), seems not used now
 	'.popki.ind.in',			// by Aleksandr Krasnik (supermaster at pisem.net)
