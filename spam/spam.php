@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.165 2007/05/20 02:22:56 henoheno Exp $
+// $Id: spam.php,v 1.166 2007/05/31 16:05:07 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1506,19 +1506,21 @@ function summarize_detail_newtral($progress = array())
 				array_leaf(explode('.', delimiter_reverse($value) . '.'), TRUE, $value)
 			);
 		}
-		ksort($tmp, SORT_STRING);
 
-		separate_and_joinkey_leaves($tmp, '.', TRUE, TRUE);
-		separate_and_joinkey_leaves($tmp, '.', TRUE, FALSE);
-		separate_and_joinkey_leaves($tmp, '.', TRUE, FALSE);
-		//separate_and_joinkey_leaves($tmp, '.', TRUE, FALSE);
+//var_dump($tmp);
+// TODO: IP address 1.2.3.4 => "0"-3-2-1 by array_daruma_otoshi()
 
+		array_daruma_otoshi($tmp, '.', TRUE); // "domain.tld"
+		//foreach(array_keys($tmp) as $key) {
+		//	array_daruma_otoshi($tmp[$key], '.', TRUE, TRUE);	// Rest of all
+		//}
 		foreach($tmp as $key => $value) {
 			if (is_array($value)) {
-				ksort($tmp[$key]);
-		//		$tmp[$key] = implode(', ', array_flat_leaves($value));
+				ksort($tmp[$key], SORT_STRING);
+				$tmp[$key] = implode(', ', array_flat_leaves($value));
 			}
 		}
+		ksort($tmp, SORT_STRING);
 
 		$result = var_export_shrink($tmp, TRUE, TRUE);
 	}
@@ -1526,30 +1528,80 @@ function summarize_detail_newtral($progress = array())
 	return $result;
 }
 
-function separate_and_joinkey_leaves(
-	& $array,	// array('A' => array('B' => 'C.D')),
-	$delim = '.', $reversejoin = FALSE, $allowmulti = FALSE)
+// array('A' => array('B' => 'C')) to
+// array('A.B' => 'C')
+// array(
+//	'A' => array(
+//		'B' => array(
+//			'C' => array(
+//				'D' => '1'
+//			),
+//		),
+//	),
+//	'G' => array(
+//		'H' => '2'
+//	),
+// )
+// to
+// array (
+//	'G.H'     => '2',
+//	'A.B.C.D' => '1',
+// )
+function array_daruma_otoshi(& $array, $delim = '.', $reverse = FALSE, $recurse = FALSE)
 {
-	if (! is_array($array)) return $array;
+	$result = 0;
 
-	$result = array();
+	if (! is_array($array) || empty($array)) return $result;
+
 	foreach(array_keys($array) as $key) {
-		if (! is_array($array[$key]) || (! $allowmulti && count($array[$key]) > 1)) {
-			$result[$key] = & $array[$key];	// Do nothing
-		} else {
-			foreach(array_keys($array[$key]) as $_key) {
-				$joinkey = $reversejoin ?
-					$_key . $delim . $key :
-					$key  . $delim . $_key;
-				$result[$joinkey] = & $array[$key][$_key];
-			}
+		$branch = & $array[$key];
+		if (! is_array($branch) || empty($branch)) continue;
+
+		foreach(array_keys($branch) as $bkey) {
+			$joinkey = $reverse ?
+				$bkey . $delim . $key :
+				$key  . $delim . $bkey;
+			$array[$joinkey] = & $branch[$bkey];
+			unset($array[$key]);
+			++$result;
 		}
 	}
 
-	$array = & $result;
+	// Rescan (Recurse)
+	if ($recurse && $result) {
+		$result = array_daruma_otoshi($array, $delim, $reverse, $recurse);
+	}
 
-	return $result; // array('A.B' => 'C.D')
+	return $result; // Tell me how many
 }
+//$a = array (
+//	'edu' => array (
+//		'berkeley' => array (
+//			'polisci' => array (
+//				'' => 'polisci.berkeley.edu',
+//			),
+//		),
+//		'cmich' => array (
+//			'rso' => array (
+//				'' => 'rso.cmich.edu',
+//			),
+//		),
+//	),
+//);
+//array_daruma_otoshi($a, '.', TRUE);
+//var_export($a);
+
+//$a = array (
+//	'4' => array (
+//		'5' => array (
+//			'6' => array (
+//				'' => '7.8.9',
+//			),
+//		),
+//	),
+//);
+//array_daruma_otoshi($a, '.', TRUE);
+//var_export($a);
 
 
 // ---------------------
