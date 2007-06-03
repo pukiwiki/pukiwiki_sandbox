@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.167 2007/06/03 05:09:11 henoheno Exp $
+// $Id: spam.php,v 1.168 2007/06/03 15:40:35 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1534,44 +1534,46 @@ function summarize_detail_newtral($progress = array())
 
 function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FALSE)
 {
-	if (! is_array($array) || empty($array)) return FALSE;	// Nothing to do
+	$result = array();
 
-	if (count($array) == 1) {
-		$limit  = max(0, intval($limit));
-		$branch = & $array;
+	if (! is_array($array)) return $result;	// Nothing to do
+
+	$limit  = max(0, intval($limit));
+	$cstack = array();
+
+	foreach(array_keys($array) as $key) {
 		$kstack = array();
 		$k      = -1;
-		while(is_array($branch) && count($branch) == 1) {
-			$kstack[] = key($branch);
-			$branch = & $branch[$kstack[++$k]];	// Next
+
+		$single = array($key => & $array[$key]);	// Keep it single
+		$cursor = & $single;
+		while(is_array($cursor) && count($cursor) == 1) {	// Do once
+			++$k;
+			$kstack[] = key($cursor);
+			$cursor   = & $cursor[$kstack[$k]];
 			if ($limit != 0 && $k == $limit) break;
 		}
-		if ($reverse) $kstack = array_reverse($kstack);
-		$joinkey = implode($delim, $kstack);
-		$array = array($joinkey => & $branch);
-		return TRUE;
-	} else {
-		$result = FALSE;
-		foreach(array_keys($array) as $key) {
-			$tmp = array($key => & $array[$key]);
-			// Recurse
-			if (array_joinbranch_leaf($tmp, $delim, $limit, $reverse)) {
-				$result = TRUE;
-				$_key = key($tmp);
-				unset($array[$key]);
-				$array[$_key] = & $tmp[$_key];
-			}
+
+		// Relink
+		if ($k != 0) {
+			if ($reverse) $kstack = array_reverse($kstack);
+			$joinkey = implode($delim, $kstack);
+
+			$array[$joinkey]  = & $cursor;
+			$result[$joinkey] = $k + 1;	// Leaf probably multiple array => joined length
+			unset($array[$key]);
 		}
-		return $result;
 	}
+
+	return $result;
 }
-// array(array()) => array()
+//$a = array(array()); //=> array()
 //$a = array('F' => array('B' => array('C' => array('d' => array('' => '6')))));
 //$b = array('R' => array('S' => array('T' => array('U' => array('' => '7')))));
 //$a = array('I' => $a, '@' => $b);
 //$a = array('F' => array(5), 0 => array('H'));
 //echo "<br>";
-//array_joinbranch_leaf($a, '#', 0, 0);
+//var_dump(array_joinbranch_leaf($a, '#', 0, 0));
 //var_export($a);
 //echo "<br>";
 //echo "<br>";
