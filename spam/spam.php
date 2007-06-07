@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.168 2007/06/03 15:40:35 henoheno Exp $
+// $Id: spam.php,v 1.169 2007/06/07 13:07:06 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -127,17 +127,20 @@ function strings($binary = '', $min_len = 4, $ignore_space = FALSE)
 			),
 			 $binary);
 	} else {
+		// Remove "\0" etc. Preserve readable spaces if possible.
 		$binary = preg_replace('/(?:[^[:graph:][:space:]]|[\r])+/s', "\n", $binary);
 	}
 
 	if ($min_len > 1) {
 		$min_len = min(1024, intval($min_len));
-		$binary = 
-			implode("\n",
-				preg_grep('/^.{' . $min_len . ',}/S',
-					explode("\n", $binary)
-				)
-			);
+		$regex = '/^.{' . $min_len . ',}/S';
+		if (is_array($binary)) {
+			foreach(array_keys($binary) as $key) {
+				$binary[$key] = implode("\n", preg_grep($regex, explode("\n", $binary[$key])));
+			}
+		} else {
+			$binary = implode("\n", preg_grep($regex, explode("\n", $binary)));
+		}
 	}
 
 	return $binary;
@@ -1018,17 +1021,14 @@ function generate_host_regex($string = '', $divider = '/')
 
 function get_blocklist($list = '')
 {
-	static $f_dispose = FALSE, $regexes;
+	static $regexes;
 
 	if ($list === NULL) {
-		$f_dispose = TRUE;
-		$regexes   = NULL;	// Unset
+		$regexes = NULL;	// Unset
 		return array();
 	}
 
 	if (! isset($regexes)) {
-		if ($f_dispose === TRUE) die(__FUNCTION__ . '(): Memory already disposed');
-
 		$regexes = array();
 		if (file_exists(SPAM_INI_FILE)) {
 			$blocklist = array();
@@ -1547,7 +1547,7 @@ function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FA
 
 		$single = array($key => & $array[$key]);	// Keep it single
 		$cursor = & $single;
-		while(is_array($cursor) && count($cursor) == 1) {	// Do once
+		while(is_array($cursor) && count($cursor) == 1) {	// Once
 			++$k;
 			$kstack[] = key($cursor);
 			$cursor   = & $cursor[$kstack[$k]];
@@ -1559,9 +1559,9 @@ function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FA
 			if ($reverse) $kstack = array_reverse($kstack);
 			$joinkey = implode($delim, $kstack);
 
-			$array[$joinkey]  = & $cursor;
-			$result[$joinkey] = $k + 1;	// Leaf probably multiple array => joined length
 			unset($array[$key]);
+			$array[$joinkey]  = & $cursor;
+			$result[$joinkey] = $k + 1;	// Key seems not an single array => joined length
 		}
 	}
 
@@ -1657,12 +1657,16 @@ function array_daruma_otoshi(& $array, $delim = '.', $reverse = FALSE, $recurse 
 // ---------------------
 // Exit
 
+// Freeing memories
+function spam_dispose()
+{
+	get_blocklist(NULL);
+}
+
 // Common bahavior for blocking
 // NOTE: Call this function from various blocking feature, to disgueise the reason 'why blocked'
 function spam_exit($mode = '', $data = array())
 {
-	// Dispose
-	get_blocklist(NULL);
 
 	$exit = TRUE;
 	switch ($mode) {
@@ -1689,11 +1693,11 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 {
 	$progress = check_uri_spam($target, $method);
 
-	if (! empty($progress['is_spam'])) {
-		// Mail to administrator(s)
+	if (empty($progress['is_spam'])) {
+		spam_dispose();
+	} else {
+		$target = string($target, 0);	// Removing "\0" etc
 		pkwk_spamnotify($action, $page, $target, $progress, $method);
-
-		// Exit
 		spam_exit($exitmode, $progress);
 	}
 }
