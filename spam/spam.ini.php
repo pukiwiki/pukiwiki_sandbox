@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.114 2007/06/09 02:19:52 henoheno Exp $
+// $Id: spam.ini.php,v 1.115 2007/06/09 14:28:11 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -56,6 +56,7 @@ $blocklist['goodhost'] = array(
 	//'.nyaa.tk',	// (Paid *.tk domain, Expire on 2008-05-19)
 	//'.wanwan.tk',	// (Paid *.tk domain, Expire on 2008-04-21) by nyaa.tk
 	//'emasaka.blog65.fc2.com',	// Text-to-Impress converter
+	//'ifastnet.com',	// Server hosting
 
 	// Yours
 	//''
@@ -2281,7 +2282,9 @@ $blocklist['C'] = array(
 		'.magnoliya.info',			// 'BucksoGen', by Pronin Sergey (buckster at list.ru)
 		'.svinka.info',				// 'BucksoGen', by Pronin Sergey (buckster at list.ru)
 		'.svinya.info',				// 'BucksoGen', by Pronin Sergey (buckster at list.ru)
-		'.zherebyonok.info',		// 'BucksoGen', by Pronin Sergey (buckster at list.ru)
+		'.zherebyonok.info',		// 89.149.206.225 'BucksoGen', by Pronin Sergey (buckster at list.ru)
+
+		'.medvezhonok.org',			// 89.149.206.225 "BucksoGen 1.2b"
 
 		'.adult-cam-chat-sex.info',		// by Lee Chang (nebucha at model-x.com)
 		'.adult-chat-sex-cam.info',		// 'CamsGen' by Lee Chang (nebucha at model-x.com)
@@ -3757,6 +3760,7 @@ $blocklist['C'] = array(
 		'.43fert.info',
 		'.belis.info',
 		'.bonu.info',
+		'.chelsite.info',
 		'.chparael.info',
 		'.cool9f.info',
 		'.dada2.info',
@@ -4213,6 +4217,7 @@ $blocklist['C'] = array(
 	'.banep.info',			// by Mihailov Dmitriy (marokogadro at yahoo.com), iframe to this site
 	'.baurish.info',
 	'.bestop.name',
+	'.bestmindstorm.org',	// 72.232.229.115 by lichincool at gmail.com, / meanless
 	'.betmmo.com',			// 63.223.98.182 by Huang Qiang (liuxing-wushi at hotmail.com), pl
 	'.bestrademark.info',	// by victoria (niko16d at yahoo.com), redirect to majordomo.ru
 	'.bestshopfinder.info',
@@ -4249,6 +4254,7 @@ $blocklist['C'] = array(
 	'.free-finding.com',	// by Ny hom (nyhom at yahoo.com)
 	'.free-rx.net',			// by Neo-x (neo-xxl at yandex.ru), redirect to activefreehost.com
 	'.free-sex-movie-net.info',	// by vitas61 at yahoo.com
+	'.freeamateursexx.info',	// 81.0.195.228 by Andrey Ushakov (infomed2004 at mail.ru)
 	'.freeblog.ru',			// by Kondrashov Evgeniy Aleksandrovich (evkon at rol.ru), login form only, ns *.nthost.ru
 	'.freehostia.com',
 	'.freehostingz.com',	// by Marx Lomas (marvellousmarx at hotmail.com), no dns reply
@@ -4336,6 +4342,7 @@ $blocklist['C'] = array(
 	'.sexamoreit.com',
 	'.sexforit.com',
 	'.sexmaniacs.org',		// by Yang Chong (chong at x-india.com)
+	'.sexsmovies.info',		// 203.174.83.22 by dima (vitas at vitas-k.com)
 	'.sirlook.com',
 	'.so-net.ws',			// by Todaynic.com Inc, seems a physing site for so-net.jp
 	'.sepcn.info',			// / not found
@@ -4354,6 +4361,7 @@ $blocklist['C'] = array(
 	'.virtualsystem.de',
 	'.vdxhost.com',
 	'.vviccd520.com',		// by kuang zhang (oulingfeng66 at 163.com), encoded JavaScript
+	'.homes.com.au',		// 139.134.5.124 by wongcr at bigpond.net.au, / meanless,
 	'.webnow.biz',			// by Hsien I Fan (admin at servcomputing.com)
 	'.webtools24.net',		// by Michael Helminger (info at ishelminger.de)
 	'.wer3.info',			// by Martin Gundel (Martin at mail.com), 404 not found
