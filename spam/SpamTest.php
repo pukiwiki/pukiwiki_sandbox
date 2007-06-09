@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.12 2007/05/11 15:25:36 henoheno Exp $
+// $Id: SpamTest.php,v 1.13 2007/06/09 03:16:08 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -301,32 +301,32 @@ EOF;
 		$this->assertEquals('', port_normalize('',   $scheme));
 
 		// 1st argument: Known port
-		$this->assertEquals('',    port_normalize(-1,   $scheme));
-		$this->assertEquals(0,     port_normalize(0,    $scheme));
-		$this->assertEquals(1,     port_normalize(1,    $scheme));
-		$this->assertEquals('',    port_normalize(  21, 'ftp'));
-		$this->assertEquals('',    port_normalize(  22, 'ssh'));
-		$this->assertEquals('',    port_normalize(  23, 'telnet'));
-		$this->assertEquals('',    port_normalize(  25, 'smtp'));
-		$this->assertEquals('',    port_normalize(  69, 'tftp'));
-		$this->assertEquals('',    port_normalize(  70, 'gopher'));
-		$this->assertEquals('',    port_normalize(  79, 'finger'));
-		$this->assertEquals('',    port_normalize(  80, 'http'));
-		$this->assertEquals('',    port_normalize( 110, 'pop3'));
-		$this->assertEquals('',    port_normalize( 115, 'sftp'));
-		$this->assertEquals('',    port_normalize( 119, 'nntp'));
-		$this->assertEquals('',    port_normalize( 143, 'imap'));
-		$this->assertEquals('',    port_normalize( 194, 'irc'));
-		$this->assertEquals('',    port_normalize( 210, 'wais'));
-		$this->assertEquals('',    port_normalize( 443, 'https'));
-		$this->assertEquals('',    port_normalize( 563, 'nntps'));
-		$this->assertEquals('',    port_normalize( 873, 'rsync'));
-		$this->assertEquals('',    port_normalize( 990, 'ftps'));
-		$this->assertEquals('',    port_normalize( 992, 'telnets'));
-		$this->assertEquals('',    port_normalize( 993, 'imaps'));
-		$this->assertEquals('',    port_normalize( 994, 'ircs'));
-		$this->assertEquals('',    port_normalize( 995, 'pop3s'));
-		$this->assertEquals('',    port_normalize(3306, 'mysql'));
+		$this->assertEquals('',    port_normalize(   -1, $scheme));
+		$this->assertEquals(0,     port_normalize(    0, $scheme));
+		$this->assertEquals(1,     port_normalize(    1, $scheme));
+		$this->assertEquals('',    port_normalize(   21, 'ftp'));
+		$this->assertEquals('',    port_normalize(   22, 'ssh'));
+		$this->assertEquals('',    port_normalize(   23, 'telnet'));
+		$this->assertEquals('',    port_normalize(   25, 'smtp'));
+		$this->assertEquals('',    port_normalize(   69, 'tftp'));
+		$this->assertEquals('',    port_normalize(   70, 'gopher'));
+		$this->assertEquals('',    port_normalize(   79, 'finger'));
+		$this->assertEquals('',    port_normalize(   80, 'http'));
+		$this->assertEquals('',    port_normalize(  110, 'pop3'));
+		$this->assertEquals('',    port_normalize(  115, 'sftp'));
+		$this->assertEquals('',    port_normalize(  119, 'nntp'));
+		$this->assertEquals('',    port_normalize(  143, 'imap'));
+		$this->assertEquals('',    port_normalize(  194, 'irc'));
+		$this->assertEquals('',    port_normalize(  210, 'wais'));
+		$this->assertEquals('',    port_normalize(  443, 'https'));
+		$this->assertEquals('',    port_normalize(  563, 'nntps'));
+		$this->assertEquals('',    port_normalize(  873, 'rsync'));
+		$this->assertEquals('',    port_normalize(  990, 'ftps'));
+		$this->assertEquals('',    port_normalize(  992, 'telnets'));
+		$this->assertEquals('',    port_normalize(  993, 'imaps'));
+		$this->assertEquals('',    port_normalize(  994, 'ircs'));
+		$this->assertEquals('',    port_normalize(  995, 'pop3s'));
+		$this->assertEquals('',    port_normalize( 3306, 'mysql'));
 		$this->assertEquals(8080,  port_normalize( 8080, $scheme));
 		$this->assertEquals(65535, port_normalize(65535, $scheme));
 		$this->assertEquals(65536, port_normalize(65536, $scheme)); // Seems not invalid in RFC
@@ -529,6 +529,63 @@ EOF;
 		// goodhost
 		$array = get_blocklist('goodhost');
 		$this->assertTrue(isset($array['IANA-examples']));
+	}
+
+
+	function testFunc_array_joinbranch_leaf()
+	{
+		// 1st argument: Null
+		foreach($this->setup_string_null() as $value){
+			$array = $value;
+			$result = array_joinbranch_leaf($array);
+			$this->assertEquals(array(), $result);
+			$this->assertEquals($value, $array);
+		}
+
+		// Null
+		$array = array(array());
+		$result = array_joinbranch_leaf($array);
+		$this->assertEquals(array(), $result);
+		$this->assertEquals(array(array()), $array);
+
+		$a = array('F' => array('B' => array('C' => array('d' => array('' => 'foobar')))));
+		$b = array('R' => array('S' => array('T' => array('U' => 'hoge' ))));
+
+		// Single case
+		$array = $a;
+		$result = array_joinbranch_leaf($array);
+		$this->assertEquals(array('F.B.C.d.' => 5       ), $result);
+		$this->assertEquals(array('F.B.C.d.' => 'foobar'), $array);
+
+		// Single, delim = '', limit
+		$array = $a;
+		$result = array_joinbranch_leaf($array, '', 2);
+		$this->assertEquals(array('FBC' => 3), $result);
+		$this->assertEquals(array('FBC' => array('d' => array('' => 'foobar'))), $array);
+
+		// Single, delim = '#', reverse
+		$array = $a;
+		$result = array_joinbranch_leaf($array, '#', 0, TRUE);
+		$this->assertEquals(array('#d#C#B#F' => 5       ), $result);
+		$this->assertEquals(array('#d#C#B#F' => 'foobar'), $array);
+
+		// Multiple case
+		$array = array('I' => $a, '@' => $b);
+		$result = array_joinbranch_leaf($array);
+		$this->assertEquals(
+			array(
+				'@.R.S.T.U'  => 5,
+				'I.F.B.C.d.' => 6
+			),
+			$result
+		);
+		$this->assertEquals(
+			array(
+				'@.R.S.T.U'  => 'hoge',
+				'I.F.B.C.d.' => 'foobar'
+			),
+			$array
+		);
 	}
 }
 

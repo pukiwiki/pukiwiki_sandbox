@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.170 2007/06/09 02:22:13 henoheno Exp $
+// $Id: spam.php,v 1.171 2007/06/09 03:16:08 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1526,11 +1526,12 @@ function summarize_detail_newtral($progress = array())
 	return $result;
 }
 
-
+// array('F' => array('B' => array('C' => array('d' => array('' => 'foobar')))))
+// to
+// array('F.B.C.d.' => 'foobar')
 function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FALSE)
 {
 	$result = array();
-
 	if (! is_array($array)) return $result;	// Nothing to do
 
 	$limit  = max(0, intval($limit));
@@ -1562,16 +1563,6 @@ function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FA
 
 	return $result;
 }
-//$a = array(array()); //=> array()
-//$a = array('F' => array('B' => array('C' => array('d' => array('' => '6')))));
-//$b = array('R' => array('S' => array('T' => array('U' => array('' => '7')))));
-//$a = array('I' => $a, '@' => $b);
-//$a = array('F' => array(5), 0 => array('H'));
-//echo "<br>";
-//var_dump(array_joinbranch_leaf($a, '#', 0, 0));
-//var_export($a);
-//echo "<br>";
-//echo "<br>";
 
 
 // array('A' => array('B' => 'C')) to
