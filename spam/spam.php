@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.169 2007/06/07 13:07:06 henoheno Exp $
+// $Id: spam.php,v 1.170 2007/06/09 02:22:13 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1503,19 +1503,14 @@ function summarize_detail_newtral($progress = array())
 		foreach($progress['hosts'] as $value) {
 			$tmp = array_merge_recursive(
 				$tmp,
-				array_leaf(explode('.', delimiter_reverse($value) . '.'), TRUE, $value)
+				array_leaf(explode('.', delimiter_reverse($value)), TRUE, $value)
 			);
 		}
 
 //var_dump($tmp);
-// TODO: IP address 1.2.3.4 => "0"-3-2-1 by array_daruma_otoshi()
+// TODO: IP address 1.2.3.4 => "0"-3-2-1 by array_shrinkbranch_leaves()
 
-//var_export('<br>-------------<br>');
-//var_export($tmp);
-//var_export('<br>-------------<br>');
-
-
-		array_daruma_otoshi($tmp, '.', TRUE); // "domain.tld"
+		array_shrinkbranch_leaves($tmp, '.', TRUE); // "domain.tld"
 		array_joinbranch_leaf($tmp, '.', 0, TRUE);
 		foreach($tmp as $key => $value) {
 			if (is_array($value)) {
@@ -1578,6 +1573,7 @@ function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FA
 //echo "<br>";
 //echo "<br>";
 
+
 // array('A' => array('B' => 'C')) to
 // array('A.B' => 'C')
 // array(
@@ -1597,10 +1593,9 @@ function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FA
 //	'G.H'     => '2',
 //	'A.B.C.D' => '1',
 // )
-function array_daruma_otoshi(& $array, $delim = '.', $reverse = FALSE, $recurse = FALSE)
+function array_shrinkbranch_leaves(& $array, $delim = '.', $reverse = FALSE, $recurse = FALSE)
 {
 	$result = 0;
-
 	if (! is_array($array) || empty($array)) return $result;
 
 	foreach(array_keys($array) as $key) {
@@ -1619,7 +1614,7 @@ function array_daruma_otoshi(& $array, $delim = '.', $reverse = FALSE, $recurse 
 
 	// Rescan (Recurse)
 	if ($recurse && $result) {
-		$result = array_daruma_otoshi($array, $delim, $reverse, $recurse);
+		$result = array_shrinkbranch_leaves($array, $delim, $reverse, $recurse);
 	}
 
 	return $result; // Tell me how many
@@ -1638,7 +1633,7 @@ function array_daruma_otoshi(& $array, $delim = '.', $reverse = FALSE, $recurse 
 //		),
 //	),
 //);
-//array_daruma_otoshi($a, '.', TRUE);
+//array_shrinkbranch_leaves($a, '.', TRUE);
 //var_export($a);
 
 //$a = array (
@@ -1650,7 +1645,7 @@ function array_daruma_otoshi(& $array, $delim = '.', $reverse = FALSE, $recurse 
 //		),
 //	),
 //);
-//array_daruma_otoshi($a, '.', TRUE);
+//array_shrinkbranch_leaves($a, '.', TRUE);
 //var_export($a);
 
 
