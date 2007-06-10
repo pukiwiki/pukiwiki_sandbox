@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.172 2007/06/10 06:08:43 henoheno Exp $
+// $Id: spam.php,v 1.173 2007/06/10 07:41:24 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1642,14 +1642,19 @@ function array_shrinkbranch_leaves(& $array, $delim = '.', $reverse = FALSE, $re
 //var_export($a);
 
 
-function domain_responsibility($fqdn = 'fqdn.example.com', $implicit = TRUE)
+
+// Check responsibility-root of the FQDN
+// 'foobar.example.co.jp'      => 'example.co.jp'      (.co.jp      seems public)
+// 'foobar.example.act.edu.au' => 'example.act.edu.au' (.act.edu.au seems public)
+// 'foobar.example.com'        => 'example.com'        (.com        seems public)
+function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = TRUE)
 {
 	// Domains who have 2nd and/or 3rd level domains
 	static $domain = array(
 
 		// ccTLD Australia http://www.auda.org.au/ http://www.aunic.net/ http://www.ausregistry.com.au/
 		'au' => array(
-			// .au Second Level Domains http://www.auda.org.au/domains/
+			// ".au Second Level Domains" http://www.auda.org.au/domains/
 			'asn'   => TRUE,
 			'com'   => TRUE,
 			'conf'  => TRUE,
@@ -1683,15 +1688,82 @@ function domain_responsibility($fqdn = 'fqdn.example.com', $implicit = TRUE)
 		// ccTLD Japan http://jprs.co.jp/en/ http://whois.jprs.jp/en/
 		'jp' => array(
 			// http://jprs.co.jp/en/jpdomain.html
+
+			// Organizational
 			'ac'  => TRUE,
 			'ad'  => TRUE,
 			'co'  => TRUE,
-			'geo' => TRUE,
 			'go'  => TRUE,
 			'gr'  => TRUE,
 			'lg'  => TRUE,
 			'ne'  => TRUE,
 			'or'  => TRUE,
+
+			// Geographic
+			//
+			// Example of 3rd level domains
+			//'kumamoto'  => array(
+			//	// http://www.pref.kumamoto.jp/link/list.asp#4
+			//	'amakusa'   => TRUE,
+			//	'hitoyoshi' => TRUE,
+			//	'jonan'     => TRUE,
+			//	'kumamoto'  => TRUE,
+			//	...
+			//),
+			'aichi'     => TRUE,
+			'akita'     => TRUE,
+			'aomori'    => TRUE,
+			'chiba'     => TRUE,
+			'ehime'     => TRUE,
+			'fukui'     => TRUE,
+			'fukuoka'   => TRUE,
+			'fukushima' => TRUE,
+			'gifu'      => TRUE,
+			'gunma'     => TRUE,
+			'hiroshima' => TRUE,
+			'hokkaido'  => TRUE,
+			'hyogo'     => TRUE,
+			'ibaraki'   => TRUE,
+			'ishikawa'  => TRUE,
+			'iwate'     => TRUE,
+			'kagawa'    => TRUE,
+			'kagoshima' => TRUE,
+			'kanagawa'  => TRUE,
+			'kawasaki'  => TRUE,
+			'kitakyushu'=> TRUE,
+			'kobe'      => TRUE,
+			'kochi'     => TRUE,
+			'kumamoto'  => TRUE,
+			'kyoto'     => TRUE,
+			'mie'       => TRUE,
+			'miyagi'    => TRUE,
+			'miyazaki'  => TRUE,
+			'nagano'    => TRUE,
+			'nagasaki'  => TRUE,
+			'nagoya'    => TRUE,
+			'nara'      => TRUE,
+			'niigata'   => TRUE,
+			'oita'      => TRUE,
+			'okayama'   => TRUE,
+			'okinawa'   => TRUE,
+			'osaka'     => TRUE,
+			'saga'      => TRUE,
+			'saitama'   => TRUE,
+			'sapporo'   => TRUE,
+			'sendai'    => TRUE,
+			'shiga'     => TRUE,
+			'shimane'   => TRUE,
+			'shizuoka'  => TRUE,
+			'tochigi'   => TRUE,
+			'tokushima' => TRUE,
+			'tokyo'     => TRUE,
+			'tottori'   => TRUE,
+			'toyama'    => TRUE,
+			'wakayama'  => TRUE,
+			'yamagata'  => TRUE,
+			'yamaguchi' => TRUE,
+			'yamanashi' => TRUE,
+			'yokohama'  => TRUE,
 		),
 
 		// ccTLD Ukraine http://www.nic.net.ua/ http://whois.com.ua/
@@ -1746,6 +1818,27 @@ function domain_responsibility($fqdn = 'fqdn.example.com', $implicit = TRUE)
 			'zhitomir'   => TRUE,
 			'zp'         => TRUE,
 			'zt'         => TRUE,
+		),
+
+		// ccTLD United Kingdom http://www.nic.uk/
+		'uk' => array(
+			// http://www.nominet.org.uk/registrants/faq/#available
+			'co'     => TRUE,
+			'ltd'    => TRUE,
+			'me'     => TRUE,
+			'net'    => TRUE,
+			'nic'    => TRUE,
+			'org'    => TRUE,
+			'plc'    => TRUE,
+			'sch'    => TRUE,
+			
+			// "Delegated Second Level Domains" http://www.nominet.org.uk/registrants/aboutdomainnames/sld/delegated/
+			'ac'     => TRUE,
+			'gov'    => TRUE,
+			'mil'    => TRUE,
+			'mod'    => TRUE,
+			'nhs'    => TRUE,
+			'police' => TRUE,
 		),
 
 	);
