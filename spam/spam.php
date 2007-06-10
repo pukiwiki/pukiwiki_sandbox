@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.171 2007/06/09 03:16:08 henoheno Exp $
+// $Id: spam.php,v 1.172 2007/06/10 06:08:43 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1409,8 +1409,10 @@ function array_flat_leaves($array, $unique = TRUE)
 }
 
 // An array() to an array leaf
-function array_leaf($array = array('A', 'B', 'C.D'), $stem = FALSE, $edge = array())
+function array_leaf($array = array('A', 'B', 'C.D'), $stem = FALSE, $edge = TRUE)
 {
+	if (! is_array($array)) return $array;
+
 	$leaf = array();
 	$tmp  = & $leaf;
 	foreach($array as $arg) {
@@ -1638,6 +1640,144 @@ function array_shrinkbranch_leaves(& $array, $delim = '.', $reverse = FALSE, $re
 //);
 //array_shrinkbranch_leaves($a, '.', TRUE);
 //var_export($a);
+
+
+function domain_responsibility($fqdn = 'fqdn.example.com', $implicit = TRUE)
+{
+	// Domains who have 2nd and/or 3rd level domains
+	static $domain = array(
+
+		// ccTLD Australia http://www.auda.org.au/ http://www.aunic.net/ http://www.ausregistry.com.au/
+		'au' => array(
+			// .au Second Level Domains http://www.auda.org.au/domains/
+			'asn'   => TRUE,
+			'com'   => TRUE,
+			'conf'  => TRUE,
+			'csiro' => TRUE,
+			'edu'   => array(	// http://www.domainname.edu.au/
+				'act' => TRUE,
+				'nt'  => TRUE,
+				'nsw' => TRUE,
+				'qld' => TRUE,
+				'sa'  => TRUE,
+				'tas' => TRUE,
+				'vic' => TRUE,
+				'wa'  => TRUE,
+			),
+			'gov'   => array(
+				'act' => TRUE,	// Australian Capital Territory
+				'nt'  => TRUE,	// Northern Territory
+				'nsw' => TRUE,	// New South Wales
+				'qld' => TRUE,	// Queensland
+				'sa'  => TRUE,	// South Australia
+				'tas' => TRUE,	// Tasmania
+				'vic' => TRUE,	// Victoria
+				'wa'  => TRUE,	// Western Australia
+			),
+			'id'    => TRUE,
+			'net'   => TRUE,
+			'org'   => TRUE,
+			'info'  => TRUE,
+		),
+
+		// ccTLD Japan http://jprs.co.jp/en/ http://whois.jprs.jp/en/
+		'jp' => array(
+			// http://jprs.co.jp/en/jpdomain.html
+			'ac'  => TRUE,
+			'ad'  => TRUE,
+			'co'  => TRUE,
+			'geo' => TRUE,
+			'go'  => TRUE,
+			'gr'  => TRUE,
+			'lg'  => TRUE,
+			'ne'  => TRUE,
+			'or'  => TRUE,
+		),
+
+		// ccTLD Ukraine http://www.nic.net.ua/ http://whois.com.ua/
+		'ua' => array(
+			'cherkassy'  => TRUE,	// www.cherkassy.ua
+			'chernigov'  => TRUE,	
+			'chernovtsy' => TRUE,
+			'ck'         => TRUE,
+			'cn'         => TRUE,
+			'com'        => TRUE,
+			'crimea'     => TRUE,
+			'cv'         => TRUE,
+			'dn'         => TRUE,
+			'dnepropetrovsk' => TRUE,
+			'donetsk'    => TRUE,
+			'dp'         => TRUE,
+			'edu'        => TRUE,
+			'gov'        => TRUE,
+			'if'         => TRUE,
+			'ivano-frankivsk' => TRUE,
+			'kh'         => TRUE,
+			'kharkov'    => TRUE,
+			'kherson'    => TRUE,
+			'kiev'       => TRUE,
+			'kirovograd' => TRUE,
+			'km'         => TRUE,
+			'kr'         => TRUE,
+			'ks'         => TRUE,
+			'lg'         => TRUE,
+			'lugansk'    => TRUE,
+			'lutsk'      => TRUE,
+			'lviv'       => TRUE,
+			'mk'         => TRUE,
+			'net'        => TRUE,
+			'nikolaev'   => TRUE,
+			'od'         => TRUE,
+			'odessa'     => TRUE,
+			'org'        => TRUE,
+			'pl'         => TRUE,
+			'poltava'    => TRUE,
+			'rovno'      => TRUE,
+			'rv'         => TRUE,
+			'sebastopol' => TRUE,
+			'sumy'       => TRUE,
+			'te'         => TRUE,
+			'ternopil'   => TRUE,
+			'uz'         => TRUE,
+			'uzhgorod'   => TRUE,
+			'vinnica'    => TRUE,
+			'vn'         => TRUE,
+			'zaporizhzhe' => TRUE,
+			'zhitomir'   => TRUE,
+			'zp'         => TRUE,
+			'zt'         => TRUE,
+		),
+
+	);
+
+	if (! is_string($fqdn)) return '';
+
+	$result  = array();
+	$dcursor = & $domain;
+	$array   = array_reverse(explode('.', $fqdn));
+	$i = 0;
+	while(TRUE) {
+		$acursor = $array[$i];
+		if (is_array($dcursor) && isset($dcursor[$acursor])) {
+			$result[] = & $array[$i];
+			$dcursor  = & $dcursor[$acursor];
+		} else {
+			if (isset($acursor)) {
+				$result[] = & $array[$i];	// Whois servers must know this subdomain
+			}
+			break;
+		}
+		++$i;
+	}
+
+	// Implicit responsibility: Top-Level-Domains must not be yours
+	// 'bar.foo.something' => 'foo.something'
+	if ($implicit && count($result) == 1 && count($array) > 1) {
+		$result[] = & $array[1];
+	}
+
+	return $result ? implode('.', array_reverse($result)) : '';
+}
 
 
 // ---------------------
