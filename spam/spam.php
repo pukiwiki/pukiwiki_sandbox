@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.173 2007/06/10 07:41:24 henoheno Exp $
+// $Id: spam.php,v 1.174 2007/06/10 14:24:16 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1690,18 +1690,18 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			// http://jprs.co.jp/en/jpdomain.html
 
 			// Organizational
-			'ac'  => TRUE,
-			'ad'  => TRUE,
-			'co'  => TRUE,
-			'go'  => TRUE,
-			'gr'  => TRUE,
-			'lg'  => TRUE,
-			'ne'  => TRUE,
-			'or'  => TRUE,
+			'ac' => TRUE,
+			'ad' => TRUE,
+			'co' => TRUE,
+			'go' => TRUE,
+			'gr' => TRUE,
+			'lg' => TRUE,
+			'ne' => TRUE,
+			'or' => TRUE,
 
 			// Geographic
 			//
-			// Example of 3rd level domains
+			// Examples for 3rd level domains
 			//'kumamoto'  => array(
 			//	// http://www.pref.kumamoto.jp/link/list.asp#4
 			//	'amakusa'   => TRUE,
