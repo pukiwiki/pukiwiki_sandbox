@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.115 2007/06/09 14:28:11 henoheno Exp $
+// $Id: spam.ini.php,v 1.116 2007/06/10 14:24:38 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4222,6 +4222,7 @@ $blocklist['C'] = array(
 	'.bestrademark.info',	// by victoria (niko16d at yahoo.com), redirect to majordomo.ru
 	'.bestshopfinder.info',
 	'.bloggerblast.com',	// by B. Kadrie (domains at starwhitehosting.com)
+	'.blogest.org',	// 203.116.63.68 by Bobby.R.Kightlinger at pookmail.com, / seems blank
 	'.businessplace.biz',	// by Grenchenko Ivan Petrovich (eurogogi at yandex.ru)
 	'.capital2u.info',		// by Delbert.A.Henry at dodgeit.com
 	'.casa-olympus.com',	// "UcoZ WEB-SERVICES"
@@ -4379,6 +4380,7 @@ $blocklist['C'] = array(
 	'.yoi4.net',			// by Ryouhei Nakamura (888 at sympathys.com), tell me why so many blogs with popular issues and _diverted design from blog.livedoor.jp_ around here.
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
+
 
 	// C-3: Not classifiable (information wanted)
 	//
