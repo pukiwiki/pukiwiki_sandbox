@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.116 2007/06/10 14:24:38 henoheno Exp $
+// $Id: spam.ini.php,v 1.117 2007/06/10 14:44:22 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -37,7 +37,7 @@ $blocklist['list'] = array(
 
 	'goodhost'	=> FALSE,
 	'A-1'		=> TRUE,
-	'A-2'		=> TRUE,
+	//'A-2'		=> TRUE,
 	'B-1'		=> TRUE,
 	'B-2'		=> TRUE,
 	'C'			=> TRUE,
@@ -1318,26 +1318,27 @@ $blocklist['A-2'] = array(
 
 	// A-2: Dynamic DNS, Dynamic IP services, DNS vulnerabilities, or another DNS cases
 	//
-	//'ddns.ru' => array('*.bpa.nu'),
-	//'*.dnip.net',
-	//'*.dyndns.*',
-		//'*.dyndns.dk',
-		//'*.dyndns.co.za',
-		//'*.dyndns.nemox.net',
-	//'DyDNS.com' => array(
-	//	'*.ath.cx',
-	//	'*.dnsalias.org',
-	//	'*.dyndns.org',
-	//	'*.homeip.net',
-	//	'*.homelinux.net',
-	//	'*.mine.nu',
-	//	'*.shacknet.nu',
-	//),
-	//'*.dynu.com',
-	//'*.nerdcamp.net',
-	//'*.zenno.info',
-	//'.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '.com'
-				// and all non-recorded domains redirect to 'agoga.com' now
+	//'*.dyndns.*',	// Wildcard for dyndns
+	//
+	'ddns.ru' => array('*.bpa.nu'),
+	'*.dnip.net',
+	'*.dyndns.co.za',
+	'*.dyndns.dk',
+	'*.dyndns.nemox.net',
+	'DyDNS.com' => array(
+		'*.ath.cx',
+		'*.dnsalias.org',
+		'*.dyndns.org',
+		'*.homeip.net',
+		'*.homelinux.net',
+		'*.mine.nu',
+		'*.shacknet.nu',
+	),
+	'*.dynu.com',
+	'*.nerdcamp.net',
+	'*.zenno.info',
+	'.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '.com'
+			// and all non-recorded domains redirect to 'agoga.com' now
 );
 
 
