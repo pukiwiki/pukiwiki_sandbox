@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.118 2007/06/11 14:29:47 henoheno Exp $
+// $Id: spam.ini.php,v 1.119 2007/06/11 15:05:40 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4184,13 +4184,18 @@ $blocklist['C'] = array(
 		'.playonlinenc.com',
 		'.playboss-jp.com',
 	),
-	'DigiRock Inc.' => array(
+	'Digi-Rock.com' => array(
 		'.rom776.com',
 		// owner-organization: DIGIROCK, INC.
 		// owner-email: domain-contact at digi-rock.com
 		// with an external ad-and-JavaScript,
 		// says "This site introduces rom776."(Note: Actual rom776 is the another site, http://776.netgamers.jp/ro/ , says s/he don't own rom776.com)
 		// "Actually, this site has been motivated by a desire to researching search-engine-rank of this site, and researching how the people place this site.".
+	),
+	'snap990 at yahoo.com' => array(	// by John Glade (snap990 at yahoo.com)
+		'.ipod-application.info',	// NO IP
+		'.love-total.net',			// 74.50.97.136
+		'.stonesex.info',			// 74.50.97.136
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -4382,7 +4387,6 @@ $blocklist['C'] = array(
 	'.yoi4.net',			// by Ryouhei Nakamura (888 at sympathys.com), tell me why so many blogs with popular issues and _diverted design from blog.livedoor.jp_ around here.
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
-
 
 	// C-3: Not classifiable (information wanted)
 	//
