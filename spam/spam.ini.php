@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.117 2007/06/10 14:44:22 henoheno Exp $
+// $Id: spam.ini.php,v 1.118 2007/06/11 14:29:47 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1419,6 +1419,7 @@ $blocklist['B-1'] = array(
 	'Apple.com' => array('idisk.mac.com'),
 	'*.askfaq.org',
 	'*.atfreeforum.com',
+	'*.atwiki.com',			//  by Masakazu Ohno (s071011 at sys.wakayama-u.ac.jp)
 	'*.asphost4free.com',
 	'basenow.com',
 	'*.bb-fr.com',
