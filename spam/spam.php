@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.174 2007/06/10 14:24:16 henoheno Exp $
+// $Id: spam.php,v 1.175 2007/06/11 14:28:07 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1652,7 +1652,7 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 	// Domains who have 2nd and/or 3rd level domains
 	static $domain = array(
 
-		// ccTLD Australia http://www.auda.org.au/ http://www.aunic.net/ http://www.ausregistry.com.au/
+		// ccTLD: Australia http://www.auda.org.au/ http://www.aunic.net/ http://www.ausregistry.com.au/
 		'au' => array(
 			// ".au Second Level Domains" http://www.auda.org.au/domains/
 			'asn'   => TRUE,
@@ -1685,7 +1685,7 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'info'  => TRUE,
 		),
 
-		// ccTLD Japan http://jprs.co.jp/en/ http://whois.jprs.jp/en/
+		// ccTLD: Japan http://jprs.co.jp/en/ http://whois.jprs.jp/en/
 		'jp' => array(
 			// http://jprs.co.jp/en/jpdomain.html
 
@@ -1766,7 +1766,7 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'yokohama'  => TRUE,
 		),
 
-		// ccTLD Ukraine http://www.nic.net.ua/ http://whois.com.ua/
+		// ccTLD: Ukraine http://www.nic.net.ua/ http://whois.com.ua/
 		'ua' => array(
 			'cherkassy'  => TRUE,	// www.cherkassy.ua
 			'chernigov'  => TRUE,	
@@ -1820,7 +1820,7 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'zt'         => TRUE,
 		),
 
-		// ccTLD United Kingdom http://www.nic.uk/
+		// ccTLD: United Kingdom http://www.nic.uk/
 		'uk' => array(
 			// http://www.nominet.org.uk/registrants/faq/#available
 			'co'     => TRUE,
@@ -1841,6 +1841,77 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'police' => TRUE,
 		),
 
+		// ccTLD: United States of America http://nic.us/ http://whois.us/
+		'us' => array( // RFC1480
+
+			// State abbreviations for postal codes http://www.usps.com/ncsc/lookups/abbreviations.html
+			'ak' => TRUE, // Alaska
+			'al' => TRUE, // Alabama
+			'ar' => TRUE, // Arkansas
+			'as' => TRUE, // American samoa
+			'az' => TRUE, // Arizona
+			'ca' => TRUE, // California
+			'co' => TRUE, // Colorado
+			'ct' => TRUE, // Connecticut
+			'dc' => TRUE, // District of Columbia
+			'de' => TRUE, // Delaware
+			'fl' => TRUE, // Florida
+			'fm' => TRUE, // Federated states of Micronesia
+			'ga' => TRUE, // Georgia
+			'gu' => TRUE, // Guam
+			'hi' => TRUE, // Hawaii
+			'ia' => TRUE, // Iowa
+			'id' => TRUE, // Idaho
+			'il' => TRUE, // Illinois
+			'in' => TRUE, // Indiana
+			'ks' => TRUE, // Kansas
+			'ky' => TRUE, // Kentucky
+			'la' => TRUE, // Louisiana
+			'ma' => TRUE, // Massachusetts
+			'md' => TRUE, // Maryland
+			'me' => TRUE, // Maine
+			'mh' => TRUE, // Marshall Islands
+			'mi' => TRUE, // Michigan
+			'mn' => TRUE, // Minnesota
+			'mo' => TRUE, // Missouri
+			'mp' => TRUE, // Northern mariana islands
+			'ms' => TRUE, // Mississippi
+			'mt' => TRUE, // Montana
+			'nc' => TRUE, // North Carolina
+			'nd' => TRUE, // North Dakota
+			'ne' => TRUE, // Nebraska
+			'nh' => TRUE, // New Hampshire
+			'nj' => TRUE, // New Jersey
+			'nm' => TRUE, // New Mexico
+			'nv' => TRUE, // Nevada
+			'ny' => TRUE, // New York
+			'oh' => TRUE, // Ohio
+			'ok' => TRUE, // Oklahoma
+			'or' => TRUE, // Oregon
+			'pa' => TRUE, // Pennsylvania
+			'pr' => TRUE, // Puerto Rico
+			'pw' => TRUE, // Palau
+			'ri' => TRUE, // Rhode Island
+			'sc' => TRUE, // South Carolina
+			'sd' => TRUE, // South Dakota
+			'tn' => TRUE, // Tennessee
+			'tx' => TRUE, // Texas
+			'ut' => TRUE, // Utah
+			'va' => TRUE, // Virginia
+			'vi' => TRUE, // Virgin Islands
+			'vt' => TRUE, // Vermont
+			'wa' => TRUE, // Washington
+			'wi' => TRUE, // Wisconsin
+			'wv' => TRUE, // West Virginia
+			'wy' => TRUE, // Wyoming
+
+			// Others
+			'dni',
+			'fed',
+			'isa',
+			'kids',
+			'nsn',
+		),
 	);
 
 	if (! is_string($fqdn)) return '';
