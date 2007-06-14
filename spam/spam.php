@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.175 2007/06/11 14:28:07 henoheno Exp $
+// $Id: spam.php,v 1.176 2007/06/14 14:57:37 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1644,17 +1644,22 @@ function array_shrinkbranch_leaves(& $array, $delim = '.', $reverse = FALSE, $re
 
 
 // Check responsibility-root of the FQDN
-// 'foobar.example.co.jp'      => 'example.co.jp'      (.co.jp      seems public)
-// 'foobar.example.act.edu.au' => 'example.act.edu.au' (.act.edu.au seems public)
-// 'foobar.example.com'        => 'example.com'        (.com        seems public)
-function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = TRUE)
+// 'foo.bar.example.com'        => 'example.com'        (.com        has the last whois for it)
+// 'foo.bar.example.au'         => 'example.au'         (.au         has the last whois for it)
+// 'foo.bar.example.edu.au'     => 'example.edu.au'     (.edu.au     has the last whois for it)
+// 'foo.bar.example.act.edu.au' => 'example.act.edu.au' (.act.edu.au has the last whois for it)
+function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
 {
 	// Domains who have 2nd and/or 3rd level domains
 	static $domain = array(
 
-		// ccTLD: Australia http://www.auda.org.au/ http://www.aunic.net/ http://www.ausregistry.com.au/
+		// ccTLD: Australia
+		// http://www.auda.org.au/
+		// NIC  : http://www.aunic.net/
+		// Whois: http://www.ausregistry.com.au/
 		'au' => array(
-			// ".au Second Level Domains" http://www.auda.org.au/domains/
+			// .au Second Level Domains
+			// http://www.auda.org.au/domains/
 			'asn'   => TRUE,
 			'com'   => TRUE,
 			'conf'  => TRUE,
@@ -1685,8 +1690,104 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'info'  => TRUE,
 		),
 
-		// ccTLD: Japan http://jprs.co.jp/en/ http://whois.jprs.jp/en/
+		// ccTLD: China
+		// NIC  : http://www.cnnic.net.cn/en/index/
+		// Whois: http://ewhois.cnnic.cn/
+		'cn' => array(
+			// Provisional Administrative Rules for Registration of Domain Names in China
+			// http://www.cnnic.net.cn/html/Dir/2003/11/27/1520.htm
+
+			// Organizational
+			'ac'  => TRUE,
+			'com' => TRUE,
+			'edu' => TRUE,
+			'gov' => TRUE,
+			'net' => TRUE,
+			'org' => TRUE,
+
+			// Geographic
+			'ah' => TRUE,
+			'bj' => TRUE,
+			'cq' => TRUE,
+			'fj' => TRUE,
+			'gd' => TRUE,
+			'gs' => TRUE,
+			'gx' => TRUE,
+			'gz' => TRUE,
+			'ha' => TRUE,
+			'hb' => TRUE,
+			'he' => TRUE,
+			'hi' => TRUE,
+			'hk' => TRUE,
+			'hl' => TRUE,
+			'hn' => TRUE,
+			'jl' => TRUE,
+			'js' => TRUE,
+			'jx' => TRUE,
+			'ln' => TRUE,
+			'mo' => TRUE,
+			'nm' => TRUE,
+			'nx' => TRUE,
+			'qh' => TRUE,
+			'sc' => TRUE,
+			'sd' => TRUE,
+			'sh' => TRUE,
+			'sn' => TRUE,
+			'sx' => TRUE,
+			'tj' => TRUE,
+			'tw' => TRUE,
+			'xj' => TRUE,
+			'xz' => TRUE,
+			'yn' => TRUE,
+			'zj' => TRUE,
+		),
+
+		// ccTLD: South Korea
+		// NIC  : http://www.nic.or.kr/english/
+		// Whois: http://whois.nida.or.kr/english/
+		'kr' => array(
+			// .kr domain policy [appendix 1] : Qualifications for Second Level Domains
+			// http://domain.nida.or.kr/eng/policy.jsp
+
+			// Organizational
+			'co'  => TRUE,
+			'ne ' => TRUE,
+			'or ' => TRUE,
+			're ' => TRUE,
+			'pe'  => TRUE,
+			'go ' => TRUE,
+			'mil' => TRUE,
+			'ac'  => TRUE,
+			'hs'  => TRUE,
+			'ms'  => TRUE,
+			'es'  => TRUE,
+			'sc'  => TRUE,
+			'kg'  => TRUE,
+
+			// Geographic
+			'seoul'     => TRUE,
+			'busan'     => TRUE,
+			'daegu'     => TRUE,
+			'incheon'   => TRUE,
+			'gwangju'   => TRUE,
+			'daejeon'   => TRUE,
+			'ulsan'     => TRUE,
+			'gyeonggi'  => TRUE,
+			'gangwon'   => TRUE,
+			'chungbuk'  => TRUE,
+			'chungnam'  => TRUE,
+			'jeonbuk'   => TRUE,
+			'jeonnam'   => TRUE,
+			'gyeongbuk' => TRUE,
+			'gyeongnam' => TRUE,
+			'jeju'      => TRUE,
+		),
+
+		// ccTLD: Japan
+		// NIC  : http://jprs.co.jp/en/
+		// Whois: http://whois.jprs.jp/en/
 		'jp' => array(
+			// Guide to JP Domain Name
 			// http://jprs.co.jp/en/jpdomain.html
 
 			// Organizational
@@ -1766,8 +1867,13 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'yokohama'  => TRUE,
 		),
 
-		// ccTLD: Ukraine http://www.nic.net.ua/ http://whois.com.ua/
+		// ccTLD: Ukraine
+		// NIC  : http://www.nic.net.ua/
+		// Whois: http://whois.com.ua/
 		'ua' => array(
+			// policy for alternative 2nd level domain names (a2ld)
+			// http://www.nic.net.ua/doc/a2ld
+			// http://whois.com.ua/
 			'cherkassy'  => TRUE,	// www.cherkassy.ua
 			'chernigov'  => TRUE,	
 			'chernovtsy' => TRUE,
@@ -1820,9 +1926,11 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'zt'         => TRUE,
 		),
 
-		// ccTLD: United Kingdom http://www.nic.uk/
+		// ccTLD: United Kingdom
+		// NIC  : http://www.nic.uk/
 		'uk' => array(
-			// http://www.nominet.org.uk/registrants/faq/#available
+			// Second Level Domains
+			// http://www.nic.uk/registrants/aboutdomainnames/sld/
 			'co'     => TRUE,
 			'ltd'    => TRUE,
 			'me'     => TRUE,
@@ -1832,7 +1940,8 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'plc'    => TRUE,
 			'sch'    => TRUE,
 			
-			// "Delegated Second Level Domains" http://www.nominet.org.uk/registrants/aboutdomainnames/sld/delegated/
+			// Delegated Second Level Domains
+			// http://www.nic.uk/registrants/aboutdomainnames/sld/delegated/
 			'ac'     => TRUE,
 			'gov'    => TRUE,
 			'mil'    => TRUE,
@@ -1841,10 +1950,14 @@ function domain_responsibility($fqdn = 'fqdn.foo.bar.example.com', $implicit = T
 			'police' => TRUE,
 		),
 
-		// ccTLD: United States of America http://nic.us/ http://whois.us/
-		'us' => array( // RFC1480
+		// ccTLD: United States of America
+		// NIC  : http://nic.us/
+		// Whois: http://whois.us/
+		'us' => array(
+			// RFC1480
 
-			// State abbreviations for postal codes http://www.usps.com/ncsc/lookups/abbreviations.html
+			// United States Postal Service: State abbreviations (for postal codes)
+			// http://www.usps.com/ncsc/lookups/abbreviations.html
 			'ak' => TRUE, // Alaska
 			'al' => TRUE, // Alabama
 			'ar' => TRUE, // Arkansas
