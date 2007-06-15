@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.176 2007/06/14 14:57:37 henoheno Exp $
+// $Id: spam.php,v 1.177 2007/06/15 14:46:15 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -43,10 +43,12 @@ function preg_grep_invert($pattern = '//', $input = array())
 // NOTE: If the same data exists, it must be corrupted.
 function var_export_shrink($expression, $return = FALSE, $ignore_numeric_keys = FALSE)
 {
-	$result =preg_replace(
+	$result = var_export($expression, TRUE);
+
+	$result = preg_replace(
 		// Remove a newline and spaces
 		'# => \n *array \(#', ' => array (',
-		var_export($expression, TRUE)
+		$result
 	);
 
 	if ($ignore_numeric_keys) {
@@ -1492,40 +1494,60 @@ function summarize_detail_newtral($progress = array())
 	    empty($progress['hosts'])) return '';
 
 	$result = '';
-	if (FALSE) {
-		// Sort by domain
-		$tmp = array();
-		foreach($progress['hosts'] as $value) {
-			$tmp[delimiter_reverse($value)] = $value;
-		}
-		ksort($tmp, SORT_STRING);
-		$result = count($tmp) . ' (' .implode(', ', $tmp) . ')';
-	} else {
-		$tmp = array();
-		foreach($progress['hosts'] as $value) {
-			$tmp = array_merge_recursive(
-				$tmp,
-				array_leaf(explode('.', delimiter_reverse($value)), TRUE, $value)
-			);
+
+	// Generate a $trie
+	$trie = array();
+	foreach($progress['hosts'] as $value) {
+
+		// Try to shorten (pre) -- array('example.com', 'bar', 'foo')
+		$resp = whois_responsibility($value);	// 'example.com'
+		$rest = rtrim(substr($value, 0, - strlen($resp)), '.');	// 'foo.bar'
+		if ($rest) {
+			$parts = explode('.', delimiter_reverse('.' . $rest));
+			array_unshift($parts, $resp);
+		} else {
+			$parts = array($resp, $rest);
 		}
 
-//var_dump($tmp);
-// TODO: IP address 1.2.3.4 => "0"-3-2-1 by array_shrinkbranch_leaves()
-
-		array_shrinkbranch_leaves($tmp, '.', TRUE); // "domain.tld"
-		array_joinbranch_leaf($tmp, '.', 0, TRUE);
-		foreach($tmp as $key => $value) {
-			if (is_array($value)) {
-				ksort($tmp[$key], SORT_STRING);
-				$tmp[$key] = implode(', ', array_flat_leaves($value));
-			}
-		}
-		ksort($tmp, SORT_STRING);
-
-		$result = var_export_shrink($tmp, TRUE, TRUE);
+		$trie = array_merge_recursive(
+			$trie,
+			array_leaf($parts, TRUE, $value)
+		);
 	}
 
-	return $result;
+	// Try to shorten (post, non-recursive) -- 'foo.bar.example.com'
+	array_joinbranch_leaf($trie, '.', 0, TRUE);
+
+	// Sort and flatten -- 'A.foo.bar.example.com, B.foo.bar.example.com'
+	foreach(array_keys($trie) as $key) {
+		if (is_array($trie[$key])) {
+			ksort_by_domain($trie[$key]);
+			$trie[$key] = implode(', ', array_flat_leaves($trie[$key]));
+		}
+	}
+
+	// TODO: ltrim('.') from $trie
+
+	ksort_by_domain($trie);
+
+	// TODO: from array('foobar' => 'foobar') to 'foobar'
+
+	return var_export_shrink($trie, TRUE, TRUE);
+}
+
+// ksort() by domain
+function ksort_by_domain(& $array)
+{
+	$sort = array();
+	foreach(array_keys($array) as $key) {
+		$sort[delimiter_reverse($key)] = $key;
+	}
+	ksort($sort, SORT_STRING);
+	$result = array();
+	foreach($sort as $key) {
+		$result[$key] = & $array[$key];
+	}
+	$array = $result;
 }
 
 // array('F' => array('B' => array('C' => array('d' => array('' => 'foobar')))))
@@ -1567,88 +1589,12 @@ function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FA
 }
 
 
-// array('A' => array('B' => 'C')) to
-// array('A.B' => 'C')
-// array(
-//	'A' => array(
-//		'B' => array(
-//			'C' => array(
-//				'D' => '1'
-//			),
-//		),
-//	),
-//	'G' => array(
-//		'H' => '2'
-//	),
-// )
-// to
-// array (
-//	'G.H'     => '2',
-//	'A.B.C.D' => '1',
-// )
-function array_shrinkbranch_leaves(& $array, $delim = '.', $reverse = FALSE, $recurse = FALSE)
-{
-	$result = 0;
-	if (! is_array($array) || empty($array)) return $result;
-
-	foreach(array_keys($array) as $key) {
-		$branch = & $array[$key];
-		if (! is_array($branch) || empty($branch)) continue;
-
-		foreach(array_keys($branch) as $bkey) {
-			$joinkey = $reverse ?
-				$bkey . $delim . $key :
-				$key  . $delim . $bkey;
-			$array[$joinkey] = & $branch[$bkey];
-			unset($array[$key]);
-			++$result;
-		}
-	}
-
-	// Rescan (Recurse)
-	if ($recurse && $result) {
-		$result = array_shrinkbranch_leaves($array, $delim, $reverse, $recurse);
-	}
-
-	return $result; // Tell me how many
-}
-//$a = array (
-//	'edu' => array (
-//		'berkeley' => array (
-//			'polisci' => array (
-//				'' => 'polisci.berkeley.edu',
-//			),
-//		),
-//		'cmich' => array (
-//			'rso' => array (
-//				'' => 'rso.cmich.edu',
-//			),
-//		),
-//	),
-//);
-//array_shrinkbranch_leaves($a, '.', TRUE);
-//var_export($a);
-
-//$a = array (
-//	'4' => array (
-//		'5' => array (
-//			'6' => array (
-//				'' => '7.8.9',
-//			),
-//		),
-//	),
-//);
-//array_shrinkbranch_leaves($a, '.', TRUE);
-//var_export($a);
-
-
-
 // Check responsibility-root of the FQDN
 // 'foo.bar.example.com'        => 'example.com'        (.com        has the last whois for it)
 // 'foo.bar.example.au'         => 'example.au'         (.au         has the last whois for it)
 // 'foo.bar.example.edu.au'     => 'example.edu.au'     (.edu.au     has the last whois for it)
 // 'foo.bar.example.act.edu.au' => 'example.act.edu.au' (.act.edu.au has the last whois for it)
-function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
+function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $implicit = TRUE)
 {
 	// Domains who have 2nd and/or 3rd level domains
 	static $domain = array(
@@ -1665,6 +1611,7 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
 			'conf'  => TRUE,
 			'csiro' => TRUE,
 			'edu'   => array(	// http://www.domainname.edu.au/
+				// Geographic
 				'act' => TRUE,
 				'nt'  => TRUE,
 				'nsw' => TRUE,
@@ -1675,6 +1622,7 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
 				'wa'  => TRUE,
 			),
 			'gov'   => array(
+				// Geographic
 				'act' => TRUE,	// Australian Capital Territory
 				'nt'  => TRUE,	// Northern Territory
 				'nsw' => TRUE,	// New South Wales
@@ -1874,8 +1822,8 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
 			// policy for alternative 2nd level domain names (a2ld)
 			// http://www.nic.net.ua/doc/a2ld
 			// http://whois.com.ua/
-			'cherkassy'  => TRUE,	// www.cherkassy.ua
-			'chernigov'  => TRUE,	
+			'cherkassy'  => TRUE,
+			'chernigov'  => TRUE,
 			'chernovtsy' => TRUE,
 			'ck'         => TRUE,
 			'cn'         => TRUE,
@@ -1954,8 +1902,16 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
 		// NIC  : http://nic.us/
 		// Whois: http://whois.us/
 		'us' => array(
-			// RFC1480
+			// See RFC1480
 
+			// Organizational
+			'dni',
+			'fed',
+			'isa',
+			'kids',
+			'nsn',
+
+			// Geographical
 			// United States Postal Service: State abbreviations (for postal codes)
 			// http://www.usps.com/ncsc/lookups/abbreviations.html
 			'ak' => TRUE, // Alaska
@@ -2017,13 +1973,6 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
 			'wi' => TRUE, // Wisconsin
 			'wv' => TRUE, // West Virginia
 			'wy' => TRUE, // Wyoming
-
-			// Others
-			'dni',
-			'fed',
-			'isa',
-			'kids',
-			'nsn',
 		),
 	);
 
@@ -2039,7 +1988,7 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $implicit = TRUE)
 			$result[] = & $array[$i];
 			$dcursor  = & $dcursor[$acursor];
 		} else {
-			if (isset($acursor)) {
+			if (! $parent && isset($acursor)) {
 				$result[] = & $array[$i];	// Whois servers must know this subdomain
 			}
 			break;
