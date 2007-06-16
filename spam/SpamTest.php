@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.13 2007/06/09 03:16:08 henoheno Exp $
+// $Id: SpamTest.php,v 1.14 2007/06/16 03:17:10 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -22,6 +22,44 @@ class SpamTest extends PHPUnit_TestCase
 			'[0]'		=> 0,
 			'[1]'		=> 1
 		);
+	}
+
+	function testFunc_strings()
+	{
+		// 1st argument: Null
+		$this->assertEquals('',  strings(NULL,  0));
+		$this->assertEquals('',  strings(TRUE,  0));
+		$this->assertEquals('',  strings(FALSE, 0));
+		$this->assertEquals('',  strings('',    0));
+		$this->assertEquals('0', strings(0,     0));
+		$this->assertEquals('1', strings(1,     0));
+
+		// Setup
+		$t1 = '1'    . "\n";
+		$t2 = '12'   . "\n";
+		$t3 = '123'  . "\n";
+		$t4 = '1234' . "\n";
+		$t5 = '12345';
+		$test = $t1 . $t2 . $t3 . $t4 . $t5;
+
+		// Minimum length
+		$this->assertEquals($t1 . $t2 . $t3 . $t4 . $t5, strings($test, -1));
+		$this->assertEquals($t1 . $t2 . $t3 . $t4 . $t5, strings($test,  0));
+		$this->assertEquals($t1 . $t2 . $t3 . $t4 . $t5, strings($test,  1));
+		$this->assertEquals(      $t2 . $t3 . $t4 . $t5, strings($test,  2));
+		$this->assertEquals(            $t3 . $t4 . $t5, strings($test,  3));
+		$this->assertEquals(                  $t4 . $t5, strings($test,  4));
+		$this->assertEquals(                  $t4 . $t5, strings($test)); // Default
+		$this->assertEquals(                        $t5, strings($test,  5));
+
+		// Preserve the last newline
+		$this->assertEquals($t4 . $t5,        strings($test       , 4));
+		$this->assertEquals($t4 . $t5 . "\n", strings($test . "\n", 4));
+
+		// Ignore sequential spaces, and spaces at the beginning/end of lines
+		$test = '   A' . '	' . '   ' . 'B	';
+		$this->assertEquals($test, strings($test, 0, FALSE));
+		$this->assertEquals('A B', strings($test, 0, TRUE ));
 	}
 
 	function testFunc_array_count_leaves()
