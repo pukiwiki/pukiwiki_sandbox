@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.183 2007/06/16 13:50:30 henoheno Exp $
+// $Id: spam.php,v 1.184 2007/06/16 15:04:46 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1687,6 +1687,25 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $i
 			'zj' => TRUE,
 		),
 
+		// ccTLD: India
+		// NIC  : http://www.inregistry.in/
+		// Whois: http://www.inregistry.in/whois_search/
+		'in' => array(
+			// Policies http://www.inregistry.in/policies/
+			'ac'   => TRUE,
+			'co'   => TRUE,
+			'firm' => TRUE,
+			'gen'  => TRUE,
+			'gov'  => TRUE,
+			'ind'  => TRUE,
+			'mil'  => TRUE,
+			'net'  => TRUE,
+			'org'  => TRUE,
+			'res'  => TRUE,
+			// Reserved Names by the government (for the 2nd level)
+			// http://www.inregistry.in/policies/reserved_names
+		),
+
 		// ccTLD: South Korea
 		// NIC  : http://www.nic.or.kr/english/
 		// Whois: http://whois.nida.or.kr/english/
@@ -1810,6 +1829,41 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $i
 			'yamaguchi' => TRUE,
 			'yamanashi' => TRUE,
 			'yokohama'  => TRUE,
+		),
+
+		// ccTLD: Mexico
+		// NIC  : http://www.nic.mx/
+		// Whois: http://www.nic.mx/es/Busqueda.Who_Is
+		'mx' => array(
+			// Politicas Generales de Nombres de Dominio
+			// http://www.nic.mx/es/Politicas?CATEGORY=INDICE
+			'com'  => TRUE,
+			'edu'  => TRUE,
+			'gob'  => TRUE,
+			'net'  => TRUE,
+			'org'  => TRUE,
+		),
+
+		// ccTLD: Taiwan
+		// NIC  : http://www.twnic.net.tw/
+		// Whois: http://www.twnic.net.tw/
+		'tw' => array(
+			// Guidelines for Administration of Domain Name Registration
+			// http://www.twnic.net.tw/english/dn/dn_02.htm
+			// II. Types of TWNIC Domain Names and Application Requirements
+			// http://www.twnic.net.tw/english/dn/dn_02_b.htm
+			'club' => TRUE,
+			'com'  => TRUE,
+			'ebiz' => TRUE,
+			'edu'  => TRUE,
+			'game' => TRUE,
+			'gov'  => TRUE,
+			'idv'  => TRUE,
+			'mil'  => TRUE,
+			'net'  => TRUE,
+			'org'  => TRUE,
+			// Reserved words for the 2nd level
+			// http://mydn.twnic.net.tw/en/dn02/INDEX.htm
 		),
 
 		// ccTLD: Ukraine
@@ -2016,8 +2070,8 @@ function spam_dispose()
 // NOTE: Call this function from various blocking feature, to disgueise the reason 'why blocked'
 function spam_exit($mode = '', $data = array())
 {
-
 	$exit = TRUE;
+
 	switch ($mode) {
 		case '':
 			echo("\n");
