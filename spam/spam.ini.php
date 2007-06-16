@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.120 2007/06/16 05:29:10 henoheno Exp $
+// $Id: spam.ini.php,v 1.121 2007/06/16 15:05:29 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4206,8 +4206,15 @@ $blocklist['C'] = array(
 		'.banchitos.info',
 		'.batareya.info',
 		'.blevota.info',
+		'.broneslon.info',
 		'.gamadril.info',
+		'.gipotenuza.info',
 		'.govnosaklo.info',
+	),
+	'84.252.148.120 etc' => array(
+		'.isurfind.ru',			// 84.252.148.120 by Egor S Naumov (prpramer at narod.ru)
+		'.planetavilton.info',	// 84.252.148.120
+		'.softfind.info',		// 84.252.148.80 by Dmitriy (dimamcd at yandex.ru)
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
