@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.179 2007/06/16 03:39:39 henoheno Exp $
+// $Id: spam.php,v 1.180 2007/06/16 04:34:42 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -111,7 +111,9 @@ function array_renumber_numeric_keys(& $array)
 // References:
 //   http://www.freebsd.org/cgi/man.cgi?query=strings (Man-page of GNU strings)
 //   http://www.pcre.org/pcre.txt
-function strings($binary = '', $min_len = 4, $ignore_space = FALSE, $multibyte = TRUE)
+// Note: mb_ereg_replace() is one of mbstring extension's functions
+//   and need to init its encoding.
+function strings($binary = '', $min_len = 4, $ignore_space = FALSE, $multibyte = FALSE)
 {
 	// String only
 	$binary = (is_array($binary) || $binary === TRUE) ? '' : strval($binary);
@@ -466,7 +468,7 @@ function spam_uri_removing_hocus_pocus($binary = '', $method = array())
 	}
 
  	// Removing sequential spaces and too short lines
-	$binary = strings($binary, $length, TRUE, TRUE);
+	$binary = strings($binary, $length, TRUE, FALSE); // Multibyte NOT needed
 
 	// Remove words (has no '<>[]:') between spaces
 	$binary = preg_replace('/[ \t][\w.,()\ \t]+[ \t]/', ' ', $binary);
@@ -2074,7 +2076,14 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 	if (empty($progress['is_spam'])) {
 		spam_dispose();
 	} else {
-		$target = strings($target, 0);	// Removing "\0" etc
+
+// TODO: detect encoding from $target for mbstring functions
+//		$tmp = array();
+//		foreach(array_keys($target) as $key) {
+//			$tmp[strings($key, 0, FALSE, TRUE)] = strings($target[$key], 0, FALSE, TRUE);	// Removing "\0" etc
+//		}
+//		$target = & $tmp;
+
 		pkwk_spamnotify($action, $page, $target, $progress, $method);
 		spam_exit($exitmode, $progress);
 	}
