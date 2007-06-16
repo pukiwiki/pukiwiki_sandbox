@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.177 2007/06/15 14:46:15 henoheno Exp $
+// $Id: spam.php,v 1.178 2007/06/16 03:23:34 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -111,38 +111,41 @@ function array_renumber_numeric_keys(& $array)
 // References:
 //   http://www.freebsd.org/cgi/man.cgi?query=strings (Man-page of GNU strings)
 //   http://www.pcre.org/pcre.txt
-function strings($binary = '', $min_len = 4, $ignore_space = FALSE)
+function strings($binary = '', $min_len = 4, $ignore_space = FALSE, $multibyte = TRUE)
 {
+	// String only
+	$binary = (is_array($binary) || $binary === TRUE) ? '' : strval($binary);
+
+	$regex = $ignore_space ?
+		'[^[:graph:] \t\n]+' :		// Remove "\0" etc, and readable spaces
+		'[^[:graph:][:space:]]+';	// Preserve readable spaces if possible
+
+	$binary = $multibyte ?
+		mb_ereg_replace($regex,           "\n",  $binary) :
+		preg_replace('/' . $regex . '/s', "\n",  $binary);
+
 	if ($ignore_space) {
 		$binary = preg_replace(
 			array(
-				'/(?:[^[:graph:] \t\n]|[\r])+/s',
 				'/[ \t]{2,}/',
 				'/^[ \t]/m',
 				'/[ \t]$/m',
 			),
 			array(
-				"\n",
 				' ',
 				'',
 				''
 			),
 			 $binary);
-	} else {
-		// Remove "\0" etc. Preserve readable spaces if possible.
-		$binary = preg_replace('/(?:[^[:graph:][:space:]]|[\r])+/s', "\n", $binary);
 	}
 
 	if ($min_len > 1) {
+		// The last character seems "\n" or not
+		$br = (! empty($binary) && $binary[strlen($binary) - 1] == "\n") ? "\n" : '';
+
 		$min_len = min(1024, intval($min_len));
 		$regex = '/^.{' . $min_len . ',}/S';
-		if (is_array($binary)) {
-			foreach(array_keys($binary) as $key) {
-				$binary[$key] = implode("\n", preg_grep($regex, explode("\n", $binary[$key])));
-			}
-		} else {
-			$binary = implode("\n", preg_grep($regex, explode("\n", $binary)));
-		}
+		$binary = implode("\n", preg_grep($regex, explode("\n", $binary))) . $br;
 	}
 
 	return $binary;
@@ -450,6 +453,27 @@ function _preg_replace_callback_domain_exposure($matches = array())
 	return $result;
 }
 
+// Preprocess: Removing uninterest part for URI detection
+function spam_uri_removing_hocus_pocus($binary = '', $method = array())
+{
+	$length = 4 ; // 'http'(1) and '://'(2) and 'fqdn'(1)
+	if (is_array($method)) {
+		// '<a'(2) or 'href='(5) or '>'(1) or '</a>'(4)
+		// '[uri'(4) or ']'(1) or '[/uri]'(6) 
+		if (isset($method['area_anchor']) || isset($method['uri_anchor']) ||
+		    isset($method['area_bbcode']) || isset($method['uri_bbcode']))
+				$length = 1;	// Seems not effective
+	}
+
+ 	// Removing sequential spaces and too short lines
+	$binary = strings($binary, $length, TRUE, TRUE);
+
+	// Words between spaces
+	$binary = preg_replace('/[ \t][\w \t]+[ \t]/', ' ', $binary);
+
+	return $binary;
+}
+
 // Preprocess: rawurldecode() and adding space(s) and something
 // to detect/count some URIs _if possible_
 // NOTE: It's maybe danger to var_dump(result). [e.g. 'javascript:']
@@ -457,11 +481,11 @@ function _preg_replace_callback_domain_exposure($matches = array())
 // [OK] http://victim.example.org/nasty.example.org
 // [OK] http://victim.example.org/go?http%3A%2F%2Fnasty.example.org
 // [OK] http://victim.example.org/http://nasty.example.org
-function spam_uri_pickup_preprocess($string = '')
+function spam_uri_pickup_preprocess($string = '', $method = array())
 {
 	if (! is_string($string)) return '';
 
-	$string = rawurldecode($string);
+	$string = spam_uri_removing_hocus_pocus(rawurldecode($string), $method);
 
 	// Domain exposure (simple)
 	// http://victim.example.org/nasty.example.org/path#frag
@@ -540,7 +564,7 @@ function spam_uri_pickup($string = '', $method = array())
 		$method = check_uri_spam_method();
 	}
 
-	$string = spam_uri_pickup_preprocess($string);
+	$string = spam_uri_pickup_preprocess($string, $method);
 
 	$array  = uri_pickup($string);
 
@@ -1206,6 +1230,7 @@ function check_uri_spam($target = '', $method = array())
 	foreach(array_keys($method) as $key) {
 		if (! isset($sum[$key])) $sum[$key] = 0;
 	}
+	if (! isset($sum['quantity'])) $sum['quantity'] = 0;
 
 	if (is_array($target)) {
 		foreach($target as $str) {
