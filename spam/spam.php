@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.181 2007/06/16 05:02:46 henoheno Exp $
+// $Id: spam.php,v 1.182 2007/06/16 13:38:00 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1527,7 +1527,7 @@ function summarize_detail_newtral($progress = array())
 	$trie = array();
 	foreach($progress['hosts'] as $value) {
 
-		// Try to shorten (pre) -- array('example.com', 'bar', 'foo')
+		// array('example.com', 'bar', 'foo')
 		$resp = whois_responsibility($value);	// 'example.com'
 		$rest = rtrim(substr($value, 0, - strlen($resp)), '.');	// 'foo.bar'
 		if ($rest) {
@@ -1543,14 +1543,13 @@ function summarize_detail_newtral($progress = array())
 		);
 	}
 
-	// Try to shorten (post, non-recursive) -- 'foo.bar.example.com'
-	array_joinbranch_leaf($trie, '.', 0, TRUE, '');
-
 	// Sort and flatten -- 'A.foo.bar.example.com, B.foo.bar.example.com'
 	foreach(array_keys($trie) as $key) {
 		if (is_array($trie[$key])) {
 			ksort_by_domain($trie[$key]);
+
 			$trie[$key] = implode(', ', array_flat_leaves($trie[$key]));
+			//$trie[$key] = var_export($trie[$key], TRUE);	// DEBUG
 		}
 	}
 
@@ -1582,46 +1581,6 @@ function ksort_by_domain(& $array)
 	}
 	$array = $result;
 }
-
-// array('F' => array('B' => array('C' => array('d' => array('' => 'foobar')))))
-// to
-// array('F.B.C.d.' => 'foobar')
-function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FALSE, $stopword = NULL)
-{
-	$result = array();
-	if (! is_array($array)) return $result;	// Nothing to do
-
-	$limit  = max(0, intval($limit));
-	$cstack = array();
-
-	foreach(array_keys($array) as $key) {
-		$kstack = array();
-		$k      = -1;
-
-		$single = array($key => & $array[$key]);	// Keep it single
-		$cursor = & $single;
-		while(is_array($cursor) && count($cursor) == 1) {	// Once
-			++$k;
-			if (key($cursor) === $stopword)    break;
-			$kstack[] = key($cursor);
-			$cursor   = & $cursor[$kstack[$k]];
-			if ($limit != 0 && $k == $limit) break;
-		}
-
-		// Relink
-		if ($k != 0) {
-			if ($reverse) $kstack = array_reverse($kstack);
-			$joinkey = implode($delim, $kstack);
-
-			unset($array[$key]);
-			$array[$joinkey]  = & $cursor;
-			$result[$joinkey] = $k + 1;	// Key seems not an single array => joined length
-		}
-	}
-
-	return $result;
-}
-
 
 // Check responsibility-root of the FQDN
 // 'foo.bar.example.com'        => 'example.com'        (.com        has the last whois for it)

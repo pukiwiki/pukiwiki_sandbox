@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.14 2007/06/16 03:17:10 henoheno Exp $
+// $Id: SpamTest.php,v 1.15 2007/06/16 13:38:00 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -567,63 +567,6 @@ EOF;
 		// goodhost
 		$array = get_blocklist('goodhost');
 		$this->assertTrue(isset($array['IANA-examples']));
-	}
-
-
-	function testFunc_array_joinbranch_leaf()
-	{
-		// 1st argument: Null
-		foreach($this->setup_string_null() as $value){
-			$array = $value;
-			$result = array_joinbranch_leaf($array);
-			$this->assertEquals(array(), $result);
-			$this->assertEquals($value, $array);
-		}
-
-		// Null
-		$array = array(array());
-		$result = array_joinbranch_leaf($array);
-		$this->assertEquals(array(), $result);
-		$this->assertEquals(array(array()), $array);
-
-		$a = array('F' => array('B' => array('C' => array('d' => array('' => 'foobar')))));
-		$b = array('R' => array('S' => array('T' => array('U' => 'hoge' ))));
-
-		// Single case
-		$array = $a;
-		$result = array_joinbranch_leaf($array);
-		$this->assertEquals(array('F.B.C.d.' => 5       ), $result);
-		$this->assertEquals(array('F.B.C.d.' => 'foobar'), $array);
-
-		// Single, delim = '', limit
-		$array = $a;
-		$result = array_joinbranch_leaf($array, '', 2);
-		$this->assertEquals(array('FBC' => 3), $result);
-		$this->assertEquals(array('FBC' => array('d' => array('' => 'foobar'))), $array);
-
-		// Single, delim = '#', reverse
-		$array = $a;
-		$result = array_joinbranch_leaf($array, '#', 0, TRUE);
-		$this->assertEquals(array('#d#C#B#F' => 5       ), $result);
-		$this->assertEquals(array('#d#C#B#F' => 'foobar'), $array);
-
-		// Multiple case
-		$array = array('I' => $a, '@' => $b);
-		$result = array_joinbranch_leaf($array);
-		$this->assertEquals(
-			array(
-				'@.R.S.T.U'  => 5,
-				'I.F.B.C.d.' => 6
-			),
-			$result
-		);
-		$this->assertEquals(
-			array(
-				'@.R.S.T.U'  => 'hoge',
-				'I.F.B.C.d.' => 'foobar'
-			),
-			$array
-		);
 	}
 }
 
