@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.180 2007/06/16 04:34:42 henoheno Exp $
+// $Id: spam.php,v 1.181 2007/06/16 05:02:46 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1544,7 +1544,7 @@ function summarize_detail_newtral($progress = array())
 	}
 
 	// Try to shorten (post, non-recursive) -- 'foo.bar.example.com'
-	array_joinbranch_leaf($trie, '.', 0, TRUE);
+	array_joinbranch_leaf($trie, '.', 0, TRUE, '');
 
 	// Sort and flatten -- 'A.foo.bar.example.com, B.foo.bar.example.com'
 	foreach(array_keys($trie) as $key) {
@@ -1554,13 +1554,18 @@ function summarize_detail_newtral($progress = array())
 		}
 	}
 
-	// TODO: ltrim('.') from $trie
-
 	ksort_by_domain($trie);
 
-	// TODO: from array('foobar' => 'foobar') to 'foobar'
+	// Format: From array('foobar' => 'foobar') to 'foobar'
+	$tmp = array();
+	foreach($trie as $key => $value) {
+		$tmp[] = '  \'' .
+			(($trie[$key] == $key) ? $key : $key . '\' => \'' . $trie[$key])
+			. '\',';
+		unset($trie[$key]);
+	}
 
-	return var_export_shrink($trie, TRUE, TRUE);
+	return 'array (' . "\n" . implode("\n", $tmp) . "\n" . ')';
 }
 
 // ksort() by domain
@@ -1581,7 +1586,7 @@ function ksort_by_domain(& $array)
 // array('F' => array('B' => array('C' => array('d' => array('' => 'foobar')))))
 // to
 // array('F.B.C.d.' => 'foobar')
-function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FALSE)
+function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FALSE, $stopword = NULL)
 {
 	$result = array();
 	if (! is_array($array)) return $result;	// Nothing to do
@@ -1597,6 +1602,7 @@ function array_joinbranch_leaf(& $array, $delim = '.', $limit = 0, $reverse = FA
 		$cursor = & $single;
 		while(is_array($cursor) && count($cursor) == 1) {	// Once
 			++$k;
+			if (key($cursor) === $stopword)    break;
 			$kstack[] = key($cursor);
 			$cursor   = & $cursor[$kstack[$k]];
 			if ($limit != 0 && $k == $limit) break;
