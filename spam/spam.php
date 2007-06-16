@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.178 2007/06/16 03:23:34 henoheno Exp $
+// $Id: spam.php,v 1.179 2007/06/16 03:39:39 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -468,8 +468,8 @@ function spam_uri_removing_hocus_pocus($binary = '', $method = array())
  	// Removing sequential spaces and too short lines
 	$binary = strings($binary, $length, TRUE, TRUE);
 
-	// Words between spaces
-	$binary = preg_replace('/[ \t][\w \t]+[ \t]/', ' ', $binary);
+	// Remove words (has no '<>[]:') between spaces
+	$binary = preg_replace('/[ \t][\w.,()\ \t]+[ \t]/', ' ', $binary);
 
 	return $binary;
 }
@@ -486,6 +486,7 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 	if (! is_string($string)) return '';
 
 	$string = spam_uri_removing_hocus_pocus(rawurldecode($string), $method);
+	//var_dump(htmlspecialchars($string));
 
 	// Domain exposure (simple)
 	// http://victim.example.org/nasty.example.org/path#frag
@@ -2073,7 +2074,7 @@ function pkwk_spamfilter($action, $page, $target = array('title' => ''), $method
 	if (empty($progress['is_spam'])) {
 		spam_dispose();
 	} else {
-		$target = string($target, 0);	// Removing "\0" etc
+		$target = strings($target, 0);	// Removing "\0" etc
 		pkwk_spamnotify($action, $page, $target, $progress, $method);
 		spam_exit($exitmode, $progress);
 	}
