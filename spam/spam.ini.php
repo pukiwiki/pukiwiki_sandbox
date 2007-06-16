@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.119 2007/06/11 15:05:40 henoheno Exp $
+// $Id: spam.ini.php,v 1.120 2007/06/16 05:29:10 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1795,6 +1795,10 @@ $blocklist['B-1'] = array(
 		'*.smtp.ru',		// (domain at hc.ru)
 	),
 	'*.sayt.ws',
+	'Seblg.com' => array(
+		'*.seblg.com',		// by Dao Lee (st at seblg.com)
+		'*.xshorturl.org',	// by Tonny Lee (admin at seblg.com)
+	),
 	'*.seo-blog.org',
 	'*.shoutpost.com',
 	'*.siamforum.com',
@@ -4197,6 +4201,14 @@ $blocklist['C'] = array(
 		'.love-total.net',			// 74.50.97.136
 		'.stonesex.info',			// 74.50.97.136
 	),
+	'germerts at yandex.ru' => array(	// by Sergey Marchenko (germerts at yandex.ru)
+		'.andatra.info',
+		'.banchitos.info',
+		'.batareya.info',
+		'.blevota.info',
+		'.gamadril.info',
+		'.govnosaklo.info',
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -4213,6 +4225,7 @@ $blocklist['C'] = array(
 	'.50webs.com',			// by LiquidNet Ltd. (support at propersupport.com), redirect to mpage.jp
 	'.6i6.de',
 	'.advancediet.com',		// by Shonta Mojica (hostadmin at advancediet.com)
+	'.adult-master-club.com',		// by Alehander (mazyrkevich at cosmostv.by)
 	'.adultpersonalsclubs.com',	// by Peter (vaspet34 at yahoo.com)
 	'.akgame.com',			// 72.32.79.100 by Howard Ke (gmtbank at gmail.com), rmt & pl
 	'.alfanetwork.info',	// by dante (dantequick at gmail.com)
@@ -4298,6 +4311,7 @@ $blocklist['C'] = array(
 	'.jimmys21.com',		// by Klen Kudryavii (telvid at shaw.ca)
 	'.jimka-mmsa.com',		// by Alex Covax (c0vax at mail.ru), seems not used yet
 	'.joynu.com',			// by lei wang (93065 at qq.com), hidden JavaScript
+	'.kliktop.biz',			// by Vasiliy (kiler81 at yandex.ru)
 	'.kingtools.de',
 	'.kymon.org',			// by Albert Poire (isupport at yahoo.com), / Forbidden, 70.87.62.252
 	'.leucainfo.com',
@@ -4339,6 +4353,7 @@ $blocklist['C'] = array(
 	'.prama.info',			// by Juan.Kang at mytrashmail.com
 	',pulsar.net',			// by TheBuzz Int. (theboss at tfcclion.com)
 	'.qoclick.net',			// by DMITRIY SOLDATENKO
+	'.quality-teen-porn-photo.com',	// by info at densa.info
 	'.relurl.com',			// tiny-like. by Grzes Tlalka (grzes1111 at interia.pl)
 	'.replicaswatch.org',	// by Replin (admin at furnitureblog.org)
 	'.rigame.info',			// by debra_jordan07 at yahoo.com
