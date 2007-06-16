@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.182 2007/06/16 13:38:00 henoheno Exp $
+// $Id: spam.php,v 1.183 2007/06/16 13:50:30 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1523,7 +1523,7 @@ function summarize_detail_newtral($progress = array())
 
 	$result = '';
 
-	// Generate a $trie
+	// Generate a responsible $trie
 	$trie = array();
 	foreach($progress['hosts'] as $value) {
 
@@ -1558,9 +1558,13 @@ function summarize_detail_newtral($progress = array())
 	// Format: From array('foobar' => 'foobar') to 'foobar'
 	$tmp = array();
 	foreach($trie as $key => $value) {
-		$tmp[] = '  \'' .
-			(($trie[$key] == $key) ? $key : $key . '\' => \'' . $trie[$key])
-			. '\',';
+		if ($trie[$key] == $key) {
+			// 'responsibility.example.com'
+			$tmp[] = '  \'' . $key . '\',';
+		} else {
+			// 'subdomain-or-host.responsibility.example.com'
+			$tmp[] = '  \'.' . $key . '\' => \'' . $trie[$key] . '\',';
+		}
 		unset($trie[$key]);
 	}
 
