@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.186 2007/06/17 15:32:18 henoheno Exp $
+// $Id: spam.php,v 1.187 2007/06/17 15:48:25 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1540,8 +1540,15 @@ function summarize_detail_newtral($progress = array())
 			$result[] = '  \'' . $key . '\',';
 		} else {
 			// One subdomain-or-host, or several ones
-			$result[] = '  \'' . $key . '\' => \'' .
-				implode('.' . $key . ', ', array_keys($trie[$key])) . '.' . $key . '\',';
+			$subs = array();
+			foreach(array_keys($trie[$key]) as $sub) {
+				if ($sub == '') {
+					$subs[] = $key;
+				} else {
+					$subs[] = $sub . '.' . $key;
+				}
+			}
+			$result[] = '  \'' . $key . '\' => \'' . implode(', ', $subs) . '\',';
 		}
 		unset($trie[$key]);
 	}
@@ -1738,6 +1745,7 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $i
 			'ac' => TRUE,
 			'ad' => TRUE,
 			'co' => TRUE,
+			'ed' => TRUE,
 			'go' => TRUE,
 			'gr' => TRUE,
 			'lg' => TRUE,
