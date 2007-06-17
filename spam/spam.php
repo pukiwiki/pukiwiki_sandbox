@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.185 2007/06/17 15:11:24 henoheno Exp $
+// $Id: spam.php,v 1.186 2007/06/17 15:32:18 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1524,37 +1524,27 @@ function summarize_detail_newtral($progress = array())
 	// Generate a responsible $trie
 	$trie = array();
 	foreach($progress['hosts'] as $value) {
-
 		// 'A.foo.bar.example.com'
 		$resp = whois_responsibility($value);	// 'example.com'
-		$rest = rtrim(substr($value, 0, - strlen($resp)), '.') . '.';	// 'A.foo.bar.'
-
-		$trie = array_merge_recursive(
-			$trie,
-			array($resp => array($rest => NULL))
-		);
+		$rest = rtrim(substr($value, 0, - strlen($resp)), '.');	// 'A.foo.bar'
+		$trie = array_merge_recursive($trie, array($resp => array($rest => NULL)));
 	}
-	ksort_by_domain($trie);
 
+	// Format: var_export_shrink() -like output
 	$result = array();
+	ksort_by_domain($trie);
 	foreach(array_keys($trie) as $key) {
-
-		// Sort and flatten -- 'A.foo.bar., B.foo.bar.'
 		ksort_by_domain($trie[$key]);
-		$trie[$key] = implode(', ', array_keys($trie[$key]));
-
-		// Format: var_export_shrink() -like output
-		if ($trie[$key] == '.') {
+		if (count($trie[$key]) == 1 && key($trie[$key]) == '') {
 			// Just one 'responsibility.example.com'
 			$result[] = '  \'' . $key . '\',';
 		} else {
 			// One subdomain-or-host, or several ones
-			$result[] = '  \'' . $key . '\' => \'' . $trie[$key] . '\',';
+			$result[] = '  \'' . $key . '\' => \'' .
+				implode('.' . $key . ', ', array_keys($trie[$key])) . '.' . $key . '\',';
 		}
-
 		unset($trie[$key]);
 	}
-
 	return
 		'array (' . "\n" .
 			implode("\n", $result) . "\n" .
@@ -2017,7 +2007,7 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $i
 		),
 	);
 
-	if (! is_string($fqdn)) return '';
+	if (is_ip($fqdn) || ! is_string($fqdn)) return $fqdn;
 
 	$result  = array();
 	$dcursor = & $domain;
