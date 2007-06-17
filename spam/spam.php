@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.184 2007/06/16 15:04:46 henoheno Exp $
+// $Id: spam.php,v 1.185 2007/06/17 15:11:24 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1521,54 +1521,44 @@ function summarize_detail_newtral($progress = array())
 	    ! is_array($progress['hosts']) ||
 	    empty($progress['hosts'])) return '';
 
-	$result = '';
-
 	// Generate a responsible $trie
 	$trie = array();
 	foreach($progress['hosts'] as $value) {
 
-		// array('example.com', 'bar', 'foo')
+		// 'A.foo.bar.example.com'
 		$resp = whois_responsibility($value);	// 'example.com'
-		$rest = rtrim(substr($value, 0, - strlen($resp)), '.');	// 'foo.bar'
-		if ($rest) {
-			$parts = explode('.', delimiter_reverse('.' . $rest));
-			array_unshift($parts, $resp);
-		} else {
-			$parts = array($resp, $rest);
-		}
+		$rest = rtrim(substr($value, 0, - strlen($resp)), '.') . '.';	// 'A.foo.bar.'
 
 		$trie = array_merge_recursive(
 			$trie,
-			array_leaf($parts, TRUE, $value)
+			array($resp => array($rest => NULL))
 		);
 	}
-
-	// Sort and flatten -- 'A.foo.bar.example.com, B.foo.bar.example.com'
-	foreach(array_keys($trie) as $key) {
-		if (is_array($trie[$key])) {
-			ksort_by_domain($trie[$key]);
-
-			$trie[$key] = implode(', ', array_flat_leaves($trie[$key]));
-			//$trie[$key] = var_export($trie[$key], TRUE);	// DEBUG
-		}
-	}
-
 	ksort_by_domain($trie);
 
-	// Format: From array('foobar' => 'foobar') to 'foobar'
-	$tmp = array();
-	foreach($trie as $key => $value) {
-		if ($trie[$key] == $key) {
-			// 'responsibility.example.com'
-			$tmp[] = '  \'' . $key . '\',';
+	$result = array();
+	foreach(array_keys($trie) as $key) {
+
+		// Sort and flatten -- 'A.foo.bar., B.foo.bar.'
+		ksort_by_domain($trie[$key]);
+		$trie[$key] = implode(', ', array_keys($trie[$key]));
+
+		// Format: var_export_shrink() -like output
+		if ($trie[$key] == '.') {
+			// Just one 'responsibility.example.com'
+			$result[] = '  \'' . $key . '\',';
 		} else {
-			// 'subdomain-or-host.responsibility.example.com'
-			$tmp[] = '  \'.' . $key . '\' => \'' . $trie[$key] . '\',';
+			// One subdomain-or-host, or several ones
+			$result[] = '  \'' . $key . '\' => \'' . $trie[$key] . '\',';
 		}
+
 		unset($trie[$key]);
 	}
 
-	return 'array (' . "\n" . implode("\n", $tmp) . "\n" . ')';
+	return
+		'array (' . "\n" .
+			implode("\n", $result) . "\n" .
+		')';
 }
 
 // ksort() by domain
