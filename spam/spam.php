@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.187 2007/06/17 15:48:25 henoheno Exp $
+// $Id: spam.php,v 1.188 2007/06/18 14:25:24 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -1622,6 +1622,17 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $i
 			'info'  => TRUE,
 		),
 
+		// ccTLD: Bahrain
+		// NIC  : http://www.inet.com.bh/ (.bh policies not found)
+		// Whois: (Not available) http://www.inet.com.bh/
+		'bh' => array(
+			// Observed
+			'com' => TRUE,
+			'edu' => TRUE,
+			'gov' => TRUE,
+			'org' => TRUE,
+		),
+
 		// ccTLD: China
 		// NIC  : http://www.cnnic.net.cn/en/index/
 		// Whois: http://ewhois.cnnic.cn/
@@ -1830,6 +1841,18 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $i
 			'gob'  => TRUE,
 			'net'  => TRUE,
 			'org'  => TRUE,
+		),
+
+		// ccTLD: Seychelles
+		// NIC  : http://www.nic.sc/
+		// Whois: (Not available)
+		'sc' => array(
+			// http://www.nic.sc/policies.html
+			'com' => TRUE,
+			'edu' => TRUE,
+			'gov' => TRUE,
+			'net' => TRUE,
+			'org' => TRUE,
 		),
 
 		// ccTLD: Taiwan
