@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.123 2007/06/23 15:21:51 henoheno Exp $
+// $Id: spam.ini.php,v 1.124 2007/06/23 15:35:16 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2108,6 +2108,7 @@ $blocklist['B-2'] = array(
 	'deproduction.org',
 	'dc503.org',
 	'dre-centro.pt',
+	'Duke University' => array('devel.linux.duke.edu'),
 	'*.esen.edu.sv',
 	'forums.drumcore.com',
 	'dundeeunited.org',
@@ -2130,6 +2131,7 @@ $blocklist['B-2'] = array(
 		'greendayvideo.net',
 		'espanol.greendayvideo.net',
 	),
+	'Hampton University' => array('calipsovalidation.hamptonu.edu'),
 	'Harvard Law School' => array('blogs.law.harvard.edu'),
 	'helpiammoving.com',
 	'homepage-dienste.com',
@@ -4299,6 +4301,7 @@ $blocklist['C'] = array(
 		'.kliktop.org',
 		'.pharmatop.us',
 		'.supertop.us',
+		'.supervaizer.info',
 	),
 	'infomed2004 at mail.ru' => array(	// by Andrey Ushakov (infomed2004 at mail.ru)
 		'.freeamateursexx.info',	// 81.0.195.228
@@ -4311,6 +4314,10 @@ $blocklist['C'] = array(
 	'dzheker at yandex.ru' => array(	// by dzheker at yandex.ru
 		'.factyri.info',
 		'.jorge1.info',
+	),
+	'lichincool at gmail.com' => array(	// 72.232.229.115 by lichincool at gmail.com, / meanless
+		'.bestmindstorm.org',
+		'.redstoreonline.org',
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -4340,7 +4347,6 @@ $blocklist['C'] = array(
 	'.banep.info',			// by Mihailov Dmitriy (marokogadro at yahoo.com), iframe to this site
 	'.baurish.info',
 	'.bestop.name',
-	'.bestmindstorm.org',	// 72.232.229.115 by lichincool at gmail.com, / meanless
 	'.betmmo.com',			// 63.223.98.182 by Huang Qiang (liuxing-wushi at hotmail.com), pl
 	'.bestrademark.info',	// by victoria (niko16d at yahoo.com), redirect to majordomo.ru
 	'.bestshopfinder.info',
