@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.15 2007/06/16 13:38:00 henoheno Exp $
+// $Id: SpamTest.php,v 1.16 2007/06/23 14:11:10 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -283,6 +283,24 @@ EOF;
 		$this->assertEquals('top_story.htm',  $results[3]['file']);
 		$this->assertEquals('',               $results[3]['query']);
 		$this->assertEquals('',               $results[3]['fragment']);
+
+
+		// Specific tests ----
+
+		// Divider: Back-slash
+		$test_string = ' http:\\backslash.org\fobar.html ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals('backslash.org',  $results[0]['host']);
+
+		// Host: Underscore
+		$test_string = ' http://under_score.org/fobar.html ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals('under_score.org',$results[0]['host']);	// Not 'under'
+
+		// Host: IPv4
+		$test_string = ' http://192.168.0.1/fobar.html ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals('192.168.0.1',    $results[0]['host']);
 	}
 
 	function testFunc_scheme_normalize()
