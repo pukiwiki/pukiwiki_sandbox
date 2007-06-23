@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.16 2007/06/23 14:11:10 henoheno Exp $
+// $Id: SpamTest.php,v 1.17 2007/06/23 15:21:32 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -301,6 +301,36 @@ EOF;
 		$test_string = ' http://192.168.0.1/fobar.html ';
 		$results = uri_pickup_normalize(uri_pickup($test_string));
 		$this->assertEquals('192.168.0.1',    $results[0]['host']);
+
+		// Host: Starts
+		$test_string = ' http://_sss/foo.html ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals('_sss',           $results[0]['host']);
+		$this->assertEquals('foo.html',       $results[0]['file']);
+
+		// Host: Ends
+		$test_string = ' http://sss_/foo.html ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals('sss_',           $results[0]['host']);
+		$this->assertEquals('foo.html',       $results[0]['file']);
+
+
+		// Specific tests ---- Fails
+
+		// Divider: Colon only (Too sensitive to capture)
+		$test_string = ' http:colon.org ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals(0, count($results));
+
+		// Host: Too short
+		$test_string = ' http://s/foo.html http://ss/foo.html ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals(0, count($results));
+
+		$test_string = ' http://sss/foo.html ';
+		$results = uri_pickup_normalize(uri_pickup($test_string));
+		$this->assertEquals('sss',            $results[0]['host']);
+		$this->assertEquals('foo.html',       $results[0]['file']);
 	}
 
 	function testFunc_scheme_normalize()
@@ -585,6 +615,42 @@ EOF;
 		// goodhost
 		$array = get_blocklist('goodhost');
 		$this->assertTrue(isset($array['IANA-examples']));
+	}
+
+
+	function testFunc_whois_responsibility()
+	{
+		// 1st argument: Null
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals('',        whois_responsibility($value), $key);
+		}
+
+		// 'act.edu.au' is known as 3rd level domain
+		$this->AssertEquals('bar.act.edu.au', whois_responsibility('foo.bar.act.edu.au'));
+		$this->AssertEquals('bar.act.edu.au', whois_responsibility('bar.act.edu.au'));
+		$this->AssertEquals('act.edu.au',  whois_responsibility('act.edu.au'));
+		$this->AssertEquals('edu.au',      whois_responsibility('edu.au'));
+		$this->AssertEquals('au',          whois_responsibility('au'));
+
+		// 'co.uk' is known as 2nd level domain
+		$this->AssertEquals('bar.co.uk',   whois_responsibility('foo.bar.co.uk'));
+		$this->AssertEquals('bar.co.uk',   whois_responsibility('bar.co.uk'));
+		$this->AssertEquals('co.uk',       whois_responsibility('co.uk'));
+		$this->AssertEquals('uk',          whois_responsibility('uk'));
+
+		// 'bar.uk' is not 2nd level (implicit responsibility)
+		$this->AssertEquals('bar.uk',      whois_responsibility('foo.bar.uk'));
+		$this->AssertEquals('bar.uk',      whois_responsibility('bar.uk'));
+
+		// IPv4
+		$this->AssertEquals('192.168.0.1', whois_responsibility('192.168.0.1'));
+
+		// Invalid Top-Level Domain (With implicit)
+		$this->AssertEquals('bar.local',  whois_responsibility('foo.bar.local'));	// Implicit responsibility
+		$this->AssertEquals('bar.local',  whois_responsibility('bar.local'));
+		$this->AssertEquals('local',      whois_responsibility('local'));
+		$this->AssertEquals('localhost',  whois_responsibility('localhost'));
+		$this->AssertEquals('s',          whois_responsibility('s'));
 	}
 }
 

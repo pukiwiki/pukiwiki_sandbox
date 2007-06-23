@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.189 2007/06/23 14:11:10 henoheno Exp $
+// $Id: spam.php,v 1.190 2007/06/23 15:21:10 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -189,7 +189,7 @@ function uri_pickup($string = '')
 			// 3: Host
 			'\[[0-9a-f:.]+\]' . '|' .				// IPv6([colon-hex and dot]): RFC2732
 			'(?:[0-9]{1,3}\.){3}[0-9]{1,3}' . '|' .	// IPv4(dot-decimal): 001.22.3.44
-			'[a-z0-9][a-z0-9_.-]+[a-z0-9]' . 		// hostname(FQDN) : foo.example.org
+			'[a-z0-9_-][a-z0-9_.-]+[a-z0-9_-]' . 		// hostname(FQDN) : foo.example.org
 		')' .
 		'(?::([0-9]*))?' .					// 4: Port
 		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path or path-info
@@ -1526,7 +1526,13 @@ function summarize_detail_newtral($progress = array())
 	foreach($progress['hosts'] as $value) {
 		// 'A.foo.bar.example.com'
 		$resp = whois_responsibility($value);	// 'example.com'
-		$rest = rtrim(substr($value, 0, - strlen($resp)), '.');	// 'A.foo.bar'
+		if (empty($resp)) {
+			// One or more test, or do nothing here
+			$resp = strval($value);
+			$rest = '';
+		} else {
+			$rest = rtrim(substr($value, 0, - strlen($resp)), '.');	// 'A.foo.bar'
+		}
 		$trie = array_merge_recursive($trie, array($resp => array($rest => NULL)));
 	}
 
@@ -2038,13 +2044,15 @@ function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $i
 		),
 	);
 
-	if (is_ip($fqdn) || ! is_string($fqdn)) return $fqdn;
+	if (! is_string($fqdn)) return '';
+	if (is_ip($fqdn))       return $fqdn;
 
 	$result  = array();
 	$dcursor = & $domain;
 	$array   = array_reverse(explode('.', $fqdn));
 	$i = 0;
 	while(TRUE) {
+		if (! isset($array[$i])) break;
 		$acursor = $array[$i];
 		if (is_array($dcursor) && isset($dcursor[$acursor])) {
 			$result[] = & $array[$i];
