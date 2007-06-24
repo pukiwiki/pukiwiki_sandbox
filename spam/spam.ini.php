@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.124 2007/06/23 15:35:16 henoheno Exp $
+// $Id: spam.ini.php,v 1.125 2007/06/24 15:09:27 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -25,7 +25,15 @@
 //     [3] IP address, if these hosts have the same ones
 //     [4] Something unique idea of you
 //
-// Reference: Spamdexing http://en.wikipedia.org/wiki/Spamdexing
+// Reference:
+//   http://en.wikipedia.org/wiki/Spamdexing
+//   http://en.wikipedia.org/wiki/Domainers
+//   http://en.wikipedia.org/wiki/Typosquatting
+
+$blocklist['wordlist'] = array(
+	'viagra' => '#\bviagra\b#i',
+	'buy',
+);
 
 
 $blocklist['list'] = array(
@@ -45,6 +53,8 @@ $blocklist['list'] = array(
 	'Z'			=> TRUE,
 );
 
+
+// ----
 
 $blocklist['goodhost'] = array(
 	// Sample setting of ignorance list
@@ -1396,8 +1406,10 @@ $blocklist['A-2'] = array(
 			'*.zapto.org',
 	),
 	'*.zenno.info',
-	'.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '.com'
+	'.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '.com',
 			// and all non-recorded domains redirect to 'agoga.com' now
+			// http://money.cnn.com/magazines/business2/business2_archive/2007/06/01/100050989/index.htm
+			// http://agoga.com/aboutus.html
 );
 
 
