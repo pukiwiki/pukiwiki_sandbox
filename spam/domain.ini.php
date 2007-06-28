@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.1 2007/06/25 15:12:22 henoheno Exp $
+// $Id: domain.ini.php,v 1.2 2007/06/28 14:51:10 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -181,7 +181,7 @@ $domain = array(
 		'ed' => TRUE,
 		'go' => TRUE,
 		'gr' => TRUE,
-		'lg' => TRUE,
+		'lg' => TRUE,	// pref.<geographic2nd>.lg.jp etc.
 		'ne' => TRUE,
 		'or' => TRUE,
 
