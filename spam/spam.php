@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.192 2007/06/25 15:12:22 henoheno Exp $
+// $Id: spam.php,v 1.193 2007/06/28 14:52:55 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -427,7 +427,28 @@ function area_measure($areas, & $array, $belief = -1, $a_key = 'area', $o_key = 
 // ---------------------
 // Spam-uri pickup
 
-// Domain exposure callback (See spam_uri_pickup_preprocess())
+// Preprocess: Removing uninterest part for URI detection
+function spam_uri_removing_hocus_pocus($binary = '', $method = array())
+{
+	$length = 4 ; // 'http'(1) and '://'(2) and 'fqdn'(1)
+	if (is_array($method)) {
+		// '<a'(2) or 'href='(5) or '>'(1) or '</a>'(4)
+		// '[uri'(4) or ']'(1) or '[/uri]'(6) 
+		if (isset($method['area_anchor']) || isset($method['uri_anchor']) ||
+		    isset($method['area_bbcode']) || isset($method['uri_bbcode']))
+				$length = 1;	// Seems not effective
+	}
+
+ 	// Removing sequential spaces and too short lines
+	$binary = strings($binary, $length, TRUE, FALSE); // Multibyte NOT needed
+
+	// Remove words (has no '<>[]:') between spaces
+	$binary = preg_replace('/[ \t][\w.,()\ \t]+[ \t]/', ' ', $binary);
+
+	return $binary;
+}
+
+// Preprocess: Domain exposure callback (See spam_uri_pickup_preprocess())
 // http://victim.example.org/?foo+site:nasty.example.com+bar
 // => http://nasty.example.com/?refer=victim.example.org
 // NOTE: 'refer=' is not so good for (at this time).
@@ -454,27 +475,6 @@ function _preg_replace_callback_domain_exposure($matches = array())
 	}
 
 	return $result;
-}
-
-// Preprocess: Removing uninterest part for URI detection
-function spam_uri_removing_hocus_pocus($binary = '', $method = array())
-{
-	$length = 4 ; // 'http'(1) and '://'(2) and 'fqdn'(1)
-	if (is_array($method)) {
-		// '<a'(2) or 'href='(5) or '>'(1) or '</a>'(4)
-		// '[uri'(4) or ']'(1) or '[/uri]'(6) 
-		if (isset($method['area_anchor']) || isset($method['uri_anchor']) ||
-		    isset($method['area_bbcode']) || isset($method['uri_bbcode']))
-				$length = 1;	// Seems not effective
-	}
-
- 	// Removing sequential spaces and too short lines
-	$binary = strings($binary, $length, TRUE, FALSE); // Multibyte NOT needed
-
-	// Remove words (has no '<>[]:') between spaces
-	$binary = preg_replace('/[ \t][\w.,()\ \t]+[ \t]/', ' ', $binary);
-
-	return $binary;
 }
 
 // Preprocess: rawurldecode() and adding space(s) and something
@@ -527,19 +527,30 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 	// Domain exposure (See _preg_replace_callback_domain_exposure())
 	$string = preg_replace_callback(
 		array(
-			'#(http)://' .
+			'#(http)://' .	// 1:Scheme
+			// 2:Host
 			'(' .
 				// Something Google: http://www.google.com/supported_domains
 				'(?:[a-z0-9.]+\.)?google\.[a-z]{2,3}(?:\.[a-z]{2})?' .
 				'|' .
 				// AltaVista
+				// http://es.altavista.com/web/results?q=site%3Anasty.example.org+foobar
 				'(?:[a-z0-9.]+\.)?altavista.com' .
-				
+				'|' .
+				// Live Search
+				'search.live.com' .
+				'|' .
+				// MySpace
+				// http://sads.myspace.com/Modules/Search/Pages/Search.aspx?_snip_&searchString=site:nasty.example.org
+				// also searchresults.myspace.com
+				'(?:[a-z0-9.]+\.)?myspace.com' .
+				'|' .
+				'search.orange.co.uk' .
 			')' .
 			'/' .
-			'([a-z0-9?=&.%_/\'\\\+-]+)' .				// path/?query=foo+bar+
-			'\bsite:([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// site:nasty.example.com
-			//'()' .	// Preserve or remove?
+			'([a-z0-9?=&.%_/\'\\\+-]+)' .				// 3:path/?query=foo+bar+
+			'\bsite:([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// 4:site:nasty.example.com
+			'()' .										// 5:Preserve or remove?
 			'#i',
 		),
 		'_preg_replace_callback_domain_exposure',
