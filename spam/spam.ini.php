@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.126 2007/06/28 14:51:57 henoheno Exp $
+// $Id: spam.ini.php,v 1.127 2007/06/29 13:58:04 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -269,6 +269,7 @@ $blocklist['A-1'] = array(
 	'*.dvdonly.ru',
 	'*.dynu.ca',
 	'dwarf.name',
+	'*.eadf.com',
 	'*.easyurl.net',
 	'elfurl.com',
 	'eny.pl',
@@ -459,6 +460,7 @@ $blocklist['A-1'] = array(
 	'*.i89.us',
 	'iat.net',		// 74.208.58.130 by Tony Carter
 	'*.iceglow.com',
+	'go.id-tv.info',	// 77.232.68.138(77-232-68-138.static.servage.net) by Max Million (max at id-tv.info)
 	'Ideas para Nuevos Mercados SL' => array(
 		// NOTE: 'i4nm.com' by 'Ideas para Nuevos Mercados SL' (i4nm at i4nm.com)
 		// NOTE: 'dominiosfree.com' by 'Ideas para nuevos mercados,sl' (dominiosfree at i4nm.com)
@@ -866,6 +868,7 @@ $blocklist['A-1'] = array(
 	'ourl.org',
 	'ov2.net',				// frame
 	'*.ozonez.com',
+	'pagebang.com',
 	'palurl.com',
 	'*.paulding.net',
 	'phpfaber.org',
@@ -882,6 +885,7 @@ $blocklist['A-1'] = array(
 	'qrl.jp',
 	'qurl.net',
 	'qwer.org',
+	'readthisurl.com',		// 67.15.58.36(win2k3.tuserver.com) by Zhe Hong Lim (zhehonglim at gmail.com)
 	'radiobase.net',
 	'RedirectFree.com' => array(
 		'*.red.tc',
@@ -1349,6 +1353,7 @@ $blocklist['A-1'] = array(
 	'*.zwap.to',
 );
 
+
 $blocklist['A-2'] = array(
 
 	// A-2: Dynamic DNS, Dynamic IP services, DNS vulnerabilities, or another DNS cases
@@ -1485,6 +1490,7 @@ $blocklist['B-1'] = array(
 	'*.aimoo.com',
 	'*.alkablog.com',
 	'*.alluwant.de',
+	'.amkbb.com',
 	'AOL.com' =>	// http://about.aol.com/international_services
 		'/^(?:chezmoi|home|homes|hometown|journals|user)\.' .
 		'(?:aol|americaonline)\.' .
@@ -1506,6 +1512,7 @@ $blocklist['B-1'] = array(
 	'*.blog-fx.com',
 	'blogas.lt',
 	'blogbud.com',
+	'*.blogburkinafaso.com',
 	'*.blogcu.com',			// by info at nokta.com
 	'blogfreely.com',
 	'*.blogdrive.com',
@@ -1583,7 +1590,8 @@ $blocklist['B-1'] = array(
 	),
 	'dotbb.be',
 	'*.dox.hu',				// dns at 1b.hu
-	'*.e-host.ws',		// by dns at jomax.net, ns by 0catch.com
+	'*.e-host.ws',			// by dns at jomax.net, ns by 0catch.com
+	'*.eadf.com',
 	'*.eblog.com.au',
 	'*.ekiwi.de',
 	'*.eamped.com',			// Admin by Joe Hayes (joe_h_31028 at yahoo.com)
@@ -1601,6 +1609,7 @@ $blocklist['B-1'] = array(
 			// NOTE: 'blog.fc2.com' is not included
 		'*.h.fc2.com',	// Adult
  	),
+ 	'*.fizwig.com',
 	'forum.ezedia.net',
 	'*.extra.hu',			// angelo at jasmin.hu
 	'*.fanforum.cc',
@@ -1611,7 +1620,9 @@ $blocklist['B-1'] = array(
 	'foroswebgratis.com',
 	'*.forum-on.de',
 	'*.forum5.com',			// by Harry S (hsg944 at gmail.com)
+	'*.forum66.com',
 	'forumbolt.com',
+	'phpbb.forumgratis.com',
 	'*.forumlivre.com',
 	'forumnow.com.br',
 	'*.forumppl.com',
@@ -1636,6 +1647,7 @@ $blocklist['B-1'] = array(
 	'freebb.nl',
 	'*.freeclans.de',
 	'*.freelinuxhost.com',	// by 100webspace.com
+	'*.freehyperspace.com',
 	'freeforum.at',			// by Sandro Wilhelmy
 	'freeforumshosting.com',	// by Adam Roberts (admin at skaidon.co.uk)
 	'*.freeforums.org',		// by 1&1 Internet, Inc. - 1and1.com
@@ -1894,6 +1906,7 @@ $blocklist['B-1'] = array(
 		'.www3.to',
 	),
 	'*.spazioforum.it',
+	'members.spboards.com',
 	'forums.speedguide.net',
 	'*.spicyblogger.com',
 	'*.spotbb.com',
@@ -2851,11 +2864,15 @@ $blocklist['C'] = array(
 		'.yxyzauiq.info',	// by robemuq8455 at cheerful.com
 	),
 	'Carmodelrank.com etc' => array(
-		'.carmodelrank.com',// by Brianna Dunlord (briasmi at yahoo.com)
-		'.cutestories.net',	// by Brianna Dunlord (briasmi at yahoo.com)
+		// by Brianna Dunlord (briasmi at yahoo.com)
+		// by Tim Rennei (TimRennei at yahoo.com), redirect to amaena.com (fake-antivirus)
+		// by Alice T. Horst (Alice.T.Horst at pookmail.com)
+		'.carmodelrank.com',// by Brianna
+		'.cutestories.net',	// by Brianna
 		'.sturducs.com',
-		'.bestother.info',	// by Tim Rennei (TimRennei at yahoo.com), redirect to amaena.com (fake-antivirus)
-		'.yaahooo.info',	// by Alice T. Horst (Alice.T.Horst at pookmail.com), redirect to activefreehost.com
+		'.bestother.info',	// by Tim
+		'.premiumcasinogames.com',	// by Brianna)
+		'.yaahooo.info',	// by Alice
 	),
 	'aliacsandr at yahoo.com' => array(
 		'.cubub.info',				// "Free Web Hosting"
@@ -4317,10 +4334,13 @@ $blocklist['C'] = array(
 		'.freeanalsexx.info',		// 217.11.233.97
 	),
 	'support at dns4me.biz' => array(	// 89.149.228.237 by John Black (support at dns4me.biz)
+		'.abbhi.info',
 		'.gayblogguide.biz',
+		'.huope.info',
 		'.thebdsmday.info',
 	),
 	'dzheker at yandex.ru' => array(	// by dzheker at yandex.ru
+		'.boblisk.info',
 		'.factyri.info',
 		'.jorge1.info',
 	),
@@ -4474,7 +4494,8 @@ $blocklist['C'] = array(
 	'.bestrademark.info',	// by victoria (niko16d at yahoo.com), redirect to majordomo.ru
 	'.bestshopfinder.info',
 	'.bloggerblast.com',	// by B. Kadrie (domains at starwhitehosting.com)
-	'.blogest.org',	// 203.116.63.68 by Bobby.R.Kightlinger at pookmail.com, / seems blank
+	'.blogest.org',			// 203.116.63.68 by Bobby.R.Kightlinger at pookmail.com, / seems blank
+	'.bookblogsite.org',	// 217.11.233.58 by Eugene.E.Mather at mailinator.com
 	'.businessplace.biz',	// by Grenchenko Ivan Petrovich (eurogogi at yandex.ru)
 	'.capital2u.info',		// by Delbert.A.Henry at dodgeit.com
 	'.casa-olympus.com',	// "UcoZ WEB-SERVICES"
@@ -4564,6 +4585,7 @@ $blocklist['C'] = array(
 	'.next-moneylife.com',	// RMT
 	'.newalandirect.com',	// by Alnoor Hirji, ns *.sablehost.com
 	'.ngfu2.info',			// by Tara Lagrant (webmaster at ngfu2.info)
+	'.nucked-sex.com',		// 203.223.150.222 by lis (noidlis2 at yahoo.com)
 	'.ok10000.com',			// by zipeng hu (ldcs350003 at hotmail.com)
 	'.olimpmebel.info',		// by pol (pauk_life at mail.ru), frame to bettersexmall.com
 	'.onlinetert.info',		// by Jarod Hyde (grigorysch at gmail.com)
@@ -4597,6 +4619,7 @@ $blocklist['C'] = array(
 	'.searchadv.com',		// by Jaan Randolph (searchadv at gmail.com)
 	'.seek-www.com',		// by Adam Smit (pingpong at mail.md)
 	'.sessocities.net',		// by info at secureserver3.com
+	'.seven-pharmacy.com',	// 83.138.176.247 by Justin Timberlake (preved at gmail.com)
 	'.sexamoreit.com',
 	'.sexforit.com',
 	'.sexmaniacs.org',		// by Yang Chong (chong at x-india.com)
@@ -4641,7 +4664,6 @@ $blocklist['C'] = array(
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
 
-	'.bookblogsite.org',	// 217.11.233.58 by Eugene.E.Mather at mailinator.com
 
 	// C-4: Not classifiable (information wanted)
 	//
