@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.193 2007/06/28 14:52:55 henoheno Exp $
+// $Id: spam.php,v 1.194 2007/06/29 13:58:29 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -546,6 +546,8 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 				'(?:[a-z0-9.]+\.)?myspace.com' .
 				'|' .
 				'search.orange.co.uk' .
+				'|' .
+				'alltheweb.com' .
 			')' .
 			'/' .
 			'([a-z0-9?=&.%_/\'\\\+-]+)' .				// 3:path/?query=foo+bar+
