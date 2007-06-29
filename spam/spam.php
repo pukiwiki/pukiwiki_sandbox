@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.194 2007/06/29 13:58:29 henoheno Exp $
+// $Id: spam.php,v 1.195 2007/06/29 15:35:53 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -524,30 +524,22 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 		$string
 	);
 
-	// Domain exposure (See _preg_replace_callback_domain_exposure())
+	// Domain exposure (site:) See _preg_replace_callback_domain_exposure()
 	$string = preg_replace_callback(
 		array(
-			'#(http)://' .	// 1:Scheme
+			'#(h?ttp)://' .	// 1:Scheme
 			// 2:Host
 			'(' .
+				'(?:[a-z0-9_.-]+\.)?[a-z0-9_-]+\.[a-z0-9_-]+' .
 				// Something Google: http://www.google.com/supported_domains
-				'(?:[a-z0-9.]+\.)?google\.[a-z]{2,3}(?:\.[a-z]{2})?' .
-				'|' .
-				// AltaVista
-				// http://es.altavista.com/web/results?q=site%3Anasty.example.org+foobar
-				'(?:[a-z0-9.]+\.)?altavista.com' .
-				'|' .
-				// Live Search
-				'search.live.com' .
-				'|' .
-				// MySpace
-				// http://sads.myspace.com/Modules/Search/Pages/Search.aspx?_snip_&searchString=site:nasty.example.org
-				// also searchresults.myspace.com
-				'(?:[a-z0-9.]+\.)?myspace.com' .
-				'|' .
-				'search.orange.co.uk' .
-				'|' .
-				'alltheweb.com' .
+				// AltaVista: http://es.altavista.com/web/results?q=site%3Anasty.example.org+foobar
+				// Live Search: search.live.com
+				// MySpace: http://sads.myspace.com/Modules/Search/Pages/Search.aspx?_snip_&searchString=site:nasty.example.org
+				// (also searchresults.myspace.com)
+				// alltheweb.com
+				// search.bbc.co.uk
+				// search.orange.co.uk
+				// ...
 			')' .
 			'/' .
 			'([a-z0-9?=&.%_/\'\\\+-]+)' .				// 3:path/?query=foo+bar+
