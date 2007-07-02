@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.49 2007/05/12 09:19:49 henoheno Exp $
+// $Id: checker.php,v 1.1 2007/07/02 14:45:05 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
