@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.127 2007/06/29 13:58:04 henoheno Exp $
+// $Id: spam.ini.php,v 1.128 2007/07/02 14:52:42 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4360,7 +4360,10 @@ $blocklist['C'] = array(
 		'.unitfree.info',
 		'.votrefout.info',
 	),
-
+	'info at thecanadianmeds.com' => array(	// by Andrey Smirnov (info at thecanadianmeds.com)
+		'.myviagrasite.com',	// 80.74.153.2
+		'.thecanadianmeds.com',	// 80.74.153.17
+	),
 
 	// C-2: Affiliates, Hypes, Catalog retailers, Multi-level marketings, Resellers
 	'15-Mail.com related' => array(
@@ -4663,7 +4666,6 @@ $blocklist['C'] = array(
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
-
 
 	// C-4: Not classifiable (information wanted)
 	//
