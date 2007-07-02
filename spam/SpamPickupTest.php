@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.1 2007/07/02 14:51:40 henoheno Exp $
+// $Id: SpamPickupTest.php,v 1.2 2007/07/02 15:27:20 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -9,7 +9,7 @@ if (! defined('SPAM_INI_FILE')) define('SPAM_INI_FILE', 'spam.ini.php');
 require_once('spam_pickup.php');
 require_once('PHPUnit/PHPUnit.php');
 
-class SpamTestNormalize extends PHPUnit_TestCase
+class SpamPickupTest extends PHPUnit_TestCase
 {
 	function setup_string_null()
 	{
