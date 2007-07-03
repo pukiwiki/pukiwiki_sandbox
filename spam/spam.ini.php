@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.129 2007/07/03 14:36:40 henoheno Exp $
+// $Id: spam.ini.php,v 1.130 2007/07/03 14:40:05 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -29,12 +29,6 @@
 //   http://en.wikipedia.org/wiki/Spamdexing
 //   http://en.wikipedia.org/wiki/Domainers
 //   http://en.wikipedia.org/wiki/Typosquatting
-
-$blocklist['wordlist'] = array(
-	'viagra' => '#\bviagra\b#i',
-	'buy',
-);
-
 
 $blocklist['list'] = array(
 	// List of the lists
