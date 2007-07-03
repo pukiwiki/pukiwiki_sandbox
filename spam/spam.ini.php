@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.128 2007/07/02 14:52:42 henoheno Exp $
+// $Id: spam.ini.php,v 1.129 2007/07/03 14:36:40 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1743,6 +1743,7 @@ $blocklist['B-1'] = array(
 		'*.blog.livedoor.com',	// redirection
 	),
 	'*.livejournal.com',
+	'.load4.net',			// 72.232.201.61(61.201.232.72.static.reverse.layeredtech.com), Says free web hosting but anonymous
 	'*.logme.nl',
 	'ltss.luton.ac.uk',
 	'Lycos.com' => array(
@@ -2100,6 +2101,7 @@ $blocklist['B-2'] = array(
 	// (e.g. some sort of blog comments, BBSes, forums, wikis)
 	'*.3dm3.com',
 	'3gmicro.com',			// by Dean Anderson (dean at nobullcomputing.com)
+	'a4aid.org',
 	'aac.com',
 	'*.aamad.org',
 	'ad-pecjak.si',
@@ -2115,6 +2117,7 @@ $blocklist['B-2'] = array(
 	'*.canberra.net.au',
 	'castus.com',
 	'Case Western Reserve University' => array('case.edu'),
+	'ceval.de',
 	'codespeak.net',
 	'Colorado School of Mines' => array('ticc.mines.edu'),
 	'*.colourware.co.uk',
@@ -2225,6 +2228,7 @@ $blocklist['B-2'] = array(
 	'preform.dk',
 	'privatforum.de',
 	'publicityhound.net',
+	'qea.com',
 	'rbkdesign.com',
 	'rehoboth.com',
 	'rodee.org',
@@ -4338,6 +4342,7 @@ $blocklist['C'] = array(
 		'.gayblogguide.biz',
 		'.huope.info',
 		'.thebdsmday.info',
+		'.zioprt.info',			// 89.149.228.237
 	),
 	'dzheker at yandex.ru' => array(	// by dzheker at yandex.ru
 		'.boblisk.info',
@@ -4636,6 +4641,7 @@ $blocklist['C'] = array(
 	'.thehostcity.com',		// Domains by Proxy
 	'.thetinyurl.com',		// by Beth J. Carter (Beth.J.Carter at thetinyurl.com)
 	'.thetrendy.info',		// by Harold (Harold.J.Craft at pookmail.com), / is blank
+	'.theusapills.com',		// by Dr. Zarman (contactus at theusapills.com)
 	'.topmeds10.com',
 	'*.tv-reklama.info',	// by Kozlov Maxim (m_koz at mail.ru)
 	'.twabout.com',			// by qiu wenbing (qiuwenbing at 126.com), content from l2mpt.net
