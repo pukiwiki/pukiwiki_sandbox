@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.130 2007/07/03 14:40:05 henoheno Exp $
+// $Id: spam.ini.php,v 1.131 2007/07/09 13:25:03 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1014,6 +1014,7 @@ $blocklist['A-1'] = array(
 		'tinyurl.co.uk',
 	),
 	'titlien.com',
+	'*.tlg.pl',
 	'tlurl.com',
 	'link.toolbot.com',
 	'tnij.org',
@@ -1790,6 +1791,7 @@ $blocklist['B-1'] = array(
 		'*.monforum.fr',
 	),
 	'*.multiforum.nl',		// by Ron Warris (info at phpbbhost.nl)
+	'*.my10gb.com',
 	'myblog.is',
 	'myblogma.com',
 	'*.myblogvoice.com',
@@ -2139,6 +2141,7 @@ $blocklist['B-2'] = array(
 	'exclusivehotels.com',
 	'info.ems-rfid.com',
 	'farrowhosting.com',	// by Paul Farrow (postmaster at farrowcomputing.com)
+	'fbwloc.com',
 	'.fhmcsa.org.au',
 	'findyourwave.co.uk',
 	'plone4.fnal.gov',
@@ -2202,6 +2205,7 @@ $blocklist['B-2'] = array(
 		'my.ncat.edu',
 		'hlc.ncat.edu',
 	),
+	'placetobe.org',
 	'users.nethit.pl',
 	'nightclubvip.net',
 	'njbodybuilding.com',
@@ -4105,6 +4109,7 @@ $blocklist['C'] = array(
 		'.goodlifesearch.info',
 		'.hotnetinfo.info',
 		'.hotpornmovies.org',
+		'.infopilot.info',
 	),
 	'iisuse at gmail.com' => array(	// by vladislav morozov (iisuse at gmail.com). / is spam
 		'.bang-bro.org',
@@ -4355,13 +4360,37 @@ $blocklist['C'] = array(
 		'.sex-beauty.net',
 	),
 	'84.252.148.140' => array(	// 84.252.148.140(kratos.mchost.ru)
+		'.tomdir.info',
+		'.tomdirdirect.info',
+		'.tomdirworld.info',
+		'.treton.info',
+		'.trefas.info',
+		'.tretonmondo.info',
 		'.unefout.info',
+		'.unefoutprojet.info',
 		'.unitfree.info',
+		'.vilret.info',
 		'.votrefout.info',
+		'.warmfind.info',
+		'.warptop.info',
+		'.xofind.info',
+		'.xopdiscover.info',
+		'.xopfind.info',
+		'.xoplocate.info',
+		'.xopseek.info',
+		'.xpfirst.info',
+		'.xphighest.info',
+		'.xptop.info',
 	),
 	'info at thecanadianmeds.com' => array(	// by Andrey Smirnov (info at thecanadianmeds.com)
 		'.myviagrasite.com',	// 80.74.153.2
 		'.thecanadianmeds.com',	// 80.74.153.17
+	),
+	'sania at zmail.ru' => array(	// by Mark Williams (sania at zmail.ru)
+		'.bigemot.com',				// 217.11.233.34, / not found
+		'.espharmacy.com',			// 217.11.233.34
+		'.pharmacyonlinenet.com',	// 216.195.51.59, hidden JavaScript
+		'.ringtonecooler.com',		// 217.11.233.34
 	),
 
 	// C-2: Affiliates, Hypes, Catalog retailers, Multi-level marketings, Resellers
@@ -4599,7 +4628,6 @@ $blocklist['C'] = array(
 	'.pelican-bulletin.info',	// by Elizabeth K. Perry (redmonk at mail.ru)
 	'.perevozka777.ru',		// by witalik at gmail.com
 	'.pharmacy2online.com',	// by Mike Hiliok (bbong80 at yahoo.com)
-	'.pharmacyonlinenet.com',	// Mark Williams (sania at zmail.ru), hidden JavaScript
 	'.pills-storage.com',	// by 
 	'.plusintedia.com',		// by g yk (abc00623 at 163.com), seems not used now
 	'.popki.ind.in',			// by Aleksandr Krasnik (supermaster at pisem.net)
@@ -4666,6 +4694,8 @@ $blocklist['C'] = array(
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
+
+	'.tingstock.info',		// 209.160.73.65(delta.xocmep.info) "nice day, commander ;)" by Andrey Konkin (konkinnews55 at yahoo.com)
 
 	// C-4: Not classifiable (information wanted)
 	//
