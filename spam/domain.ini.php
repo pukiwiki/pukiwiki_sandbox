@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.5 2007/07/15 02:08:19 henoheno Exp $
+// $Id: domain.ini.php,v 1.6 2007/07/15 14:14:28 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -13,14 +13,14 @@ $_pattern = array();
 // Whois: http://www.ausregistry.com.au/
 $_pattern['au']['geo'] = array(
 	// Geographic
-	'act' => TRUE,	// Australian Capital Territory
-	'nt'  => TRUE,	// Northern Territory
-	'nsw' => TRUE,	// New South Wales
-	'qld' => TRUE,	// Queensland
-	'sa'  => TRUE,	// South Australia
-	'tas' => TRUE,	// Tasmania
-	'vic' => TRUE,	// Victoria
-	'wa'  => TRUE,	// Western Australia
+	'act' => TRUE, // Australian Capital Territory
+	'nt'  => TRUE, // Northern Territory
+	'nsw' => TRUE, // New South Wales
+	'qld' => TRUE, // Queensland
+	'sa'  => TRUE, // South Australia
+	'tas' => TRUE, // Tasmania
+	'vic' => TRUE, // Victoria
+	'wa'  => TRUE, // Western Australia
 );
 $domain['au'] = array(
 	// .au Second Level Domains
@@ -47,6 +47,82 @@ $domain['bh'] = array(
 	'edu' => TRUE,
 	'gov' => TRUE,
 	'org' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Brazil
+// NIC  : http://registro.br/
+// Whois: 
+$domain['br'] = array(
+	// Info: Lista de categorias de dominios
+	// http://registro.br/info/dpn.html
+
+	// Categories for institutions
+	'agr'  => TRUE, // Agricultural
+	'am'   => TRUE, // Broadcasting
+	'art'  => TRUE, // Art
+	'com'  => TRUE,
+	'coop' => TRUE, // Cooperative
+	'edu'  => TRUE,
+	'esp'  => TRUE, // Sport
+	'etc'  => TRUE, // Others
+	'far'  => TRUE, // Pharmaceutical
+	'fm'   => TRUE, // Broadcasting
+	'g12'  => TRUE, // Educational
+	'gov'  => TRUE,
+	'imb'  => TRUE, // Real estate related
+	'ind'  => TRUE, // Industrial
+	'inf'  => TRUE, // Informational
+	'mil'  => TRUE,
+	'net'  => TRUE,
+	'org'  => TRUE,
+	'psi'  => TRUE, // Internet service providers
+	'rec'  => TRUE, // Recreation, entertainment related
+	'srv'  => TRUE, // Service-oriented
+	'tmp'  => TRUE,
+	'tur'  => TRUE, // Tour business
+	'tv'   => TRUE,
+
+	// Categories for professionals
+	'adm' => TRUE, // Administrators
+	'adv' => TRUE, // Advocates (Lawers)
+	'arq' => TRUE, // Architects
+	'ato' => TRUE, // Actors
+	'bio' => TRUE, // Biologists
+	'bmd' => TRUE, // Biomedics
+	'cim' => TRUE, // Correctors
+	'cng' => TRUE, // Scenographers
+	'cnt' => TRUE, // Counter (Accountants)
+	'ecn' => TRUE, // Economists
+	'eng' => TRUE, // Engineers
+	'eti' => TRUE, // IT specialists
+	'fnd' => TRUE, // 'Fonoaudiologos', Speech therapists?
+	'fot' => TRUE, // Photographers
+	'fst' => TRUE, // Physiotherapists
+	'ggf' => TRUE, // Geographers
+	'jor' => TRUE, // Journalists
+	'lel' => TRUE, // Auctioneers
+	'mat' => TRUE, // Mathematicians and Statisticians
+	'med' => TRUE, // Doctors
+	'mus' => TRUE, // Musicians
+	'not' => TRUE, // Notaries
+	'ntr' => TRUE, // Nutritionists
+	'odo' => TRUE, // Dentists
+	'ppg' => TRUE, // (Propaganda) Advertising executives and professionals
+	'pro' => TRUE, // Professors
+	'psc' => TRUE, // Psychologists
+	'qsl' => TRUE, // Amateur radio operators
+	'slg' => TRUE, // Sociologists
+	'trd' => TRUE, // Translators
+	'vet' => TRUE, // Veterinarians
+	'zlg' => TRUE, // Zoologists
+
+	// Categories for people
+	'blog' => TRUE,
+	'flog' => TRUE,
+	'nom'  => TRUE,
+	'vlog' => TRUE,
+	'wiki' => TRUE,
 );
 
 // ------------------------------
@@ -179,7 +255,7 @@ $domain['jp'] = array(
 	'ed' => TRUE,
 	'go' => TRUE,
 	'gr' => TRUE,
-	'lg' => TRUE,	// pref.<geographic2nd>.lg.jp etc.
+	'lg' => TRUE, // pref.<geographic2nd>.lg.jp etc.
 	'ne' => TRUE,
 	'or' => TRUE,
 
@@ -706,7 +782,7 @@ $domain['ua'] = array(
 	'sm'         => TRUE,
 
 	'ternopil'   => TRUE,
-	'te'         => TRUE,	// Seems not 'tr'
+	'te'         => TRUE, // Seems not 'tr'
 
 	'uzhgorod'   => TRUE,
 	'uz'         => TRUE,
@@ -847,15 +923,15 @@ $domain['za'] = array(
 	'school' => array(
 		// Provincial Domains
 		// http://www.esn.org.za/dns/
-		'ecape' => TRUE,	// Eastern Cape
-		'fs.'   => TRUE,	// Free State
-		'gp'    => TRUE,	// Gauteng Province
-		'kzn'   => TRUE,	// Kwazulu-Natal
-		'lp'    => TRUE,	// Limpopo Province
-		'mpm'   => TRUE,	// Mpumalanga
-		'ncape' => TRUE,	// Northern Cape
-		'nw'    => TRUE,	// North-West Province
-		'wcape' => TRUE,	// Western Cape
+		'ecape' => TRUE, // Eastern Cape
+		'fs.'   => TRUE, // Free State
+		'gp'    => TRUE, // Gauteng Province
+		'kzn'   => TRUE, // Kwazulu-Natal
+		'lp'    => TRUE, // Limpopo Province
+		'mpm'   => TRUE, // Mpumalanga
+		'ncape' => TRUE, // Northern Cape
+		'nw'    => TRUE, // North-West Province
+		'wcape' => TRUE, // Western Cape
 	),
 );
 
