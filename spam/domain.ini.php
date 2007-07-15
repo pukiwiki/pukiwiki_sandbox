@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.9 2007/07/15 14:53:39 henoheno Exp $
+// $Id: domain.ini.php,v 1.10 2007/07/15 15:15:32 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -355,6 +355,31 @@ $domain['mx'] = array(
 	'gob' => TRUE,
 	'net' => TRUE,
 	'org' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: New Zealand
+// NIC  : http://www.dnc.org.nz/
+// Whois: http://www.dnc.org.nz/
+$domain['nz'] = array(
+	// Second Level Domains
+	// http://www.dnc.org.nz/content/second_level_domains.pdf
+	'ac'     => TRUE,
+	'co'     => TRUE,
+	'gen'    => TRUE,
+	'geek'   => TRUE,
+	'maori'  => TRUE,
+	'net'    => TRUE,
+	'org'    => TRUE,
+	'school' => TRUE,
+
+	// policies and procedures: Moderated Second Level Domains
+	// http://www.dnc.org.nz/story/30043-35-1.html
+	'cri'        => TRUE, // Crown Research Institutes
+	'govt'       => TRUE,
+	'iwi'        => TRUE, // Traditional Maori tribes
+	'mil'        => TRUE,
+	'parliament' => TRUE,
 );
 
 // ------------------------------
