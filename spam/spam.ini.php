@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.133 2007/07/15 01:07:31 henoheno Exp $
+// $Id: spam.ini.php,v 1.134 2007/07/15 16:37:00 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1473,6 +1473,7 @@ $blocklist['B-1'] = array(
 		'*.st20.com',
 		'*.up-a.com',
 	),
+	'*.100foros.com',
 	'20six Weblog Services' => array(
 		'.20six.nl',			// by 20six weblog services (postmaster at 20six.nl)
 		'.20six.co.uk',
@@ -1513,6 +1514,7 @@ $blocklist['B-1'] = array(
 	'Blog.com' => array(
 		'*.blog.com',
 		'*.blogandorra.com',	// by admin.domains at co.blog.com
+		'*.blogangola.com',		// by admin.domains at co.blog.com
 	),
 	'*.blog.com.es',
 	'*.blog.hr',
@@ -1677,6 +1679,7 @@ $blocklist['B-1'] = array(
 	'*.freepowerboards.com',
 	'*.fsphost.com',		// by Michael Renz (michael at fsphost.com)
 	'*.funpic.de',
+	'*.genblogger.com',
 	'geocities.com',
 	'GetBetterHosting.com' => array(
 		'*.30mb.com',	// by 30MB Online (63681 at whois.gkg.net), introduced as one alternative of 90megs.com
@@ -1937,6 +1940,7 @@ $blocklist['B-1'] = array(
 	'telasipforums.com',
 	'thestudentunderground.org',
 	'think.ubc.ca',
+	'*.thumblogger.com',
 	'Topix.com' => array(
 		'topix.com',
 		'topix.net',
@@ -4418,9 +4422,20 @@ $blocklist['C'] = array(
 		'.xptop.info',
 	),
 	'84.252.148.80' => array(	//  84.252.148.80(heimdall.mchost.ru)
+		'.acronis-true-image.info',
+		'.calcio-xp.info',
+		'.cosanova.info',
+		'.cose-rx.info',
 		'.fotonow.info',
+		'.lavoro-tip.info',
+		'.loan-homes.info',
+		'.mionovita.info',
+		'.mustv.info',
+		'.newsnaked.info',
+		'.online-tod.info',
 		'.opakit.info',
 		'.opanow.info',
+		'.xzmovie.info',
 	),
 	'info at thecanadianmeds.com' => array(	// by Andrey Smirnov (info at thecanadianmeds.com)
 		'.myviagrasite.com',	// 80.74.153.2
