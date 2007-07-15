@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.132 2007/07/14 04:51:59 henoheno Exp $
+// $Id: spam.ini.php,v 1.133 2007/07/15 01:07:31 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -454,7 +454,8 @@ $blocklist['A-1'] = array(
 	'hurl.to',
 	'*.hux.de',
 	'*.i89.us',
-	'iat.net',		// 74.208.58.130 by Tony Carter
+	'iat.net',			// 74.208.58.130 by Tony Carter
+	'ibm.com',			// Correct the /links
 	'*.iceglow.com',
 	'go.id-tv.info',	// 77.232.68.138(77-232-68-138.static.servage.net) by Max Million (max at id-tv.info)
 	'Ideas para Nuevos Mercados SL' => array(
@@ -1383,6 +1384,7 @@ $blocklist['A-2'] = array(
 	),
 	'*.dtdns.net',			// by jscott at sceiron.com
 	'*.dynu.com',
+	'*.fdns.net',
 	'J-Speed.net' => array(
 		'*.bne.jp',
 		'*.ii2.cc',
@@ -1691,6 +1693,7 @@ $blocklist['B-1'] = array(
 	'*.gratis-server.de',
 	'groups-beta.google.com',	// by Google
 	'healthcaregroup.com',
+	'*.heliohost.org',
 	'*.hit.bg',				// by forumup.com ??
 	'*.host-page.com',
 	'*.hostingclub.de',
@@ -1861,6 +1864,7 @@ $blocklist['B-1'] = array(
 	'*.prohosting.com',	// by Nick Wood (admin at dns-solutions.net)
 	'*.quickfreehost.com',
 	'quizilla.com',
+	'*.quotaless.com',
 	'*.qupis.com',		// by Xisto Corporation (shridhar at xisto.com)
 	'razyboard.com',
 	'realhp.de',
@@ -2863,7 +2867,7 @@ $blocklist['C'] = array(
 		'.gerucovo.info',	// by apegityk7224 at writeme.com
 		'.gubiwu.info',		// by lywunef6532 at iname.com
 		'.ijizauax.info',	// by ysauuz2341 at iname.com
-		'.ixahagi.info',	// by famevi9827 at email.com
+		'.ixahagi.info',	// 70.47.89.60 by famevi9827 at email.com
 		'.jiuuz.info',		// by meqil6549 at mail.com
 		'.nudetar.info',	// by vohepafi3536 at techie.com
 		'.nipud.info',		// by bohox9872 at mindless.com
@@ -2878,6 +2882,7 @@ $blocklist['C'] = array(
 		'.udaxu.info',		// by gubima4007 at usa.com
 		'.ulycigop.info',	// by unodyqil6241 at mindless.com
 		'.vubiheq.info',	// by uisujih5849 at hotmail.com
+		'.xyloq.info',		// 70.47.89.60 by yuunehi8586 at myself.com
 		'.yvaxat.info',		// by koqun9660 at mindless.com
 		'.yxyzauiq.info',	// by robemuq8455 at cheerful.com
 	),
@@ -4398,9 +4403,11 @@ $blocklist['C'] = array(
 		'.unefoutprojet.info',
 		'.unitfree.info',
 		'.vilret.info',
+		'.vilttown.info',
 		'.votrefout.info',
 		'.warmfind.info',
 		'.warptop.info',
+		'.wildtram.info',
 		'.xofind.info',
 		'.xopdiscover.info',
 		'.xopfind.info',
@@ -4409,6 +4416,11 @@ $blocklist['C'] = array(
 		'.xpfirst.info',
 		'.xphighest.info',
 		'.xptop.info',
+	),
+	'84.252.148.80' => array(	//  84.252.148.80(heimdall.mchost.ru)
+		'.fotonow.info',
+		'.opakit.info',
+		'.opanow.info',
 	),
 	'info at thecanadianmeds.com' => array(	// by Andrey Smirnov (info at thecanadianmeds.com)
 		'.myviagrasite.com',	// 80.74.153.2
@@ -4623,7 +4635,10 @@ $blocklist['C'] = array(
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
 
+	'.guesttext.info',		// 81.0.195.134 by Grace.D.Kibby pookmail.com, / seems null
+	'.moremu.com',			// 205.134.190.12(amateurlog.com) by Magaly Plumley (domains ay moremu.com)
 	'.tingstock.info',		// 209.160.73.65(delta.xocmep.info) "nice day, commander ;)" by Andrey Konkin (konkinnews55 at yahoo.com)
+	'.truststorepills.com',	// 89.188.113.64(allworldteam.com) by Alexey (admin at myweblogs.net)
 
 	// C-3: Not classifiable (information wanted)
 	//
