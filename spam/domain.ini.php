@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.4 2007/07/15 02:01:16 henoheno Exp $
+// $Id: domain.ini.php,v 1.5 2007/07/15 02:08:19 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -635,11 +635,11 @@ $domain['ua'] = array(
 	// http://whois.com.ua/
 
 	// Organizational
-	'com'        => TRUE,
-	'edu'        => TRUE,
-	'gov'        => TRUE,
-	'net'        => TRUE,
-	'org'        => TRUE,
+	'com' => TRUE,
+	'edu' => TRUE,
+	'gov' => TRUE,
+	'net' => TRUE,
+	'org' => TRUE,
 
 	// Regional
 	'cherkassy'  => TRUE,
@@ -661,7 +661,7 @@ $domain['ua'] = array(
 	'dn'         => TRUE,
 
 	'ivano-frankivsk' => TRUE,
-	'if'         => TRUE,
+	'if'              => TRUE,
 
 	'kharkov'    => TRUE,
 	'kh'         => TRUE,
@@ -706,7 +706,7 @@ $domain['ua'] = array(
 	'sm'         => TRUE,
 
 	'ternopil'   => TRUE,
-	'te'         => TRUE,	// Not 'tr'
+	'te'         => TRUE,	// Seems not 'tr'
 
 	'uzhgorod'   => TRUE,
 	'uz'         => TRUE,
@@ -715,7 +715,7 @@ $domain['ua'] = array(
 	'vn'         => TRUE,
 
 	'zaporizhzhe' => TRUE,
-	'zp'         => TRUE,
+	'zp'          => TRUE,
 
 	'zhitomir'   => TRUE,
 	'zt'         => TRUE,
