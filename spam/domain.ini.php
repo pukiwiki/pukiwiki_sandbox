@@ -1,10 +1,26 @@
 <?php
-// $Id: domain.ini.php,v 1.8 2007/07/15 14:30:59 henoheno Exp $
+// $Id: domain.ini.php,v 1.9 2007/07/15 14:53:39 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
 $domain   = array();
 $_pattern = array();
+
+// ------------------------------
+// ccTLD: Antigua and Barbuda
+// NIC  : http://www.nic.ag/
+// Whois: http://ns1.nic.ag/tools/whois.pl
+$domain['ag'] = array(
+	// AG Blocked or Reserved Domain Names Policy
+	// http://www.nic.ag/reserved-names-policy.htm
+	// "Available extensions are .AG, .COM.AG, .ORG.AG, .NET.AG, .CO.AG, and .NOM.AG."
+	// http://www.nic.ag/
+	'co'  => TRUE,
+	'com' => TRUE,
+	'net' => TRUE,
+	'nom' => TRUE,
+	'org' => TRUE,
+);
 
 // ------------------------------
 // ccTLD: Australia
