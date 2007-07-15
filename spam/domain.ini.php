@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.7 2007/07/15 14:20:44 henoheno Exp $
+// $Id: domain.ini.php,v 1.8 2007/07/15 14:30:59 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -198,47 +198,6 @@ $domain['in'] = array(
 	// http://www.inregistry.in/policies/reserved_names
 );
 
-// ------------------------------
-// ccTLD: South Korea
-// NIC  : http://www.nic.or.kr/english/
-// Whois: http://whois.nida.or.kr/english/
-$domain['kr'] = array(
-	// .kr domain policy [appendix 1] : Qualifications for Second Level Domains
-	// http://domain.nida.or.kr/eng/policy.jsp
-
-	// Organizational
-	'co'  => TRUE,
-	'ne ' => TRUE,
-	'or ' => TRUE,
-	're ' => TRUE,
-	'pe'  => TRUE,
-	'go ' => TRUE,
-	'mil' => TRUE,
-	'ac'  => TRUE,
-	'hs'  => TRUE,
-	'ms'  => TRUE,
-	'es'  => TRUE,
-	'sc'  => TRUE,
-	'kg'  => TRUE,
-
-	// Geographic
-	'seoul'     => TRUE,
-	'busan'     => TRUE,
-	'daegu'     => TRUE,
-	'incheon'   => TRUE,
-	'gwangju'   => TRUE,
-	'daejeon'   => TRUE,
-	'ulsan'     => TRUE,
-	'gyeonggi'  => TRUE,
-	'gangwon'   => TRUE,
-	'chungbuk'  => TRUE,
-	'chungnam'  => TRUE,
-	'jeonbuk'   => TRUE,
-	'jeonnam'   => TRUE,
-	'gyeongbuk' => TRUE,
-	'gyeongnam' => TRUE,
-	'jeju'      => TRUE,
-);
 
 // ------------------------------
 // ccTLD: Japan
@@ -324,6 +283,48 @@ $domain['jp'] = array(
 	'yamaguchi' => TRUE,
 	'yamanashi' => TRUE,
 	'yokohama'  => TRUE,
+);
+
+// ------------------------------
+// ccTLD: South Korea
+// NIC  : http://www.nic.or.kr/english/
+// Whois: http://whois.nida.or.kr/english/
+$domain['kr'] = array(
+	// .kr domain policy [appendix 1] : Qualifications for Second Level Domains
+	// http://domain.nida.or.kr/eng/policy.jsp
+
+	// Organizational
+	'co'  => TRUE,
+	'ne ' => TRUE,
+	'or ' => TRUE,
+	're ' => TRUE,
+	'pe'  => TRUE,
+	'go ' => TRUE,
+	'mil' => TRUE,
+	'ac'  => TRUE,
+	'hs'  => TRUE,
+	'ms'  => TRUE,
+	'es'  => TRUE,
+	'sc'  => TRUE,
+	'kg'  => TRUE,
+
+	// Geographic
+	'seoul'     => TRUE,
+	'busan'     => TRUE,
+	'daegu'     => TRUE,
+	'incheon'   => TRUE,
+	'gwangju'   => TRUE,
+	'daejeon'   => TRUE,
+	'ulsan'     => TRUE,
+	'gyeonggi'  => TRUE,
+	'gangwon'   => TRUE,
+	'chungbuk'  => TRUE,
+	'chungnam'  => TRUE,
+	'jeonbuk'   => TRUE,
+	'jeonnam'   => TRUE,
+	'gyeongbuk' => TRUE,
+	'gyeongnam' => TRUE,
+	'jeju'      => TRUE,
 );
 
 // ------------------------------
