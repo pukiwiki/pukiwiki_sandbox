@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.6 2007/07/15 14:14:28 henoheno Exp $
+// $Id: domain.ini.php,v 1.7 2007/07/15 14:20:44 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -84,38 +84,38 @@ $domain['br'] = array(
 	'tv'   => TRUE,
 
 	// Categories for professionals
-	'adm' => TRUE, // Administrators
-	'adv' => TRUE, // Advocates (Lawers)
-	'arq' => TRUE, // Architects
-	'ato' => TRUE, // Actors
-	'bio' => TRUE, // Biologists
-	'bmd' => TRUE, // Biomedics
-	'cim' => TRUE, // Correctors
-	'cng' => TRUE, // Scenographers
-	'cnt' => TRUE, // Counter (Accountants)
-	'ecn' => TRUE, // Economists
-	'eng' => TRUE, // Engineers
-	'eti' => TRUE, // IT specialists
-	'fnd' => TRUE, // 'Fonoaudiologos', Speech therapists?
-	'fot' => TRUE, // Photographers
-	'fst' => TRUE, // Physiotherapists
-	'ggf' => TRUE, // Geographers
-	'jor' => TRUE, // Journalists
-	'lel' => TRUE, // Auctioneers
-	'mat' => TRUE, // Mathematicians and Statisticians
-	'med' => TRUE, // Doctors
-	'mus' => TRUE, // Musicians
-	'not' => TRUE, // Notaries
-	'ntr' => TRUE, // Nutritionists
-	'odo' => TRUE, // Dentists
-	'ppg' => TRUE, // (Propaganda) Advertising executives and professionals
-	'pro' => TRUE, // Professors
-	'psc' => TRUE, // Psychologists
-	'qsl' => TRUE, // Amateur radio operators
-	'slg' => TRUE, // Sociologists
-	'trd' => TRUE, // Translators
-	'vet' => TRUE, // Veterinarians
-	'zlg' => TRUE, // Zoologists
+	'adm'  => TRUE, // Administrators
+	'adv'  => TRUE, // Advocates (Lawers)
+	'arq'  => TRUE, // Architects
+	'ato'  => TRUE, // Actors
+	'bio'  => TRUE, // Biologists
+	'bmd'  => TRUE, // Biomedics
+	'cim'  => TRUE, // Correctors
+	'cng'  => TRUE, // Scenographers
+	'cnt'  => TRUE, // Counter (Accountants)
+	'ecn'  => TRUE, // Economists
+	'eng'  => TRUE, // Engineers
+	'eti'  => TRUE, // IT specialists
+	'fnd'  => TRUE, // 'Fonoaudiologos', Speech therapists?
+	'fot'  => TRUE, // Photographers
+	'fst'  => TRUE, // Physiotherapists
+	'ggf'  => TRUE, // Geographers
+	'jor'  => TRUE, // Journalists
+	'lel'  => TRUE, // Auctioneers
+	'mat'  => TRUE, // Mathematicians and Statisticians
+	'med'  => TRUE, // Doctors
+	'mus'  => TRUE, // Musicians
+	'not'  => TRUE, // Notaries
+	'ntr'  => TRUE, // Nutritionists
+	'odo'  => TRUE, // Dentists
+	'ppg'  => TRUE, // (Propaganda) Advertising executives and professionals
+	'pro'  => TRUE, // Professors
+	'psc'  => TRUE, // Psychologists
+	'qsl'  => TRUE, // Amateur radio operators
+	'slg'  => TRUE, // Sociologists
+	'trd'  => TRUE, // Translators
+	'vet'  => TRUE, // Veterinarians
+	'zlg'  => TRUE, // Zoologists
 
 	// Categories for people
 	'blog' => TRUE,
@@ -717,84 +717,33 @@ $domain['ua'] = array(
 	'net' => TRUE,
 	'org' => TRUE,
 
-	// Regional
-	'cherkassy'  => TRUE,
-	'ck'         => TRUE,
-
-	'chernigov'  => TRUE,
-	'cn'         => TRUE,
-
-	'chernovtsy' => TRUE,
-	'cv'         => TRUE,
-
-	'crimea'     => TRUE,
-	'cr'         => TRUE,
-
-	'dnepropetrovsk' => TRUE,
-	'dp'             => TRUE,
-
-	'donetsk'    => TRUE,
-	'dn'         => TRUE,
-
-	'ivano-frankivsk' => TRUE,
-	'if'              => TRUE,
-
-	'kharkov'    => TRUE,
-	'kh'         => TRUE,
-
-	'kherson'    => TRUE,
-	'ks'         => TRUE,
-
-	'khmelnitskiy' => TRUE,
-	'km'           => TRUE,
-
-	'kiev'       => TRUE,
-	'kv'         => TRUE,
-
-	'kirovograd' => TRUE,
-	'kr'         => TRUE,
-
-	'lugansk'    => TRUE,
-	'lg'         => TRUE,
-
-	'lutsk'      => TRUE,
-	'lt'         => TRUE,
-
-	'lviv'       => TRUE,
-	'lv'         => TRUE,
-
-	'nikolaev'   => TRUE,
-	'mk'         => TRUE,
-
-	'odessa'     => TRUE,
-	'od'         => TRUE,
-
-	'poltava'    => TRUE,
-	'pl'         => TRUE,
-
-	'rovno'      => TRUE,
-	'rv'         => TRUE,
-
-	'sebastopol' => TRUE,
-	'sb'         => TRUE,
-
-	'sumy'       => TRUE,
-	'sm'         => TRUE,
-
-	'ternopil'   => TRUE,
-	'te'         => TRUE, // Seems not 'tr'
-
-	'uzhgorod'   => TRUE,
-	'uz'         => TRUE,
-
-	'vinnica'    => TRUE,
-	'vn'         => TRUE,
-
-	'zaporizhzhe' => TRUE,
-	'zp'          => TRUE,
-
-	'zhitomir'   => TRUE,
-	'zt'         => TRUE,
+	// Regional (long and short)
+	'cherkassy'       => TRUE,	'ck' => TRUE,
+	'chernigov'       => TRUE,	'cn' => TRUE,
+	'chernovtsy'      => TRUE,	'cv' => TRUE,
+	'crimea'          => TRUE,	'cr' => TRUE,
+	'dnepropetrovsk'  => TRUE,	'dp' => TRUE,
+	'donetsk'         => TRUE,	'dn' => TRUE,
+	'ivano-frankivsk' => TRUE,	'if' => TRUE,
+	'kharkov'         => TRUE,	'kh' => TRUE,
+	'kherson'         => TRUE,	'ks' => TRUE,
+	'khmelnitskiy'    => TRUE,	'km' => TRUE,
+	'kiev'            => TRUE,	'kv' => TRUE,
+	'kirovograd'      => TRUE,	'kr' => TRUE,
+	'lugansk'         => TRUE,	'lg' => TRUE,
+	'lutsk'           => TRUE,	'lt' => TRUE,
+	'lviv'            => TRUE,	'lv' => TRUE,
+	'nikolaev'        => TRUE,	'mk' => TRUE,
+	'odessa'          => TRUE,	'od' => TRUE,
+	'poltava'         => TRUE,	'pl' => TRUE,
+	'rovno'           => TRUE,	'rv' => TRUE,
+	'sebastopol'      => TRUE,	'sb' => TRUE,
+	'sumy'            => TRUE,	'sm' => TRUE,
+	'ternopil'        => TRUE,	'te' => TRUE, // Seems not 'tr'
+	'uzhgorod'        => TRUE,	'uz' => TRUE,
+	'vinnica'         => TRUE,	'vn' => TRUE,
+	'zaporizhzhe'     => TRUE,	'zp' => TRUE,
+	'zhitomir'        => TRUE,	'zt' => TRUE,
 );
 
 // ------------------------------
