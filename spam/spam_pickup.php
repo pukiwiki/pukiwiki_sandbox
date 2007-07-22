@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.51 2007/07/02 14:51:40 henoheno Exp $
+// $Id: spam_pickup.php,v 1.52 2007/07/22 13:34:07 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -128,21 +128,21 @@ function uri_pickup_normalize(& $pickups, $destructive = TRUE)
 	if ($destructive) {
 		foreach (array_keys($pickups) as $key) {
 			$_key = & $pickups[$key];
-			$_key['scheme']   = isset($_key['scheme']) ? scheme_normalize($_key['scheme']) : '';
-			$_key['host']     = isset($_key['host'])     ? host_normalize($_key['host']) : '';
-			$_key['port']     = isset($_key['port'])       ? port_normalize($_key['port'], $_key['scheme'], FALSE) : '';
+			$_key['scheme']   = isset($_key['scheme'])   ? scheme_normalize($_key['scheme']) : '';
+			$_key['host']     = isset($_key['host'])     ? host_normalize($_key['host'])     : '';
+			$_key['port']     = isset($_key['port'])     ? port_normalize($_key['port'], $_key['scheme'], FALSE) : '';
 			$_key['path']     = isset($_key['path'])     ? strtolower(path_normalize($_key['path'])) : '';
-			$_key['file']     = isset($_key['file'])     ? file_normalize($_key['file']) : '';
+			$_key['file']     = isset($_key['file'])     ? file_normalize($_key['file'])   : '';
 			$_key['query']    = isset($_key['query'])    ? query_normalize($_key['query']) : '';
-			$_key['fragment'] = isset($_key['fragment']) ? strtolower($_key['fragment']) : '';
+			$_key['fragment'] = isset($_key['fragment']) ? strtolower($_key['fragment'])   : '';
 		}
 	} else {
 		foreach (array_keys($pickups) as $key) {
 			$_key = & $pickups[$key];
-			$_key['scheme']   = isset($_key['scheme']) ? scheme_normalize($_key['scheme']) : '';
-			$_key['host']     = isset($_key['host'])   ? strtolower($_key['host']) : '';
-			$_key['port']     = isset($_key['port'])   ? port_normalize($_key['port'], $_key['scheme'], FALSE) : '';
-			$_key['path']     = isset($_key['path'])   ? path_normalize($_key['path']) : '';
+			$_key['scheme']   = isset($_key['scheme'])   ? scheme_normalize($_key['scheme']) : '';
+			$_key['host']     = isset($_key['host'])     ? strtolower($_key['host'])         : '';
+			$_key['port']     = isset($_key['port'])     ? port_normalize($_key['port'], $_key['scheme'], FALSE) : '';
+			$_key['path']     = isset($_key['path'])     ? path_normalize($_key['path']) : '';
 		}
 	}
 
