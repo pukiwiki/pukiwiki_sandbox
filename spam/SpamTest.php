@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.18 2007/07/02 14:51:40 henoheno Exp $
+// $Id: SpamTest.php,v 1.19 2007/07/28 12:47:28 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -139,58 +139,72 @@ class SpamTest extends PHPUnit_TestCase
 		);
 	}
 
-	// And array_unique_recursive()
-	function testPhPFunc_array_merge_recursive()
+	function testFunc_array_merge_leaves()
 	{
+		// PHP array_unique_recursive(), and array_merge_leaves()
+
 		$array1 = array(1);
 		$array2 = array(1);
 		$result = array_merge_recursive($array1, $array2);
 		$this->assertEquals(array(1, 1), $result);
 		$result = array_unique_recursive($result);
 		$this->assertEquals(array(1),    $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array(1),    $result);
+
 
 		$array1 = array(2);
 		$array2 = array(1);
-		$result = array(2, 1);
-		$this->assertEquals($result, array_merge_recursive($array1, $array2));
+		$result = array_merge_recursive($array1, $array2);
+		$this->assertEquals(array(2, 1), $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array(1),    $result);
 
 		// All NUMERIC keys are always renumbered from 0
 		$array1 = array('10' => 'f3');
 		$array2 = array('10' => 'f4');
-		$result = array('f3', 'f4');
-		$this->assertEquals($result, array_merge_recursive($array1, $array2));
+		$result = array_merge_recursive($array1, $array2);
+		$this->assertEquals(array(0 => 'f3', 1 => 'f4'), $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array(10 => 'f4'), $result);
 
 		// One more thing ...
 		$array1 = array('20' => 'f5');
 		$array2 = array();
-		$result = array('f5');
-		$this->assertEquals($result, array_merge_recursive($array1, $array2));
+		$result = array_merge_recursive($array1, $array2);
+		$this->assertEquals(array(0 => 'f5'), $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array(20 => 'f5'), $result);
 
 		// Non-numeric keys and values will be marged as you think
 		$array1 = array('a' => 'f1');
 		$array2 = array('a' => 'f2');
-		$result = array('a' => array('f1', 'f2'));
-		$this->assertEquals($result, array_merge_recursive($array1, $array2));
+		$result = array_merge_recursive($array1, $array2);
+		$this->assertEquals(array('a' => array('f1', 'f2')), $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array('a' => 'f2'), $result);
 
 		// Non-numeric keys: An array and a value will be marged
 		$array1 = array('b' => array('k1'));
 		$array2 = array('b' => 'k2');
-		$result = array('b' => array('k1', 'k2'));
-		$this->assertEquals($result, array_merge_recursive($array1, $array2));
+		$result = array_merge_recursive($array1, $array2);
+		$this->assertEquals(array('b' => array(0 => 'k1', 1 => 'k2')), $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array('b' => array(0 => 'k1')), $result);
 
 		// Combination
 		$array1 = array(
 			2,
-			'a' => 'f1',
+			'a'  => 'f1',
 			'10' => 'f3',
 			'20' => 'f5',
-			'b' => array('k1'),
+			'b'  => array('k1'),
 		);
 		$array2 = array(
 			1,
-			'a' => 'f2',
+			'a'  => 'f2',
 			'10' => 'f4',
-			'b' => 'k2',
+			'b'  => 'k2',
 		);
 		$result = array (
 			2,
@@ -207,7 +221,15 @@ class SpamTest extends PHPUnit_TestCase
 			1,
 			'f4',
 		);
-		$this->assertEquals($result, array_merge_recursive($array1, $array2));
+		$result2 = array (
+			 0  => 1,
+			10  => 'f4',
+			20  => 'f5',
+			'a' => 'f2',
+			'b' => array ('k1'),
+		);
+		$this->assertEquals($result,  array_merge_recursive($array1, $array2));
+		$this->assertEquals($result2, array_merge_leaves($array1, $array2));
 
 		// Values will not be unique
 		$array1 = array(5, 4);
@@ -216,6 +238,8 @@ class SpamTest extends PHPUnit_TestCase
 		$this->assertEquals(array(5, 4, 4, 5), $result);
 		$result = array_unique_recursive($result);
 		$this->assertEquals(array(5, 4),       $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array(4, 5),       $result);
 
 		// One more thing ...
 		$array1 = array('b' => array('k3'));
@@ -224,6 +248,41 @@ class SpamTest extends PHPUnit_TestCase
 		$this->assertEquals(array('b' => array('k3', 'k3')), $result);
 		$result = array_unique_recursive($result);
 		$this->assertEquals(array('b' => array('k3')),       $result);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array('b' => array('k3')), $result);
+
+		// Preserve numeric keys
+		$array1 = array('a' => array('' => NULL));
+		$array2 = array('a' => array(5  => NULL));
+		$array3 = array('a' => array(8  => NULL));
+		//
+		// BAD: PHP array_merge_recursive() don't preserve numeric keys
+		$result = array_merge_recursive($array1, $array2);
+		$this->assertEquals(array('a' => array('' => NULL, 0 => NULL)), $result);	// 0?
+		$result = array_merge_recursive($array2, $array3);
+		$this->assertEquals(array('a' => array(5 => NULL,  6 => NULL)), $result);	// 6?
+		//
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array('a' => array('' => NULL, 5 => NULL)), $result);	// 0?
+		$result = array_merge_leaves($array2, $array3);
+		$this->assertEquals(array('a' => array(5 => NULL,  8 => NULL)), $result);	// 6?
+
+
+		// Merge leaves
+		$array1 = array('a' => TRUE);
+		$array2 = array('b' => FALSE);
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array('a' => TRUE, 'b' => FALSE), $result);
+
+		$array1 = array('a' => TRUE);
+		$array2 = array('a' => array('aa' => TRUE));
+		$this->assertEquals($array2, array_merge_leaves($array1, $array2));
+		$this->assertEquals($array2, array_merge_leaves($array2, $array1));
+
+		$array1 = array('a' => array('a1' => TRUE));
+		$array2 = array('a' => array('a2' => FALSE));
+		$result = array_merge_leaves($array1, $array2);
+		$this->assertEquals(array('a' => array('a1' => TRUE, 'a2' => FALSE)), $result);
 	}
 
 	function testFunc_generate_glob_regex()

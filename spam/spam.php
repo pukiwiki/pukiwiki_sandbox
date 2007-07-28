@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.197 2007/07/03 14:51:07 henoheno Exp $
+// $Id: spam.php,v 1.198 2007/07/28 12:47:28 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -159,6 +159,44 @@ function array_count_leaves($array = array(), $count_empty = FALSE)
 		$count += array_count_leaves($part, $count_empty);
 	}
 	return $count;
+}
+
+// Merge two leaves
+// Similar to PHP array_merge_leaves(), except strictly preserving keys as string
+function array_merge_leaves($array1, $array2, $sort_keys = TRUE)
+{
+	// Array(s) only 
+	$is_array1 = is_array($array1);
+	$is_array2 = is_array($array2);
+	if ($is_array1) {
+		if ($is_array2) {
+			;	// Pass
+		} else {
+			return $array1;
+		}
+	} else if ($is_array2) {
+		return $array2;
+	} else {
+		return $array2; // Not array ($array1 is overwritten)
+	}
+
+	$keys_all = array_merge(array_keys($array1), array_keys($array2));
+	if ($sort_keys) sort($keys_all, SORT_STRING);
+
+	$result = array();
+	foreach($keys_all as $key) {
+		$isset1 = isset($array1[$key]);
+		$isset2 = isset($array2[$key]);
+		if ($isset1 && $isset2) {
+			// Recurse
+			$result[$key] = array_merge_leaves($array1[$key], $array2[$key], $sort_keys);
+		} else if ($isset1) {
+			$result[$key] = & $array1[$key];
+		} else {
+			$result[$key] = & $array2[$key];
+		}
+	}
+	return $result;
 }
 
 // An array-leaves to a flat array
@@ -529,8 +567,8 @@ function check_uri_spam($target = '', $method = array())
 			if ($asap && $is_spam) break;
 
 			// Merge only
-			$blocked = array_merge_recursive($blocked, $_progress['blocked']);
-			$hosts   = array_merge_recursive($hosts,   $_progress['hosts']);
+			$blocked = array_merge_leaves($blocked, $_progress['blocked'], FALSE);
+			$hosts   = array_merge_leaves($hosts,   $_progress['hosts']),  FALSE;
 		}
 
 		// Unique values
@@ -746,7 +784,7 @@ function summarize_detail_newtral($progress = array())
 		} else {
 			$rest = rtrim(substr($value, 0, - strlen($resp)), '.');	// 'A.foo.bar'
 		}
-		$trie = array_merge_recursive($trie, array($resp => array($rest => NULL)));
+		$trie = array_merge_leaves($trie, array($resp => array($rest => NULL)), FALSE);
 	}
 
 	// Format: var_export_shrink() -like output
