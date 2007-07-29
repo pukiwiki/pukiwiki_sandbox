@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.135 2007/07/16 03:00:49 henoheno Exp $
+// $Id: spam.ini.php,v 1.136 2007/07/29 10:14:13 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2718,8 +2718,18 @@ $blocklist['C'] = array(
 		'.lzy88588.com',
 		'.ragnaroklink.com',
 
+		// 125.65.112.24
+		'.rmtfane.com',
+		'.fc2weday.com',
+		'.nlftweb.com',
+
+		// 125.65.112.27
+		'.i520i.com',
+		'.sunwayto.com',
+
+		// 125.65.112.31
 		// The same IP: web016.cdnhost.cn
-		'.twyaooplay.com',		// 125.65.112.31
+		'.twyaooplay.com',
 
 		// 125.65.112.32
 		// The same IP: web037.cdnhost.cn
@@ -2751,6 +2761,9 @@ $blocklist['C'] = array(
 		'.luobuogood.com',
 		'.ragnarok-search.com',
 		'.rinku-livedoor.com',
+
+		// 125.65.112.90
+		'.gtvxi.com',
 
 		// 125.65.112.91
 		// The same IP: web004.cdnhost.cn
@@ -2810,6 +2823,9 @@ $blocklist['C'] = array(
 		'.toriningena.net',
 		'.yahoodoor-blog.com',
 		'.yy14-kakiko.com',
+
+		// 125.65.112.137
+		'.clublineage.com',
 
 		// 228.14.153.219.broad.cq.cq.dynamic.163data.com.cn
 		'.kaukoo.com',			// 219.153.14.228, by zeng xianming (expshell at 163.com)
