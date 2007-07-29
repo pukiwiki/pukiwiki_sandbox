@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.199 2007/07/29 12:55:50 henoheno Exp $
+// $Id: spam.php,v 1.200 2007/07/29 12:59:24 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -684,7 +684,7 @@ function check_uri_spam($target = '', $method = array())
 	// Host: Uniqueness (uniq / non-uniq)
 	foreach ($pickups as $pickup) $hosts[] = & $pickup['host'];
 	$hosts = array_unique($hosts);
-	$sum['uniqhost'] += count($hosts);
+	if (isset($sum['uniqhost'])) $sum['uniqhost'] += count($hosts);
 	if ((! $asap || ! $is_spam) && isset($method['non_uniqhost'])) {
 		$sum['non_uniqhost'] = $sum['quantity'] - $sum['uniqhost'];
 		if ($sum['non_uniqhost'] > $method['non_uniqhost']) {
