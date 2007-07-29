@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.198 2007/07/28 12:47:28 henoheno Exp $
+// $Id: spam.php,v 1.199 2007/07/29 12:55:50 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -568,7 +568,7 @@ function check_uri_spam($target = '', $method = array())
 
 			// Merge only
 			$blocked = array_merge_leaves($blocked, $_progress['blocked'], FALSE);
-			$hosts   = array_merge_leaves($hosts,   $_progress['hosts']),  FALSE;
+			$hosts   = array_merge_leaves($hosts,   $_progress['hosts'],   FALSE);
 		}
 
 		// Unique values
