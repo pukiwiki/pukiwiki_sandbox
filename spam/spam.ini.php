@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.136 2007/07/29 10:14:13 henoheno Exp $
+// $Id: spam.ini.php,v 1.137 2007/07/29 10:59:28 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1848,7 +1848,6 @@ $blocklist['B-1'] = array(
 	'neweconomics.info',
 	'*.nm.ru',
 	'*.obm.cn',				// by xiaobak at yahoo.com.cn
-	'*.w100.okwit.com',		// by chen jinian (dfym at dfym.cn)
 	'onlyfree.de',
 	'*.ooblez.com',			// by John Nolande (ooblez at hotmail.com)
 	'*.ohost.de',
@@ -4479,6 +4478,11 @@ $blocklist['C'] = array(
 		'.espharmacy.com',			// 217.11.233.34
 		'.pharmacyonlinenet.com',	// 216.195.51.59, hidden JavaScript
 		'.ringtonecooler.com',		// 217.11.233.34
+	),
+	'dfym at dfym.cn' => array(	// by chen jinian (dfym at dfym.cn)
+		'.okwit.com',		// 220.166.64.44
+		'.sakerver.com',	// 220.166.64.194
+		'.motewiki.net',	// 220.166.64.194
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
