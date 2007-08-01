@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.137 2007/07/29 10:59:28 henoheno Exp $
+// $Id: spam.ini.php,v 1.138 2007/08/01 13:23:54 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -573,6 +573,7 @@ $blocklist['A-1'] = array(
 	),
 	'irotator.com',
 	'.iwebtool.com',
+	'j6.bz',
 	'jeeee.net',
 	'Jaze Redirect Services' => array(
 		'*.arecool.net',
@@ -1392,6 +1393,7 @@ $blocklist['A-2'] = array(
 		'*.jdyn.cc',
 		'*.jspeed.jp',
 	),
+	'*.mydyn.de',
 	'*.nerdcamp.net',
 	'No-IP.com' => array(
 			'*.bounceme.net',
@@ -1448,6 +1450,7 @@ $blocklist['B-1'] = array(
 		'*.00freehost.com',	// by David Mccall (superjeeves at yahoo.com), ns *.0catch.com
 		'*.0catch.com',		// by Sam Parkinson (sam at 0catch.com), also zerocatch.com
 		'*.100freemb.com',	// by Danny Ashworth (dan at 0catch.com), ns *.0catch.com
+		'*.1sweethost.com',	// 209.63.57.10(www1.0catch.com) by whois at bluehost.com, ns *.0catch.com
 		'*.envy.nu',		// by Dave Ellis (dave at larryblackandassoc.com), ns *.0catch.com
 		'*.galaxy99.net',	// by Bagchi.Org (admin at bagchi.org), ns *.0catch.com
 		'*.zomi.net',		// by sianpu at gmail.com, ns *.0catch.com
@@ -2137,6 +2140,7 @@ $blocklist['B-2'] = array(
 	// (e.g. some sort of blog comments, BBSes, forums, wikis)
 	'*.3dm3.com',
 	'3gmicro.com',			// by Dean Anderson (dean at nobullcomputing.com)
+	'*.1fr1.com',
 	'a4aid.org',
 	'aac.com',
 	'*.aamad.org',
@@ -2184,6 +2188,7 @@ $blocklist['B-2'] = array(
 	'fbwloc.com',
 	'.fhmcsa.org.au',
 	'findyourwave.co.uk',
+	'frogcafe.net',
 	'plone4.fnal.gov',
 	'freeforen.com',
 	'funkdoc.com',
@@ -2208,6 +2213,7 @@ $blocklist['B-2'] = array(
 	'.hyba.info',
 	'inda.org',
 	'*.indymedia.org',	// by abdecom at riseup.net
+	'instantbulletin.com',
 	'internetincomeclub.com',
 	'*.inventforum.com',
 	'Iowa State University' => array('boole.cs.iastate.edu'),
@@ -2240,6 +2246,7 @@ $blocklist['B-2'] = array(
 	'mountainjusticemedia.org',
 	'*.mybbland.com',
 	'mydlstore.com',
+	'*.netboardz.com',
 	'North Carolina A&T State University' => array(
 		'ncat.edu',
 		'my.ncat.edu',
@@ -2289,6 +2296,7 @@ $blocklist['B-2'] = array(
 	'Tennessee Tech University' => array('manila.tntech.edu'),
 	'thebluebird.ws',
 	'theosis.org',
+	'*.thoforum.com',
 	'troms-slekt.com',
 	'theedgeblueisland.com',
 	'toyshop.com.tw',		// /images/sigui/
@@ -4148,8 +4156,32 @@ $blocklist['C'] = array(
 			// fresadultapple.info
 			// fresadultclick.info
 			// frestheplace.info
+
+		// 66.232.113.44
 		'.nuhost.info',
 		'.susearch.info',
+
+		// 66.232.126.74(hv94.steephost.com)
+		'.jisyn.com',
+		'.kaxem.com',
+		'.mihug.com',
+		'.ryzic.com',
+		'.vehyq.com',
+		'.wifuj.com',
+	),
+	'jakaj ay hotmail.com' => array(	// 66.232.113.46, the same approach and timing of clickx at bk.ru
+		'.hitsearching.info',
+		'.hugeamountdata.info',
+		'.megafasthost.info',
+		'.real-big-host.info',
+		'.search4freez.info',
+		'.yasech.info',
+	),
+	'ice--man at mail.ru' => array(	// 74.50.97.198 by andrey, the same approach and timing of clickx at bk.ru
+		'.exoticmed.com',
+		'.greatexotic.com',
+		'.icyiceman.com',
+		'.mimargan.com',
 	),
 	'porychik at hot.ee' => array(	// by Igor
 		'.tedstate.info',	// "Free Web Hosting"
@@ -4484,6 +4516,15 @@ $blocklist['C'] = array(
 		'.sakerver.com',	// 220.166.64.194
 		'.motewiki.net',	// 220.166.64.194
 	),
+	'mkiyle at gmail.com' => array(	// by Mihelich (mkiyle at gmail.com)
+		'.findcraft.info',	// 209.8.28.11(209-8-28-11.pccwglobal.net)
+		'.lookshop.info',	// 209.8.40.52
+		'.searchhealth.info',	// 206.161.205.30(seg.fau.lt)
+	),
+	'lee.seery at gmail.com' => array(
+		'.lingvol.com',		// 64.21.34.55(klikgoogle.com)
+		'.micevol.com',		// 64.21.34.55
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -4540,7 +4581,6 @@ $blocklist['C'] = array(
 	'.ffxiforums.net',		// by Zhang xiaolong (mail at 33986.com), hidden VBScript
 	'*.filthserver.com',	// sales at onlinemarketingservices.biz
 	'.find-stuff.org',		// by Alice Freedman (admin at ip-labs.ru), / 404 Not Found
-	'.findcraft.info',		// by Mihelich (mkiyle at gmail.com)
 	'.firstdrugstorezone.info',	// by Goose (boris208 at yandex.ru)
 	'.free-finding.com',	// by Ny hom (nyhom at yahoo.com)
 	'.free-rx.net',			// by Neo-x (neo-xxl at yandex.ru), redirect to activefreehost.com
