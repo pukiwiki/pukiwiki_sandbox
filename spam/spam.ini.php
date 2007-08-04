@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.140 2007/08/04 11:17:15 henoheno Exp $
+// $Id: spam.ini.php,v 1.141 2007/08/04 11:51:24 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2600,6 +2600,7 @@ $blocklist['C'] = array(
 		'.freeforworld.info',		// by Varsylenko
 		'.gitsite.info',			// by Petrov
 		'.goodworksite.info',		// by Varsylenko
+		'.michost.info',			// by LAURI FUNK
 		'.onall.info',				// by Varsylenko
 		'.organiq.info',			// by Petrov
 		'.parther.info',			// by LAURI FUNK
@@ -4171,6 +4172,8 @@ $blocklist['C'] = array(
 
 		// 66.232.126.74(hv94.steephost.com)
 		'.dilej.com',
+		'.fyvij.com',
+		'.howus.com',
 		'.jisyn.com',
 		'.kaxem.com',
 		'.mihug.com',
@@ -4179,8 +4182,10 @@ $blocklist['C'] = array(
 		'.sasuv.com',
 		'.tuquh.com',
 		'.vehyq.com',
+		'.wezid.com',
 		'.wifuj.com',
 		'.xijyt.com',
+		'.zuqyn.com',
 	),
 	'jakaj ay hotmail.com' => array(	// 66.232.113.46, the same approach and timing of clickx at bk.ru
 		'.hitsearching.info',
@@ -4197,6 +4202,7 @@ $blocklist['C'] = array(
 		'.margansitio.com',
 		'.margantierra.com',
 		'.mimargan.com',
+		'.oilkeys.com',
 	),
 	'porychik at hot.ee' => array(	// by Igor
 		'.tedstate.info',	// "Free Web Hosting"
@@ -4562,6 +4568,36 @@ $blocklist['C'] = array(
 		'.lowerate-ard.info',
 		'.lowpercentageacrd.info',
 	),
+	'acua at mail.ru' => array(
+		// 84.16.251.222(alinoe.org -> 212.85.96.95 -> v00095.home.net.pl), / says 'noy found'
+		'.dedka2ns.info',	// by acua at mail.ru
+			// by webmaster at dedka2ns.info
+			'.ascpo.cn',
+			'.jgycr.cn',
+			'.nqdtt.cn',
+			'.oswde.cn',
+			'.qeyig.cn',
+			'.soqsx.cn',
+
+		// 84.16.255.253(84-16-255-253.internetserviceteam.com), / says 'noy found'
+		'.dns4dedka.info',	// by acua at mail.ru
+			// by webmaster at dns4dedka.info
+			'.bcpnb.cn',
+			'.cfbpr.cn',
+			'.dnndb.cn',
+			'.ekwme.cn',
+			'.iutps.cn',
+			'.ryftj.cn',
+
+		// 84.16.249.240(euro.lotgd.pl -> 88.198.6.42), / says 'noy found'
+		'.dns4babka.info',	// by acua at mail.ru
+			// by webmaster at dns4babka.info
+			'.credh.cn',
+			'.fucfv.cn',
+			'.gdxnk.cn',
+			'.sqrrt.cn',
+			'.ywtmd.cn',
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -4758,7 +4794,6 @@ $blocklist['C'] = array(
 	'.tingstock.info',		// 209.160.73.65(delta.xocmep.info) "nice day, commander ;)" by Andrey Konkin (konkinnews55 at yahoo.com)
 	'.truststorepills.com',	// 89.188.113.64(allworldteam.com) by Alexey (admin at myweblogs.net)
 
-
 	// C-3: Not classifiable (information wanted)
 	//
 	// Something incoming to pukiwiki related sites
@@ -4857,6 +4892,7 @@ $blocklist['E'] = array(
 		'.sppd.co.jp',		// 210.136.106.122 by Studio Map Ltd., ns *.sppd.ne.jp, spam
 	),
 	'.e2996.com',			// 202.181.105.241(sv261.lolipop.jp)
+	'ezinearticles.com',	// 216.235.79.13 by C Knight (opensrs at sparknet.net)
 	'.fx4rich.com',			// 219.94.128.161(www921.sakura.ne.jp) by Yuji Nakano (info at will76.com)
 	'info at kobeweb.jp' => array(
 		'.soholife.jp',		// 211.125.65.203 by Takashige Tabuchi (info at kobeweb.jp)
