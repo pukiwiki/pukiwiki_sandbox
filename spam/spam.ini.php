@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.143 2007/08/04 13:44:37 henoheno Exp $
+// $Id: spam.ini.php,v 1.144 2007/08/04 13:50:13 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -846,7 +846,7 @@ $blocklist['A-1'] = array(
 	'miniurl.pl',
 	'mixi.bz',
 	'mo-v.jp',
-	'MoldData.md' => array(
+	'MoldData.md' => array(	// Note: Some part of '.md' ccTLD
 		'.com.md',
 		'.co.md',
 		'.org.md',
