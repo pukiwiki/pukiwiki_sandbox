@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.141 2007/08/04 11:51:24 henoheno Exp $
+// $Id: spam.ini.php,v 1.142 2007/08/04 12:38:46 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4177,6 +4177,7 @@ $blocklist['C'] = array(
 		'.jisyn.com',
 		'.kaxem.com',
 		'.mihug.com',
+		'.qidat.com',
 		'.qihek.com',
 		'.ryzic.com',
 		'.sasuv.com',
@@ -4203,6 +4204,7 @@ $blocklist['C'] = array(
 		'.margantierra.com',
 		'.mimargan.com',
 		'.oilkeys.com',
+		'.thekeyse.com',
 	),
 	'porychik at hot.ee' => array(	// by Igor
 		'.tedstate.info',	// "Free Web Hosting"
@@ -4384,7 +4386,7 @@ $blocklist['C'] = array(
 		'.gamanir.com',		// by yangjianhe (upload888 at 126.com), malicious file
 		'.twurbbs.com',		// by mingzhong ni (ggyydiy at 163.com)
 	),
-	'm_koz at mail.ru' => array(	// 217.11.233.76 by Kozlov Maxim (m_koz at mail.ru)
+	'm_koz at mail.ru' => array(	// 217.11.233.76 by Kozlov Maxim
 		'.beta-google.com',
 		'.tv-reklama.info',
 		'.ebooktradingpost.com',	// Anonymous like 81.0.195.148 but 217.11.233.76
@@ -4415,6 +4417,7 @@ $blocklist['C'] = array(
 	'admin at newestsearch.com' => array(	// by Gibrel Sitce
 		'.emr5ce.org',
 		'.wfe7nv.org',
+		'.xyr99yx.org',
 	),
 	'203.171.230.39' => array(	// registrar bizcn.com, iframe + cursor
 		'.playonlinenc.com',
@@ -4545,7 +4548,8 @@ $blocklist['C'] = array(
 	),
 	'mkiyle at gmail.com' => array(	// by Mihelich (mkiyle at gmail.com)
 		'.findcraft.info',			// 209.8.28.11(209-8-28-11.pccwglobal.net)
-		'.lookshop.info',			// 209.8.40.52
+		'.lookmedicine.info',		// 206.161.205.22
+		'.lookshop.info',			// 209.8.40.52(goes.to.high.school.in.beverly-hills.ca.us)
 		'.searchhealth.info',		// 206.161.205.30(seg.fau.lt)
 		'.worldsitesearch.info',	// 209.8.40.59
 	),
@@ -4597,6 +4601,13 @@ $blocklist['C'] = array(
 			'.gdxnk.cn',
 			'.sqrrt.cn',
 			'.ywtmd.cn',
+	),
+	'ganzer3' => array(	// by Roman Shteynshlyuger (ganzer3 at gmail.com)
+		'.bruised-cridet.info',		// 69.64.82.78(*.dedicated.abac.net)
+		'.bruised-criedit.info',	// 69.64.82.76(*.dedicated.abac.net)
+		'.bruised-drecit.info',		// 69.64.82.78(*.dedicated.abac.net)
+		'.bruised-reditcards.info',	// 69.64.82.78(*.dedicated.abac.net)
+		'.cleaningupcedirt.info',	// 69.64.82.77(*.dedicated.abac.net)
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
