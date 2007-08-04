@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.139 2007/08/02 13:16:17 henoheno Exp $
+// $Id: spam.ini.php,v 1.140 2007/08/04 11:17:15 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4818,6 +4818,7 @@ $blocklist['E'] = array(
 		'.havads-japan.com',			// by Masatoshi
 		'.info-business123.com',		// by Fujio
 		'.instant-marketing-club.com',	// by Fujio
+		'.internetmarketinggorinjyu.com',	// by Masatoshi
 		'.marketing-force-japan.com',	// by Fujio
 		'.masatoshikobayashi.com',		// by Fujio
 		'.profitsinstigator.com',		// by Masatoshi Kobayashi (akada@e-brainers.com)
@@ -4840,7 +4841,9 @@ $blocklist['E'] = array(
 
 		// 202.228.204.140(server.ultimate-marketing-weapon.com) by Masatoshi Kobayashi (akada at e-brainers.com)
 		// 202.228.204.140 by Masatoshi Kobayashi (domain at e-brainers.com)
-		'.brainers.ws',	// 202.228.204.140 by info at key-systems.net, ns *.ultimate-marketing-weapon.com
+		// 202.228.204.140 by Naoki Kobayashi (info at bet.co.jp)
+		'.1sap.com',			// by Naoki, ns *.ultimate-marketing-weapon.com
+		'.brainers.ws',			// by info at key-systems.net, ns *.ultimate-marketing-weapon.com
 		'.brainerscode.com',	// by akada
 		'.brainerslive.com',	// by domain
 		'.brainersreview.com',	// by domain
