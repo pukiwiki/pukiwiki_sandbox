@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.142 2007/08/04 12:38:46 henoheno Exp $
+// $Id: spam.ini.php,v 1.143 2007/08/04 13:44:37 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -846,6 +846,13 @@ $blocklist['A-1'] = array(
 	'miniurl.pl',
 	'mixi.bz',
 	'mo-v.jp',
+	'MoldData.md' => array(
+		'.com.md',
+		'.co.md',
+		'.org.md',
+		'.info.md',
+		'.host.md',
+	),
 	'monster-submit.com',
 	'mooo.jp',
 	'murl.net',
@@ -4608,6 +4615,7 @@ $blocklist['C'] = array(
 		'.bruised-drecit.info',		// 69.64.82.78(*.dedicated.abac.net)
 		'.bruised-reditcards.info',	// 69.64.82.78(*.dedicated.abac.net)
 		'.cleaningupcedirt.info',	// 69.64.82.77(*.dedicated.abac.net)
+		'.cleaningupcrecit.info',	// 69.64.82.79(*.dedicated.abac.net)
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -4801,6 +4809,7 @@ $blocklist['C'] = array(
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
 
 	'.guesttext.info',		// 81.0.195.134 by Grace.D.Kibby pookmail.com, / seems null
+	'.medicineonlinestore.com',	// Alexander Korovin (domains at molddata.md)
 	'.moremu.com',			// 205.134.190.12(amateurlog.com) by Magaly Plumley (domains ay moremu.com)
 	'.tingstock.info',		// 209.160.73.65(delta.xocmep.info) "nice day, commander ;)" by Andrey Konkin (konkinnews55 at yahoo.com)
 	'.truststorepills.com',	// 89.188.113.64(allworldteam.com) by Alexey (admin at myweblogs.net)

@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.10 2007/07/15 15:15:32 henoheno Exp $
+// $Id: domain.ini.php,v 1.11 2007/08/04 13:44:37 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -342,6 +342,23 @@ $domain['kr'] = array(
 	'gyeongnam' => TRUE,
 	'jeju'      => TRUE,
 );
+
+// ------------------------------
+// ccTLD: Moldova (No whois server)
+// NIC  : http://www.register.md/
+// Whois:
+//   http://www.max.md/whois/ Second level only
+//   http://www.host.md/
+//$domain['md'] = array(
+//	// http://www.host.md/ by MoldData (http://www.molddata.md/)
+//	// "MoldData, a state enterprise" http://www.iana.org/reports/md-report-22oct03.htm
+//  // http://www.molddata.md/services/domain/molddata.txt
+//	'com'  => TRUE,
+//	'co'   => TRUE,
+//	'info' => TRUE,
+//	'org'  => TRUE,
+//	'host' => TRUE.
+//);
 
 // ------------------------------
 // ccTLD: Mexico
