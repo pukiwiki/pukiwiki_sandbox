@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.146 2007/08/05 07:54:47 henoheno Exp $
+// $Id: spam.ini.php,v 1.147 2007/08/05 08:28:28 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4716,6 +4716,7 @@ $blocklist['C'] = array(
 	'.google-pharmacy.com',	// by alex (mdisign1997 at yahoo.com), hiding with urlx.org etc
 	'.greatbestwestern.org',// by gao.wungao at gmail.com
 	'.greatsexdate.com',	// by Andreas Crablo (crablo at hotmail.com)
+	'.guesttext.info',		// 81.0.195.134 by Grace.D.Kibby pookmail.com, / seems null
 	'.guild-wars-online.com',	// by Fuzhou Tianmeng Touzi Zixun Co.,Ltd (welkin at skyunion.com)
 	'.happyhost.org',		// by Paul Zamnov (paul at zamnov.be)
 	'.hloris.com',			// by Wilshi Jamil (ixisus at front.ru)
@@ -4745,9 +4746,11 @@ $blocklist['C'] = array(
 	'.ls.la',				// by Milton McLellan (McLellanMilton at yahoo.com)
 	'.mamaha.info',			// by Alex Klimovsky (paganec at gmail.com), seems now constructiong
 	'.manseekingwomanx.com',// by Bill Peterson (coccooc at fastmail.fm)
+	'.medicineonlinestore.com',	// Alexander Korovin (domains at molddata.md)
 	'.medpharmaworldguide.com',	// by Nick Ivchenkov (signmark at gmail.com), / not found
 	'.megvideochatlive.info',	// Bad seo
 	'.milfxxxpass.com',		// by Morozov Pavlik (rulets at gmail.com)
+	'.moremu.com',			// 205.134.190.12(amateurlog.com) by Magaly Plumley (domains ay moremu.com)
 	'.myfgj.info',			// by Filus (softscript at gmail.com)
 	'.mujiki.com',			// by Mila Contora (ebumsn at ngs.ru)
 	'.mxsupportmailer.com',
@@ -4798,12 +4801,14 @@ $blocklist['C'] = array(
 	'.sslcp.com',			// by shufang zhou (info at 6come.com), dns *.hichina.com
 	'.sticy.info',			// by Richard D. Mccall (richardmccall at yahoo.com)
 	'.superrwm.info',		// by Dark Dux (duxdark at yahoo.com)
+	'.superverizonringtones.com',	// by joshua at list.ru
 	'.thehostcity.com',		// Domains by Proxy
 	'.thetinyurl.com',		// by Beth J. Carter (Beth.J.Carter at thetinyurl.com), / is blank
 	'.thetrendy.info',		// by Harold (Harold.J.Craft at pookmail.com), / is blank
 	'.theusapills.com',		// by Dr. Zarman (contactus at theusapills.com)
 	'.tingstock.info',		// 209.160.73.65(delta.xocmep.info) "nice day, commander ;)" by Andrey Konkin (konkinnews55 at yahoo.com)
 	'.topmeds10.com',
+	'.truststorepills.com',	// 89.188.113.64(allworldteam.com) by Alexey (admin at myweblogs.net)
 	'.twabout.com',			// by qiu wenbing (qiuwenbing at 126.com), content from l2mpt.net
 	'.uaro.info',			// by Neru Pioner (neru at smtp.ru)
 	'.unctad.net',			// by gfdogfd at lovespb.com
@@ -4831,12 +4836,6 @@ $blocklist['C'] = array(
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
-
-	'.guesttext.info',		// 81.0.195.134 by Grace.D.Kibby pookmail.com, / seems null
-	'.medicineonlinestore.com',	// Alexander Korovin (domains at molddata.md)
-	'.moremu.com',			// 205.134.190.12(amateurlog.com) by Magaly Plumley (domains ay moremu.com)
-	'.tingstock.info',		// 209.160.73.65(delta.xocmep.info) "nice day, commander ;)" by Andrey Konkin (konkinnews55 at yahoo.com)
-	'.truststorepills.com',	// 89.188.113.64(allworldteam.com) by Alexey (admin at myweblogs.net)
 
 	// C-3: Not classifiable (information wanted)
 	//
