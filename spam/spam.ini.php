@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.147 2007/08/05 08:28:28 henoheno Exp $
+// $Id: spam.ini.php,v 1.148 2007/08/05 15:04:52 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1426,6 +1426,7 @@ $blocklist['A-2'] = array(
 			'*.zapto.org',
 	),
 	'*.zenno.info',
+	'*.opendns.be',
 	'.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '.com',
 			// and all non-recorded domains redirect to 'agoga.com' now
 			// http://money.cnn.com/magazines/business2/business2_archive/2007/06/01/100050989/index.htm
@@ -4218,6 +4219,7 @@ $blocklist['C'] = array(
 	'nijeoi at hotmai.com' => array(
 		//by  66.232.126.74 Nicol Makerson, the same approach and timing of clickx at bk.ru
 		'.qicad.com',
+		'.qubyd.com',
 		'.mocyq.com',
 		'.zeliw.com',
 		'.zimev.com',
@@ -4624,8 +4626,10 @@ $blocklist['C'] = array(
 		'.bruised-criedit.info',
 		'.bruised-crtedit.info',
 		'.bruised-czrd.info',
+		'.bruisedcreitd.info',
 
 		// 69.64.82.77(*.dedicated.abac.net)
+		'.bruised-credtid.info',
 		'.bruisedcriet.info',
 		'.bruisedredit.info',
 		'.cleaningupccreditcards.info',
@@ -4636,9 +4640,11 @@ $blocklist['C'] = array(
 		'.bruised-cridet.info',
 		'.bruised-drecit.info',
 		'.bruised-reditcards.info',
+		'.bruisedcredtid.info',
 		'.cleanup-criet.info',
 
 		// 69.64.82.79(*.dedicated.abac.net)
+		'.bruised-creid.info',
 		'.cleaningup-ceridt.info',
 		'.cleaningupcrecit.info',
 	),
