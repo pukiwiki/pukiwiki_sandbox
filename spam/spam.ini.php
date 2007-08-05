@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.145 2007/08/05 04:16:34 henoheno Exp $
+// $Id: spam.ini.php,v 1.146 2007/08/05 07:54:47 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -3614,6 +3614,7 @@ $blocklist['C'] = array(
 	'john780321 at yahoo.com' => array(	// by John  Brown
 		'.bestdiscountpharmacy.biz',	// 2007-01-27, 61.144.122.45
 		'.drugs4all.us',				// 2007-03-09, 202.67.150.250
+		'.online-pharmacy-no-prescription.org',	// 69.56.135.222(de.87.3845.static.theplanet.com)
 	),
 	'tremagl.freet at gmail.com' => array(	// by Treman Eagles, redirect to searchadv.com
 		'.bertela.info',
@@ -4214,10 +4215,12 @@ $blocklist['C'] = array(
 		'.oilkeys.com',
 		'.thekeyse.com',
 	),
-	'nijeoi at hotmai.com' => array(	// Nicol Makerson, the same approach and timing of clickx at bk.ru
-		'.qicad.com',	// 66.232.126.74
-		'.mocyq.com',	// 66.232.126.74
-		'.zimev.com',	// 66.232.126.74
+	'nijeoi at hotmai.com' => array(
+		//by  66.232.126.74 Nicol Makerson, the same approach and timing of clickx at bk.ru
+		'.qicad.com',
+		'.mocyq.com',
+		'.zeliw.com',
+		'.zimev.com',
 	),
 	'porychik at hot.ee' => array(	// by Igor
 		'.tedstate.info',	// "Free Web Hosting"
