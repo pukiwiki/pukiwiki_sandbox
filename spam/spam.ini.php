@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.144 2007/08/04 13:50:13 henoheno Exp $
+// $Id: spam.ini.php,v 1.145 2007/08/05 04:16:34 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2607,13 +2607,14 @@ $blocklist['C'] = array(
 		'.freeforworld.info',		// by Varsylenko
 		'.gitsite.info',			// by Petrov
 		'.goodworksite.info',		// by Varsylenko
-		'.michost.info',			// by LAURI FUNK
+		'.michost.info',			// by LAURI
 		'.onall.info',				// by Varsylenko
 		'.organiq.info',			// by Petrov
-		'.parther.info',			// by LAURI FUNK
+		'.parther.info',			// by LAURI
 		'.powersiteonline.info',	// by Varsylenko
 		'.rentmysite.info',			// by Varsylenko
 		'.levines.info',			// by Petrov
+		'.modacha.info',			// by LAURI
 		'.mp3vault.info',			// by Petrov
 		'.sernost.info',			// by Petrov
 		'.sexdrink.info',			// by Petrov
@@ -4213,6 +4214,11 @@ $blocklist['C'] = array(
 		'.oilkeys.com',
 		'.thekeyse.com',
 	),
+	'nijeoi at hotmai.com' => array(	// Nicol Makerson, the same approach and timing of clickx at bk.ru
+		'.qicad.com',	// 66.232.126.74
+		'.mocyq.com',	// 66.232.126.74
+		'.zimev.com',	// 66.232.126.74
+	),
 	'porychik at hot.ee' => array(	// by Igor
 		'.tedstate.info',	// "Free Web Hosting"
 		'.giftsee.com',
@@ -4609,15 +4615,30 @@ $blocklist['C'] = array(
 			'.sqrrt.cn',
 			'.ywtmd.cn',
 	),
-	'ganzer3' => array(	// by Roman Shteynshlyuger (ganzer3 at gmail.com)
-		'.bruised-cridet.info',		// 69.64.82.78(*.dedicated.abac.net)
-		'.bruised-criedit.info',	// 69.64.82.76(*.dedicated.abac.net)
-		'.bruised-drecit.info',		// 69.64.82.78(*.dedicated.abac.net)
-		'.bruised-reditcards.info',	// 69.64.82.78(*.dedicated.abac.net)
-		'.cleaningupcedirt.info',	// 69.64.82.77(*.dedicated.abac.net)
-		'.cleaningupcrecit.info',	// 69.64.82.79(*.dedicated.abac.net)
-	),
+	'ganzer3 at gmail.com' => array(	// by Roman Shteynshlyuger (ganzer3 at gmail.com)
 
+		// 69.64.82.76(*.dedicated.abac.net)
+		'.bruised-criedit.info',
+		'.bruised-crtedit.info',
+		'.bruised-czrd.info',
+
+		// 69.64.82.77(*.dedicated.abac.net)
+		'.bruisedcriet.info',
+		'.bruisedredit.info',
+		'.cleaningupccreditcards.info',
+		'.cleaningupcedirt.info',
+		'.cleaningupcreait.info',
+
+		// 69.64.82.78(*.dedicated.abac.net)
+		'.bruised-cridet.info',
+		'.bruised-drecit.info',
+		'.bruised-reditcards.info',
+		'.cleanup-criet.info',
+
+		// 69.64.82.79(*.dedicated.abac.net)
+		'.cleaningup-ceridt.info',
+		'.cleaningupcrecit.info',
+	),
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
 	'.0nline-porno.info',	// by Timyr (timyr at narod.ru)
