@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.148 2007/08/05 15:04:52 henoheno Exp $
+// $Id: spam.ini.php,v 1.149 2007/08/06 13:37:43 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1691,6 +1691,7 @@ $blocklist['B-1'] = array(
 	'freeforumshosting.com',	// by Adam Roberts (admin at skaidon.co.uk)
 	'*.freeforums.org',		// by 1&1 Internet, Inc. - 1and1.com
 	'*.freehostia.com',
+	'*.freewebhostingpro.com',
 	'*.freehostingz.com',	// no dns reply => 67.159.33.10 by Marx Lomas (marvellousmarx at hotmail.com)
 	'FreeWebHostingArea.com' => array(	// or www.freewha.com
 		'*.6te.net',
@@ -1965,6 +1966,7 @@ $blocklist['B-1'] = array(
 	'strikebang.com',
 	'*.sultryserver.com',
 	'*.t35.com',
+	'*.talks.at',
 	'tabletpcbuzz.com',
 	'*.talkthis.com',
 	'tbns.net',
@@ -4208,6 +4210,7 @@ $blocklist['C'] = array(
 	),
 	'ice--man at mail.ru' => array(	// 74.50.97.198 by andrey, the same approach and timing of clickx at bk.ru
 		'.exoticmed.com',
+		'.feelview.com',
 		'.greatexotic.com',
 		'.icyiceman.com',
 		'.margansitio.com',
@@ -4215,12 +4218,15 @@ $blocklist['C'] = array(
 		'.mimargan.com',
 		'.oilkeys.com',
 		'.thekeyse.com',
+		'.viewgreat.com',
 	),
 	'nijeoi at hotmai.com' => array(
-		//by  66.232.126.74 Nicol Makerson, the same approach and timing of clickx at bk.ru
+		//by  66.232.126.74 Nicol Makerson, the same approach and timing _and IP_ of clickx at bk.ru
 		'.qicad.com',
 		'.qubyd.com',
 		'.mocyq.com',
+		'.nufyp.com',
+		'.xykyl.com',
 		'.zeliw.com',
 		'.zimev.com',
 	),
@@ -4600,6 +4606,7 @@ $blocklist['C'] = array(
 			'.oswde.cn',
 			'.qeyig.cn',
 			'.soqsx.cn',
+			'.zijgb.cn',
 
 		// 84.16.255.253(84-16-255-253.internetserviceteam.com), / says 'noy found'
 		'.dns4dedka.info',	// by acua at mail.ru
@@ -4610,6 +4617,7 @@ $blocklist['C'] = array(
 			'.ekwme.cn',
 			'.iutps.cn',
 			'.ryftj.cn',
+			'.vxqcb.cn',
 
 		// 84.16.249.240(euro.lotgd.pl -> 88.198.6.42), / says 'noy found'
 		'.dns4babka.info',	// by acua at mail.ru
@@ -4619,6 +4627,12 @@ $blocklist['C'] = array(
 			'.gdxnk.cn',
 			'.sqrrt.cn',
 			'.ywtmd.cn',
+
+		// 84.16.226.29(www.billago.de -> 80.244.243.173 ->  billago.de), / forbidden
+		'.allmyns.info',		//  by acua at mail.ru
+
+		// 84.16.226.28(www.fs-tools.de -> 80.244.243.172 -> fs-tools.de)
+		'.riumh.cn',	// by webmaster at allmyns.info
 	),
 	'ganzer3 at gmail.com' => array(	// by Roman Shteynshlyuger (ganzer3 at gmail.com)
 
@@ -4627,6 +4641,7 @@ $blocklist['C'] = array(
 		'.bruised-crtedit.info',
 		'.bruised-czrd.info',
 		'.bruisedcreitd.info',
+		'.cleanup-crrd.info',
 
 		// 69.64.82.77(*.dedicated.abac.net)
 		'.bruised-credtid.info',
@@ -4634,6 +4649,7 @@ $blocklist['C'] = array(
 		'.bruisedredit.info',
 		'.cleaningupccreditcards.info',
 		'.cleaningupcedirt.info',
+		'.cleaningupceidt.info',
 		'.cleaningupcreait.info',
 
 		// 69.64.82.78(*.dedicated.abac.net)
