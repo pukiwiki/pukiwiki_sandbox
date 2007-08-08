@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.149 2007/08/06 13:37:43 henoheno Exp $
+// $Id: spam.ini.php,v 1.150 2007/08/08 12:57:21 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1347,6 +1347,7 @@ $blocklist['A-1'] = array(
 	'zaable.com',
 	'zapurl.com',
 	'zarr.co.uk',
+	'zerourl.com',
 	'ZeroWeb.org' => array(
 		'*.80t.com',
 		'*.firez.org',
@@ -1754,6 +1755,7 @@ $blocklist['B-1'] = array(
 		'*.teracities.com',
 		'*.xoompages.com',
 	),
+	'*.icspace.net',
 	'iEUROP.net' => array(
 		'*.ibelgique.com',
 		'*.iespana.es',
@@ -1775,6 +1777,7 @@ $blocklist['B-1'] = array(
 	'*.jeeran.com',
 	'*.jeun.fr',
 	'*.journalscape.com',
+	'*.justfree.com',
 	'*.blog.kataweb.it',
 	'*.kaixo.com',		// blogs.kaixo.com, blogak.kaixo.com
 	'*.kokoom.com',
@@ -1821,6 +1824,7 @@ $blocklist['B-1'] = array(
 		'*.tripod.com',
 	),
 	'mbga.jp',				// by DeNA Co.,Ltd. (barshige at hq.bidders.co.jp, torigoe at hq.bidders.co.jp)
+	'*.memebot.com',
 	'*.messageboard.nl',
 	'mokono GmbH' => array(
 		'*.blog.com.es',
@@ -3544,71 +3548,90 @@ $blocklist['C'] = array(
 		'.antivirus1.info',
 		'.antivirus2.info',
 	),
-	'wasam at vangers.net' => array(	// by Ashiksh Wasam
-		'.290cabeza.org',	// 69.31.91.226(colo-69-31-91-226.pilosoft.com)
-		'.blogduet.org',
-		'.bossierpainted.org',
-		'.carelf.info',
-		'.cmagic.org',
-		'.cspell.org',
-		'.dspark.org',
-		'.dtonic.org',
-		'.gradetelemundo.info',
-		'.indicadorestmj.info',
-		'.keeleykincaid.org',
-		'.mcharm.info',
-		'.mslook.info',
-		'.phpdinnerware.info',
-		'.pipnickname.info',
-		'.pacolily.org',
-		'.redeemtrabalho.info',
-		'.rnation.org',
-		'.titanmessina.info',
-		'.tragratuit.org',
-		'.uzing.org',
-		'.yeareola.info',
-	),
-	'kadilk at vangers.net' => array(	//  by Kadil Kasekwam
-		'.allbar.info',		// 69.31.91.226
-		'.allersearch.org',
-		'.dynall.org',
+	'wasam at vangers.net and family' => array(
+	
+		// 69.31.82.51(colo-69-31-82-51.pilosoft.com) by Kadil Kasekwam (kadilk at vangers.net)
+		'.bahatoca.org',
+		'.digestlycos.org',
 		'.educativaanale.info',
-		'.fastopia.org',
 		'.guildstuscan.org',
+		'.isaakrobbins.info',
 		'.isfelons.org',
-		'.solarissean.org',
+		'.lvwelevated.org',
+		'.macphersonaca.org',
+		'.markyaustrian.org',
+		'.michelepug.org',
 		'.opalbusy.info',
-		'.rblast.org',
-		'.rette.org',
+		'.quijotebachata.info',
 		'.salthjc.info',
-		'.suvlook.org',
+		'.solarissean.org',
 		'.tarzanyearly.org',
 		'.tulabnsf.org',
-	),
-	'tvaals at vangers.net' => array(	// by Thomas Vaals
+
+		// 69.31.82.53(colo-69-31-82-53.pilosoft.com) by Bipik Joshu (bipik at vangers.net)
+		'.e2007.info',
+		'.cmoss.info',
+
+		// 69.31.82.53(colo-69-31-82-53.pilosoft.com) by Kasturba Nagari (kasturba at vangers.net)
+		'.finddesk.org',
+		'.gsfind.org',	// You mean: sfind.net  by tvaals at vangers.net
+		'.my-top.org',	// You mean: my-top.net by tvaals at vangers.net
+		'.rcatalog.org',
+		'.sbitzone.org',
+
+		// 69.31.82.53(colo-69-31-82-53.pilosoft.com) by Thomas Vaals (tvaals at vangers.net)
 		'.cheapns.org',
 		'.my-top.net',
 		'.sfind.net',
 		'.sspot.net',
 		'.suvfind.info',
+
+		// 69.31.82.53 by Mariano Ciaramolo (marion at vangers.net)
+		'.trumber.com',
+
+		// 69.31.82.53(colo-69-31-82-53.pilosoft.com) by Ashiksh Wasam (wasam at vangers.net)
+		'.blogduet.org',
+		'.carelf.info',
+		'.cmagic.org',	
+		'.cspell.org',
+		'.dspark.org',
+		'.dtonic.org',
+		'.mcharm.info',
+		'.mslook.info',
+		'.phpdinnerware.info',
+		'.rnation.org',
+		'.uzing.org',
+
+		// 69.31.91.226(colo-69-31-91-226.pilosoft.com) by Kadil Kasekwam (kadilk at vangers.net)
+		'.allbar.info',
+		'.allersearch.org',
+		'.allzoom.org',
+		'.dynall.org',
+		'.fastopia.org',
+		'.rblast.org',
+		'.rette.org',
+		'.suvlook.org',
+
+		// 69.31.91.226(colo-69-31-91-226.pilosoft.com) by Ashiksh Wasam (wasam at vangers.net)
+		'.290cabeza.org',
+		'.bossierpainted.org',
+		'.connickkarel.info',	// Admin: tvaals at vangers.net
+		'.definekonica.info',	// Admin: tvaals at vangers.net
+		'.gradetelemundo.info',
+		'.indicadorestmj.info',
+		'.keeleykincaid.org',
+		'.pipnickname.info',
+		'.pacolily.org',
+		'.redeemtrabalho.info',
+		'.titanmessina.info',
+		'.tragratuit.org',
+		'.yeareola.info',
 	),
-	'kasturba at vangers.net' => array(	// by Kasturba Nagari
-		'.finddesk.org',
-		'.gsfind.org',
-		'.my-top.org',
-		'.rcatalog.org',
-		'.sbitzone.org',
-	),
-	'bipik at vangers.net' => array(	// by Bipik Joshu
-		'.e2007.info',
-		'.cmoss.info',
-	),
-	'marion at vangers.net' => array('.trumber.com'),	// by Mariano Ciaramolo
 	'SearchHealtAdvCorpGb.com' => array(	// by Jonn Gardens (admin at SearchHealtAdvCorpGb.com -- no such domain)
-		'.canadianmedsworld.info',
-		'.tabsdrugstore.info',
-		'.tabsstore.info',
-		'.topcholesterol.info',
+		'.canadianmedsworld.info',	// 84.252.133.112
+		'.tabsdrugstore.info',		// 84.252.133.114
+		'.tabsstore.info',			// 84.252.133.114
+		'.topcholesterol.info',		// 84.252.133.132
 	),
 	'be.cx' => array(
 		'.be.cx',
@@ -4222,10 +4245,13 @@ $blocklist['C'] = array(
 	),
 	'nijeoi at hotmai.com' => array(
 		//by  66.232.126.74 Nicol Makerson, the same approach and timing _and IP_ of clickx at bk.ru
+		'.cavux.com',
 		'.qicad.com',
 		'.qubyd.com',
 		'.mocyq.com',
+		'.myxim.com',
 		'.nufyp.com',
+		'.xomej.com',
 		'.xykyl.com',
 		'.zeliw.com',
 		'.zimev.com',
@@ -4663,6 +4689,7 @@ $blocklist['C'] = array(
 		'.bruised-creid.info',
 		'.cleaningup-ceridt.info',
 		'.cleaningupcrecit.info',
+		'.cleanupdredit.info',
 	),
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
