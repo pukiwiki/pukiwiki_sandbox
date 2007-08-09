@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.150 2007/08/08 12:57:21 henoheno Exp $
+// $Id: spam.ini.php,v 1.151 2007/08/09 14:41:05 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4235,6 +4235,7 @@ $blocklist['C'] = array(
 		'.exoticmed.com',
 		'.feelview.com',
 		'.greatexotic.com',
+		'.icyhip.com',
 		'.icyiceman.com',
 		'.margansitio.com',
 		'.margantierra.com',
@@ -4245,14 +4246,22 @@ $blocklist['C'] = array(
 	),
 	'nijeoi at hotmai.com' => array(
 		//by  66.232.126.74 Nicol Makerson, the same approach and timing _and IP_ of clickx at bk.ru
+		'.bowij.com',
+		'.bozib.com',
 		'.cavux.com',
+		'.dipov.com',
+		'.hepyt.com',
+		'.kyheq.com',
+		'.kyzad.com',
 		'.qicad.com',
 		'.qubyd.com',
 		'.mocyq.com',
+		'.muloq.com',
 		'.myxim.com',
 		'.nufyp.com',
 		'.xomej.com',
 		'.xykyl.com',
+		'.zakuw.com',
 		'.zeliw.com',
 		'.zimev.com',
 	),
@@ -4691,6 +4700,13 @@ $blocklist['C'] = array(
 		'.cleaningupcrecit.info',
 		'.cleanupdredit.info',
 	),
+	'.malwarealarm.com',
+		// (206.161.201.216 -> 206-161-201-216.pccwglobal.net)
+		// by Eddie Sachs (hostmaster at isoftpay.com), scaring virus, spyware or something
+		// NOTE: scanner.malwarealarm.com(206.161.201.212 -> 206-161-201-212.pccwglobal.net)
+
+
+
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
 	'.0nline-porno.info',	// by Timyr (timyr at narod.ru)
@@ -4881,6 +4897,7 @@ $blocklist['C'] = array(
 	'.xamorexxx.net',
 	'.xn--gmqt9gewhdnlyq9c.net',	// 122.249.16.133(x016133.ppp.asahi-net.or.jp) by daizinazikanwo yahoo.co.jp
 	'.xsessox.com',
+	'.xxxmpegs.biz',		// 217.11.233.65, redirect to *.malwarealarm.com, / null
 	'.yoi4.net',			// by Ryouhei Nakamura (888 at sympathys.com), tell me why so many blogs with popular issues and _diverted design from blog.livedoor.jp_ around here.
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
