@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.151 2007/08/09 14:41:05 henoheno Exp $
+// $Id: spam.ini.php,v 1.152 2007/08/12 01:22:20 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1709,7 +1709,10 @@ $blocklist['B-1'] = array(
 	'freepowerboards.com',
 	'*.freepowerboards.com',
 	'*.fsphost.com',		// by Michael Renz (michael at fsphost.com)
-	'*.funpic.de',
+	'Funpic.de' => array(	// by alexander at liemen.net
+		'*.funpic.de',
+		'*.funpic.org',
+	),
 	'*.genblogger.com',
 	'geocities.com',
 	'GetBetterHosting.com' => array(
@@ -1728,6 +1731,26 @@ $blocklist['B-1'] = array(
 	'groups-beta.google.com',	// by Google
 	'healthcaregroup.com',
 	'*.heliohost.org',
+	'Halverston Holdings Limited' => array(	// pochta.ru?lng=en
+		// Seems one of affiliates of RBC, RosBusinessConsulting (rbc.ru, rbcnews.com)
+		'*.fromru.com',		// by Lapeshkina Tatyana (noc at pochta.ru)
+		'*.front.ru',		// (domain at hc.ru)
+		'*.hc.ru',			// by (domain at hosting.rbc.ru, domaincredit at hosting.rbc.ru)
+		'*.hotbox.ru',		// (domain at hc.ru)
+		'*.hotmail.ru',		// (hosting at hc.ru)
+		'*.krovatka.su',	// (domain at hc.ru, hosting at hc.ru)
+		'*.land.ru',		// (domain at hc.ru)
+		'*.mail15.com',		// (hosting at hc.ru)
+		'*.mail333.com',	// (hosting at hc.ru)
+		'*.newmail.ru',		// (domain at hc.ru, hosting at hc.ru)
+		'*.nightmail.ru',	// (domain at hc.ru, hosting at hc.ru)
+		'*.pisem.net',		// (hosting at hc.ru)
+		'*.pochta.ru',		// (domain at hc.ru)
+		'*.pochtamt.ru',	// (domain at hc.ru)
+		'*.pop3.ru',		// (domain at hc.ru)
+		'*.rbcmail.ru',		// (domain at hc.ru)
+		'*.smtp.ru',		// (domain at hc.ru)
+	),
 	'*.hit.bg',				// by forumup.com ??
 	'*.host-page.com',
 	'*.hostingclub.de',
@@ -1916,26 +1939,6 @@ $blocklist['B-1'] = array(
 		'*.sbn.bz',
 		'*.wol.bz',
 	),
-	'Halverston Holdings Limited' => array(	// pochta.ru?lng=en
-		// Seems one of affiliates of RBC, RosBusinessConsulting (rbc.ru, rbcnews.com)
-		'*.fromru.com',		// by Lapeshkina Tatyana (noc at pochta.ru)
-		'*.front.ru',		// (domain at hc.ru)
-		'*.hc.ru',			// by (domain at hosting.rbc.ru, domaincredit at hosting.rbc.ru)
-		'*.hotbox.ru',		// (domain at hc.ru)
-		'*.hotmail.ru',		// (hosting at hc.ru)
-		'*.krovatka.su',	// (domain at hc.ru, hosting at hc.ru)
-		'*.land.ru',		// (domain at hc.ru)
-		'*.mail15.com',		// (hosting at hc.ru)
-		'*.mail333.com',	// (hosting at hc.ru)
-		'*.newmail.ru',		// (domain at hc.ru, hosting at hc.ru)
-		'*.nightmail.ru',	// (domain at hc.ru, hosting at hc.ru)
-		'*.pisem.net',		// (hosting at hc.ru)
-		'*.pochta.ru',		// (domain at hc.ru)
-		'*.pochtamt.ru',	// (domain at hc.ru)
-		'*.pop3.ru',		// (domain at hc.ru)
-		'*.rbcmail.ru',		// (domain at hc.ru)
-		'*.smtp.ru',		// (domain at hc.ru)
-	),
 	'*.sayt.ws',
 	'Seblg.com' => array(
 		'*.seblg.com',		// by Dao Lee (st at seblg.com)
@@ -2122,6 +2125,7 @@ $blocklist['B-1'] = array(
 	),
 	'webblog.ru',
 	'weblogmaniacs.com',
+	'.webng.com',			// www.*, www3.*
 	'*.webnow.biz',			// by Hsien I Fan (admin at servcomputing.com), ServComputing Inc. 
 	'websitetoolbox.com',
 	'Welnet.de' => array(
@@ -4250,6 +4254,7 @@ $blocklist['C'] = array(
 		'.bozib.com',
 		'.cavux.com',
 		'.dipov.com',
+		'.gumoz.com',
 		'.hepyt.com',
 		'.kyheq.com',
 		'.kyzad.com',
@@ -4613,8 +4618,10 @@ $blocklist['C'] = array(
 		'.worldsitesearch.info',	// 209.8.40.59
 	),
 	'lee.seery at gmail.com' => array(
-		'.lingvol.com',		// 64.21.34.55(klikgoogle.com)
+		'.klikgoogle.com',	// 64.21.34.55(klikgoogle.com), by KLIK Media GmbH (max at awmteam.com)
+		'.lingvol.com',		// 64.21.34.55
 		'.micevol.com',		// 64.21.34.55
+		'.heyhey.info',		// 64.21.34.55	by anonymous
 	),
 	'69-64-64-71.dedicated.abac.net etc' => array(	// ns *.trklink.com
 		// 69-64-64-71.dedicated.abac.net
@@ -4632,6 +4639,17 @@ $blocklist['C'] = array(
 		'.lowpercentageacrd.info',
 	),
 	'acua at mail.ru' => array(
+
+		// 84.16.249.240(euro.lotgd.pl -> 88.198.6.42), / says 'noy found'
+		'.dns4babka.info',	// by acua at mail.ru
+			// by webmaster at dns4babka.info
+			'.credh.cn',
+			'.fucfv.cn',
+			'.gdxnk.cn',
+			'.sqrrt.cn',
+			'.ywtmd.cn',
+			'.kncqy.cn',	// by webmaster at allmyns.info
+
 		// 84.16.251.222(alinoe.org -> 212.85.96.95 -> v00095.home.net.pl), / says 'noy found'
 		'.dedka2ns.info',	// by acua at mail.ru
 			// by webmaster at dedka2ns.info
@@ -4641,6 +4659,7 @@ $blocklist['C'] = array(
 			'.oswde.cn',
 			'.qeyig.cn',
 			'.soqsx.cn',
+			'.ukncd.cn',
 			'.zijgb.cn',
 
 		// 84.16.255.253(84-16-255-253.internetserviceteam.com), / says 'noy found'
@@ -4653,21 +4672,32 @@ $blocklist['C'] = array(
 			'.iutps.cn',
 			'.ryftj.cn',
 			'.vxqcb.cn',
+			'.zxvlr.cn',	// by webmaster at allmyns.info
 
-		// 84.16.249.240(euro.lotgd.pl -> 88.198.6.42), / says 'noy found'
-		'.dns4babka.info',	// by acua at mail.ru
-			// by webmaster at dns4babka.info
-			'.credh.cn',
-			'.fucfv.cn',
-			'.gdxnk.cn',
-			'.sqrrt.cn',
-			'.ywtmd.cn',
+		'.allmyns.info',	// 84.16.226.29(www.billago.de -> 80.244.243.173 ->  billago.de) by acua at mail.ru, / forbidden
+			// by webmaster at allmyns.info
+			'.degvc.cn',	// 84.16.226.216(s3an.ath.cx -- DyDNS)
+			'.ihpvy.cn',	// 84.16.226.28(www.fs-tools.de -> 80.244.243.172 -> fs-tools.de)
+			'.lbtuo.cn',	// 84.16.255.254(84-16-255-254.internetserviceteam.com)
+			'.liunc.cn',	// 84.16.249.241(ip2.frankfurt.mabako.net -> 84.16.234.167 ->  frankfurt.mabako.net)
+			'.rcyqr.cn',	// 84.16.226.217(mand.zapto.org -- Non-existent)
+			'.rekth.cn',	// 89.149.196.19(www.kosmetik-eshop.de ->  80.244.243.181 -> ip1.rumsoft-webhosting.de)
+			'.riumh.cn',	// 84.16.226.28
+			'.zbtym.cn',	// 84.16.251.219(84-16-251-219.internetserviceteam.com)
+			'.zjcgx.cn',	// 217.20.112.102(217-20-112-102.internetserviceteam.com)
 
-		// 84.16.226.29(www.billago.de -> 80.244.243.173 ->  billago.de), / forbidden
-		'.allmyns.info',		//  by acua at mail.ru
-
-		// 84.16.226.28(www.fs-tools.de -> 80.244.243.172 -> fs-tools.de)
-		'.riumh.cn',	// by webmaster at allmyns.info
+	),
+	'gilvcta sy jilbertsbram.com' => array(
+		'.dsfljkeilm1.cn',	//  206.53.51.126
+		'.dsfljkeilm2.cn',	//  206.53.51.126
+		'.dsfljkeilm3.cn',	// IP not allocated now
+		'.dsfljkeilm4.cn',	// IP not allocated now
+		'.dsfljkeilm5.cn',	// IP not allocated now
+		'.dsfljkeilm6.cn',	// IP not allocated now
+		'.dsfljkeilm7.cn',	// IP not allocated now
+		'.dsfljkeilm8.cn',	// IP not allocated now
+		'.dsfljkeilm9.cn',	// IP not allocated now
+		'.dsfljkeilm10.cn',	// IP not allocated now
 	),
 	'ganzer3 at gmail.com' => array(	// by Roman Shteynshlyuger (ganzer3 at gmail.com)
 
@@ -4675,7 +4705,9 @@ $blocklist['C'] = array(
 		'.bruised-criedit.info',
 		'.bruised-crtedit.info',
 		'.bruised-czrd.info',
+		'.bruisedcreitcard.info',
 		'.bruisedcreitd.info',
+		'.cleaningup-cerdic.info',
 		'.cleanup-crrd.info',
 
 		// 69.64.82.77(*.dedicated.abac.net)
@@ -4691,10 +4723,14 @@ $blocklist['C'] = array(
 		'.bruised-cridet.info',
 		'.bruised-drecit.info',
 		'.bruised-reditcards.info',
+		'.bruisedcredikt.info',
+		'.bruisedcredith.info',
 		'.bruisedcredtid.info',
 		'.cleanup-criet.info',
+		'.cleanup-dards.info',
 
 		// 69.64.82.79(*.dedicated.abac.net)
+		'.bruised-crediotcards.info',
 		'.bruised-creid.info',
 		'.cleaningup-ceridt.info',
 		'.cleaningupcrecit.info',
@@ -4704,7 +4740,8 @@ $blocklist['C'] = array(
 		// (206.161.201.216 -> 206-161-201-216.pccwglobal.net)
 		// by Eddie Sachs (hostmaster at isoftpay.com), scaring virus, spyware or something
 		// NOTE: scanner.malwarealarm.com(206.161.201.212 -> 206-161-201-212.pccwglobal.net)
-
+	'.viagrageneric.org',	// IP not allocated, ns *.heyhey.info(IP not allocated)
+	'.viagraorder.org',		// IP not allocated, ns *.heyhey.info(IP not allocated)
 
 
 	// C-2: Lonely domains (buddies not found yet)
