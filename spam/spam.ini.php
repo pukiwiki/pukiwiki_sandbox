@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.152 2007/08/12 01:22:20 henoheno Exp $
+// $Id: spam.ini.php,v 1.153 2007/08/15 15:41:40 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1751,6 +1751,7 @@ $blocklist['B-1'] = array(
 		'*.rbcmail.ru',		// (domain at hc.ru)
 		'*.smtp.ru',		// (domain at hc.ru)
 	),
+	'*.hiblogger.com',		// by chiaokin at gmail.com
 	'*.hit.bg',				// by forumup.com ??
 	'*.host-page.com',
 	'*.hostingclub.de',
@@ -4241,6 +4242,7 @@ $blocklist['C'] = array(
 		'.greatexotic.com',
 		'.icyhip.com',
 		'.icyiceman.com',
+		'.icypopular.com',
 		'.margansitio.com',
 		'.margantierra.com',
 		'.mimargan.com',
@@ -4264,6 +4266,7 @@ $blocklist['C'] = array(
 		'.muloq.com',
 		'.myxim.com',
 		'.nufyp.com',
+		'.waqog.com',
 		'.xomej.com',
 		'.xykyl.com',
 		'.zakuw.com',
@@ -4281,6 +4284,7 @@ $blocklist['C'] = array(
 	'zerberster at gmail.com' => array(	// by Curtis D. Pick, / not found
 		'.maxrentcar.info',
 		'.newsonyericsson.info',
+		'.pornositeworld.biz',
 		'.rentcarweb.info',
 	),
 	'kopper1970 at gmail.com' => array(
@@ -4707,6 +4711,8 @@ $blocklist['C'] = array(
 		'.bruised-czrd.info',
 		'.bruisedcreitcard.info',
 		'.bruisedcreitd.info',
+		'.buliderscreadet.info',
+		'.cleaningup-cedict.info',
 		'.cleaningup-cerdic.info',
 		'.cleanup-crrd.info',
 
@@ -4714,6 +4720,11 @@ $blocklist['C'] = array(
 		'.bruised-credtid.info',
 		'.bruisedcriet.info',
 		'.bruisedredit.info',
+		'.buliders-crdt.info',
+		'.buliders-cre4dit.info',
+		'.buliders-creadt.info',
+		'.buliders-credcards.info',
+		'.buliders-credictcard.info',
 		'.cleaningupccreditcards.info',
 		'.cleaningupcedirt.info',
 		'.cleaningupceidt.info',
@@ -4732,6 +4743,8 @@ $blocklist['C'] = array(
 		// 69.64.82.79(*.dedicated.abac.net)
 		'.bruised-crediotcards.info',
 		'.bruised-creid.info',
+		'.buliders-crdit.info',
+		'.buliders-creadet.info',
 		'.cleaningup-ceridt.info',
 		'.cleaningupcrecit.info',
 		'.cleanupdredit.info',
@@ -4742,6 +4755,41 @@ $blocklist['C'] = array(
 		// NOTE: scanner.malwarealarm.com(206.161.201.212 -> 206-161-201-212.pccwglobal.net)
 	'.viagrageneric.org',	// IP not allocated, ns *.heyhey.info(IP not allocated)
 	'.viagraorder.org',		// IP not allocated, ns *.heyhey.info(IP not allocated)
+	'Inet-Traffic.com' => array(
+		// "The Inet-Traffic network offers over 6 million unique visitors a month."
+		//'.dcomm.com',		// by D Communications Inc. S.A.
+
+		'.freehomepages.com',	// 205.237.204.51 by domains at inet-traffic.com, ns *.dcomm.com
+		'.inet-traffic.com',	// 205.237.204.106(reverse.dcomm.com) by domains at inet-traffic.com, ns *.dcomm.com
+		// ...
+		// 205.237.204.114(www.searchit.com -> 205.237.204.151)
+		// ...
+		'.homepagez.com',		// 205.237.204.118 by domainadmin at navigationcatalyst.com, ns *.dnsnameserver.org
+		// ...
+		'.pagerealm.com',	// 205.237.204.121 by domains at inet-traffic.com, ns *.dcomm.com
+		'.koolpages.com',	// 205.237.204.122 by domains at inet-traffic.com, ns *.dcomm.com
+		'.oddworldz.com',	// 205.237.204.123 by domains at inet-traffic.com, ns *.dcomm.com
+		'.cybcity.com',		// 205.237.204.124 by domains at inet-traffic.com, ns *.dcomm.com
+		'.cybamall.com',	// 205.237.204.125 by domains at inet-traffic.com, ns *.dcomm.com
+		'.haywired.com',	// 205.237.204.126 by domains at inet-traffic.com, ns *.dcomm.com
+		'.cyberturf.com',	// 205.237.204.127 by domains at inet-traffic.com, ns *.dcomm.com
+		'.dazzled.com',		// 205.237.204.128 by domains at inet-traffic.com, ns *.dcomm.com
+		'.megaone.com',		// 205.237.204.129 by domains at inet-traffic.com, ns *.dcomm.com
+		// ...
+		// 205.237.204.131(www.powow.com -> 205.237.204.136)
+		// 205.237.204.132(www.pcpages.com ->  205.237.204.135)
+		// ...
+		'.pcpages.com',		// 205.237.204.135(reverse.dcomm.com) by domains at inet-traffic.com, ns *.addplace.com
+		'.powow.com',		// 205.237.204.136 by domains at inet-traffic.com, ns *.dcomm.com
+		// ...
+		// 205.237.204.143(gameroom.com -> 72.32.22.210)
+		// ...
+		'.searchit.com',	// 205.237.204.151(reverse.dcomm.com) by domains at inet-traffic.com, ns *.dcomm.com
+					// http://www.trendmicro.com/vinfo/grayware/ve_GraywareDetails.asp?GNAME=ADW_SOFTOMATE.A
+		// ...
+		
+		'.gameroom.com',	// 72.32.22.210 by julieisbusy at yahoo.com, listed at inet-traffic.com and freehomepages.com
+	),
 
 
 	// C-2: Lonely domains (buddies not found yet)
