@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.12 2007/08/04 13:51:37 henoheno Exp $
+// $Id: domain.ini.php,v 1.13 2007/08/17 15:06:51 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -139,6 +139,17 @@ $domain['br'] = array(
 	'nom'  => TRUE,
 	'vlog' => TRUE,
 	'wiki' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Belize
+// NIC  : http://www.belizenic.bz/
+// Whois: http://www.belizenic.bz/
+$domain['bz'] = array(
+	// http://www.belizenic.bz/reg-guide.php
+	'com' => TRUE,
+	'net' => TRUE,
+	'org' => TRUE,
 );
 
 // ------------------------------
