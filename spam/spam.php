@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.200 2007/07/29 12:59:24 henoheno Exp $
+// $Id: spam.php,v 1.201 2007/08/17 14:33:32 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -225,10 +225,13 @@ function array_rename_keys(& $array, $keys = array('from' => 'to'), $force = FAL
 	if (! is_array($array) || ! is_array($keys)) return FALSE;
 
 	// Nondestructive test
-	if (! $force)
-		foreach(array_keys($keys) as $from)
-			if (! isset($array[$from]))
+	if (! $force) {
+		foreach(array_keys($keys) as $from) {
+			if (! isset($array[$from])) {
 				return FALSE;
+			}
+		}
+	}
 
 	foreach($keys as $from => $to) {
 		if ($from === $to) continue;
@@ -317,7 +320,6 @@ function generate_host_regex($string = '', $divider = '/')
 	if (mb_strpos($string, '.') === FALSE)
 		return generate_glob_regex($string, $divider);
 
-	$result = '';
 	if (is_ip($string)) {
 		// IPv4
 		return generate_glob_regex($string, $divider);
