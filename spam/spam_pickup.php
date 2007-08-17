@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.52 2007/07/22 13:34:07 henoheno Exp $
+// $Id: spam_pickup.php,v 1.53 2007/08/17 14:34:44 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -676,30 +676,19 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 	$string = preg_replace(
 		'#h?ttp://' .
 		'(' .
-			'ime\.nu' . '|' .	// 2ch.net
-			'ime\.st' . '|' .	// 2ch.net
-			'link\.toolbot\.com' . '|' .
-			'urlx\.org' .
+			'ime\.nu/' . '|' .	// 2ch.net
+			'ime\.st/' . '|' .	// 2ch.net
+			'link\.toolbot\.com/' . '|' .
+			'urlx\.org/' . '|' .
+			'big5.51job.com/gate/big5/'	 . '|' .
+			'big5.china.com/gate/big5/'	 . '|' .
+			'big5.xinhuanet.com/gate/big5/' . '|' .
+			'bhomiyo.com/en.xliterate/' . '|' .
+			'google.com/translate_c\?u=(?:http://)?' .
 		')' .
-		'/([a-z0-9.%_-]+\.[a-z0-9.%_-]+)#i',	// nasty.example.org
-		'http://$2/?refer=$1 $0',				// Preserve $0 or remove?
-		$string
-	);
-
-	// Domain exposure (gate-big5)
-	// http://victim.example.org/gate/big5/nasty.example.org/path
-	// => http://nasty.example.org/?refer=victim.example.org and original
-	$string = preg_replace(
-		'#h?ttp://' .
-		'(' .
-			'big5.51job.com'	 . '|' .
-			'big5.china.com'	 . '|' .
-			'big5.xinhuanet.com' . '|' .
-		')' .
-		'/gate/big5' .
-		'/([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .
-		 '#i',	// nasty.example.org
-		'http://$2/?refer=$1 $0',				// Preserve $0 or remove?
+		'([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// nasty.example.org
+		'#i',
+		'http://$2/?refer=$1 $0',			// Preserve $0 or remove?
 		$string
 	);
 
