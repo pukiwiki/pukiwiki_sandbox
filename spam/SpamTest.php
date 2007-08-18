@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.20 2007/07/31 14:19:42 henoheno Exp $
+// $Id: SpamTest.php,v 1.21 2007/08/18 09:10:35 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -341,7 +341,7 @@ class SpamTest extends PHPUnit_TestCase
 		$this->assertTrue(isset($array['goodhost']));
 		// badhost
 		$array = get_blocklist('B-1');
-		$this->assertTrue(isset($array['*.blogspot.com']));
+		$this->assertTrue(isset($array['Google.com']));
 		// goodhost
 		$array = get_blocklist('goodhost');
 		$this->assertTrue(isset($array['IANA-examples']));
