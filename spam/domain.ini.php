@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.14 2007/08/18 10:38:04 henoheno Exp $
+// $Id: domain.ini.php,v 1.15 2007/08/18 11:56:27 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -278,6 +278,122 @@ $domain['cn'] = array(
 );
 
 // ------------------------------
+// ccTLD: Dominican Republic
+// NIC  : http://www.nic.do/ingles/
+// Whois: http://www.nic.do/whois-hin.php3
+$domain['do'] = array(
+	// Frequently Asked Questions: 1. What is domain DO?
+	// http://www.nic.do/ingles/faq.php3
+	'art' => TRUE,
+	'com' => TRUE,
+	'edu' => TRUE,
+	'gob' => TRUE,
+	'gov' => TRUE,
+	'mil' => TRUE,
+	'net' => TRUE,
+	'org' => TRUE,
+	'sld' => TRUE,
+	'web' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Guyana
+// NIC  : http://registry.gy/
+// Whois: http://registry.gy/whois.php
+$domain['gy'] = array(
+	// Registration
+	// http://registry.gy/register.html
+	'co'  => TRUE,
+	'com' => TRUE,
+	'net' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Heard and McDonald Islands
+// NIC  : http://www.registry.hm/
+// Whois: http://www.registry.hm/HR_whois.php
+$domain['hm'] = array(
+	// REGISTRY.HM Registration Policy
+	// http://www.registry.hm/HR_conditions.php
+	// No information here, but there maybe at least three reserved domains
+	'com' => TRUE,
+	'net' => TRUE,
+	'org' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Hungary
+// NIC  : http://www.nic.hu/English/
+// Whois: http://www.domain.hu/domain/English/domainsearch/
+$domain['hu'] = array(
+	// Delegation rules - Secondary level public domains
+	// http://www.domain.hu/domain/English/sld.html
+	'2000'     => TRUE,
+	'agrar'    => TRUE,
+	'bolt'     => TRUE,
+	'casino'   => TRUE,
+	'city'     => TRUE,
+	'co'       => TRUE,
+	'erotica'  => TRUE,
+	'erotika'  => TRUE,
+	'film'     => TRUE,
+	'forum'    => TRUE,
+	'games'    => TRUE,
+	'hotel'    => TRUE,
+	'info'     => TRUE,
+	'ingatlan' => TRUE,
+	'jogasz'   => TRUE,
+	'konyvelo' => TRUE,
+	'lakas'    => TRUE,
+	'media'    => TRUE,
+	'news'     => TRUE,
+	'org'      => TRUE,
+	'priv'     => TRUE,
+	'reklam'   => TRUE,
+	'sex'      => TRUE,
+	'shop'     => TRUE,
+	'sport'    => TRUE,
+	'suli'     => TRUE,
+	'szex'     => TRUE,
+	'tm'       => TRUE,
+	'tozsde'   => TRUE,
+	'utazas'   => TRUE,
+	'video'    => TRUE,
+
+	// Delegation rules - List of protected names
+	// http://www.domain.hu/domain/English/specnev.html
+	// Some of restricted domains seems available like 'ac', and 'gov'.
+	'ac'     => TRUE,
+	'arpa'   => TRUE,
+	'biz'    => TRUE,
+	'co'     => TRUE,
+	'com'    => TRUE,
+	'dns'    => TRUE,
+	'e-mail' => TRUE,
+	'email'  => TRUE,
+	'firm'   => TRUE,
+	'ftp'    => TRUE,
+	'gov'    => TRUE,
+	'ind'    => TRUE,
+	'info'   => TRUE,
+	'internet' => TRUE,
+	'iskola' => TRUE,
+	'mail'   => TRUE,
+	'mx'     => TRUE,
+	'net'    => TRUE,
+	'nom'    => TRUE,
+	'ns'     => TRUE,
+	'nui'    => TRUE,
+	'org'    => TRUE,
+	'pp'     => TRUE,
+	'priv'   => TRUE,
+	'sport'  => TRUE,
+	'tm'     => TRUE,
+	'web'    => TRUE,
+	'www'    => TRUE,
+);
+
+// ------------------------------
 // ccTLD: India
 // NIC  : http://www.inregistry.in/
 // Whois: http://www.inregistry.in/whois_search/
@@ -296,7 +412,6 @@ $domain['in'] = array(
 	// Reserved Names by the government (for the 2nd level)
 	// http://www.inregistry.in/policies/reserved_names
 );
-
 
 // ------------------------------
 // ccTLD: Japan
