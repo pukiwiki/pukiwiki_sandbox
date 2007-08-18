@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.154 2007/08/17 14:33:59 henoheno Exp $
+// $Id: spam.ini.php,v 1.155 2007/08/18 09:10:58 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -30,14 +30,21 @@
 //   http://en.wikipedia.org/wiki/Domainers
 //   http://en.wikipedia.org/wiki/Typosquatting
 
-$blocklist['list'] = array(
-	// List of the lists
 
-	//  FALSE	= ignore them
-	//  TRUE	= catch them
-	//  Commented out of the line = do nothing about it
+// --------------------------------------------------
+// List of the lists
 
+//  FALSE	= ignore them
+//  TRUE	= catch them
+//  Commented out of the line = do nothing about it
+
+// 'pre': Before the other filters/checkers
+$blocklist['pre'] = array(
 	'goodhost'	=> FALSE,
+);
+
+// 'list': Normal list
+$blocklist['list'] = array(
 	'A-1'		=> TRUE,
 	//'A-2'		=> TRUE,
 	'B-1'		=> TRUE,
@@ -49,7 +56,7 @@ $blocklist['list'] = array(
 );
 
 
-// ----
+// --------------------------------------------------
 
 $blocklist['goodhost'] = array(
 	// Sample setting of ignorance list
@@ -71,6 +78,7 @@ $blocklist['goodhost'] = array(
 
 );
 
+// --------------------------------------------------
 // A: Sample setting of
 // Existing URI redirection or masking services
 
@@ -313,7 +321,6 @@ $blocklist['A-1'] = array(
 	'*.fnbi.jp',
 	'forgeturl.com',
 	'*.free.bg',
-	'*.freecities.com',
 	'Freeservers.com' => array(	// United Online Web Services, Inc.
 		'*.4mg.com',
 		'*.4t.com',
@@ -396,7 +403,6 @@ $blocklist['A-1'] = array(
 		'*.zip.io',
 	),
 	'funkurl.com',		// by Leonard Lyle (len at ballandchain.net)
-	'*.fw.bz',
 	'*.fx.to',
 	'fyad.org',
 	'fype.com',
@@ -416,7 +422,6 @@ $blocklist['A-1'] = array(
 	'goonlink.com',
 	'.gourl.org',
 	'.greatitem.com',
-	'*.greatnow.com',	// by Per Olof Sandholm (peo at peakspace.com)
 	'gzurl.com',
 	'url.grillsportverein.de',
 	'Harudake.net' => array('*.hyu.jp'),
@@ -1370,6 +1375,7 @@ $blocklist['A-1'] = array(
 	'*.zwap.to',
 );
 
+// --------------------------------------------------
 
 $blocklist['A-2'] = array(
 
@@ -1439,6 +1445,7 @@ $blocklist['A-2'] = array(
 			// http://agoga.com/aboutus.html
 );
 
+// --------------------------------------------------
 
 // B: Sample setting of:
 // Jacked (taken advantage of) and cleaning-less sites
@@ -1473,6 +1480,7 @@ $blocklist['B-1'] = array(
 
 		// 209.63.57.10(www1.0catch.com) by domains at netgears.com, ns *.0catch.com
 		'*.741.com',
+		'*.freecities.com',
 		'*.freesite.org',
 		'*.freewebpages.org',
 		'*.freewebsitehosting.com',
@@ -1481,7 +1489,11 @@ $blocklist['B-1'] = array(
 		// 209.63.57.10(www1.0catch.com) by luke at dcpages.com, ns *.0catch.com
 		'*.freespaceusa.com',
 		'*.usafreespace.com',
-		
+
+		// 209.63.57.10(www1.0catch.com) by rickybrown at usa.com, ns *.0catch.com
+		'*.dex1.com',
+		'*.questh.com',
+
 		// 209.63.57.10(www1.0catch.com), ns *.0catch.com
 		'*.00freehost.com',		// by David Mccall (superjeeves at yahoo.com)
 		'*.012webpages.com',	// by support at 0catch.com
@@ -1491,12 +1503,13 @@ $blocklist['B-1'] = array(
 		'*.9cy.com',			// by paulw0t at gmail.com
 		'*.angelcities.com',	// by cliff at eccentrix.com
 		'*.arcadepages.com',	// by admin at site-see.com
-		'*.dex1.com',			// by rickybrown at usa.com
 		'*.e-host.ws',			// by dns at jomax.net
 		'*.envy.nu',			// by Dave Ellis (dave at larryblackandassoc.com)
+		'*.fw.bz',				// by ben at kuehl.as
 		'*.freewebportal.com',	// by mmouneeb at hotmail.com
-		'*.galaxy99.net',		// by admin at bagchi.org
 		'*.g0g.net',			// by domains at seem.co.uk
+		'*.galaxy99.net',		// by admin at bagchi.org
+		'*.greatnow.com',		// by peo at peakspace.com
 		'*.hautlynx.com',		// by hlewis28 at juno.com
 		'*.ibnsites.com',		// by cmrojas at mail.com
 		'*.just-allen.com',		// by extremehype at msn.com
@@ -2248,6 +2261,7 @@ $blocklist['B-1'] = array(
 	'xeboards.com',			// by Brian Shea (bshea at xeservers.com)
 	'*.xforum.se',
 	'xfreeforum.com',
+	'*.xoomwebs.com',
 	'.freeblogs.xp.tl',
 	'*.xphost.org',			// by alex alex (alrusnac at hotmail.com)
 	'*.ya.com',				// 'geo.ya.com', 'blogs.ya.com', 'humano.ya.com', 'audio.ya.com'...
@@ -2264,6 +2278,7 @@ $blocklist['B-1'] = array(
 	),
 );
 
+// --------------------------------------------------
 
 $blocklist['B-2'] = array(
 
@@ -2476,6 +2491,7 @@ $blocklist['B-2'] = array(
 	'Zope/Python Users Group of Washington, DC' => array('zpugdc.org'),
 );
 
+// --------------------------------------------------
 
 $blocklist['C'] = array(
 
@@ -4348,6 +4364,7 @@ $blocklist['C'] = array(
 		'.bestcreola.com',
 		'.crekatierra.com',
 		'.creolafire.com',
+		'.eflashpoint.com',
 		'.exoticmed.com',
 		'.feelview.com',
 		'.greatexotic.com',
@@ -4958,7 +4975,6 @@ $blocklist['C'] = array(
 		'.searchit.com',	// 205.237.204.151(reverse.dcomm.com) by domains at inet-traffic.com, ns *.dcomm.com
 					// http://www.trendmicro.com/vinfo/grayware/ve_GraywareDetails.asp?GNAME=ADW_SOFTOMATE.A
 		// ...
-		
 		'.gameroom.com',	// 72.32.22.210 by julieisbusy at yahoo.com, listed at inet-traffic.com and freehomepages.com
 	),
 
@@ -5000,8 +5016,7 @@ $blocklist['C'] = array(
 	'.constitutionpartyofwa.org',	// "UcoZ WEB-SERVICES"
 	'.covertarena.co.uk',	// by Wayne Huxtable
 	'.d999.info',			// by Peter Vayner (peter.vayner at inbox.ru)
-	'.dinmo.cn',			// 218.30.96.149 by dinso at 163.com, seo etc.
-	//'.wow-gold.dinmo.cn',	// 125.65.76.59, pl
+	'.dinmo.cn',			// 218.30.96.149 by dinso at 163.com, seo etc.	//'.wow-gold.dinmo.cn',	// 125.65.76.59, pl
 	'.dinmoseo.com',		// 210.51.168.102(winp2-web-g02.xinnetdns.com) by jianmin911 at 126.com, NS *.xinnetdns.com, seo
 	'.dlekei.info',			// by Maxima Bucaro (webmaster at tts2f.info)
 	'.dollar4u.info',		// by Carla (Carla.J.Merritt at mytrashmail.com), / is blank
@@ -5163,6 +5178,8 @@ $blocklist['C'] = array(
 	'.alasex.info',			// 'UcoZ web-services' 216.32.81.234(server.isndns.net) by yx0 at yx0.be
 	'.golden-keys.net',		// 89.149.205.146(unknown.vectoral.info) by aktitol at list.ru
 
+	'.masserch.info',		// 69.46.18.2(hv113.steephost.com -> 72.232.191.50 -> 72.232.191.50.steephost.com) "Free Web Hosting" by sqr at bk.ru, spam
+
 	// C-3: Not classifiable (information wanted)
 	//
 	// Something incoming to pukiwiki related sites
@@ -5171,6 +5188,8 @@ $blocklist['C'] = array(
 		'.nana.co.il',
 	),
 );
+
+// --------------------------------------------------
 
 $blocklist['D'] = array(
 	// D: Sample setting of
@@ -5182,6 +5201,7 @@ $blocklist['D'] = array(
 	// 'RESERVED',
 );
 
+// --------------------------------------------------
 
 $blocklist['E'] = array(
 	// E: Sample setting of
@@ -5292,7 +5312,7 @@ $blocklist['E'] = array(
 	'.zakkuzaku.com',		// 210.188.201.44(sv83.xserver.jp)
 );
 
-
+// --------------------------------------------------
 
 $blocklist['Z'] = array(
 	// Z: Yours
@@ -5301,4 +5321,5 @@ $blocklist['Z'] = array(
 	//'',
 	//'',
 );
+
 ?>
