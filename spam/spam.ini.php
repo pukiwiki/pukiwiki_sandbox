@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.155 2007/08/18 09:10:58 henoheno Exp $
+// $Id: spam.ini.php,v 1.156 2007/08/18 13:09:19 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1564,7 +1564,6 @@ $blocklist['B-1'] = array(
 	),
 	'*.3-hosting.net',
 	'*.30mb.com',		// by 30MB Online (63681 at whois.gkg.net)
-	'*.50webs.com',		// 64.72.112.10 by LiquidNet Ltd. (support at propersupport.com), redirect to mpage.jp
 	'*.5gbfree.com',	// 75.126.153.58 by rob at roblist.co.uk
 	'*.789mb.com',		// 75.126.197.240(545mb.com -> 66.45.238.60, 66.45.238.61) by Nicholas Long (nicolas.g.long at gmail.com)
 	'*.9999mb.com',		// 75.126.214.232 by allan Jerman (prodigy-airsoft at cox.net)
@@ -1762,7 +1761,6 @@ $blocklist['B-1'] = array(
 	'freeforum.at',			// by Sandro Wilhelmy
 	'freeforumshosting.com',	// by Adam Roberts (admin at skaidon.co.uk)
 	'*.freeforums.org',		// by 1&1 Internet, Inc. - 1and1.com
-	'*.freehostia.com',
 	'*.freewebhostingpro.com',
 	'*.freehostingz.com',	// no dns reply => 67.159.33.10 by Marx Lomas (marvellousmarx at hotmail.com)
 	'FreeWebHostingArea.com' => array(	// or www.freewha.com
@@ -4087,11 +4085,33 @@ $blocklist['C'] = array(
 		'.npous.info',
 		'.obgju.info',
 	),
-	'FateBack.com' => array(	// by LiquidNet Ltd. (president at fateback.com), redirect to www.japan.jp
+	'LiquidNetLimited.com' => array(
+		// liquidnetltd.net,	// 216.65.1.131(duoservers.com)
+
+		// FateBack.com related
+		// 216.65.1.201(fateback.com) by LiquidNet Ltd. (president at fateback.com), redirect to www.japan.jp
 		'.bebto.com',
 		'.fateback.com',
 		'.undonet.com',
 		'.yoll.net',
+
+		// 50webs.com			// 64.72.112.10
+		// dns2.50webs.com		// 64.72.112.11
+		'*.freehostia.com',		// 64.72.112.12, many related hosts surrounded
+		// dns2.freehostia.com	// 64.72.112.13
+		// serv3.freehostia.com	// 64.72.112.14
+		// hex12.freehostia.com	// 64.72.112.19, 64.72.112.20
+		// mail.50webs.com		// 64.72.112.26
+		// supremecenter41.com	// 64.72.112.52
+		// 50webs2.50webs.com	// 64.72.112.89
+		// supremecenter39.com	// 64.72.112.103
+
+		// by LiquidNet Ltd. (support at propersupport.com)
+			'*.50webs.com',			// 64.72.112.10, redirect to mpage.jp, listed in http://www.liquidnetlimited.com/services.html
+			// propersupport.com	// 216.65.1.129(dns1.supremecenter.com)
+			'duoservers.com',		// 216.65.1.130
+
+		// 100ws.com			// No-ip by LiquidNet Ltd. (ceo at propersupport.com)
 	),
 	'domains at agava.com' => array(
 		'.h18.ru',
@@ -4374,6 +4394,7 @@ $blocklist['C'] = array(
 		'.iflashpoint.com',
 		'.klickerr.com',
 		'.klickerrworld.com',
+		'.kreolic.com',
 		'.margansitio.com',
 		'.margantierra.com',
 		'.mimargan.com',
