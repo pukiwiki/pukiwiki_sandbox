@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.13 2007/08/17 15:06:51 henoheno Exp $
+// $Id: domain.ini.php,v 1.14 2007/08/18 10:38:04 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -20,6 +20,52 @@ $domain['ag'] = array(
 	'net' => TRUE,
 	'nom' => TRUE,
 	'org' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Anguilla
+// NIC  : http://nic.com.ai/
+// Whois: http://whois.ai/
+$domain['ai'] = array(
+	// "Anguilla domains of ".ai", "off.ai", "com.ai", "net.ai",
+	//  and "org.ai" can be registered by anyone. The cost is
+	//  $100 every 2 years."
+	'com' => TRUE,
+	'net' => TRUE,
+	'off' => TRUE,
+	'org' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Argentina
+// NIC  : http://www.nic.ar/
+// Whois: http://www.nic.ar/
+$domain['ar'] = array(
+	// http://www.nic.ar/en/faq1.html
+	// 18. "How can I register an .edu.ar domain?"
+	// 25. "Which subdomains are authorized under .AR and what are the requirements?"
+	'com' => TRUE,
+	'edu' => TRUE,
+	'gov' => TRUE,
+	'int' => TRUE,
+	'mil' => TRUE,
+	'net' => TRUE,
+	'org' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Austria
+// NIC  : http://www.nic.at/en/
+// Whois: http://www.nic.at/en/domainsuche/
+$domain['at'] = array(
+	// "nic.at administrates the data of all domains below .at, .co.at and .or.at."
+	// http://www.nic.at/en/uebernic/
+	// 'ac' is reserved, 'gv' are governmental use
+	// http://www.nic.at/en/faq/domain_registration/
+	'co' => TRUE,
+	'or' => TRUE,
+	'ac' => TRUE,
+	'gv' => TRUE,
 );
 
 // ------------------------------
@@ -51,6 +97,32 @@ $domain['au'] = array(
 	'net'   => TRUE,
 	'org'   => TRUE,
 	'info'  => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Azerbaijan
+// NIC  : http://nic.az/
+// Whois: http://nic.az/
+$domain['az'] = array(
+	// "The .az, com.az, net.az, int.az, gov.az, org.az,
+	//  .edu.az, .info.az, .pp.az, .mil.az, .name.az,
+	//   pro.az and biz.az names are open and unrestricted"
+	// http://nic.az/
+	// http://www.whois.az/cgi-bin/stat.cgi?lang=en
+	'biz'   => TRUE,
+	'co'    => TRUE,	// Not open and restricted?
+	'com'   => TRUE,
+	'edu'   => TRUE,
+	'ganja' => TRUE,	// Not open and restricted?
+	'gov'   => TRUE,
+	'info'  => TRUE,
+	'int'   => TRUE,
+	'mil'   => TRUE,
+	'name'  => TRUE,
+	'net'   => TRUE,
+	'org'   => TRUE,
+	'pp'    => TRUE,
+	'pro'   => TRUE,
 );
 
 // ------------------------------
