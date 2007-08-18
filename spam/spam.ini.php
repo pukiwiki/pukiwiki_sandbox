@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.156 2007/08/18 13:09:19 henoheno Exp $
+// $Id: spam.ini.php,v 1.157 2007/08/18 13:41:47 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -462,7 +462,7 @@ $blocklist['A-1'] = array(
 	'*.hux.de',
 	'*.i89.us',
 	'iat.net',			// 74.208.58.130 by Tony Carter
-	'ibm.com',			// Correct the /links
+	'ibm.com',			///links (Correct it)
 	'*.iceglow.com',
 	'go.id-tv.info',	// 77.232.68.138(77-232-68-138.static.servage.net) by Max Million (max at id-tv.info)
 	'Ideas para Nuevos Mercados SL' => array(
@@ -555,6 +555,7 @@ $blocklist['A-1'] = array(
 	'ie.to',
 	'igoto.co.uk',
 	'ilook.tw',
+	'indianpad.com',		///view/
 	'iNetwork.co.il' => array(
 		'inetwork.co.il',	// by NiL HeMo (exe at bezeqint.net)
 		'.up2.co.il',		// inetwork.co.il related, not classifiable, by roey blumshtein (roeyb76 at 017.net.il)
@@ -1437,8 +1438,15 @@ $blocklist['A-2'] = array(
 			'*.sytes.net',
 			'*.zapto.org',
 	),
-	'*.zenno.info',
 	'*.opendns.be',
+	'Yi.org' => array(	// by dns at whyi.org
+		'*.yi.org',		// 64.15.155.86(susicivus.crackerjack.net)
+
+		// 72.55.129.46(redirect.yi.org)
+		'*.whyi.org',
+		'*.weedns.com',
+	),
+	'*.zenno.info',
 	'.cm',	// 'Cameroon' ccTLD, sometimes used as typo of '.com',
 			// and all non-recorded domains redirect to 'agoga.com' now
 			// http://money.cnn.com/magazines/business2/business2_archive/2007/06/01/100050989/index.htm
@@ -1672,6 +1680,7 @@ $blocklist['B-1'] = array(
 	'city-forum.com',
 	'concepts-mall.com',
 	'*.conforums.com',		// by Roger Sutton (rogersutton at cox.net)
+	'connectedy.com',		// 66.132.45.227(camilla.jtlnet.com) by astrader at insight.rr.com
 	'counterhit.de',
 	'*.createforum.net',
 	'*.creatuforo.com',		// by Desafio Internet S.L. (david at soluwol.com)
@@ -1700,6 +1709,7 @@ $blocklist['B-1'] = array(
 	'enunblog.com',
 	'*.epinoy.com',
 	'*.ez-sites.ws',
+	'*.ezbbforum.com',		// 72.52.134.135 by blogmaster2003 at gmail.com
  	'FC2.com' => array(
  		'Blogs' => '#^(?:.+\.)?blog[0-9]+\.fc2\.com$#',	// Blogs, 'FOOBAR.blogN.fc2.com' and 'blogN.fc2.com/FOOBAR'
 			// Many traps available:
@@ -1717,6 +1727,7 @@ $blocklist['B-1'] = array(
 	'fingerprintmedia.com',
 	'*.filelan.com',
 	'*.fora.pl',
+	'*.forka.eu',
 	'*.foren-city.de',
 	'foren-gratis.de',
 	'*.foros.tv',
@@ -2295,6 +2306,7 @@ $blocklist['B-2'] = array(
 	'anewme.org',
 	'internetyfamilia.asturiastelecentros.com',
 	'Ball State University' => array('web.bsu.edu'),
+	'btofaq.net',			///v3/forum
 	'blepharospasm.org',
 	'nyweb.bowlnfun.dk',
 	'*.buzznet.com',
@@ -4392,6 +4404,7 @@ $blocklist['C'] = array(
 		'.icyiceman.com',
 		'.icypopular.com',
 		'.iflashpoint.com',
+		'.justmdx.com',
 		'.klickerr.com',
 		'.klickerrworld.com',
 		'.kreolic.com',
@@ -4399,6 +4412,7 @@ $blocklist['C'] = array(
 		'.margantierra.com',
 		'.mimargan.com',
 		'.oilkeys.com',
+		'.planetmdx.com',
 		'.thekeyse.com',
 		'.viewgreat.com',
 		'.yourcreola.com',
