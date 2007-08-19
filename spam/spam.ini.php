@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.158 2007/08/19 03:13:18 henoheno Exp $
+// $Id: spam.ini.php,v 1.159 2007/08/19 05:43:40 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1625,6 +1625,7 @@ $blocklist['B-1'] = array(
 	'*.bloguj.eu',
 	'bloguitos.com',
 	'blogosfer.com',
+	'*.blogse.nl',			// 85.17.41.16(srv1.blogse.nl) by ruben at mplay.nl
 	'*.blogslive.net',
 	'*.blogsome.com',		// by Roger Galligan (roger.galligan at browseireland.com)
 	'*.blogstream.com',
