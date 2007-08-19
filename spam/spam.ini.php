@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.157 2007/08/18 13:41:47 henoheno Exp $
+// $Id: spam.ini.php,v 1.158 2007/08/19 03:13:18 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -172,6 +172,7 @@ $blocklist['A-1'] = array(
 		'*.6-6-6.pl',
 	),
 	'amoo.org',
+	'web.archive.org',		///web/2
 	'Arzy.net' => array(	// "(c) 2007 www.arzy.net", by urladmin at zvxr.com, DNS arzy.net
 		'jmp2.net',
 		'2me.tw',
@@ -1475,7 +1476,7 @@ $blocklist['B-1'] = array(
 	//        with server abuse, Spam advertisement and
 	//        fraud."
 	//
-	'*.0000host.com',
+	'*.0000host.com',		// 68.178.200.154, ns *.3-hosting.net
 	'*.00bp.com',			// 74.86.20.224(layeredpanel.com -> 195.242.99.195) by admin at 1kay.com
 	'0Catch.com related' => array(
 		'*.0catch.com',		// 209.63.57.4 by Sam Parkinson (sam at 0catch.com), also zerocatch.com
@@ -1571,7 +1572,6 @@ $blocklist['B-1'] = array(
 		'.2page.de',
 	),
 	'*.3-hosting.net',
-	'*.30mb.com',		// by 30MB Online (63681 at whois.gkg.net)
 	'*.5gbfree.com',	// 75.126.153.58 by rob at roblist.co.uk
 	'*.789mb.com',		// 75.126.197.240(545mb.com -> 66.45.238.60, 66.45.238.61) by Nicholas Long (nicolas.g.long at gmail.com)
 	'*.9999mb.com',		// 75.126.214.232 by allan Jerman (prodigy-airsoft at cox.net)
@@ -1596,7 +1596,7 @@ $blocklist['B-1'] = array(
 		'.freehostpro.com',		// 64.22.112.226
 	),
 	'*.bb-fr.com',
-	'*.bbfast.com',
+	'.bbfast.com',				// 72.52.135.174 by blogmaster2003 at gmail.com
 	'*.beeplog.com',
 	'bestfreeforums.com',
 	'Bizcn.com' => '/.*\.w[0-9]+\.bizcn\.com$/', // XiaMen BizCn Computer & Network CO.,LTD
@@ -1797,8 +1797,8 @@ $blocklist['B-1'] = array(
 	'*.genblogger.com',
 	'geocities.com',
 	'GetBetterHosting.com' => array(
-		'*.30mb.com',	// by 30MB Online (63681 at whois.gkg.net), introduced as one alternative of 90megs.com
-		'*.90megs.com',	// by Get Better Hosting (admin at getbetterhosting.com)
+		'*.30mb.com',	// 207.210.82.74(cpanel.90megs.com) by 30MB Online (63681 at whois.gkg.net), introduced as one alternative of 90megs.com
+		'*.90megs.com',	// 207.210.82.75 by Get Better Hosting (admin at getbetterhosting.com)
 	),
 	'*.goodboard.de',
 	'gossiping.net',
@@ -1974,6 +1974,7 @@ $blocklist['B-1'] = array(
 	'Netscape.com' => array('mywebpage.netscape.com'),
 	'users.newblog.com',
 	'neweconomics.info',
+	'*.newsit.es',				// 75.126.252.108
 	'Northsky.com' => array(
 		// by hostmaster at northsky.com
 		// northsky.com redirects to communityarchitect.com
@@ -2057,6 +2058,7 @@ $blocklist['B-1'] = array(
 	'*.qupis.com',		// by Xisto Corporation (shridhar at xisto.com)
 	'razyboard.com',
 	'realhp.de',
+	'reddit.com',		///user/
 	'rgbdesign at gmail.com' => array(	// by RB2 (rgbdesign at gmail.com)
 		'*.juicypornhost.com',
 		'*.pornzonehost.com',
@@ -4686,9 +4688,10 @@ $blocklist['C'] = array(
 		// "Actually, this site has been motivated by a desire to researching search-engine-rank of this site, and researching how the people place this site.".
 	),
 	'snap990 at yahoo.com' => array(	// by John Glade (snap990 at yahoo.com)
+		'.date-x.info',				// 208.73.34.48(support-office.hostican.com -> 208.79.200.16)
 		'.ipod-application.info',	// NO IP
-		'.love-total.net',			// 74.50.97.136
-		'.stonesex.info',			// 74.50.97.136
+		'.love-total.net',			// 208.73.34.48, was 74.50.97.136(server.serveshare.com)
+		'.stonesex.info',			// NO IP, was 74.50.97.136
 	),
 	'germerts at yandex.ru' => array(	// by Sergey Marchenko (germerts at yandex.ru)
 		'.andatra.info',
@@ -4741,6 +4744,7 @@ $blocklist['C'] = array(
 	'infomed2004 at mail.ru' => array(	// by Andrey Ushakov (infomed2004 at mail.ru)
 		'.freeamateursexx.info',	// 81.0.195.228
 		'.freeanalsexx.info',		// 217.11.233.97
+		'.freegaysexx.info',		// 81.0.195.228
 	),
 	'support at dns4me.biz' => array(	// 89.149.228.237 by John Black (support at dns4me.biz)
 		'.abbhi.info',
@@ -5214,6 +5218,7 @@ $blocklist['C'] = array(
 	'.golden-keys.net',		// 89.149.205.146(unknown.vectoral.info) by aktitol at list.ru
 
 	'.masserch.info',		// 69.46.18.2(hv113.steephost.com -> 72.232.191.50 -> 72.232.191.50.steephost.com) "Free Web Hosting" by sqr at bk.ru, spam
+	'.viagrabuycheap.info',	// 75.126.129.222(greatpool.biz -> 72.232.198.234 -> brasilrok.com.br -> ...), ns *.advernsserver.com
 
 	// C-3: Not classifiable (information wanted)
 	//
