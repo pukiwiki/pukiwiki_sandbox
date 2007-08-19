@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.53 2007/08/17 14:34:44 henoheno Exp $
+// $Id: spam_pickup.php,v 1.54 2007/08/19 03:12:35 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -676,15 +676,15 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 	$string = preg_replace(
 		'#h?ttp://' .
 		'(' .
-			'ime\.nu/' . '|' .	// 2ch.net
-			'ime\.st/' . '|' .	// 2ch.net
+			'ime\.(?:nu|st)/' . '|' .	// 2ch.net
 			'link\.toolbot\.com/' . '|' .
 			'urlx\.org/' . '|' .
 			'big5.51job.com/gate/big5/'	 . '|' .
 			'big5.china.com/gate/big5/'	 . '|' .
 			'big5.xinhuanet.com/gate/big5/' . '|' .
 			'bhomiyo.com/en.xliterate/' . '|' .
-			'google.com/translate_c\?u=(?:http://)?' .
+			'google.com/translate_c\?u=(?:http://)?' . '|' .
+			'web.archive.org/web/2[^/]*/(?:http://)?' .
 		')' .
 		'([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// nasty.example.org
 		'#i',
