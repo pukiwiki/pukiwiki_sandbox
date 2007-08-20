@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.3 2007/08/20 14:37:23 henoheno Exp $
+// $Id: SpamPickupTest.php,v 1.4 2007/08/20 14:50:31 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -360,6 +360,18 @@ EOF;
 		$results = spam_uri_pickup($test_string);
 		$this->assertEquals('victim.example.org', $results[0]['host']);
 		$this->assertEquals('nasty.example.org',  $results[1]['host']);
+
+		// Domain exposure (site:)
+		$test_string = ' http://search.example.org/?q=%20site:nasty.example.org ';
+		$results = spam_uri_pickup($test_string);
+		$this->assertEquals('nasty.example.org', $results[0]['host']);
+		$this->assertEquals('search.example.org',  $results[1]['host']);
+		
+		// Domain exposure (%20site:)
+		$test_string = ' http://search2.example.org/?q=%20site:nasty2.example.org ';
+		$results = spam_uri_pickup($test_string);
+		$this->assertEquals('nasty2.example.org', $results[0]['host']);
+		$this->assertEquals('search2.example.org',  $results[1]['host']);
 	}
 }
 
