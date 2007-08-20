@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.2 2007/07/02 15:27:20 henoheno Exp $
+// $Id: SpamPickupTest.php,v 1.3 2007/08/20 14:37:23 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -307,6 +307,11 @@ EOF;
 		$results = uri_pickup_normalize(uri_pickup($test_string));
 		$this->assertEquals('backslash.org',  $results[0]['host']);
 
+		// Divider: percent-encoded
+		//$test_string = ' http%3A%2F%5Cpercent-encoded.org%5Cfobar.html ';
+		//$results = uri_pickup_normalize(uri_pickup($test_string));
+		//$this->assertEquals('percent-encoded.org',  $results[0]['host']);
+
 		// Host: Underscore
 		$test_string = ' http://under_score.org/fobar.html ';
 		$results = uri_pickup_normalize(uri_pickup($test_string));
@@ -348,6 +353,14 @@ EOF;
 		$this->assertEquals('foo.html',       $results[0]['file']);
 	}
 
+	function testFunc_spam_uri_pickup()
+	{
+		// Divider: percent-encoded
+		$test_string = ' http://victim.example.org/http%3A%2F%5Cnasty.example.org ';
+		$results = spam_uri_pickup($test_string);
+		$this->assertEquals('victim.example.org', $results[0]['host']);
+		$this->assertEquals('nasty.example.org',  $results[1]['host']);
+	}
 }
 
 ?>
