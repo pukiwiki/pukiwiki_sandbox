@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.160 2007/08/20 14:37:42 henoheno Exp $
+// $Id: spam.ini.php,v 1.161 2007/08/23 15:17:33 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -45,14 +45,14 @@ $blocklist['pre'] = array(
 
 // 'list': Normal list
 $blocklist['list'] = array(
-	'A-1'		=> TRUE,
-	//'A-2'		=> TRUE,
-	'B-1'		=> TRUE,
-	'B-2'		=> TRUE,
-	'C'			=> TRUE,
-	//'D'		=> TRUE,
-	'E'			=> TRUE,
-	'Z'			=> TRUE,
+	'A-1'		=> TRUE,	// General redirection services
+	//'A-2'		=> TRUE,	// Dynamic DNS, Dynamic IP services, ...
+	'B-1'		=> TRUE,	// Web spaces
+	'B-2'		=> TRUE,	// Jacked contents, something implanted
+	'C'			=> TRUE,	// Exclusive spam domains
+	//'D'		=> TRUE,	// "Third party in good faith"s
+	'E'			=> TRUE,	// Affiliates, Hypes, Catalog retailers, Multi-level marketings, ...
+	'Z'			=> TRUE,	// Yours
 );
 
 
@@ -277,6 +277,15 @@ $blocklist['A-1'] = array(
 	'dwarf.name',
 	'*.eadf.com',
 	'*.easyurl.net',
+	'easyurl.jp',	// 124.38.169.39(*.ap124.ftth.ucom.ne.jp), e-mail:info at value-domain.com,
+		// says "by ascentnet.co.jp". http://www.ascentnet.co.jp/press/?type=1&press=45
+		// This service seems to be opened at 2007/08/23 with "beta" sign.
+		// easyurl.jp clearly point ascentnet.co.jp's 10 local rules:
+		//   "Keep continuing to seek originality and contribute it to local,
+		//    get/grow niche brands (in local), believe (local) people knows the answer,
+		//    observe (local) rule, create nothing to infringe (local) rule, keep 70% of
+		//    engeneers, and ..." http://www.ascentnet.co.jp/about/about_01.html
+		// I'm so much impressed of the situation around this imported one today.
 	'elfurl.com',
 	'eny.pl',
 	'eTechFocus LLC' => array(	// by eTechFocus LLC (thomask at etechfocus.com)
@@ -1713,6 +1722,7 @@ $blocklist['B-1'] = array(
 	'*.epinoy.com',
 	'*.ez-sites.ws',
 	'*.ezbbforum.com',		// 72.52.134.135 by blogmaster2003 at gmail.com
+	'*.fathippohosting.com',	// 208.101.3.192
  	'FC2.com' => array(
  		'Blogs' => '#^(?:.+\.)?blog[0-9]+\.fc2\.com$#',	// Blogs, 'FOOBAR.blogN.fc2.com' and 'blogN.fc2.com/FOOBAR'
 			// Many traps available:
@@ -1846,6 +1856,7 @@ $blocklist['B-1'] = array(
 	'forums.hspn.com',
 	'*.httpsuites.com',
 	'*.hut2.ru',
+	'ibfree.org',			// 208.101.45.88
 	'IC.cz' => array(
 		'*.ezin.cz',		// internetcentrum at gmail.com, ns ignum.com, ignum.cz
 		'*.hu.cz',			// internetcentrum at gmail.com
@@ -4431,7 +4442,8 @@ $blocklist['C'] = array(
 		'.search4freez.info',
 		'.yasech.info',
 	),
-	'ice--man at mail.ru' => array(	// 74.50.97.198 by andrey, the same approach and timing of clickx at bk.ru
+	'ice--man at mail.ru' => array(
+		// 74.50.97.198 by andrey, the same approach and timing of clickx at bk.ru
 		'.bestcreola.com',
 		'.crekatierra.com',
 		'.creolafire.com',
@@ -4459,6 +4471,11 @@ $blocklist['C'] = array(
 		'.thekeyse.com',
 		'.viewgreat.com',
 		'.yourcreola.com',
+		
+		// 69.46.23.48
+		'.crekadirecto.com',
+		'.getflashsite.com',
+		'.sucreka.com',
 	),
 	'nijeoi at hotmai.com' => array(
 		// 66.232.126.74 by Nicol Makerson, the same approach and timing _and IP_ of clickx at bk.ru
@@ -4959,8 +4976,44 @@ $blocklist['C'] = array(
 		'.xiuky.cn',	// 84.16.251.222(*snip*)
 		'.xrqcd.cn',	// 89.149.196.19(www.kosmetik-eshop.de ->  80.244.243.181 -> ip1.rumsoft-webhosting.de)
 
+		// by la at dns4dedka.info
+		'.aeyzf.cn',	// 84.16.251.218(*snip*)
+		'.blvqo.cn',	// 84.16.249.241(*snip*), Expiration Date: 2008-08-16
+		'.bgslu.cn',	// 89.149.228.163(*snip*)
+		'.dxouw.cn',	// 84.16.255.253(*snip*)
+		'.ecsbe.cn',	// 84.16.251.218(*snip*)
+		'.epocy.cn',	// 84.16.251.220(*.internetserviceteam.com)
+		'.ewvjw.cn',	// 89.149.196.72(*snip*)
+		'.faacz.cn',	// 84.16.251.222(*snip*)
+		'.filun.cn',	// 89.149.196.72(*snip*)
+		'.fzdpk.cn',	// 84.16.249.239(*snip*)
+		'.hatyg.cn',	// 84.16.251.223(*snip*)
+		'.ibfte.cn',	// 89.149.196.19(*snip*)
+		'.jcaym.cn',	// 84.16.249.240(*snip*)
+		'.iqzaw.cn',	// 84.16.255.254(*snip*)
+		'.jclsf.cn',	// 84.16.249.240(*snip*)
+		'.jefdh.cn',	// 84.16.249.240(*snip*)
+		'.kchjh.cn',	// 84.16.251.219(*snip*)
+		'.krumo.cn',	// 84.16.226.217(*snip*)
+		'.lbava.cn',	// 217.20.112.102(*snip*)
+		'.njpgv.cn',	// 84.16.251.219(*snip*)
+		'.nyobt.cn',	// 89.149.196.19(*snip*)
+		'.ovxxt.cn',	// 84.16.251.223(*snip*)
+		'.owhwz.cn',	// 89.149.228.163(*snip*)
+		'.ozjyi.cn',	// 84.16.249.241(*snip*)
+		'.pfnzj.cn',	// 84.16.226.217(*snip*)
+		'.pixvf.cn',	// 84.16.255.254(*snip*)
+		'.qydph.cn',	// 89.149.228.163(*snip*)
+		'.sojbp.cn',	// 84.16.249.239(*snip*)
+		'.srths.cn',	// 84.16.251.222(*snip*)
+		'.tdytc.cn',	// 84.16.255.254(*snip*)
+		'.unquz.cn',	// 84.16.251.223(*snip*)
+		'.uwcns.cn',	// 89.149.196.19(*snip*)
+		'.vcbdm.cn',	// 84.16.251.220(*snip*)
+		'.wttmr.cn',	// 84.16.226.29(*snip*)
+
 		// by le at dns4dedka.info
-		'.goslw.cn',	// 84.16.251.220(*.internetserviceteam.com)
+		'.goslw.cn',	// 84.16.251.220(*snip*)
 		'.iewik.cn',	// 84.16.255.254(*snip*)
 		'.jnkeh.cn',	// 89.149.228.163(*snip*)
 		'.vxugv.cn',	// 84.16.251.223(*snip*)
@@ -5101,6 +5154,21 @@ $blocklist['C'] = array(
 	'goodwin77 at bk.ru' => array(	// ns *.petterhill.ru
 		'.autotowncar.cn',		// 69.73.146.184
 		'.badgirlhome.cn',		// 69.73.146.186
+	),
+	'Wmp.co.jp' => array(
+		// 219.94.134.208, ns *.dns.ne.jp, adult
+		'.celebe.net',			// by nic-staff at sakura.ad.jp(using sakura.ne.jp), said: by "wmp.co.jp"
+		'.kousyunyu.com',		// Admin/Billing/Tech Email: * at wmp.co.jp
+		// online-support.jp	// 202.222.19.81(sv70.lolipop.jp), / blank
+	),
+	'Macherie.tv' => array(
+		'.macherie.tv',			// 124.32.230.31, pr to himehime.com
+		'.himehime.com',		// 124.32.230.94(recruit.macherie.tv)
+		'.livechatladyjob.com',	// 124.32.230.94 by Hajime Kawagoe (sawada at innetwork.jp), recruiting site for macherie.tv
+	),
+	'admin at fr4f3ds.info' => array(	// 217.11.233.54, / forbidden
+		'.yemine.info',
+		'.fr4f3ds.info',
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -5303,6 +5371,10 @@ $blocklist['C'] = array(
 	'.masserch.info',		// 69.46.18.2(hv113.steephost.com -> 72.232.191.50 -> 72.232.191.50.steephost.com) "Free Web Hosting" by sqr at bk.ru, spam
 	'.viagrabuycheap.info',	// 75.126.129.222(greatpool.biz -> 72.232.198.234 -> brasilrok.com.br -> ...), ns *.advernsserver.com
 
+	'.chatwalker.com',			// 124.32.230.65
+	'.angel-live.com',			// 61.211.231.181, ns *.netassist.ne.jp, pr to himehime.com
+	'.angelkiss.jp',			// 59.106.45.50, pr to himehime.com and chatwalker.com
+
 	// C-3: Not classifiable (information wanted)
 	//
 	// Something incoming to pukiwiki related sites
@@ -5316,7 +5388,7 @@ $blocklist['C'] = array(
 
 $blocklist['D'] = array(
 	// D: Sample setting of
-	// "third party in good faith"s
+	// "Third party in good faith"s
 	//
 	// Hosts shown inside of the implanted contents,
 	// not used via spam, but maybe useful to detect these contents
