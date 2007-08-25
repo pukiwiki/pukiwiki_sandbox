@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.162 2007/08/25 02:35:08 henoheno Exp $
+// $Id: spam.ini.php,v 1.163 2007/08/25 13:36:28 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1570,6 +1570,7 @@ $blocklist['B-1'] = array(
 		'*.20me.com',
 	),
 	'*.100foros.com',
+	'*.1234mb.com',		// 74.86.20.227(layeredpanel.com -> 195.242.99.195 -> s195.softwarelibre.nl) by tycho at e-lab.nl
 	'*.12gbfree.com',	// 75.126.176.194 by ashphama at yahoo.com
 	'20six Weblog Services' => array(
 		'.20six.nl',			// by 20six weblog services (postmaster at 20six.nl)
@@ -1601,7 +1602,7 @@ $blocklist['B-1'] = array(
 		// Rough but works
 	'Apple.com' => array('idisk.mac.com'),
 	'*.askfaq.org',
-	'*.atfreeforum.com',
+	'.atfreeforum.com',		// 216.224.120.14(kelsey.mykelsey1.com -> 216.224.120.10)
 	'*.atwiki.com',			//  by Masakazu Ohno (s071011 at sys.wakayama-u.ac.jp)
 	'*.asphost4free.com',
 	'basenow.com',
@@ -5447,7 +5448,11 @@ $blocklist['D'] = array(
 
 $blocklist['E'] = array(
 	// E: Sample setting of
-	// Affiliates, Hypes, Catalog retailers, Multi-level marketings, Resellers, Ads
+	// Promoters
+	// (Affiliates, Hypes, Catalog retailers, Multi-level marketings, Resellers,
+	//  Ads, Business promotions)
+	//
+	// They often promotes near you. They may promote each other by articles, links, tools
 
 	'15-Mail.com related' => array(
 		'.15-mail.com',				// 202.218.109.45(*.netassist.jp) by yukiyo yamamoto (sunkusu5268 at m4.ktplan.ne.jp)
@@ -5525,12 +5530,46 @@ $blocklist['E'] = array(
 	'.e2996.com',			// 202.181.105.241(sv261.lolipop.jp)
 	'ezinearticles.com',	// 216.235.79.13 by C Knight (opensrs at sparknet.net)
 	'.fx4rich.com',			// 219.94.128.161(www921.sakura.ne.jp) by Yuji Nakano (info at will76.com)
+	'Hokuken.com' => array(		// Bisuness promotion, affiliate about QHM
+		'.hokuken.com',		// 210.188.216.191(sv399.lolipop.jp) by Takahiro Kameda (registrant email admin at muumuu-domain.com)
+		'.1st-easy-hp.com',	// 210.188.201.45(sv84.xserver.jp) by takahiro kameda (customer at hokuken.com)
+		'.open-qhm.net',	// 125.53.25.8(s297.xrea.com), was 202.222.31.223(sv183.lolipop.jp) "Open QHM by hokuken"
+
+		// Redirects and affiliates:
+		// (They all use "paperboy and co." related services, muumuu-domain.com and lolipop.jp)
+		//   yousense.info/fwd/mama1 redirects to www.infocart.jp/af.php?af=520517&url=www.1st-easy-hp.com/index.php?iInfoCart&item=XXXX    redirects to www.1st-easy-hp.com/index.php?iInfoCart
+		//   info.mizo3.com/fwd/qhm  redirects to (*snip*)af=moukaru88y(*snip*)
+		//   sanpei.vc/fwd/startkit  redirects to (*snip*)af=katosanpe(*snip*)
+		//   ysa-techno.com/fwd/homepagesakusei redirects to (*snip*)af=yukko777(*snip*)
+		//   qhm.kikikan.com        points several links to (*snip*)af=kikikan(*snip*)
+		//   www.writeonjp.com/puki points several links to (*snip*)af=notes(*snip*)
+		//   ...
+
+		// Other suggestions:
+		//   info.mizo3.com says: "Owners who bought QHM from MY site..."
+
+		// Blog posting at the same time
+		//   2007/06/13 hidenonikki.seesaa.net/archives/20070613-1.html
+		//   2007/06/13 e123.info/archives/76
+		//   2007/06/14 bobbin1950.seesaa.net/archives/20070614-1.html
+		//   2007/06/25 ichibankantan.seesaa.net/article/52650651.html
+		//   2007/06/26 www.neko01.com/pc/blog/2007/06/open_quick_homepage_maker_1.php
+	),
 	'info at kobeweb.jp' => array(
 		'.soholife.jp',		// 211.125.65.203 by Takashige Tabuchi (info at kobeweb.jp)
 		'.kobeweb.jp',		// 59.106.13.51(www421.sakura.ne.jp)
 		'.sloters.tv',		// 211.125.65.203 by Takashige Tabuchi (t-2 at white.interq.or.jp)
 	),
 	'.info-affiliate.net',	// 219.94.148.8(sv41.chicappa.jp)
+	'Infocart.jp' => array(		// by wai at infocart.jp
+		//inetnum:      60.32.154.168 - 60.32.154.175
+		//descr:        INFOMAG (Shimooka,Yasuyoshi)
+		'.infocart.jp',			// 60.32.154.171, by Hawaiikigyo, affiliate
+
+		//inetnum:      60.32.154.176 - 60.32.154.183
+		// descr:        HAWAII KIGYO.COM (Shimooka,Yasuyoshi)
+		'.infomag.jp',			// 60.32.154.179, by Infocart,  business promotion
+	),
 	'.infostore.jp',		// 216.255.235.45, ns *.estore.co.jp
 	'JunSuzuki.com' => array(	// e-brainers.com related
 		'.junsuzuki.com',		// 218.216.67.43(s92.xrea.com) by Jun Suzuki (jun_suzuki at compus.net)
