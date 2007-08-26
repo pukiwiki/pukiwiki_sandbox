@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.163 2007/08/25 13:36:28 henoheno Exp $
+// $Id: spam.ini.php,v 1.164 2007/08/26 14:21:41 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -140,7 +140,7 @@ $blocklist['A-1'] = array(
 	'32url.com',
 	'.3dg.de',
 	'*.4bb.ru',
-	'big5.51job.com',
+	'big5.51job.com',	///gate/big5/
 	'5jp.net',
 	'.6url.com',
 	'*.6x.to',
@@ -189,7 +189,7 @@ $blocklist['A-1'] = array(
 	'beam.to',
 	'beermapping.com',
 	'besturl.in',
-	'bhomiyo.com',		// 64.209.134.9(web137.discountasp.net) by piyush at arborindia.com
+	'bhomiyo.com',		///en.xliterate/ 64.209.134.9(web137.discountasp.net) by piyush at arborindia.com
 	'biglnk.com',
 	'bingr.com',
 	'bittyurl.com',
@@ -225,7 +225,7 @@ $blocklist['A-1'] = array(
 	'url.chefhost.com',
 	'*.chicappa.jp',
 	'chilicity.com',
-	'big5.china.com',
+	'big5.china.com',		///gate/big5/
 	'chopurl.com',
 	'christopherleestreet.com',
 	'cintcm.com',
@@ -429,6 +429,9 @@ $blocklist['A-1'] = array(
 	'*.globalredirect.com',
 	'gnu.vu',
 	'*.go.cc',
+	//'Google.com' => array(
+	//		google.com/translate_c\?u=(?:http://)?
+	//),
 	'goonlink.com',
 	'.gourl.org',
 	'.greatitem.com',
@@ -912,6 +915,9 @@ $blocklist['A-1'] = array(
 	'qwer.org',
 	'readthisurl.com',		// 67.15.58.36(win2k3.tuserver.com) by Zhe Hong Lim (zhehonglim at gmail.com)
 	'radiobase.net',
+	'Rakuten.co.jp' => array(
+		'pt.afl.rakuten.co.jp',	///c/
+	),
 	'RedirectFree.com' => array(
 		'*.red.tc',
 		'*.redirectfree.com',
@@ -943,6 +949,7 @@ $blocklist['A-1'] = array(
 		'*.shim.net',
 		'*.v9z.com',
 	),
+	'big5.shippingchina.com',
 	'shorl.com',
 	'shortenurl.com',
 	'shorterlink.com',
@@ -1344,7 +1351,7 @@ $blocklist['A-1'] = array(
 		'*.i50.de',
 		'*.x50.us',
 	),
-	'big5.xinhuanet.com',
+	'big5.xinhuanet.com',	///gate/big5/
 	'xhref.com',
 	'Xn6.net' => array(
 		'*.9ax.net',
@@ -2113,6 +2120,13 @@ $blocklist['B-1'] = array(
 	'*.spazioforum.it',
 	'members.spboards.com',
 	'forums.speedguide.net',
+	'Sphosting.com' => array(	// by admin at sphosting.com
+		'*.hostinplace.com',	// 66.197.204.233(sp3.sphosting.net -> 66.197.204.229)
+		'*.sphosting.com',		// 66.197.204.229(sp3.sphosting.net)
+		'*.sphosting.net',		// 66.197.204.229(*snip*), redirect to sphosting.com
+		'*.spboards.com',		// 66.197.146.104(sp2.sphosting.com -> Non-existent)
+		'spweblog.com',			// 66.197.146.101(sp2.sphosting.com -> Non-existent)
+	),
 	'*.spicyblogger.com',
 	'*.spotbb.com',
 	'*.squarespace.com',
@@ -4549,6 +4563,7 @@ $blocklist['C'] = array(
 		'.newsonyericsson.info',
 		'.pornositeworld.biz',
 		'.rentcarweb.info',
+		'.xxxdomainsex.biz',
 	),
 	'kopper1970 at gmail.com' => array(
 		'.cardealerall.info',		// by Green
@@ -5211,10 +5226,17 @@ $blocklist['C'] = array(
 		'.fr4f3ds.info',
 	),
 	'66.232.112.175' => array(
-		'.catybe.cn',		// by abuse-here at inbox.ru
-		'.faweji.cn',		// by entretov-86 at ftunez.org
-		'.jytame.cn',		// by abuse-here at inbox.ru
-		'.wygete.cn',		// by abuse-here at inbox.ru
+		// by abuse-here at inbox.ru
+		'.catybe.cn',
+		'.jytame.cn',
+		'.wygete.cn',
+
+		// by bing-32 at ftunez.org
+		'.lasyxy.cn',
+
+		// by entretov-86 at ftunez.org
+		'.faweji.cn',
+		'.xozuso.cn',
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -5298,7 +5320,6 @@ $blocklist['C'] = array(
 	'.hotscriptonline.info',// by Psy Search (admin at psysearch.com)
 	'.iinaa.net',			// domain at ml.ninja.co.jp, ns *.shinobi.jp
 	'.incbuy.info',			// by Diego T. Murphy (Diego.T.Murphy at incbuy.info)
-	'.infocart.jp',			// Trying to earn money easily by selling 'earn-money-easiliy' tips
 	'.infradoc.com',
 	'.investorvillage.com',	// by natalija puchkova (internet at internet.lv)
 	'.ismarket.com',		// Google-hiding. intercage.com related IP
@@ -5422,6 +5443,7 @@ $blocklist['C'] = array(
 	'.angelkiss.jp',		// 59.106.45.50, pr to himehime.com and chatwalker.com
 
 	'.mncxvsm.info',		// 217.11.233.105, / blank
+	'.super-discount.sakura.ne.jp',	// 59.106.19.206(www756.sakura.ne.jp), sales
 
 	// C-3: Not classifiable (information wanted)
 	//
@@ -5452,7 +5474,8 @@ $blocklist['E'] = array(
 	// (Affiliates, Hypes, Catalog retailers, Multi-level marketings, Resellers,
 	//  Ads, Business promotions)
 	//
-	// They often promotes near you. They may promote each other by articles, links, tools
+	// They often promotes near you using blog article, mail-magazines, tools(search engines, blogs, etc), etc.
+	// Sometimes they may promote each other
 
 	'15-Mail.com related' => array(
 		'.15-mail.com',				// 202.218.109.45(*.netassist.jp) by yukiyo yamamoto (sunkusu5268 at m4.ktplan.ne.jp)
@@ -5530,6 +5553,7 @@ $blocklist['E'] = array(
 	'.e2996.com',			// 202.181.105.241(sv261.lolipop.jp)
 	'ezinearticles.com',	// 216.235.79.13 by C Knight (opensrs at sparknet.net)
 	'.fx4rich.com',			// 219.94.128.161(www921.sakura.ne.jp) by Yuji Nakano (info at will76.com)
+	'gonz-style.com',		// 210.251.253.242(s187.xrea.com) by arai at p-cafe.net, reseller
 	'Hokuken.com' => array(		// Bisuness promotion, affiliate about QHM
 		'.hokuken.com',		// 210.188.216.191(sv399.lolipop.jp) by Takahiro Kameda (registrant email admin at muumuu-domain.com)
 		'.1st-easy-hp.com',	// 210.188.201.45(sv84.xserver.jp) by takahiro kameda (customer at hokuken.com)
@@ -5562,7 +5586,7 @@ $blocklist['E'] = array(
 	),
 	'.info-affiliate.net',	// 219.94.148.8(sv41.chicappa.jp)
 	'Infocart.jp' => array(		// by wai at infocart.jp
-		//inetnum:      60.32.154.168 - 60.32.154.175
+		// Trying to earn money easily by selling 'earn-money-easiliy' tips
 		//descr:        INFOMAG (Shimooka,Yasuyoshi)
 		'.infocart.jp',			// 60.32.154.171, by Hawaiikigyo, affiliate
 
@@ -5570,10 +5594,32 @@ $blocklist['E'] = array(
 		// descr:        HAWAII KIGYO.COM (Shimooka,Yasuyoshi)
 		'.infomag.jp',			// 60.32.154.179, by Infocart,  business promotion
 	),
+	'Info-sniper.com' => array(
+		'.1koibana.com',		// 59.106.12.162(sv265.lolipop.jp), says "Info-sniper presents"
+		'.info-sniper.com',		// 202.222.18.25(sv37.lolipop.jp)
+	 	'.mailjoho.com',		// 202.222.19.81(sv70.lolipop.jp), says "Info-sniper", link to info-sniper.com and 2muryoureport.com
+	),
 	'.infostore.jp',		// 216.255.235.45, ns *.estore.co.jp
+	'.junquito55.com',		// 59.106.12.213(sv281.lolipop.jp)
 	'JunSuzuki.com' => array(	// e-brainers.com related
 		'.junsuzuki.com',		// 218.216.67.43(s92.xrea.com) by Jun Suzuki (jun_suzuki at compus.net)
 		'.globalswing.biz',		// 210.188.217.109(sv27.xserverzero.net)
+	),
+	'Natsukih.net' => array(
+		'.natsukih.net',		// 210.188.245.5(sv04.futurismworks.jp) by natsuki hayashi(ii at leo.bekkoame.ne.jp)
+		'.1seikou.biz',			// 221.186.251.73(s68.xrea.com), says "by natsuki hayashi", "Heisei natsuki project"
+		'.oniblog.net',			// 210.251.253.242(s187.xrea.com), says "Heisei natsuki project", see also blog.1seikou.biz
+		'.muryoureport.com',	// 210.188.205.58(sv311.lolipop.jp), redirect to 2muryoureport.com
+
+		// by info at natsukih.net
+		'.1muryoureport.com',	// 222.227.75.40(s162.xrea.com), says  "Heisei natsuki project"
+		'.2muryoureport.com',	// 59.139.29.227(s233.xrea.com), says  "Heisei natsuki project"
+		'.3muryoureport.com',	// 222.227.75.45(s167.xrea.com)
+		'.4muryoureport.com',	// 202.222.31.77(sakura1.digi-rock.com)
+		'.5muryoureport.com',	// 210.251.253.230
+		'.6muryoureport.com',	// 202.222.31.77(*snip*)
+		'.7muryoureport.com',	// 202.222.31.77(*snip*)
+		'.muryouaff.com',		// 210.251.253.238(s183.xrea.com)
 	),
 	'Point-park.com' => array(	// Tadahiro Ogawa (domain at wide.ne.jp)
 		'.11kanji.com',		// 211.10.131.88
@@ -5582,13 +5628,21 @@ $blocklist['E'] = array(
 		'.point-park.jp',	// 43.244.140.160(160.140.244.43.ap.yournet.ne.jp)
 	),
 	'.potitto.info',		// 219.94.132.89(sv450.lolipop.jp)
-	'.sedori-data.com',		// 
+	'Rakuten.co.jp' => array(
+		'hb.afl.rakuten.co.jp',		///hsc/ 203.190.60.104 redirect to rakuten.co.jp
+		'hbb.afl.rakuten.co.jp',	///hsb/ 203.190.60.105 image server?
+	),
+	'.sedori-data.com',		// 210.188.205.7(sv03.lolipop.jp)
 	'.tool4success.com',	// 210.188.201.31(sv70.xserver.jp) by Yukihiro Akada (ml at original-ehon.com)
 	'tera at kirinn.com' => array(	// 59.139.29.234(s240.xrea.com) by Naohsi Terada (tera at kirinn.com)
 		'.e123.info',
 		'.ialchemist.net',
 		'.j012.net',
 		'.xn--yckc2auxd4b6564dogvcf7g.biz',
+	),
+	'Viscose.jp' => array(
+		'.web-navi21.com',	// 202.222.30.12 by kazuhiro shikano(shikano at guitar.ocn.ne.jp)
+		'.viscose.jp',		///link/ 210.188.205.205(sv370.lolipop.jp) by  kazuhiro shikano
 	),
 	'.zakkuzaku.com',		// 210.188.201.44(sv83.xserver.jp)
 );
