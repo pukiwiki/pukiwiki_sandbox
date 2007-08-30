@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.164 2007/08/26 14:21:41 henoheno Exp $
+// $Id: spam.ini.php,v 1.165 2007/08/30 14:42:48 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -4679,6 +4679,7 @@ $blocklist['C'] = array(
 	'supermaster at pisem.net' => array(	// by Aleksandr Krasnik (supermaster at pisem.net), ns *.msn-dns.com
 		'.kiski.net.in',
 		'.pipki.org.in',
+		'.popki.ind.in',
 		'.siski.co.in',
 	),
 	'tiptronikmike at mail.com' => array(
@@ -5364,7 +5365,6 @@ $blocklist['C'] = array(
 	'.pharmacy2online.com',	// by Mike Hiliok (bbong80 at yahoo.com)
 	'.pills-storage.com',	// by 
 	'.plusintedia.com',		// by g yk (abc00623 at 163.com), seems not used now
-	'.popki.ind.in',			// by Aleksandr Krasnik (supermaster at pisem.net)
 	'.porkyhost.com',		// 79965 at whois.gkg.net
 	'.porno-babe.info',		// by Peter (asdas at mail.ru), redirect to Google
 	'.pornesc.com',			// by Xpeople (suppij atmail.ru)
