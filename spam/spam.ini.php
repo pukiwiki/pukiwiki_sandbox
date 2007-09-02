@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.165 2007/08/30 14:42:48 henoheno Exp $
+// $Id: spam.ini.php,v 1.166 2007/09/02 12:10:41 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1577,7 +1577,6 @@ $blocklist['B-1'] = array(
 		'*.20me.com',
 	),
 	'*.100foros.com',
-	'*.1234mb.com',		// 74.86.20.227(layeredpanel.com -> 195.242.99.195 -> s195.softwarelibre.nl) by tycho at e-lab.nl
 	'*.12gbfree.com',	// 75.126.176.194 by ashphama at yahoo.com
 	'20six Weblog Services' => array(
 		'.20six.nl',			// by 20six weblog services (postmaster at 20six.nl)
@@ -2148,6 +2147,10 @@ $blocklist['B-1'] = array(
 		'topix.net',
 	),
 	'forum.tourism-talk.com.au',
+	'tycho at e-lab.nl' => array(
+		'*.234mb.com',		// 195.242.99.206(s206.softwarelibre.nl -> 194.109.216.19)
+		'*.1234mb.com',		// 74.86.20.227(layeredpanel.com -> 195.242.99.195 -> s195.softwarelibre.nl)
+	),
 	'UcoZ Web-Services' => array(
 		'*.3dn.ru',
 		'*.clan.su',
@@ -4492,6 +4495,7 @@ $blocklist['C'] = array(
 		'.icypopular.com',
 		'.iflashpoint.com',
 		'.justmdx.com',
+		'.kiliusgroup.com',
 		'.klickerr.com',
 		'.klickerrworld.com',
 		'.kreolic.com',
@@ -4505,9 +4509,11 @@ $blocklist['C'] = array(
 		'.yourcreola.com',
 		
 		// 69.46.23.48
+		'.bestkilius.com',
 		'.crekadirecto.com',
 		'.getflashsite.com',
 		'.sucreka.com',
+		'.superkilius.com',
 	),
 	'nijeoi at hotmai.com' => array(
 		// 66.232.126.74 by Nicol Makerson, the same approach and timing _and IP_ of clickx at bk.ru
@@ -4549,6 +4555,8 @@ $blocklist['C'] = array(
 		'.nice-host.info',
 		'.realyfast.info',
 		'.resuts.info',
+		
+		'.rurid.com',	// 66.232.126.74, the same approach and IP of clickx at bk.ru
 	),
 	'porychik at hot.ee' => array(	// by Igor
 		'.tedstate.info',	// "Free Web Hosting"
@@ -5238,6 +5246,11 @@ $blocklist['C'] = array(
 		// by entretov-86 at ftunez.org
 		'.faweji.cn',
 		'.xozuso.cn',
+		
+		// by sabrosky-49 at ftunez.org
+		'.gywiqe.cn',
+		'.jotapo.cn',
+		'.jywixa.cn',
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
