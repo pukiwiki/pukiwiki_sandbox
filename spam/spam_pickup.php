@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.57 2007/08/26 14:22:16 henoheno Exp $
+// $Id: spam_pickup.php,v 1.58 2007/09/12 12:09:48 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -697,7 +697,8 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 			'big5.xinhuanet.com/gate/big5/' . '|' .
 			'bhomiyo.com/en.xliterate/' . '|' .
 			'google.com/translate_c\?u=(?:http://)?' . '|' .
-			'web.archive.org/web/2[^/]*/(?:http://)?' .
+			'web.archive.org/web/2[^/]*/(?:http://)?' . '|' .
+			'technorati.com/blogs/' .
 		')' .
 		'([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// nasty.example.org
 		'#i',
