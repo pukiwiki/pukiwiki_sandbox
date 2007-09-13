@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.58 2007/09/12 12:09:48 henoheno Exp $
+// $Id: spam_pickup.php,v 1.59 2007/09/13 13:02:53 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -547,7 +547,7 @@ function area_pickup($string = '', $method = array())
 	// [OK] [link]http://nasty.example.com/[/link]
 	// [OK] [url=http://nasty.example.com]visit http://nasty.example.com/[/url]
 	// [OK] [link http://nasty.example.com/]buy something[/link]
-	$regex = '#\[(url|link)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#is';
+	$regex = '#\[(url|link|img|email)\b[^\]]*\].*?\[/\1\b[^\]]*(\])#is';
 	if (isset($method['area_bbcode'])) {
 		$areas = array();
 		$count = isset($method['asap']) ?
