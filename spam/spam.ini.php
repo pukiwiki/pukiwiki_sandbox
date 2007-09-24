@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.167 2007/09/15 16:11:35 henoheno Exp $
+// $Id: spam.ini.php,v 1.168 2007/09/24 08:17:47 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -6068,7 +6068,9 @@ $blocklist['C'] = array(
 
 		// 89.248.99.118 by anonymous
 		'.lpgpharmacy.com',
+		'.onlybestgalleries.com',
 		'.viagrabest.info',
+		'.viagrabestprice.info',
 		'.viagratop.info',
 
 		'.canadians-medication.com',	// 89.248.99.118 by beseo at bk.ru
