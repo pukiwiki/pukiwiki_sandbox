@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.60 2007/09/15 15:55:29 henoheno Exp $
+// $Id: spam_pickup.php,v 1.61 2007/10/07 13:00:18 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -729,7 +729,8 @@ function spam_uri_pickup_preprocess($string = '', $method = array())
 				// ...
 			')' .
 			'/' .
-			'([a-z0-9?=&.%_/\'\\\+-]+)' .				// 3:path/?query=foo+bar+
+			//TODO: Specify URL-enable characters
+			'([a-z0-9?=&.,%_/\'\\\+-]+)' .				// 3:path/?query=foo+bar+
 			'(?:\b|%20)site:([a-z0-9.%_-]+\.[a-z0-9.%_-]+)' .	// 4:site:nasty.example.com
 			'()' .										// 5:Preserve or remove?
 			'#i',
