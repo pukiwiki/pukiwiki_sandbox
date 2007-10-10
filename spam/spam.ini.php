@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.171 2007/10/08 02:36:08 henoheno Exp $
+// $Id: spam.ini.php,v 1.172 2007/10/10 12:48:15 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -72,7 +72,7 @@ $blocklist['goodhost'] = array(
 	//'emasaka.blog65.fc2.com',	// Text-to-Impress converter
 	//'ifastnet.com',				// Server hosting
 	//'threefortune.ifastnet.com',	// Server hosting
-
+	//'sirakaba.s21.xrea.com',		// Ratbeta, known as PukiWiki hacker
 	// Yours
 	//''
 	//''
@@ -5983,8 +5983,29 @@ $blocklist['C'] = array(
 	),
 	'acua at mail.ru' => array(
 
+		'.allmyns.info',	// 84.16.226.29(www.billago.de -> 80.244.243.173 ->  billago.de) by acua at mail.ru, / forbidden
+
+			// by adventurer at allmyns.info
+			'.zgyfubsvi.cn',	// 84.16.251.218(*.internetserviceteam.com)
+
+			// by webmaster at allmyns.info
+			'.degvc.cn',	// 84.16.226.216(s3an.ath.cx -- DyDNS)
+			'.ihpvy.cn',	// 84.16.226.28(www.fs-tools.de -> 80.244.243.172 -> fs-tools.de)
+			'.lbtuo.cn',	// 84.16.255.254(*.internetserviceteam.com)
+			'.liunc.cn',	// 84.16.249.241(ip2.frankfurt.mabako.net -> 84.16.234.167 ->  frankfurt.mabako.net)
+			'.rcyqr.cn',	// 84.16.226.217(mand.zapto.org -- Non-existent)
+			'.rekth.cn',	// 89.149.196.19(www.kosmetik-eshop.de ->  80.244.243.181 -> ip1.rumsoft-webhosting.de)
+			'.riumh.cn',	// 84.16.226.28(*snip*)
+			'.zbtym.cn',	// 84.16.251.219(*.internetserviceteam.com)
+			'.zjcgx.cn',	// 217.20.112.102(*.internetserviceteam.com)
+			'.zxvlr.cn',	// 84.16.255.253(*.internetserviceteam.com)
+
 		// 84.16.249.240(euro.lotgd.pl -> 88.198.6.42), / says 'noy found'
 		'.dns4babka.info',	// by acua at mail.ru
+
+			// by golubcov at dns4babka.info
+			'.toiulw.cn',	// 89.149.196.72(mendoi.fansubs.omni-forums.net -> 72.9.144.200)
+
 			// by webmaster at dns4babka.info
 			'.credh.cn',
 			'.fucfv.cn',
@@ -5995,6 +6016,13 @@ $blocklist['C'] = array(
 
 		// 84.16.251.222(alinoe.org -> 212.85.96.95 -> v00095.home.net.pl), / says 'noy found'
 		'.dedka2ns.info',	// by acua at mail.ru
+
+			// by chasik at dedka2ns.info
+			'.vlqnoj.cn',	// 84.16.251.220(*.internetserviceteam.com)
+
+			// by rochel at dedka2ns.info
+			'.fudhxjjqh.cn',
+
 			// by webmaster at dedka2ns.info
 			'.ascpo.cn',
 			'.jgycr.cn',
@@ -6005,9 +6033,100 @@ $blocklist['C'] = array(
 			'.ukncd.cn',
 			'.zijgb.cn',
 
-		// 84.16.255.253(*.internetserviceteam.com), / says 'noy found'
+		// 84.16.255.253(*snip*), / says 'noy found'
 		'.dns4dedka.info',	// by acua at mail.ru
-			// by webmaster at dns4dedka.info
+
+			// by aleon at dns4dedka.info
+			'.afjjvumqa.cn',	// 84.16.249.240(*snip*)
+
+			// by dig at dns4dedka.info
+			'.bdnge.cn',	// 84.16.226.28(*snip*)
+			'.dcdsu.cn',	// 217.20.112.102(*snip*)
+			'.fhgdp.cn',	// 84.16.249.239(euro.lotgd.pl -> 88.198.6.42)
+			'.frvdv.cn',	// 84.16.226.28(*snip*)
+			'.heulw.cn',	// 84.16.226.217(*snip*)
+			'.hissw.cn',	// 84.16.249.240(*snip*)
+			'.lwqjr.cn',	// 84.16.255.253(*snip*)
+			'.obwew.cn',	// 84.16.251.218(*snip*)
+			'.otkiu.cn',	// 84.16.255.254(*snip*)
+			'.pztkq.cn',	// 89.149.228.163(*.internetserviceteam.com)
+			'.rgjcs.cn',	// 84.16.251.219(*snip*)
+			'.rjskp.cn',	// 84.16.249.241(*snip*)
+			'.sokrp.cn',	// 84.16.226.217(*snip*)
+			'.ubtnp.cn',	// 84.16.226.29(*snip*)
+			'.vdecc.cn',	// 84.16.226.29(*snip*)
+			'.vgkkc.cn',	// 89.149.196.72(*snip*)
+			'.vqsmy.cn',	// 84.16.249.239(*snip*)
+			'.xcmsp.cn',	// 84.16.251.223(freebsd .. what)
+			'.xiuky.cn',	// 84.16.251.222(*snip*)
+			'.xrqcd.cn',	// 89.149.196.19(*snip*)
+
+			// by la at dns4dedka.info
+			'.aeyzf.cn',	// 84.16.251.218(*snip*)
+			'.blvqo.cn',	// 84.16.249.241(*snip*), Expiration Date: 2008-08-16
+			'.bgslu.cn',	// 89.149.228.163(*snip*)
+			'.dxouw.cn',	// 84.16.255.253(*snip*)
+			'.ecsbe.cn',	// 84.16.251.218(*snip*)
+			'.eothy.cn',	// 84.16.249.241(*snip*)
+			'.epocy.cn',	// 84.16.251.220(*snip*)
+			'.ewvjw.cn',	// 89.149.196.72(*snip*)
+			'.faacz.cn',	// 84.16.251.222(*snip*)
+			'.filun.cn',	// 89.149.196.72(*snip*)
+			'.fzdpk.cn',	// 84.16.249.239(*snip*)
+			'.hatyg.cn',	// 84.16.251.223(*snip*)
+			'.hmtqn.cn',	// 84.16.249.240(*snip*)
+			'.ibfte.cn',	// 89.149.196.19(*snip*)
+			'.jcaym.cn',	// 84.16.249.240(*snip*)
+			'.iqzaw.cn',	// 84.16.255.254(*snip*)
+			'.jclsf.cn',	// 84.16.249.240(*snip*)
+			'.jefdh.cn',	// 84.16.249.240(*snip*)
+			'.kchjh.cn',	// 84.16.251.219(*snip*)
+			'.krumo.cn',	// 84.16.226.217(*snip*)
+			'.lbava.cn',	// 217.20.112.102(*snip*)
+			'.mqrtw.cn',	// 84.16.226.29(*snip*)
+			'.njpgv.cn',	// 84.16.251.219(*snip*)
+			'.npovm.cn',	// 84.16.226.28(*snip*)
+			'.nyobt.cn',	// 89.149.196.19(*snip*)
+			'.ovxxt.cn',	// 84.16.251.223(*snip*)
+			'.owhwz.cn',	// 89.149.228.163(*snip*)
+			'.ozjyi.cn',	// 84.16.249.241(*snip*)
+			'.pfnzj.cn',	// 84.16.226.217(*snip*)
+			'.pixvf.cn',	// 84.16.255.254(*snip*)
+			'.qydph.cn',	// 89.149.228.163(*snip*)
+			'.rxens.cn',	// 89.149.196.72(*snip*)
+			'.sojbp.cn',	// 84.16.249.239(*snip*)
+			'.srths.cn',	// 84.16.251.222(*snip*)
+			'.tdytc.cn',	// 84.16.255.254(*snip*)
+			'.unquz.cn',	// 84.16.251.223(*snip*)
+			'.uwcns.cn',	// 89.149.196.19(*snip*)
+			'.vcbdm.cn',	// 84.16.251.220(*snip*)
+			'.wnmat.cn',	// 84.16.255.253(*snip*)
+			'.wttmr.cn',	// 84.16.226.29(*snip*)
+			'.xpwib.cn',	// 84.16.251.220(*snip*)
+			'.yrogt.cn',	// 84.16.249.239(*snip*)
+
+			// by le at dns4dedka.info
+			'.goslw.cn',	// 84.16.251.220(*snip*)
+			'.hqbmh.cn',	// 84.16.251.223(*snip*)
+			'.iewik.cn',	// 84.16.255.254(*snip*)
+			'.jnkeh.cn',	// 89.149.228.163(*snip*)
+			'.pifyp.cn',	// 89.149.228.163(*snip*)
+			'.nohyl.cn',	// 89.149.196.72(*snip*)
+			'.nvzvx.cn',	// 84.16.255.254(*snip*)
+			'.uchoe.cn',	// 84.16.249.239(*snip*)
+			'.ujoyf.cn',	// 84.16.251.218(*snip*)
+			'.ulfqh.cn',	// 89.149.196.19(*snip*)
+			'.vxugv.cn',	// 84.16.251.223(*snip*)
+			'.dbgti.cn',	// 84.16.249.240(*snip*)
+			'.oelmv.cn',	// 84.16.226.28(*snip*)
+			'.qniww.cn',	// 84.16.251.218(*snip*)
+			'.vtvyq.cn',	// 84.16.251.219(*snip*)
+			'.zqonm.cn',	// 84.16.249.241(*snip*)
+
+			// by skspb at dns4dedka.info
+			'.hxkxkjy.cn',	// 84.16.226.28(*snip*)
+
+			// 84.16.255.253(*snip*) by webmaster at dns4dedka.info
 			'.bcpnb.cn',
 			'.cfbpr.cn',
 			'.dnndb.cn',
@@ -6015,116 +6134,31 @@ $blocklist['C'] = array(
 			'.iutps.cn',
 			'.ryftj.cn',
 			'.vxqcb.cn',
-			'.zxvlr.cn',	// by webmaster at allmyns.info
 
-		// by dig at dns4dedka.info
-		'.bdnge.cn',	// 84.16.226.28(www.fs-tools.de -> 80.244.243.172 -> fs-tools.de)
-		'.dcdsu.cn',	// 217.20.112.102(*.internetserviceteam.com)
-		'.fhgdp.cn',	// 84.16.249.239(euro.lotgd.pl -> 88.198.6.42)
-		'.frvdv.cn',	// 84.16.226.28(*snip*)
-		'.heulw.cn',	// 84.16.226.217(mand.zapto.org -- Non-existent)
-		'.hissw.cn',	// 84.16.249.240(*snip*)
-		'.lwqjr.cn',	// 84.16.255.253(*snip*)
-		'.obwew.cn',	// 84.16.251.218(*.internetserviceteam.com)
-		'.otkiu.cn',	// 84.16.255.254(*.internetserviceteam.com)
-		'.pztkq.cn',	// 89.149.228.163(*.internetserviceteam.com)
-		'.rgjcs.cn',	// 84.16.251.219(*.internetserviceteam.com)
-		'.rjskp.cn',	// 84.16.249.241(ip2.frankfurt.mabako.net -> 84.16.234.167 ->  frankfurt.mabako.net)
-		'.sokrp.cn',	// 84.16.226.217(*snip*)
-		'.ubtnp.cn',	// 84.16.226.29(www.billago.de -> 80.244.243.173 ->  billago.de)
-		'.vdecc.cn',	// 84.16.226.29(*snip*)
-		'.vgkkc.cn',	// 89.149.196.72(mendoi.fansubs.omni-forums.net -> 72.9.144.200)
-		'.vqsmy.cn',	// 84.16.249.239(*snip*)
-		'.xcmsp.cn',	// 84.16.251.223(freebsd .. what)
-		'.xiuky.cn',	// 84.16.251.222(*snip*)
-		'.xrqcd.cn',	// 89.149.196.19(www.kosmetik-eshop.de ->  80.244.243.181 -> ip1.rumsoft-webhosting.de)
-
-		// by la at dns4dedka.info
-		'.aeyzf.cn',	// 84.16.251.218(*snip*)
-		'.blvqo.cn',	// 84.16.249.241(*snip*), Expiration Date: 2008-08-16
-		'.bgslu.cn',	// 89.149.228.163(*snip*)
-		'.dxouw.cn',	// 84.16.255.253(*snip*)
-		'.ecsbe.cn',	// 84.16.251.218(*snip*)
-		'.eothy.cn',	// 84.16.249.241(*snip*)
-		'.epocy.cn',	// 84.16.251.220(*.internetserviceteam.com)
-		'.ewvjw.cn',	// 89.149.196.72(*snip*)
-		'.faacz.cn',	// 84.16.251.222(*snip*)
-		'.filun.cn',	// 89.149.196.72(*snip*)
-		'.fzdpk.cn',	// 84.16.249.239(*snip*)
-		'.hatyg.cn',	// 84.16.251.223(*snip*)
-		'.hmtqn.cn',	// 84.16.249.240(*snip*)
-		'.ibfte.cn',	// 89.149.196.19(*snip*)
-		'.jcaym.cn',	// 84.16.249.240(*snip*)
-		'.iqzaw.cn',	// 84.16.255.254(*snip*)
-		'.jclsf.cn',	// 84.16.249.240(*snip*)
-		'.jefdh.cn',	// 84.16.249.240(*snip*)
-		'.kchjh.cn',	// 84.16.251.219(*snip*)
-		'.krumo.cn',	// 84.16.226.217(*snip*)
-		'.lbava.cn',	// 217.20.112.102(*snip*)
-		'.mqrtw.cn',	// 84.16.226.29(*snip*)
-		'.njpgv.cn',	// 84.16.251.219(*snip*)
-		'.npovm.cn',	// 84.16.226.28(*snip*)
-		'.nyobt.cn',	// 89.149.196.19(*snip*)
-		'.ovxxt.cn',	// 84.16.251.223(*snip*)
-		'.owhwz.cn',	// 89.149.228.163(*snip*)
-		'.ozjyi.cn',	// 84.16.249.241(*snip*)
-		'.pfnzj.cn',	// 84.16.226.217(*snip*)
-		'.pixvf.cn',	// 84.16.255.254(*snip*)
-		'.qydph.cn',	// 89.149.228.163(*snip*)
-		'.rxens.cn',	// 89.149.196.72(*snip*)
-		'.sojbp.cn',	// 84.16.249.239(*snip*)
-		'.srths.cn',	// 84.16.251.222(*snip*)
-		'.tdytc.cn',	// 84.16.255.254(*snip*)
-		'.unquz.cn',	// 84.16.251.223(*snip*)
-		'.uwcns.cn',	// 89.149.196.19(*snip*)
-		'.vcbdm.cn',	// 84.16.251.220(*snip*)
-		'.wnmat.cn',	// 84.16.255.253(*snip*)
-		'.wttmr.cn',	// 84.16.226.29(*snip*)
-		'.xpwib.cn',	// 84.16.251.220(*snip*)
-		'.yrogt.cn',	// 84.16.249.239(*snip*)
-
-		// by le at dns4dedka.info
-		'.goslw.cn',	// 84.16.251.220(*snip*)
-		'.hqbmh.cn',	// 84.16.251.223(*snip*)
-		'.iewik.cn',	// 84.16.255.254(*snip*)
-		'.jnkeh.cn',	// 89.149.228.163(*snip*)
-		'.pifyp.cn',	// 89.149.228.163(*snip*)
-		'.nohyl.cn',	// 89.149.196.72(*snip*)
-		'.nvzvx.cn',	// 84.16.255.254(*snip*)
-		'.uchoe.cn',	// 84.16.249.239(*snip*)
-		'.ujoyf.cn',	// 84.16.251.218(*snip*)
-		'.ulfqh.cn',	// 89.149.196.19(*snip*)
-		'.vxugv.cn',	// 84.16.251.223(*snip*)
+		'.ns2best.info',	// 89.149.196.19(*snip*) by acua at mail.ru
+			// by apple at ns2best.info
+			'.ptiey.cn',	// 84.16.252.80(*.internetserviceteam.com)
+			// by paulwolf at ns2best.info
+			'.ifytzq.cn',
 		
-		'.dbgti.cn',	// 84.16.249.240(*snip*)
-		'.oelmv.cn',	// 84.16.226.28(*snip*)
-		'.qniww.cn',	// 84.16.251.218(*snip*)
-		'.vtvyq.cn',	// 84.16.251.219(*snip*)
-		'.zqonm.cn',	// 84.16.249.241(*snip*)
-
-		'.allmyns.info',	// 84.16.226.29 by acua at mail.ru, / forbidden
-			// by webmaster at allmyns.info
-			'.degvc.cn',	// 84.16.226.216(s3an.ath.cx -- DyDNS)
-			'.ihpvy.cn',	// 84.16.226.28(*snip*)
-			'.lbtuo.cn',	// 84.16.255.254(*snip*)
-			'.liunc.cn',	// 84.16.249.241(*snip*)
-			'.rcyqr.cn',	// 84.16.226.217(*snip*)
-			'.rekth.cn',	// 89.149.196.19(*snip*)
-			'.riumh.cn',	// 84.16.226.28(*snip*)
-			'.zbtym.cn',	// 84.16.251.219(*snip*)
-			'.zjcgx.cn',	// 217.20.112.102(*snip*)
+		'.sedns.info',		// 84.16.226.216(*snip*) by acua at mail.ru
+			// by pigato at sedns.info
+			'.xjvbunksa.cn',	// 217.20.112.102(*snip*)
+			// by roschem at sedns.info
+			'.ilzelqvmoa.cn',	// 84.16.243.170(*.fixshell.com -> Non-existent)
 	),
 	'gilvcta sy jilbertsbram.com' => array(
-		'.dsfljkeilm1.cn',	//  206.53.51.126
-		'.dsfljkeilm2.cn',	//  206.53.51.126
-		'.dsfljkeilm3.cn',	// IP not allocated now
-		'.dsfljkeilm4.cn',	// IP not allocated now
-		'.dsfljkeilm5.cn',	// IP not allocated now
-		'.dsfljkeilm6.cn',	// IP not allocated now
-		'.dsfljkeilm7.cn',	// IP not allocated now
-		'.dsfljkeilm8.cn',	// IP not allocated now
-		'.dsfljkeilm9.cn',	// IP not allocated now
-		'.dsfljkeilm10.cn',	// IP not allocated now
+		// 206.53.51.126
+		'.dsfljkeilm1.cn',
+		'.dsfljkeilm2.cn',
+		'.dsfljkeilm3.cn',
+		'.dsfljkeilm4.cn',
+		'.dsfljkeilm5.cn',
+		'.dsfljkeilm6.cn',
+		'.dsfljkeilm7.cn',
+		'.dsfljkeilm8.cn',
+		'.dsfljkeilm9.cn',
+		'.dsfljkeilm10.cn',
 	),
 	'ganzer3 at gmail.com' => array(	// by Roman Shteynshlyuger (ganzer3 at gmail.com)
 
@@ -6377,9 +6411,7 @@ $blocklist['C'] = array(
 	'.game4enjoy.net',		// by huang jinglong (fenlin231 at sina.com)
 	'.game4egold.com',		// by Filus Saifullin (ebay at soft-script.com)
 	'.goldcoastonlinetutoring.com',	// by Robert Tanenbaum (buildbt at lycos.com)
-
 	'.gomeodc.com',			// 125.65.112.49 by wang meili (gannipo at yahoo.com.cn), iframe to vviccd520.com
-
 	'.ganecity.com',		// by shao tian (huangjinqiang at sina.com)
 	'.gm-exchange.jp',		// 210.188.216.49 RMT
 	'.goamoto.ru',			// by Dmitry E Kotchnev (z2archive at gmail.com)
@@ -6528,7 +6560,16 @@ $blocklist['C'] = array(
 	'.oppe.biz',			// 81.0.195.241(non-existent) by Nellie.J.Gonzalez at mailinator.com, / blank, redirect to thesuperxxx.com
 	'.thesuperxxx.com',		// 81.29.249.27(non-existent)
 
-
+	// The same approach of 'acua at mail.ru'
+	'.iblcqms.cn',			// 89.149.247.25(*.internetserviceteam.com) by Gershun at time2ns.info(84.16.226.58 -> *.internetserviceteam.com), / not found
+	'.aasghwf.cn',			// 84.16.243.121(*.internetserviceteam.com) by Shooll at ilovemyns.info(89.149.247.26 -> *.internetserviceteam.com)
+	'.fwjjjtmrlr.cn',		// TODO:
+	'.klmnei.cn',			// TODO:
+	'.lumyjugmn.cn',		// TODO:
+	'.lxwxjzpiy.cn',		// TODO:
+	'.qyxswynd.cn',			// TODO:
+	'.ugivorm.cn',			// TODO:
+	'.uxmrscgdi.cn',		// TODO:
 
 	// C-3: Not classifiable (information wanted)
 	//
