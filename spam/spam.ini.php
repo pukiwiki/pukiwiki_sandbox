@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.172 2007/10/10 12:48:15 henoheno Exp $
+// $Id: spam.ini.php,v 1.173 2007/10/13 01:25:05 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -251,6 +251,7 @@ $blocklist['A-1'] = array(
 		'hardcore-porn.de',
 		'maschinen-bluten-nicht.de',
 	),
+	'copyme.org',		// 80.93.82.40(sd14.efedus.com) by marian at mpgsi.com
 	'cutalink.com',
 	'*.da.cx',
 	'*.da.ru',
@@ -1736,9 +1737,11 @@ $blocklist['B-1'] = array(
 	'Bizcn.com' => '/.*\.w[0-9]+\.bizcn\.com$/', // XiaMen BizCn Computer & Network CO.,LTD
 	'blinklist.com',
 	'Blog.com' => array(
+		// by admin.domains at co.blog.com
 		'*.blog.com',
-		'*.blogandorra.com',	// by admin.domains at co.blog.com
-		'*.blogangola.com',		// by admin.domains at co.blog.com
+		'*.blogandorra.com',
+		'*.blogangola.com',
+		'*.blogaruba.com',
 	),
 	'*.blog.com.es',
 	'*.blog.hr',
@@ -2920,6 +2923,7 @@ $blocklist['B-1'] = array(
 	'*.talkthis.com',
 	'tbns.net',
 	'telasipforums.com',
+	'theforumhub.com',
 	'thestudentunderground.org',
 	'think.ubc.ca',
 	'*.thumblogger.com',
@@ -6342,12 +6346,47 @@ $blocklist['C'] = array(
 		'.nyrive.com',			// 74.50.97.55(non-existent) by anna at hotmail.com
 		'.hehepu.com',			// 74.50.99.245(non-existent) by abuse-here at inbox.ru
 		'.bynute.com',			// 74.50.99.245(non-existent) by abuse-here at inbox.ru
+
+		'.sevimy.com',			// 66.232.124.12(time-out) by inna at gmail.com
+		'.gapubo.com',			// 66.232.124.12(time-out) by gunter at ftunez.org
+		'.vejoku.com',			// 66.232.124.12(time-out) by olga at ike.com
+		'.qysahu.com',			// 66.232.124.12(time-out) by abuse-here at inbox.ru
+		'.hidolu.com',			// 66.232.124.13(time-out) by inna at gmail.com
+		'.tetace.com',			// 66.232.124.13(time-out) by gunter at ftunez.org
+		'.vuxilu.com',			// 66.232.124.13(time-out) by olga at ike.com
+		'.teboca.com',			// 66.232.124.13(time-out) by olga at ike.com
+		'.dizive.com',			// 66.232.124.14(time-out) by olga at ike.com
+		'.peduxe.com',			// 66.232.124.14(time-out) by gunter at ftunez.org
+		'.sybyna.com',			// 66.232.124.14(time-out) by gunter at ftunez.org
+		'.bepofe.com',			// 66.232.124.15(time-out) by anna at hotmail.com
+		'.kuloja.com',			// 66.232.124.15(time-out) by gunter at ftunez.org
+		'.tetadu.com',			// 66.232.124.15(time-out) by inna at gmail.com
+		'.qilato.com',			// 66.232.124.15(time-out) by inna at gmail.com
+		'.lobimi.com',			// 66.232.124.16(time-out) by olga at ike.com
+		'.tazuwe.com',			// 66.232.124.16(time-out) by olga at ike.com
+		'.pihufo.com',			// 66.232.124.16(time-out) by olga at ike.com
+		'.decewa.com',			// 66.232.124.16(time-out) by gunter at ftunez.org
+
+		'.lynymu.com',			// 206.51.226.194(time-out) by abuse-here at inbox.ru
+		'.saciqo.com',			// 206.51.226.194(time-out) by olga at ike.com
+		'.zalajy.com',			// 206.51.226.194(time-out) by inna at gmail.com
+		'.hisimy.com',			// 206.51.226.194(time-out) by inna at gmail.com
+		'.qysowe.com',			// 206.51.226.194(time-out) by olga at ike.com
 	),
 	'zinerit4 at gmail.com' => array(	// 69.46.29.149(hv37.steephost.com => 72.232.191.50 ...)
 		'.kol2you.com',
 		'.kolplanet.com',
 		'.pbaol.com',
 		'.planetkol.com',
+	),
+	'Abra1.com' => array(
+		// 66.45.254.244(non-existent), 66.45.254.245(non-existent)
+		'.abra1.com', 		// by info at maisontropicale.com
+		'.abra4.com',		// by websites at caribbeanonlineinternational.com
+
+		// 209.85.51.238(*.opticaljungle.com -> non-existent)
+		'.abra2.com',		// by domain at anondns.org
+		'.abra3.com',		// by domain at anondns.org
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
