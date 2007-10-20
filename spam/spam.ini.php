@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.174 2007/10/20 04:41:52 henoheno Exp $
+// $Id: spam.ini.php,v 1.175 2007/10/20 04:57:42 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -6434,6 +6434,19 @@ $blocklist['C'] = array(
 		'.w3sex.info',
 		'.w3zip.info',
 	),
+	'zorkin87 at mail.ru' => array(
+		// 66.232.112.242(hv78.steephost.com -> 72.232.191.50 -> *.steephost.com)
+		'.ruqore.com',
+		'.goxama.com',
+		'.cazebi.com',
+		'.fukeqa.com',
+		'.fydoge.com',
+		'.jukaly.com',
+		'.jumoga.com',
+		'.jumuxo.com',
+		'.tyriva.com',
+		'.vudyho.com'
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -6652,7 +6665,6 @@ $blocklist['C'] = array(
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
-
 
 
 	// The same approach of 'acua at mail.ru'
