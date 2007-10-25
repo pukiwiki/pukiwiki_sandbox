@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.175 2007/10/20 04:57:42 henoheno Exp $
+// $Id: spam.ini.php,v 1.176 2007/10/25 14:01:01 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2587,6 +2587,7 @@ $blocklist['B-1'] = array(
 		'*.30mb.com',	// 207.210.82.74(cpanel.90megs.com) by 30MB Online (63681 at whois.gkg.net), introduced as one alternative of 90megs.com
 		'*.90megs.com',	// 207.210.82.75 by Get Better Hosting (admin at getbetterhosting.com)
 	),
+	'*.gexxe.com',
 	'*.goodboard.de',
 	'gossiping.net',
 	'*.greatnuke.com',
@@ -3205,6 +3206,7 @@ $blocklist['B-2'] = array(
 	'Huntington University' => array('huntington.edu'),
 	'huskerink.com',
 	'.hyba.info',
+	'ideas4you.com',	///photos/
 	'inda.org',
 	'*.indymedia.org',	// by abdecom at riseup.net
 	'instantbulletin.com',
@@ -3254,6 +3256,7 @@ $blocklist['B-2'] = array(
 	'njbodybuilding.com',
 	'nlen.org',
 	'Sacred Heart Catholic Primary School' => array('sacredheartpymble.nsw.edu.au'),
+	'ofcourseimright.com',	///cgi-bin/roundup/calsify/
 	'offtextbooks.com',
 	'ofimatika.com',
 	'olympiafoto.com',		///images/
@@ -3272,6 +3275,7 @@ $blocklist['B-2'] = array(
 	'preform.dk',
 	'privatforum.de',
 	'publicityhound.net',
+	'puppylinux.net',		///news/content/counter/pages/
 	'qea.com',
 	'rbkdesign.com',
 	'rehoboth.com',
@@ -5601,9 +5605,17 @@ $blocklist['C'] = array(
 		'.giftsee.com',
 	),
 	'admin at pertol.info' => array(
-		'.laparka.cn',		// 81.0.195.189 "Free Web Hosting"
-		'.mirlos.cn',		// 81.0.195.189 "Free Web Hosting"
-		'.pornography-world.com',		// 72.232.246.205(*.static.reverse.ltdomains.com) by admin at pornography-world.com, ns *.pertol.info
+		// 81.0.195.189 "Free Web Hosting"
+		'.laparka.cn',
+		'.mirlos.cn',
+		'.oldmoms.cn',
+
+		'.pertol.info',				// 72.232.246.202(*.static.reverse.ltdomains.com) by partner at pornography-world.com
+		'.pornography-world.com',	// 72.232.246.205(*.static.reverse.ltdomains.com) by admin at pornography-world.com, ns *.pertol.info
+
+		// 209.67.218.106(*.static.reverse.ltdomains.com) by partner at pornography-world.com, ns *.peraonline.info
+		'.new-greece-travel.com',
+		'.peraonline.info',
 	),
 
 	'aofa at vip.163.com' => array(
@@ -6427,12 +6439,20 @@ $blocklist['C'] = array(
 		'.magicgoogleearth.info',
 		'.magicgooglemap.info',
 		'.magicgooglevideo.info',
+
+		'.slajzer.info',		// 84.16.251.248(*.internetserviceteam.com), ns *.aboutgoogleearth.info
 	),
-	'evdesign at gmail.com' => array(
-		// 89.149.208.23(*.internetserviceteam.com)
+	'89.149.208.23' => array(
+		// 89.149.208.23(*.internetserviceteam.com) by evdesign at gmail.com, ns *.9upp.info
 		'.w3rar.info',
 		'.w3sex.info',
 		'.w3zip.info',
+		'.w3in.info',
+		'.w3out.info',
+
+		// 89.149.208.23(*.internetserviceteam.com) by Anderson at extra.by, ns *.9upp.info, encoded JavaScript
+		'.4cat.info',
+		'.9upp.info',
 	),
 	'zorkin87 at mail.ru' => array(
 		// 66.232.112.242(hv78.steephost.com -> 72.232.191.50 -> *.steephost.com)
@@ -6446,6 +6466,12 @@ $blocklist['C'] = array(
 		'.jumuxo.com',
 		'.tyriva.com',
 		'.vudyho.com'
+	),
+	'jessicaeagloff at yahoo.co.uk' => array(
+		'.pilltrade.com',		// 91.196.219.81(non-existent) by jessicaeagloff at yahoo.co.uk, ns *.rxrxrxrx.com
+		'.rxrxrxrx.com',		// IP not allocated by postmaster at cialischoice.com
+		'.cialischoice.com',	// 81.29.249.88(non-existent) by postmaster at cialischoice.com, ns *.rxp-hosting.com
+		'.rxp-hosting.com',		// IP not allocated by jessicaeagloff at yahoo.co.uk
 	),
 
 	// C-2: Lonely domains (buddies not found yet)
@@ -6627,6 +6653,7 @@ $blocklist['C'] = array(
 	'.superrwm.info',		// by Dark Dux (duxdark at yahoo.com)
 	'.superverizonringtones.com',	// by joshua at list.ru
 	'.teriak.cn',			// 83.69.224.82(non-existent) by sto_xyev at yahoo.com, / blank
+	'.thebest-penis-enlargement-pills.com',	// 209.59.142.226(host.gudzonserver.com) by sergey.xoxlov at gmail.com
 	'.thehostcity.com',		// Domains by Proxy
 	'.thesuperxxx.com',		// 81.29.249.27(non-existent)
 	'.thetinyurl.com',		// by Beth J. Carter (Beth.J.Carter at thetinyurl.com), / is blank
@@ -6665,6 +6692,7 @@ $blocklist['C'] = array(
 	'.zlocorp.com',			// by tonibcrus at hotpop.com, spammed well with "http ://zlocorp.com/"
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
+
 
 
 	// The same approach of 'acua at mail.ru'
