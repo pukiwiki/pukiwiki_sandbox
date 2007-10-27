@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.176 2007/10/25 14:01:01 henoheno Exp $
+// $Id: spam.ini.php,v 1.177 2007/10/27 10:02:24 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -73,7 +73,6 @@ $blocklist['goodhost'] = array(
 	//'ifastnet.com',				// Server hosting
 	//'threefortune.ifastnet.com',	// Server hosting
 	//'sirakaba.s21.xrea.com',		// Ratbeta, known as PukiWiki hacker
-	// Yours
 	//''
 	//''
 	//''
@@ -5610,6 +5609,10 @@ $blocklist['C'] = array(
 		'.mirlos.cn',
 		'.oldmoms.cn',
 
+		// 217.11.233.64(timed-out)
+		'.ejmpep.cn',	// by admin at pertol.info
+		'.ytere.cn',	// by admin at x2t.com
+
 		'.pertol.info',				// 72.232.246.202(*.static.reverse.ltdomains.com) by partner at pornography-world.com
 		'.pornography-world.com',	// 72.232.246.205(*.static.reverse.ltdomains.com) by admin at pornography-world.com, ns *.pertol.info
 
@@ -5833,7 +5836,11 @@ $blocklist['C'] = array(
 		'.wfe7nv.org',
 		'.xyr99yx.org',
 	),
-	'203.171.230.39' => array(	// registrar bizcn.com, iframe + cursor
+	'203.171.230.39' => array(
+		// by 51shell at 163.com
+		'.amatou-fc2.com',
+
+		// registrar bizcn.com, iframe + cursor
 		'.playonlinenc.com',
 		'.playboss-jp.com',
 	),
@@ -6667,6 +6674,7 @@ $blocklist['C'] = array(
 	'.uaro.info',			// by Neru Pioner (neru at smtp.ru)
 	'.unctad.net',			// by gfdogfd at lovespb.com
 	'.vacant.org.uk',
+	'.viagrausaonline.com',	// 85.17.52.139(non-existent)
 	'.vip-get.info',		// 203.223.150.222 by Jhon Craig (bartes1992 at mail.ru), / forbidden
 	'.virtualsystem.de',
 	'.vdxhost.com',
@@ -6693,7 +6701,7 @@ $blocklist['C'] = array(
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
 
-
+	'.rpz3zmr75a.com',		// 216.188.26.235(park-www.trellian.com, redirects to domainparkltd.com) by hostmaster at domainparkltd.com(216.188.26.235)
 
 	// The same approach of 'acua at mail.ru'
 	'.iblcqms.cn',			// 89.149.247.25(*.internetserviceteam.com) by Gershun at time2ns.info(84.16.226.58 -> *.internetserviceteam.com), / not found
