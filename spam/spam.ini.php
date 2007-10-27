@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.177 2007/10/27 10:02:24 henoheno Exp $
+// $Id: spam.ini.php,v 1.178 2007/10/27 13:33:31 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -3146,6 +3146,9 @@ $blocklist['B-2'] = array(
 	'blepharospasm.org',
 	'nyweb.bowlnfun.dk',
 	'*.buzznet.com',
+	'Carroll College' => array(
+		'carroll.edu',		///boards/
+	),
 	'*.canberra.net.au',
 	'castus.com',
 	'Case Western Reserve University' => array('case.edu'),
@@ -3254,6 +3257,10 @@ $blocklist['B-2'] = array(
 	'nightclubvip.net',
 	'njbodybuilding.com',
 	'nlen.org',
+	'North Carolina School of Science and Mathematics' => array(
+		'neverland.ncssm.edu',	///include/web/forum/
+		'grid.ncssm.edu',		///ncssm_grid/
+	),
 	'Sacred Heart Catholic Primary School' => array('sacredheartpymble.nsw.edu.au'),
 	'ofcourseimright.com',	///cgi-bin/roundup/calsify/
 	'offtextbooks.com',
@@ -3323,10 +3330,16 @@ $blocklist['B-2'] = array(
 	'University of California' => array('classes.design.ucla.edu'),
 	'University of Nebraska Lincoln' => array('ftp.ianr.unl.edu'),
 	'University of Northern Colorado' => array('unco.edu'),
+	'University of North Carolina' => array(
+		'elm.cis.uncw.edu'	///testBoinc/
+	),
 	'University of Toronto' => array(
 		'environment.utoronto.ca',
 		'grail.oise.utoronto.ca',
 		'utsc.utoronto.ca',
+	),
+	'University of Wisconsin' => array(
+		'einstein.phys.uwm.edu'
 	),
 	'urgentclick.com',
 	'vacant.org.uk',
@@ -6447,7 +6460,10 @@ $blocklist['C'] = array(
 		'.magicgooglemap.info',
 		'.magicgooglevideo.info',
 
-		'.slajzer.info',		// 84.16.251.248(*.internetserviceteam.com), ns *.aboutgoogleearth.info
+		// 84.16.251.248(*.internetserviceteam.com), ns *.aboutgoogleearth.info
+		'.slajzer.info',
+		'.tonoscelular.info',
+		'.tonosmotorola.info',
 	),
 	'89.149.208.23' => array(
 		// 89.149.208.23(*.internetserviceteam.com) by evdesign at gmail.com, ns *.9upp.info
@@ -6458,7 +6474,9 @@ $blocklist['C'] = array(
 		'.w3out.info',
 
 		// 89.149.208.23(*.internetserviceteam.com) by Anderson at extra.by, ns *.9upp.info, encoded JavaScript
+		'.2vip.info',
 		'.4cat.info',
+		'.8vip.info',
 		'.9upp.info',
 	),
 	'zorkin87 at mail.ru' => array(
@@ -6493,6 +6511,7 @@ $blocklist['C'] = array(
 	'.0annie.info',
 	'.6i6.de',
 	'.99-idea.com',			// 202.44.54.48(*.worldinternetworkcorporation.com) by mistercolor at gmail.com, encoded JavaScript
+	'.angioco.com',			// 62.37.112.100, gamble
 	'.advancediet.com',		// by Shonta Mojica (hostadmin at advancediet.com)
 	'.adult-master-club.com',	// by Alehander (mazyrkevich at cosmostv.by)
 	'.adultpersonalsclubs.com',	// by Peter (vaspet34 at yahoo.com)
@@ -6542,7 +6561,7 @@ $blocklist['C'] = array(
 	'.fantasy-handjob-ra.com',	// by Hose Pedro (hosepedro at gmail.com)
 	'.fastppc.info',		// by peter conor (fastppc at msn.com)
 	'.ffxiforums.net',		// 204.16.199.105 by Zhang xiaolong (mail at 33986.com), hidden VBScript
-	'*.filthserver.com',	// sales at onlinemarketingservices.biz
+	'.filthserver.com',		// sales at onlinemarketingservices.biz
 	'.find-stuff.org',		// by Alice Freedman (admin at ip-labs.ru), / 404 Not Found
 	'.firstdrugstorezone.info',	// by Goose (boris208 at yandex.ru)
 	'.free-finding.com',	// by Ny hom (nyhom at yahoo.com)
