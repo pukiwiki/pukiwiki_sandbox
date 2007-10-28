@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.178 2007/10/27 13:33:31 henoheno Exp $
+// $Id: spam.ini.php,v 1.179 2007/10/28 00:38:08 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1818,6 +1818,7 @@ $blocklist['B-1'] = array(
 		'.cute.cd',		// by Yuya Fukuda (count at kit.hi-ho.ne.jp), ns *.2style.jp, *.2style.net
 	),
 	'*.canalblog.com',		// 195.137.184.103 by dns-admin at pinacolaweb.com
+	'*.cdnhost.cn',			// 125.65.112.8, 125.65.112.9, 125.91.1.71 "Content Delivery Network" related? by cc at 51web.cn, seems malware hosting. ns *.dnsfamily.com, no official index.html
 	'*.chueca.com',
 	'city-forum.com',
 	'*.craigslist.org',
@@ -5987,9 +5988,16 @@ $blocklist['C'] = array(
 		'.ringtonecooler.com',		// 217.11.233.34
 	),
 	'dfym at dfym.cn' => array(	// by chen jinian (dfym at dfym.cn)
-		'.okwit.com',		// 220.166.64.44
-		'.sakerver.com',	// 220.166.64.194
-		'.motewiki.net',	// 220.166.64.194
+		// 220.166.64.44
+		'.okwit.com',
+		'.sakerver.com',
+		'.motewiki.net',
+
+		'.8568985.com',		// 61.139.126.10 ns *.myhostadmin.net
+		
+		// 61.139.126.47, ns *.myhostadmin.net
+		'.playonlanei.com',
+		'.rmtfcne.com',
 	),
 	'mkiyle at gmail.com' => array(	// by Mihelich (mkiyle at gmail.com)
 		'.findcraft.info',			// 209.8.28.11(209-8-28-11.pccwglobal.net)
@@ -6498,6 +6506,11 @@ $blocklist['C'] = array(
 		'.cialischoice.com',	// 81.29.249.88(non-existent) by postmaster at cialischoice.com, ns *.rxp-hosting.com
 		'.rxp-hosting.com',		// IP not allocated by jessicaeagloff at yahoo.co.uk
 	),
+	'qbbs at xinoffice.com' => array(
+		// ns *.name-services.com
+		'.lingage.com',		// 8.15.231.118
+		'.puksins.com',		// IP not allocated now
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -6610,7 +6623,6 @@ $blocklist['C'] = array(
 	'.leucainfo.com',
 	'.library-blogs.net',	// by Peter Scott (pscontent at gmail.com)
 	'.lightyearmedia.com',	// 216.104.33.66(esc91.midphase.com) by techsupport at midphase.com, encoded JavaScript
-	'.lingage.com',			// by huan bing (qbbs at xinoffice.com)
 	'.link-keeper.net',		// 210.172.108.236 (257.xrea.com)
 	'.ls.la',				// by Milton McLellan (McLellanMilton at yahoo.com)
 	'.mamaha.info',			// by Alex Klimovsky (paganec at gmail.com), seems now constructiong
