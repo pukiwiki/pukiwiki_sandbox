@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.180 2007/10/31 15:01:04 henoheno Exp $
+// $Id: spam.ini.php,v 1.181 2007/11/04 08:17:49 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1501,7 +1501,9 @@ $blocklist['B-1'] = array(
 	//
 	'*.0000host.com',		// 68.178.200.154, ns *.3-hosting.net
 	'*.007ihost.com',		// 195.242.99.199(s199.softwarelibre.nl)
+	'*.007webpro.com',		// by richord at ientry.com
 	'*.00bp.com',			// 74.86.20.224(layeredpanel.com -> 195.242.99.195) by admin at 1kay.com
+	'*.0buckhost.com',		// by tycho at e-lab.nl
 	'0Catch.com related' => array(
 		'*.0catch.com',		// 209.63.57.4 by Sam Parkinson (sam at 0catch.com), also zerocatch.com
 
@@ -2554,6 +2556,7 @@ $blocklist['B-1'] = array(
 	'*.free-site-host.com',	// by CGM-Electronics (chris at cgm-electronics.com)
 	'freebb.nl',
 	'*.freeclans.de',
+	'*.freehostplace.com',	// by contact at keepclear.co.uk
 	'*.freelinuxhost.com',	// by 100webspace.com
 	'*.nofeehost.com',
 	'*.freehyperspace.com',
@@ -3125,6 +3128,17 @@ $blocklist['B-1'] = array(
 		'*.your-websites.net',
 		'*.web-space.ws',
 	),
+
+
+	'*.heliohost.org',	// by ashoat at gmail.com
+	'X10Hosting.com' => array(
+		// by support at clockworkcomputers.com
+		'*.x10hosting.com',
+		'*.elementfx.com',
+		'*.exofire.net',
+		'*.pcriot.com',
+	),
+	'.zendurl.com',		// by ajcar1992 at gmail.com
 );
 
 // --------------------------------------------------
