@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.181 2007/11/04 08:17:49 henoheno Exp $
+// $Id: spam.ini.php,v 1.182 2007/11/27 14:59:29 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1507,13 +1507,16 @@ $blocklist['B-1'] = array(
 	'0Catch.com related' => array(
 		'*.0catch.com',		// 209.63.57.4 by Sam Parkinson (sam at 0catch.com), also zerocatch.com
 
-		// 209.63.57.10(www1.0catch.com) by dan at 0catch.com, ns *.0catch.com
+		// 209.63.57.10(www1.0catch.com) by owner at 100megswebhosting.com, ns *.0catch.com
+		'*.100megsfree5.com',
+
+		// 209.63.57.10(*snip*) by dan at 0catch.com, ns *.0catch.com
 		'*.100freemb.com',		// by Danny Ashworth
 		'*.exactpages.com',
 		'*.fcpages.com',
 		'*.wtcsites.com',
 
-		// 209.63.57.10(www1.0catch.com) by domains at netgears.com, ns *.0catch.com
+		// 209.63.57.10(*snip*) by domains at netgears.com, ns *.0catch.com
 		'*.741.com',
 		'*.freecities.com',
 		'*.freesite.org',
@@ -1521,15 +1524,15 @@ $blocklist['B-1'] = array(
 		'*.freewebsitehosting.com',
 		'*.jvl.com',
 
-		// 209.63.57.10(www1.0catch.com) by luke at dcpages.com, ns *.0catch.com
+		// 209.63.57.10(*snip*) by luke at dcpages.com, ns *.0catch.com
 		'*.freespaceusa.com',
 		'*.usafreespace.com',
 
-		// 209.63.57.10(www1.0catch.com) by rickybrown at usa.com, ns *.0catch.com
+		// 209.63.57.10(*snip*) by rickybrown at usa.com, ns *.0catch.com
 		'*.dex1.com',
 		'*.questh.com',
 
-		// 209.63.57.10(www1.0catch.com), ns *.0catch.com
+		// 209.63.57.10(*snip*), ns *.0catch.com
 		'*.00freehost.com',		// by David Mccall (superjeeves at yahoo.com)
 		'*.012webpages.com',	// by support at 0catch.com
 		'*.150m.com',
@@ -1743,6 +1746,7 @@ $blocklist['B-1'] = array(
 		'*.blogandorra.com',
 		'*.blogangola.com',
 		'*.blogaruba.com',
+		'*.blogaustria.at',
 	),
 	'*.blog.com.es',
 	'*.blog.hr',
@@ -6577,6 +6581,15 @@ $blocklist['C'] = array(
 		'.lingage.com',		// 8.15.231.118
 		'.puksins.com',		// IP not allocated now
 	),
+	'advertolog at gmail.com' => 
+		// 81.0.250.86(network.upl.cz => non-existent) or
+		// 217.11.233.27
+		'#^(?:.*\.)?download-mp3-music-0(?:[0-2][0-9]|30)\.cn$#',	// 001-030
+	'contact at aboutdomain.com' => array(
+		'.lopieur0.com',	// Not match but used
+		'.lopieur1.com',	// Not match but used
+		'.lopieur2.com',	// 209.62.21.228(*.ev1servers.net => non-existent) by contact at aboutdomain.com
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -6799,18 +6812,23 @@ $blocklist['C'] = array(
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
 
+	'.good-news-4u.info',	// 89.149.196.72(mendoi.fansubs.omni-forums.net -> 72.9.144.200 -> www.omni-forums.net)
+	'.coolnews-4u.com',		// 217.20.123.122(*.internetserviceteam.com)
+
 	'.rpz3zmr75a.com',		// 216.188.26.235(park-www.trellian.com, redirects to domainparkltd.com) by hostmaster at domainparkltd.com(216.188.26.235)
 
 	// The same approach of 'acua at mail.ru'
 	'.iblcqms.cn',			// 89.149.247.25(*.internetserviceteam.com) by Gershun at time2ns.info(84.16.226.58 -> *.internetserviceteam.com), / not found
 	'.aasghwf.cn',			// 84.16.243.121(*.internetserviceteam.com) by Shooll at ilovemyns.info(89.149.247.26 -> *.internetserviceteam.com)
-	'.fwjjjtmrlr.cn',		// TODO:
-	'.klmnei.cn',			// TODO:
-	'.lumyjugmn.cn',		// TODO:
+	'.fwjjjtmrlr.cn',		// 217.20.127.232(really.cut3.info -> non-existent) by analog at gamehostingns.info
+	'.klmnei.cn',			// 84.16.243.123(*.internetserviceteam.com) by arsen at time2ns.info
+	'.lumyjugmn.cn',		// 89.149.243.225(*.internetserviceteam.com) by kashin at time2ns.info
 	'.lxwxjzpiy.cn',		// TODO:
 	'.qyxswynd.cn',			// TODO:
 	'.ugivorm.cn',			// TODO:
 	'.uxmrscgdi.cn',		// TODO:
+
+	'.informator4you.com',	// 84.16.235.141 by info at cash4wm.biz
 
 	// C-3: Not classifiable (information wanted)
 	//
