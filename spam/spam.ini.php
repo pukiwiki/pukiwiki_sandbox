@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.182 2007/11/27 14:59:29 henoheno Exp $
+// $Id: spam.ini.php,v 1.183 2007/11/27 16:32:29 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -47,7 +47,7 @@ $blocklist['pre'] = array(
 $blocklist['list'] = array(
 	'A-1'		=> TRUE,	// General redirection services
 	//'A-2'		=> TRUE,	// Dynamic DNS, Dynamic IP services, ...
-	'B-1'		=> TRUE,	// Web spaces
+	'B-1'		=> TRUE,	// Web N.M spaces
 	'B-2'		=> TRUE,	// Jacked contents, something implanted
 	'C'			=> TRUE,	// Exclusive spam domains
 	//'D'		=> TRUE,	// "Third party in good faith"s
@@ -851,6 +851,7 @@ $blocklist['A-1'] = array(
 	'linkezy.com',
 	'linkfrog.net',
 	'linkook.com',
+	'linkyme.com',
 	'linkzip.net',
 	'lispurl.com',
 	'lnk.in',
@@ -906,6 +907,7 @@ $blocklist['A-1'] = array(
 	'palurl.com',
 	'*.paulding.net',
 	'phpfaber.org',
+	'pygmyurl.com',
 	'pnope.com',
 	'prettylink.com',
 	'PROXID.net' => array(	// also xRelay.net
@@ -1487,7 +1489,7 @@ $blocklist['A-2'] = array(
 
 $blocklist['B-1'] = array(
 
-	// B-1: Web spaces
+	// B-1: Web N.M spaces (N > 0, M > 0)
 	//
 	//   Messages from forerunners:
 	//     activefreehost.com
@@ -1512,6 +1514,7 @@ $blocklist['B-1'] = array(
 
 		// 209.63.57.10(*snip*) by dan at 0catch.com, ns *.0catch.com
 		'*.100freemb.com',		// by Danny Ashworth
+		'*.easyfreehosting.com',
 		'*.exactpages.com',
 		'*.fcpages.com',
 		'*.wtcsites.com',
@@ -1588,6 +1591,7 @@ $blocklist['B-1'] = array(
 		'*.20me.com',
 	),
 	'*.100foros.com',
+	'*.101freehost.com',
 	'*.12gbfree.com',	// 75.126.176.194 by ashphama at yahoo.com
 	'20six Weblog Services' => array(
 		'.20six.nl',			// by 20six weblog services (postmaster at 20six.nl)
@@ -1827,6 +1831,7 @@ $blocklist['B-1'] = array(
 	'*.cdnhost.cn',			// 125.65.112.8, 125.65.112.9, 125.91.1.71 "Content Delivery Network" related? by cc at 51web.cn, seems malware hosting. ns *.dnsfamily.com, no official index.html
 	'*.chueca.com',
 	'city-forum.com',
+	'*.clicdev.com',
 	'*.craigslist.org',
 	'concepts-mall.com',
 	'*.conforums.com',		// by Roger Sutton (rogersutton at cox.net)
@@ -2548,12 +2553,11 @@ $blocklist['B-1'] = array(
 	'*.free-25.de',
 	'*.free-bb.com',
 	'Free-Blog-Hosting.com' => array(
-		'free-blog-hosting.com',	// by Robert Vigil (ridgecrestdomains at yahoo.com), ns *.phpwebhosting.com
-		'cheap-web-hosting-411.com',	// by Robert Vigil, ns *.thisismyserver.net
-		'blog-tonite.com',			// ns *.phpwebhosting.com
-		'blogznow.com',				// ns *.phpwebhosting.com
-		'myblogstreet.com',			// by Robert Vigil, ns *.phpwebhosting.com
-		'blogbeam.com',				// by Robert Vigil, ns *.phpwebhosting.com
+		'*.free-blog-hosting.com',		// by Robert Vigil (ridgecrestdomains at yahoo.com), ns *.phpwebhosting.com
+		'*.blog-tonite.com',			// ns *.phpwebhosting.com
+		'*.blogznow.com',				// ns *.phpwebhosting.com
+		'*.myblogstreet.com',			// by Robert Vigil, ns *.phpwebhosting.com
+		'*.blogbeam.com',				// by Robert Vigil, ns *.phpwebhosting.com
 	),
 	'*.free-forums.org',		// 209.62.43.2(ev1s-209-62-43-2.ev1servers.net) by Teodor Turbatu (tteo at zappmobile.ro)
 	'free-guestbook.net',
@@ -2700,6 +2704,7 @@ $blocklist['B-1'] = array(
 	),
 	'*.lioru.com',
 	'limmon.net',
+	'linkinn.com',
 	'lipstick.com',			// 208.96.53.70(customer-reverse-entry.*) by domain_admin at advancemags.com
 	'listible.com',			///list/
 	'Livedoor.com' => array(
@@ -5328,6 +5333,8 @@ $blocklist['C'] = array(
 		'.wifuj.com',
 		'.xijyt.com',
 		'.zuqyn.com',
+
+		'.mosugy.com',
 	),
 	'jakaj ay hotmail.com' => array(	// 66.232.113.46, the same approach and timing of clickx at bk.ru
 		'.hitsearching.info',
@@ -5342,6 +5349,8 @@ $blocklist['C'] = array(
 
 		// 66.232.120.98(host.radiantdomain.com => 71.6.196.202 => fc6196202.aspadmin.net)
 		'.ligiwa.com',
+
+		'.mubeho.com',
 	),
 	'ice--man at mail.ru related' => array(
 		// 74.50.97.198 by andrey, the same approach and timing of clickx at bk.ru
@@ -5508,7 +5517,7 @@ $blocklist['C'] = array(
 		'.wotyqo.cn',
 		'.xudoli.cn',
 
-		// entretov-28 at ftunez.org
+		// by entretov-28 at ftunez.org
 		'.xevavuv.cn',		// 66.232.120.113(*snip*)
 
 		// by entretov-37 at ftunez.org
@@ -5547,6 +5556,9 @@ $blocklist['C'] = array(
 		'.noxoco.cn',
 		'.qiwysu.cn',
 		'.tutysy.cn',
+
+		// by oker-74 at ftunez.org
+		'.navufol.cn',
 
 		// by oker-97 at ftunez.org
 		'.dohakot.cn',		// 66.232.127.126(yourbusiness.ME-127.com)
@@ -5695,6 +5707,8 @@ $blocklist['C'] = array(
 
 		// 66.232.97.246(host4.blazegalaxy.com => 71.6.196.202)
 		'.pufeqa.com',
+
+		'.xehymi.com',
 	),
 	'niichka at hotmail.com' => array(
 		// 66.232.113.44, the same approach and IP of clickx at bk.ru
@@ -5995,6 +6009,7 @@ $blocklist['C'] = array(
 		'.govnosaklo.info',
 		'.muflon.info',
 		'.termitnik.info',
+		'.tugosos.info',		// 206.53.51.77(www.bmezine.com -> ..)
 	),
 	'84.252.148.80' => array(	//  84.252.148.80(heimdall.mchost.ru)
 		'.acronis-true-image.info',
@@ -6324,6 +6339,20 @@ $blocklist['C'] = array(
 			'.xjvbunksa.cn',	// 217.20.112.102(*snip*)
 			// by roschem at sedns.info
 			'.ilzelqvmoa.cn',	// 84.16.243.170(*.fixshell.com -> Non-existent)
+			// by op at sedns.info
+			'.bumfn.cn',
+			'.csmlu.cn',
+			'.epcwi.cn',
+			'.krwzn.cn',
+			'.lkvcp.cn',
+			'.mvmkh.cn',
+			'.nwpeg.cn',
+			'.rnqol.cn',
+			'.tyuaf.cn',
+			'.ucysa.cn',
+			'.vhyom.cn',
+			'.wtstu.cn',
+			'.zslxr.cn',
 	),
 	'gilvcta sy jilbertsbram.com' => array(
 		// 206.53.51.126
@@ -6590,6 +6619,45 @@ $blocklist['C'] = array(
 		'.lopieur1.com',	// Not match but used
 		'.lopieur2.com',	// 209.62.21.228(*.ev1servers.net => non-existent) by contact at aboutdomain.com
 	),
+	'info at cash4wm.biz related' => array(
+		// 84.16.233.12(*.internetserviceteam.com)
+		'.newsblogforu.com',
+
+		// 84.16.235.141()
+		'.informator4you.com',
+
+		// 84.16.240.68(*.internetserviceteam.com)
+		'.absolute-best-site.com',
+		'.new-blog-for-you.com',
+
+		// 84.16.240.69(*.internetserviceteam.com)
+		'.best-sport-blog.com',
+		'.big-internet-site.com',
+		'.brendsite.com',
+		'.my-news-blog.com',
+
+		// 84.16.242.123(*.internetserviceteam.com)
+		'.best-news-blog.com',
+		'.site-with-content.com',
+
+		// The same method with info at cash4wm.biz
+		'.coolnews-4u.com',		// 217.20.123.122(*.internetserviceteam.com),
+		'.bestnews-4u.com',		// 84.16.227.135(*.internetserviceteam.com)
+		'.good-news-4u.info',	// 89.149.196.72(mendoi.fansubs.omni-forums.net -> ..)
+		'.super-blog-here.com',	// 89.149.247.25, the same IP with iblcqms.cn
+		'.bloginfo4u.info',		// 89.149.247.25
+	),
+	'kerjy at yahoo.com' => array(
+		'.wibek.com',	// 66.232.126.212(hv71.steephost.com -> ..) by boldalex at yahoo.com
+		'.hehik.com',	// 66.232.126.213(hv71.steephost.com -> ..) by kerovska at mail.nu
+		'.mynyh.com',	// 66.232.126.214(hv71.steephost.com -> ..) by kerjy at yahoo.com
+		'.mabej.com',	// 66.232.126.215(hv71.steephost.com -> ..) by jeffy at hotmail.com
+		'.qanom.com',	// 66.232.126.216(hv71.steephost.com -> ..) by kerjy at yahoo.com
+	),
+	'vme at hotmail.ru' => array(
+		'.seoblack.net',	// 216.195.33.112(non-exsistent)
+		'.seoblack.biz',	// 216.195.33.113(non-exsistent)
+	),
 
 	// C-2: Lonely domains (buddies not found yet)
 	'.0721-4404.com',
@@ -6812,9 +6880,11 @@ $blocklist['C'] = array(
 	'.zyguo.info',			// ns globoxhost.net
 	'.zhuyiw.com',			// by zhou yuntao (whzyt0122 at sohu.com)
 
-	'.good-news-4u.info',	// 89.149.196.72(mendoi.fansubs.omni-forums.net -> 72.9.144.200 -> www.omni-forums.net)
-	'.coolnews-4u.com',		// 217.20.123.122(*.internetserviceteam.com)
 
+	'.cashing-view.com',	// 210.188.201.22(sv69.xserver.jp) by kikuchi at money-agent.jp
+	'.jsyuanyang.com',		// 58.211.0.23(non-existing)
+	'.m-sr.net',			// 210.175.62.125(non-existent) by luckynets2003 at yahoo.co.jp, ns *.ARK-NET.NE.JP
+	'.rutewqsfrt10.cn',		// 72.36.237.146(*.static.reverse.ltdomains.com) by ferrari by list.ru
 	'.rpz3zmr75a.com',		// 216.188.26.235(park-www.trellian.com, redirects to domainparkltd.com) by hostmaster at domainparkltd.com(216.188.26.235)
 
 	// The same approach of 'acua at mail.ru'
