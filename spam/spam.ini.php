@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.183 2007/11/27 16:32:29 henoheno Exp $
+// $Id: spam.ini.php,v 1.184 2007/12/02 12:44:46 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -73,6 +73,7 @@ $blocklist['goodhost'] = array(
 	//'ifastnet.com',				// Server hosting
 	//'threefortune.ifastnet.com',	// Server hosting
 	//'sirakaba.s21.xrea.com',		// Ratbeta, known as PukiWiki hacker
+	//'desperadoes.biz',			// YEAR OF THE CAT, PukiWiki skin designer
 	//''
 	//''
 	//''
@@ -6643,6 +6644,7 @@ $blocklist['C'] = array(
 		// The same method with info at cash4wm.biz
 		'.coolnews-4u.com',		// 217.20.123.122(*.internetserviceteam.com),
 		'.bestnews-4u.com',		// 84.16.227.135(*.internetserviceteam.com)
+		'.big-site-news.com',	// 84.16.243.168(*.fixshell.com -> non-existent)
 		'.good-news-4u.info',	// 89.149.196.72(mendoi.fansubs.omni-forums.net -> ..)
 		'.super-blog-here.com',	// 89.149.247.25, the same IP with iblcqms.cn
 		'.bloginfo4u.info',		// 89.149.247.25
