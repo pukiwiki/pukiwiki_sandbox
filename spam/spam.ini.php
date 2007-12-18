@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.186 2007/12/15 12:59:28 henoheno Exp $
+// $Id: spam.ini.php,v 1.187 2007/12/18 15:53:57 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -6132,17 +6132,24 @@ $blocklist['C'] = array(
 		'.pharmacyonlinenet.com',	// 216.195.51.59, hidden JavaScript
 		'.ringtonecooler.com',		// 217.11.233.34
 	),
-	'dfym at dfym.cn' => array(	// by chen jinian (dfym at dfym.cn)
-		// 220.166.64.44
+	'dfym at dfym.cn' => array(
+		// ANI, JavaScript, iframe
+
+		// 220.166.64.44 by chen jinian (dfym at dfym.cn)
 		'.okwit.com',
 		'.sakerver.com',
 		'.motewiki.net',
 
-		'.8568985.com',		// 61.139.126.10 ns *.myhostadmin.net
-		
-		// 61.139.126.47, ns *.myhostadmin.net
+		'.caremoon.net',	// 221.10.254.63 by abc00623 at 163.com, Admin by dfym, ns *.myhostadmin.net
+
+		'.8568985.com',		// 61.139.126.10 by liaojiaying88 at sina.com, Admin by dfym, ns *.myhostadmin.net
+
+		// 61.139.126.47, by guoyongdan at 126.com, Tech by dfym, ns *.myhostadmin.net
+		'.bbtv-chat.com',
+		'.ketubatle.com',
 		'.playonlanei.com',
 		'.rmtfcne.com',
+
 	),
 	'mkiyle at gmail.com' => array(	// by Mihelich (mkiyle at gmail.com)
 		'.findcraft.info',			// 209.8.28.11(209-8-28-11.pccwglobal.net)
