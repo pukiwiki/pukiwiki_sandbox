@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.187 2007/12/18 15:53:57 henoheno Exp $
+// $Id: spam.ini.php,v 1.188 2007/12/26 17:42:24 teanan Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -6767,6 +6767,7 @@ $blocklist['C'] = array(
 	'.1gb.in',				// by Sergius Mixman (lancelot.denis at gmail.com)
 	'.0annie.info',
 	'.6i6.de',
+	'.77toperrwuter1.info',	// by Roman
 	'.99-idea.com',			// 202.44.54.48(*.worldinternetworkcorporation.com) by mistercolor at gmail.com, encoded JavaScript
 	'.angioco.com',			// 62.37.112.100, gamble
 	'.advancediet.com',		// by Shonta Mojica (hostadmin at advancediet.com)
