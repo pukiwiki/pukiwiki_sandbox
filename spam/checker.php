@@ -1,5 +1,5 @@
 <?php
-// $Id: checker.php,v 1.2 2007/07/03 14:51:07 henoheno Exp $
+// $Id: checker.php,v 1.3 2007/12/26 17:30:57 teanan Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -62,7 +62,7 @@ $asap   = isset($_POST['asap'])     ? TRUE : FALSE;
 $prog   = isset($_POST['progress']) ? TRUE : FALSE;
 $pickup = isset($_POST['pickup'])   ? TRUE : FALSE;
 
-echo show_form($msg, $asap, $prog, $pickup);
+echo show_form(stripslashes($msg), $asap, $prog, $pickup);
 echo '<br/>';
 
 
