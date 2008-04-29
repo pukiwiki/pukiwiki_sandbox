@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.188 2007/12/26 17:42:24 teanan Exp $
+// $Id: spam.ini.php,v 1.189 2008/04/29 02:42:00 teanan Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -2699,7 +2699,10 @@ $blocklist['B-1'] = array(
 	'*.joolo.com',
 	'*.journalscape.com',
 	'*.justfree.com',
-	'*.blog.kataweb.it',
+	'kataweb.it' => array(		// kata-redir.kataweb.it
+		'*.blog.kataweb.it',
+		'*.repubblica.it',
+	),
 	'*.kaixo.com',		// blogs.kaixo.com, blogak.kaixo.com
 	'*.kokoom.com',
 	'koolpages.com',
