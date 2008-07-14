@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.190 2008/05/20 17:49:35 teanan Exp $
+// $Id: spam.ini.php,v 1.191 2008/07/14 15:38:17 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -196,6 +196,7 @@ $blocklist['A-1'] = array(
 	'bhomiyo.com',		///en.xliterate/ 64.209.134.9(web137.discountasp.net) by piyush at arborindia.com
 	'biglnk.com',
 	'bingr.com',
+	'bit.ly',
 	'bittyurl.com',
 	'*.bizz.cc',
 	'*.blo.pl',
