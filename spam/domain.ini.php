@@ -1,5 +1,5 @@
 <?php
-// $Id: domain.ini.php,v 1.15 2007/08/18 11:56:27 henoheno Exp $
+// $Id: domain.ini.php,v 1.16 2008/07/19 01:11:09 henoheno Exp $
 // Domain related setting
 
 // Domains who have 2nd and/or 3rd level domains
@@ -570,6 +570,23 @@ $domain['mx'] = array(
 	'gob' => TRUE,
 	'net' => TRUE,
 	'org' => TRUE,
+);
+
+// ------------------------------
+// ccTLD: Montenegro
+// NIC  : http://www.nic.me/
+// Whois: http://www.nic.me/
+$domain['me'] = array(
+	// http://www.domain.me/index.php?page=6
+	'co'  => TRUE,
+	'its' => TRUE,
+	'net' => TRUE,
+	'org' => TRUE,
+	'priv' => TRUE,
+
+	'ac'  => TRUE,
+	'edu' => TRUE,
+	'gob' => TRUE,
 );
 
 // ------------------------------
