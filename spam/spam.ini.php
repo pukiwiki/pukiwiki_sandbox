@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.191 2008/07/14 15:38:17 henoheno Exp $
+// $Id: spam.ini.php,v 1.192 2008/07/19 01:04:26 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -100,6 +100,10 @@ $blocklist['A-1'] = array(
 	//     smcurl.com
 	//       "Idiots were using smcURL to shrink URLs and
 	//        send them out via spam."
+	//     symy.jp
+	//       "One or more users are using our URL redirect
+	//        service for spam/botnet.
+	//        So we closed this service."
 	//     tinyclick.com
 	//       "...stop offering it's free services because
 	//        too many people were taking advantage of it"
@@ -926,6 +930,7 @@ $blocklist['A-1'] = array(
 		'*.site.tc',
 		'*.societe.st',
 	),
+	'qqa.jp',
 	'qrl.jp',
 	'qurl.net',
 	'qwer.org',
@@ -947,6 +952,7 @@ $blocklist['A-1'] = array(
 	'rio.st',
 	'rlink.org',
 	'*.rmcinfo.fr',
+	'roo.to',		// Seems closed, says "bye-bye"
 	'rubyurl.com',
 	'*.runboard.com',
 	'runurl.com',
@@ -1054,7 +1060,6 @@ $blocklist['A-1'] = array(
 	'SURL.DK' => array('surl.dk'),	// main page is: s-url.dk
 	'surl.se',
 	'surl.ws',
-	'symy.jp',
 	'tdurl.com',
 	'tighturl.com',
 	'tiniuri.com',
@@ -1080,7 +1085,7 @@ $blocklist['A-1'] = array(
 	'*.toolbot.com',
 	'*.torontonian.com',
 	'trimurl.com',
-	'ttu.cc',
+	//'ttu.cc',		// Seems closed
 	'turl.jp',
 	'*.tz4.com',
 	'U.TO' => array(	// ns *.1004web.com, 1004web.com is owned by Moon Jae Bark (utomaster at gmail.com) = u.to master
@@ -1112,6 +1117,7 @@ $blocklist['A-1'] = array(
 		'*.ever.to',
 		'*.mini.to',
 	),
+	'u-go.to',
 	'uchinoko.in',
 	'Ulimit.com' => array(
 		'*.be.tf',
@@ -1141,6 +1147,7 @@ $blocklist['A-1'] = array(
 		'*.unixlover.com',
 		'*.zik.mu',
 	),
+	'urltea.com',
 	'*.uni.cc',
 	'UNONIC.com' => array(
 		'*.at.tf',	// AlpenNIC
@@ -2932,6 +2939,7 @@ $blocklist['B-1'] = array(
 		'.aim.to',
 		'.djmp.jp',
 		'.nihongourl.nu',
+		'.url.sh',		// Says SmarTrans
 		'.urljp.com',
 		'.www1.to',
 		'.www2.to',
