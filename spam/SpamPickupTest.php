@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.4 2007/08/20 14:50:31 henoheno Exp $
+// $Id: SpamPickupTest.php,v 1.5 2008/12/27 11:50:55 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -54,7 +54,7 @@ class SpamPickupTest extends PHPUnit_TestCase
 
 	function testFunc_host_normalize()
 	{
-		// Null
+		// Invalid: Null
 		foreach($this->setup_string_null() as $key => $value){
 			$this->assertEquals('', host_normalize($value), $key);
 		}
@@ -62,8 +62,12 @@ class SpamPickupTest extends PHPUnit_TestCase
 		// Hostname is case-insensitive
 		$this->assertEquals('example.org', host_normalize('ExAMPle.ORG'));
 
-		// Cut 'www' (destructive)
+		// Cut 'www' with traditional ASCII-based FQDN (destructive)
 		$this->assertEquals('example.org', host_normalize('WWW.example.org'));
+
+		// Don't cut 'www' with Non-ASCII-based string such as IDN
+		$this->assertEquals("www.example.org\0foobar",
+			 host_normalize("WWW.example.org\0foobar"));
 	}
 
 	function testFunc_port_normalize()
