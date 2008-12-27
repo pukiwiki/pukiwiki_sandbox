@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.205 2008/12/27 14:50:30 henoheno Exp $
+// $Id: spam.php,v 1.206 2008/12/27 15:11:37 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -401,6 +401,7 @@ function is_ip($string = '')
 	return FALSE;	// Seems not IP
 }
 
+// Load SPAM_INI_FILE and return parsed one
 function get_blocklist($list = '')
 {
 	static $regexes;
@@ -414,6 +415,7 @@ function get_blocklist($list = '')
 		$regexes = array();
 		if (file_exists(SPAM_INI_FILE)) {
 			$blocklist = array();
+
 			include(SPAM_INI_FILE);
 			//	$blocklist['list'] = array(
 			//  	//'goodhost' => FALSE;
@@ -423,11 +425,19 @@ function get_blocklist($list = '')
 			//		'*.blogspot.com',	// Blog services's subdomains (only)
 			//		'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
 			//	);
-			foreach(array('pre', 'list') as $special) {
+
+			foreach(array(
+					'pre',
+					'list',
+				) as $special) {
+
 				if (! isset($blocklist[$special])) continue;
+
 				$regexes[$special] = $blocklist[$special];
+
 				foreach(array_keys($blocklist[$special]) as $_list) {
 					if (! isset($blocklist[$_list])) continue;
+
 					foreach ($blocklist[$_list] as $key => $value) {
 						if (is_array($value)) {
 							$regexes[$_list][$key] = array();
@@ -445,11 +455,11 @@ function get_blocklist($list = '')
 	}
 
 	if ($list === '') {
-		return $regexes;	// ALL
+		return $regexes;		// ALL of
 	} else if (isset($regexes[$list])) {
-		return $regexes[$list];
+		return $regexes[$list];	// A part of
 	} else {
-		return array();
+		return array();			// Found nothing
 	}
 }
 
@@ -457,7 +467,7 @@ function get_blocklist($list = '')
 function get_blocklist_add(& $array, $key = 0, $value = '*.example.org')
 {
 	if (is_string($key)) {
-		$array[$key] = & $value; // Treat $value as a regex
+		$array[$key] = & $value; // Treat $value as a regex for FQDN(host)s
 	} else {
 		$array[$value] = '/^' . generate_host_regex($value, '/') . '$/i';
 	}
