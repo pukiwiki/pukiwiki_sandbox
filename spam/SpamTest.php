@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.22 2008/12/27 11:20:06 henoheno Exp $
+// $Id: SpamTest.php,v 1.23 2008/12/27 14:50:00 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -342,6 +342,38 @@ class SpamTest extends PHPUnit_TestCase
 
 		// Should match with 192.168.0.0/16
 		//$this->assertEquals('192\.168\.',       generate_host_regex('192.168.'));
+	}
+
+	function testFunc_is_ip()
+	{
+		// 1st argument: Null
+		foreach($this->setup_string_null() as $key => $value){
+			$this->assertEquals(FALSE, is_ip($value), $key);
+		}
+
+		// IPv4
+		foreach(array(
+				'192.168.1.1',
+			) as $value){
+			$this->assertEquals(4,	is_ip($value), $key, '[' . $value . ']');
+		}
+
+		// IPv6
+		foreach(array(
+				'::',				// 0:0:0:0:0:0:0:0
+				'::192.168.1.1',	// IPv4 within IPv6 network
+			) as $value){
+			$this->assertEquals(6,	is_ip($value), $key, '[' . $value . ']');
+		}
+
+		// Invalid
+		foreach(array(
+				'',
+				'.',
+			) as $value){
+			$this->assertEquals(FALSE,	is_ip($value), $key, '[' . $value . ']');
+		}
+
 	}
 
 	function testFunc_get_blocklist()
