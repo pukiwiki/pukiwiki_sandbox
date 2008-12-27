@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.202 2007/08/18 09:10:58 henoheno Exp $
+// $Id: spam.php,v 1.203 2008/12/27 11:20:06 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -70,13 +70,46 @@ function var_export_shrink($expression, $return = FALSE, $ignore_numeric_keys = 
 	}
 }
 
-// Reverse $string with specified delimiter
-function delimiter_reverse($string = 'foo.bar.example.com', $from_delim = '.', $to_delim = '.')
+// Data structure: Create an array they _refer_only_one_ value
+function one_value_array($num = 0, $value = NULL)
 {
-	if (! is_string($string) || ! is_string($from_delim) || ! is_string($to_delim))
-		return $string;
+	$num   = max(0, intval($num));
+	$array = array();
 
-	// com.example.bar.foo
+	for ($i = 0; $i < $num; $i++) {
+		$array[] = & $value;
+	}
+
+	return $array;
+}
+
+// Reverse $string with specified delimiter
+function delimiter_reverse($string = 'foo.bar.example.com', $from_delim = '.', $to_delim = NULL)
+{
+	$to_null = ($to_delim === NULL);
+
+	if (! is_string($from_delim) || (! $to_null && ! is_string($to_delim))) {
+		return FALSE;
+	}
+	if (is_array($string)) {
+		// Map, Recurse
+		$count = count($string);
+		$from  = one_value_array($count, $from_delim);
+		if ($to_null) {
+			// Note: array_map() vanishes all keys
+			return array_map('delimiter_reverse', $string, $from);
+		} else {
+			$to = one_value_array($count, $to_delim);
+			// Note: array_map() vanishes all keys
+			return array_map('delimiter_reverse', $string, $from, $to);
+		}
+	}
+	if (! is_string($string)) {
+		return FALSE;
+	}
+
+	// Returns com.example.bar.foo
+	if ($to_null) $to_delim = & $from_delim;
 	return implode($to_delim, array_reverse(explode($from_delim, $string)));
 }
 
@@ -88,10 +121,12 @@ function ksort_by_domain(& $array)
 		$sort[delimiter_reverse($key)] = $key;
 	}
 	ksort($sort, SORT_STRING);
+
 	$result = array();
 	foreach($sort as $key) {
 		$result[$key] = & $array[$key];
 	}
+
 	$array = $result;
 }
 

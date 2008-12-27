@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.21 2007/08/18 09:10:35 henoheno Exp $
+// $Id: SpamTest.php,v 1.22 2008/12/27 11:20:06 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -11,6 +11,41 @@ require_once('PHPUnit/PHPUnit.php');
 
 class SpamTest extends PHPUnit_TestCase
 {
+	function testFunc_delimiter_reverse()
+	{
+		// Simple
+		$this->assertEquals('com.example.bar.foo',
+			 delimiter_reverse('foo.bar.example.com'));
+
+		// A vector (an simple array)
+		$array =            array('foo.ba2r', 'foo.bar2');
+		$this->assertEquals(array('ba2r|foo', 'bar2|foo'),
+			delimiter_reverse($array, '.', '|'));
+
+		// Note: array_map() vanishes all keys
+		$array =            array('FB' => 'foo.ba2r', 'FB2' => 'foo.bar2');
+		$this->assertEquals(array('ba2r|foo', 'bar2|foo'),
+			delimiter_reverse($array, '.', '|'));
+
+		// A tree (recurse)
+		$array =            array('foo.ba2r', 'foo.bar2', array('john.doe', 'bob.dude'));
+		$this->assertEquals(array('ba2r|foo', 'bar2|foo', array('doe|john', 'dude|bob')),
+			delimiter_reverse($array, '.', '|'));
+
+		// Nothing changes
+		$this->assertEquals('100', delimiter_reverse('100'));
+		$this->assertEquals(array(), delimiter_reverse(array()));
+
+		// Invalid cases
+		$this->assertEquals(FALSE, delimiter_reverse(TRUE));
+		$this->assertEquals(FALSE, delimiter_reverse(FALSE));
+		$this->assertEquals(FALSE, delimiter_reverse(NULL));
+		$this->assertEquals(FALSE, delimiter_reverse(100));
+		$this->assertEquals(FALSE, delimiter_reverse('100', FALSE));
+		$this->assertEquals(FALSE, delimiter_reverse('100', 0));
+		$this->assertEquals(FALSE, delimiter_reverse('100', '0', 0));
+	}
+
 	function setup_string_null()
 	{
 		return array(
