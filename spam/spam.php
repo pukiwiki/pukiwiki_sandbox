@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.204 2008/12/27 11:25:30 henoheno Exp $
+// $Id: spam.php,v 1.205 2008/12/27 14:50:30 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -355,8 +355,10 @@ function generate_host_regex($string = '', $divider = '/')
 {
 	if (! is_string($string)) return '';
 
-	if (mb_strpos($string, '.') === FALSE)
+	if (mb_strpos($string, '.') === FALSE) {
+		// localhost
 		return generate_glob_regex($string, $divider);
+	}
 
 	if (is_ip($string)) {
 		// IPv4
@@ -365,10 +367,13 @@ function generate_host_regex($string = '', $divider = '/')
 		// FQDN or something
 		$part = explode('.', $string, 2);
 		if ($part[0] == '') {
-			$part[0] = '(?:.*\.)?';	// And all related FQDN
+			// .example.org
+			$part[0] = '(?:.*\.)?';
 		} else if ($part[0] == '*') {
-			$part[0] = '.*\.';	// All subdomains/hosts only
+			// *.example.org
+			$part[0] = '.*\.';
 		} else {
+			// example.org, etc
 			return generate_glob_regex($string, $divider);
 		}
 		$part[1] = generate_glob_regex($part[1], $divider);
@@ -377,18 +382,23 @@ function generate_host_regex($string = '', $divider = '/')
 }
 
 // Rough hostname checker
-// [OK] 192.168.
-// TODO: Strict digit, 0x, CIDR, IPv6
+// TODO: Strict digit, 0x, CIDR, '999.999.999.999', ':', '::G'
 function is_ip($string = '')
 {
+	if (! is_string($string)) return FALSE;
+
+	if (strpos($string, ':') !== FALSE) {
+		return 6;	// Seems IPv6
+	}
+
 	if (preg_match('/^' .
 		'(?:[0-9]{1,3}\.){3}[0-9]{1,3}' . '|' .
-		'(?:[0-9]{1,3}\.){1,3}' . '$/',
+		'(?:[0-9]{1,3}\.){1,3}'         . '$/',
 		$string)) {
 		return 4;	// Seems IPv4(dot-decimal)
-	} else {
-		return 0;	// Seems not IP
 	}
+
+	return FALSE;	// Seems not IP
 }
 
 function get_blocklist($list = '')
