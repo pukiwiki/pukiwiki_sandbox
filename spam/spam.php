@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.203 2008/12/27 11:20:06 henoheno Exp $
+// $Id: spam.php,v 1.204 2008/12/27 11:25:30 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -118,7 +118,10 @@ function ksort_by_domain(& $array)
 {
 	$sort = array();
 	foreach(array_keys($array) as $key) {
-		$sort[delimiter_reverse($key)] = $key;
+		$reversed = delimiter_reverse($key);
+		if ($reversed !== FALSE) {
+			$sort[$reversed] = $key;
+		}
 	}
 	ksort($sort, SORT_STRING);
 
