@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.23 2008/12/27 14:50:00 henoheno Exp $
+// $Id: SpamTest.php,v 1.24 2008/12/27 15:21:41 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -385,21 +385,21 @@ class SpamTest extends PHPUnit_TestCase
 
 		// get_blocklist_add()
 		$array = array();
-
+		//
 		get_blocklist_add($array,   'foo', 'bar');
 		$this->assertEquals(1,      count($array));
 		$this->assertEquals('bar',  $array['foo']);
-
+		//
 		get_blocklist_add($array,   'hoge', 'fuga');
 		$this->assertEquals(2,      count($array));
 		$this->assertEquals('bar',  $array['foo']);
 		$this->assertEquals('fuga', $array['hoge']);
-
+		//
 		get_blocklist_add($array,   -1, '*.txt');
 		$this->assertEquals(3,      count($array));
 		$this->assertEquals('bar',  $array['foo']);
 		$this->assertEquals('fuga', $array['hoge']);
-		$this->assertEquals('/^.*\.txt$/i', $array['*.txt']);
+		$this->assertEquals('#^.*\.txt$#i', $array['*.txt']);
 
 		// get_blocklist()
 		// ALL

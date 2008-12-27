@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.206 2008/12/27 15:11:37 henoheno Exp $
+// $Id: spam.php,v 1.207 2008/12/27 15:21:41 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -448,6 +448,7 @@ function get_blocklist($list = '')
 							get_blocklist_add($regexes[$_list], $key, $value);
 						}
 					}
+
 					unset($blocklist[$_list]);
 				}
 			}
@@ -463,13 +464,13 @@ function get_blocklist($list = '')
 	}
 }
 
-// Subroutine of get_blocklist()
-function get_blocklist_add(& $array, $key = 0, $value = '*.example.org')
+// Subroutine of get_blocklist(): Add new regex to the $array
+function get_blocklist_add(& $array, $key = 0, $value = '*.example.org/path/to/file.html')
 {
 	if (is_string($key)) {
-		$array[$key] = & $value; // Treat $value as a regex for FQDN(host)s
+		$array[$key]   = & $value; // Treat $value as a regex for FQDN(host)s
 	} else {
-		$array[$value] = '/^' . generate_host_regex($value, '/') . '$/i';
+		$array[$value] = '#^' . generate_host_regex($value, '#') . '$#i';
 	}
 }
 
