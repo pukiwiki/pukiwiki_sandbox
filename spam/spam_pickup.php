@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.62 2007/10/20 04:40:58 henoheno Exp $
+// $Id: spam_pickup.php,v 1.63 2008/12/27 11:50:21 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -188,13 +188,14 @@ function scheme_normalize($scheme = '', $abbrevs_harmfull = TRUE)
 // www.foo.bar => foo.bar
 // www.10.20   => www.10.20 (Invalid hostname)
 // NOTE:
-//   'www' is  mostly used as traditional hostname of WWW server.
-//   'www.foo.bar' may be identical with 'foo.bar'.
+//   'www' is basically traditional hostname for WWW server.
+//   In these case, 'www.foo.bar' MAY be identical with 'foo.bar'.
 function host_normalize($host = '')
 {
 	if (! is_string($host)) return '';
 
 	$host = strtolower($host);
+
 	$matches = array();
 	if (preg_match('/^www\.(.+\.[a-z]+)$/', $host, $matches)) {
 		return $matches[1];
