@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.207 2008/12/27 15:21:41 henoheno Exp $
+// $Id: spam.php,v 1.208 2008/12/28 14:17:18 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -918,9 +918,9 @@ function summarize_detail_newtral($progress = array())
 			$subs = array();
 			foreach(array_keys($trie[$key]) as $sub) {
 				if ($sub == '') {
-					$subs[] = $key;
+					$subs[] = $key;			// 'example.com'
 				} else {
-					$subs[] = $sub . '.' . $key;
+					$subs[] = $sub . '...';	// 'A.foo.bar...'
 				}
 			}
 			$result[] = '  \'' . $key . '\' => \'' . implode(', ', $subs) . '\',';
