@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.209 2008/12/28 14:18:54 henoheno Exp $
+// $Id: spam.php,v 1.210 2008/12/28 15:37:07 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -651,29 +651,32 @@ function check_uri_spam($target = '', $method = array())
 	// ----------------------------------------
 	// Area measure
 
-	// Area: There's HTML anchor tag
-	if ((! $asap || ! $is_spam) && isset($method['area_anchor'])) {
-		$key = 'area_anchor';
-		$_asap = isset($method['asap']) ? array('asap' => TRUE) : array();
-		$result = area_pickup($target, array($key => TRUE) + $_asap);
-		if ($result) {
-			$sum[$key] = $result[$key];
-			if (isset($method[$key]) && $sum[$key] > $method[$key]) {
-				$is_spam[$key] = TRUE;
-			}
+	if (! $asap || ! $is_spam) {
+	
+		// Method pickup
+		$_method = array();
+		foreach(array(
+				'area_anchor',	// There's HTML anchor tag
+				'area_bbcode',	// There's 'BBCode' linking tag
+			) as $key) {
+			if (isset($method[$key])) $_method[$key] = TRUE;
 		}
-	}
 
-	// Area: There's 'BBCode' linking tag
-	if ((! $asap || ! $is_spam) && isset($method['area_bbcode'])) {
-		$key = 'area_bbcode';
-		$_asap = isset($method['asap']) ? array('asap' => TRUE) : array();
-		$result = area_pickup($target, array($key => TRUE) + $_asap);
-		if ($result) {
-			$sum[$key] = $result[$key];
-			if (isset($method[$key]) && $sum[$key] > $method[$key]) {
-				$is_spam[$key] = TRUE;
+		if ($_method) {
+			$_asap = isset($method['asap']) ? array('asap' => TRUE) : array();
+			$_result = area_pickup($target, $_method + $_asap);
+		} else {
+			$_result = FALSE;
+		}
+
+		if ($_result) {
+			foreach(array_keys($_method) as $key) {
+				$sum[$key] = $_result[$key];
+				if (isset($method[$key]) && $sum[$key] > $method[$key]) {
+					$is_spam[$key] = TRUE;
+				}
 			}
+			$_result = NULL;
 		}
 	}
 
