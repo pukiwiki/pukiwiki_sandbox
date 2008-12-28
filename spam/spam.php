@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.210 2008/12/28 15:37:07 henoheno Exp $
+// $Id: spam.php,v 1.211 2008/12/28 15:43:07 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -663,8 +663,9 @@ function check_uri_spam($target = '', $method = array())
 		}
 
 		if ($_method) {
-			$_asap = isset($method['asap']) ? array('asap' => TRUE) : array();
+			$_asap   = isset($method['asap']) ? array('asap' => TRUE) : array();
 			$_result = area_pickup($target, $_method + $_asap);
+			$_asap   = NULL;
 		} else {
 			$_result = FALSE;
 		}
@@ -676,8 +677,9 @@ function check_uri_spam($target = '', $method = array())
 					$is_spam[$key] = TRUE;
 				}
 			}
-			$_result = NULL;
 		}
+
+		$_method = $_result = NULL;
 	}
 
 	// Return if ...
