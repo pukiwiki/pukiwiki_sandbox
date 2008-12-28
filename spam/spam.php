@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.211 2008/12/28 15:43:07 henoheno Exp $
+// $Id: spam.php,v 1.212 2008/12/28 15:53:50 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -679,7 +679,7 @@ function check_uri_spam($target = '', $method = array())
 			}
 		}
 
-		$_method = $_result = NULL;
+		unset($_asap, $_method, $_result);
 	}
 
 	// Return if ...
@@ -688,14 +688,23 @@ function check_uri_spam($target = '', $method = array())
 	// ----------------------------------------
 	// URI: Pickup
 
-	$pickups = uri_pickup_normalize(spam_uri_pickup($target, $method));
+	$pickups = spam_uri_pickup($target, $method);
+
+	// Return if ...
+	if (empty($pickups)) return $progress;
+
+	// Normalize all
+	$pickups = uri_pickup_normalize($pickups);
+
+
+	// ----------------------------------------
+	// Hosts: Pickup
+
 	$hosts = array();
 	foreach ($pickups as $key => $pickup) {
 		$hosts[$key] = & $pickup['host'];
 	}
 
-	// Return if ...
-	if (empty($pickups)) return $progress;
 
 	// ----------------------------------------
 	// URI: Bad host <pre-filter> (Separate good/bad hosts from $hosts)
@@ -703,7 +712,7 @@ function check_uri_spam($target = '', $method = array())
 	if ((! $asap || ! $is_spam) && isset($method['badhost'])) {
 		$list    = get_blocklist('pre');
 		$blocked = blocklist_distiller($hosts, array_keys($list), $asap);
-		foreach($list as $key=>$type){
+		foreach($list as $key => $type){
 			if (! $type) unset($blocked[$key]); // Ignore goodhost etc
 		}
 		unset($list);
