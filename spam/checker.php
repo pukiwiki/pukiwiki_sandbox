@@ -1,5 +1,5 @@
 <?php
-// $Id: checker.php,v 1.3 2007/12/26 17:30:57 teanan Exp $
+// $Id: checker.php,v 1.4 2008/12/30 11:15:10 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -155,7 +155,8 @@ if (! empty($progress)) {
 
 if ($pickup) {
 	echo '<pre>';
-	$results = uri_pickup_normalize(spam_uri_pickup($msg));
+ 	$results = spam_uri_pickup($msg);
+ 	$results = uri_pickup_normalize($results);
 	echo '$results:' . "\n";
 	echo htmlspecialchars(var_export($results, TRUE));
 	echo '</pre>';
