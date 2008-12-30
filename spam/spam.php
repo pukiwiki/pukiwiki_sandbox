@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.212 2008/12/28 15:53:50 henoheno Exp $
+// $Id: spam.php,v 1.213 2008/12/30 11:41:38 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -672,9 +672,11 @@ function check_uri_spam($target = '', $method = array())
 
 		if ($_result) {
 			foreach(array_keys($_method) as $key) {
-				$sum[$key] = $_result[$key];
-				if (isset($method[$key]) && $sum[$key] > $method[$key]) {
-					$is_spam[$key] = TRUE;
+				if (isset($_result[$key])) {
+					$sum[$key] = $_result[$key];
+					if (isset($method[$key]) && $sum[$key] > $method[$key]) {
+						$is_spam[$key] = TRUE;
+					}
 				}
 			}
 		}
@@ -690,21 +692,20 @@ function check_uri_spam($target = '', $method = array())
 
 	$pickups = spam_uri_pickup($target, $method);
 
+
 	// Return if ...
 	if (empty($pickups)) return $progress;
 
 	// Normalize all
 	$pickups = uri_pickup_normalize($pickups);
 
-
 	// ----------------------------------------
-	// Hosts: Pickup
+	// Pickup some part of URI
 
 	$hosts = array();
 	foreach ($pickups as $key => $pickup) {
 		$hosts[$key] = & $pickup['host'];
 	}
-
 
 	// ----------------------------------------
 	// URI: Bad host <pre-filter> (Separate good/bad hosts from $hosts)
