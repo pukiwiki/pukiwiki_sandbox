@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.63 2008/12/27 11:50:21 henoheno Exp $
+// $Id: spam_pickup.php,v 1.64 2008/12/30 11:13:49 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -42,18 +42,18 @@ function uri_pickup($string = '')
 		 $string, $array, PREG_SET_ORDER | PREG_OFFSET_CAPTURE
 	);
 
-	// Format the $array
+	// Reformat the $array
 	static $parts = array(
 		1 => 'scheme', 2 => 'userinfo', 3 => 'host', 4 => 'port',
 		5 => 'path', 6 => 'file', 7 => 'query', 8 => 'fragment'
 	);
-	$default = array('');
+	$default = array(0 => '', 1 => -1);
 	foreach(array_keys($array) as $uri) {
 		$_uri = & $array[$uri];
 		array_rename_keys($_uri, $parts, TRUE, $default);
 		$offset = $_uri['scheme'][1]; // Scheme's offset = URI's offset
 		foreach(array_keys($_uri) as $part) {
-			$_uri[$part] = & $_uri[$part][0];	// Remove offsets
+			$_uri[$part] = $_uri[$part][0];	// Remove offsets
 		}
 	}
 
@@ -792,8 +792,9 @@ function spam_uri_pickup($string = '', $method = array())
 	}
 
 	// Remove 'offset's for area_measure()
-	foreach(array_keys($array) as $key)
+	foreach(array_keys($array) as $key) {
 		unset($array[$key]['area']['offset']);
+	}
 
 	return $array;
 }

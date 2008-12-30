@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.5 2008/12/27 11:50:55 henoheno Exp $
+// $Id: SpamPickupTest.php,v 1.6 2008/12/30 11:13:49 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -315,6 +315,19 @@ EOF;
 		//$test_string = ' http%3A%2F%5Cpercent-encoded.org%5Cfobar.html ';
 		//$results = uri_pickup_normalize(uri_pickup($test_string));
 		//$this->assertEquals('percent-encoded.org',  $results[0]['host']);
+
+		// Host: Without path
+		$test_string = ' http://nopathstring.com ';
+		$results = uri_pickup($test_string);
+		$this->assertEquals('', $results[0]['path']);
+		$this->assertEquals('', $results[0]['file']);
+		$results[0]['path'] = '/';
+		$this->assertEquals('', $results[0]['file'], '[Seems referense trouble]');
+		//
+		$results = uri_pickup($test_string);
+		$results = uri_pickup_normalize($results);
+		$this->assertEquals('/',$results[0]['path']);
+		$this->assertEquals('', $results[0]['file']);
 
 		// Host: Underscore
 		$test_string = ' http://under_score.org/fobar.html ';
