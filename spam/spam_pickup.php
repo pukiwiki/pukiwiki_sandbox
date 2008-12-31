@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.64 2008/12/30 11:13:49 henoheno Exp $
+// $Id: spam_pickup.php,v 1.65 2008/12/31 15:44:14 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -97,11 +97,15 @@ function uri_pickup_implode($uri = array())
 		$tmp[] = ':';
 		$tmp[] = & $uri['port'];
 	}
-	if (isset($uri['path']) && $uri['path'] !== '') {
-		$tmp[] = & $uri['path'];
-	}
-	if (isset($uri['file']) && $uri['file'] !== '') {
-		$tmp[] = & $uri['file'];
+	if (isset($uri['pathtofile']) && $uri['pathtofile'] !== '') {
+		$tmp[] = & $uri['pathtofile'];
+	} else {
+		if (isset($uri['path']) && $uri['path'] !== '') {
+			$tmp[] = & $uri['path'];
+		}
+		if (isset($uri['file']) && $uri['file'] !== '') {
+			$tmp[] = & $uri['file'];
+		}
 	}
 	if (isset($uri['query']) && $uri['query'] !== '') {
 		$tmp[] = '?';
@@ -120,7 +124,7 @@ function uri_pickup_implode($uri = array())
 
 // Normalize an array of URI arrays
 // NOTE: Give me the uri_pickup() results
-function uri_pickup_normalize(& $pickups, $destructive = TRUE)
+function uri_pickup_normalize(& $pickups, $destructive = TRUE, $pathtofile = FALSE)
 {
 	if (! is_array($pickups)) return $pickups;
 
@@ -142,6 +146,28 @@ function uri_pickup_normalize(& $pickups, $destructive = TRUE)
 			$_key['host']     = isset($_key['host'])     ? strtolower($_key['host'])         : '';
 			$_key['port']     = isset($_key['port'])     ? port_normalize($_key['port'], $_key['scheme'], FALSE) : '';
 			$_key['path']     = isset($_key['path'])     ? path_normalize($_key['path']) : '';
+		}
+	}
+
+	if ($pathtofile) {
+		return uri_pickup_normalize_pathtofile($pickups, TRUE);
+	} else {
+		return $pickups;
+	}
+}
+
+// Normalize: 'path' + 'file' = 'pathtofile'
+// In some case, 'file' DOES NOT mean _filename_.
+// [EXAMPLE] http://example.com/path/to/directory-accidentally-not-ended-with-slash
+function uri_pickup_normalize_pathtofile(& $pickups, $removeoriginal = TRUE)
+{
+	if (! is_array($pickups)) return $pickups;
+
+	foreach (array_keys($pickups) as $key) {
+		$_key = & $pickups[$key];
+		if (! isset($_key['pathtofile']) && isset($_key['path'], $_key['file'])) {
+			$_key['pathtofile'] = $_key['path'] . $_key['file'];
+			if ($removeoriginal) unset($_key['path'], $_key['file']);
 		}
 	}
 
