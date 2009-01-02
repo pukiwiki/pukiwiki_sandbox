@@ -1,5 +1,5 @@
 <?php
-// $Id: checker.php,v 1.5 2009/01/02 09:30:50 henoheno Exp $
+// $Id: checker.php,v 1.6 2009/01/02 11:55:45 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -7,7 +7,6 @@
 error_reporting(E_ALL); // Debug purpose
 
 require('spam.php');
-require('spam_pickup.php');
 
 // Recursive array_map()
 // e.g. Sanitilze ALL values (Debug purpose): var_dump(recursive_map('htmlspecialchars', $array));

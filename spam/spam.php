@@ -1,11 +1,16 @@
 <?php
-// $Id: spam.php,v 1.216 2009/01/02 10:44:53 henoheno Exp $
+// $Id: spam.php,v 1.217 2009/01/02 11:55:45 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
 // Functions for Concept-work of spam-uri metrics
 //
 // (PHP 4 >= 4.3.0): preg_match_all(PREG_OFFSET_CAPTURE): $method['uri_XXX'] related feature
+
+
+if (! defined('LIB_DIR'))   define('LIB_DIR', './');
+require(LIB_DIR . 'spam_pickup.php');
+require(LIB_DIR . 'spam_util.php');
 
 if (! defined('SPAM_INI_FILE'))   define('SPAM_INI_FILE',   'spam.ini.php');
 
