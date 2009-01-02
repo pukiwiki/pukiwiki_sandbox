@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.66 2009/01/02 09:30:50 henoheno Exp $
+// $Id: spam_pickup.php,v 1.67 2009/01/02 10:18:38 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -14,11 +14,11 @@
 // [OK] http://nasty.example.org:80/foo/xxx#nasty_string/bar
 // [OK] ftp://nasty.example.org:80/dfsdfs
 // [OK] ftp://cnn.example.com&story=breaking_news@10.0.0.1/top_story.htm (from RFC3986)
+// Not available for: IDN(ignored)
 function uri_pickup($string = '')
 {
 	if (! is_string($string)) return array();
 
-	// Not available for: IDN(ignored)
 	$array = array();
 	preg_match_all(
 		// scheme://userinfo@host:port/path/or/pathinfo/maybefile.and?query=string#fragment
@@ -34,7 +34,7 @@ function uri_pickup($string = '')
 			'[a-z0-9_-][a-z0-9_.-]+[a-z0-9_-]' . 	// hostname(FQDN) : foo.example.org
 		')' .
 		'(?::([0-9]*))?' .					// 4: Port
-		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path
+		'((?:/+[^\s<>"\'\[\]/\#?]+)*/+)?' .	// 5: Directory path
 		'([^\s<>"\'\[\]\#?]+)?' .			// 6: File?
 		'(?:\?([^\s<>"\'\[\]\#]+))?' .		// 7: Query string
 		'(?:\#([a-z0-9._~%!$&\'()*+,;=:@-]*))?' .	// 8: Fragment
