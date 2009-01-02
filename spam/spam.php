@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.213 2008/12/30 11:41:38 henoheno Exp $
+// $Id: spam.php,v 1.214 2009/01/02 10:29:02 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -355,30 +355,27 @@ function generate_host_regex($string = '', $divider = '/')
 {
 	if (! is_string($string)) return '';
 
-	if (mb_strpos($string, '.') === FALSE) {
-		// localhost
+ 	if (mb_strpos($string, '.') === FALSE || is_ip($string)) {
+		// "localhost", IPv4, etc
 		return generate_glob_regex($string, $divider);
 	}
 
-	if (is_ip($string)) {
-		// IPv4
-		return generate_glob_regex($string, $divider);
+	// FQDN or something
+	$part = explode('.', $string, 2);
+	if ($part[0] == '') {
+		// ".example.org"
+		$part[0] = '(?:.*\.)?';
+	} else if ($part[0] == '*') {
+		// "*.example.org"
+		$part[0] = '.*\.';
 	} else {
-		// FQDN or something
-		$part = explode('.', $string, 2);
-		if ($part[0] == '') {
-			// .example.org
-			$part[0] = '(?:.*\.)?';
-		} else if ($part[0] == '*') {
-			// *.example.org
-			$part[0] = '.*\.';
-		} else {
-			// example.org, etc
-			return generate_glob_regex($string, $divider);
-		}
-		$part[1] = generate_glob_regex($part[1], $divider);
-		return implode('', $part);
+		// example.org, etc
+		return generate_glob_regex($string, $divider);
 	}
+
+	$part[1] = generate_glob_regex($part[1], $divider);
+
+	return implode('', $part);
 }
 
 // Rough hostname checker
@@ -470,7 +467,10 @@ function get_blocklist_add(& $array, $key = 0, $value = '*.example.org/path/to/f
 	if (is_string($key)) {
 		$array[$key]   = & $value; // Treat $value as a regex for FQDN(host)s
 	} else {
-		$array[$value] = '#^' . generate_host_regex($value, '#') . '$#i';
+		$regex = generate_host_regex($value, '#');
+		if (! empty($regex)) {
+			$array[$value] = '#^' . $regex . '$#i';
+		}
 	}
 }
 
