@@ -1,10 +1,12 @@
 <?php
-// $Id: spam_pickup.php,v 1.67 2009/01/02 10:18:38 henoheno Exp $
+// $Id: spam_pickup.php,v 1.68 2009/01/02 10:37:47 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
 // Functions for Concept-work of spam-uri metrics
 //
+
+if (! defined('DOMAIN_INI_FILE')) define('DOMAIN_INI_FILE', 'domain.ini.php');
 
 // ---------------------
 // URI pickup
@@ -819,6 +821,78 @@ function spam_uri_pickup($string = '', $method = array())
 	}
 
 	return $array;
+}
+
+// Rough hostname checker
+// TODO: Strict digit, 0x, CIDR, '999.999.999.999', ':', '::G'
+function is_ip($string = '')
+{
+	if (! is_string($string)) return FALSE;
+
+	if (strpos($string, ':') !== FALSE) {
+		return 6;	// Seems IPv6
+	}
+
+	if (preg_match('/^' .
+		'(?:[0-9]{1,3}\.){3}[0-9]{1,3}' . '|' .
+		'(?:[0-9]{1,3}\.){1,3}'         . '$/',
+		$string)) {
+		return 4;	// Seems IPv4(dot-decimal)
+	}
+
+	return FALSE;	// Seems not IP
+}
+
+// Check responsibility-root of the FQDN
+// 'foo.bar.example.com'        => 'example.com'        (.com        has the last whois for it)
+// 'foo.bar.example.au'         => 'example.au'         (.au         has the last whois for it)
+// 'foo.bar.example.edu.au'     => 'example.edu.au'     (.edu.au     has the last whois for it)
+// 'foo.bar.example.act.edu.au' => 'example.act.edu.au' (.act.edu.au has the last whois for it)
+function whois_responsibility($fqdn = 'foo.bar.example.com', $parent = FALSE, $implicit = TRUE)
+{
+	static $domain;
+
+	if ($fqdn === NULL) {
+		$domain = NULL;	// Unset
+		return '';
+	}
+	if (! is_string($fqdn)) return '';
+
+	if (is_ip($fqdn)) return $fqdn;
+
+ 	if (! isset($domain)) {
+		$domain = array();
+ 		if (file_exists(DOMAIN_INI_FILE)) {
+			include(DOMAIN_INI_FILE);	// Set
+		}
+	}
+
+	$result  = array();
+	$dcursor = & $domain;
+	$array   = array_reverse(explode('.', $fqdn));
+	$i = 0;
+	while(TRUE) {
+		if (! isset($array[$i])) break;
+		$acursor = $array[$i];
+		if (is_array($dcursor) && isset($dcursor[$acursor])) {
+			$result[] = & $array[$i];
+			$dcursor  = & $dcursor[$acursor];
+		} else {
+			if (! $parent && isset($acursor)) {
+				$result[] = & $array[$i];	// Whois servers must know this subdomain
+			}
+			break;
+		}
+		++$i;
+	}
+
+	// Implicit responsibility: Top-Level-Domains must not be yours
+	// 'bar.foo.something' => 'foo.something'
+	if ($implicit && count($result) == 1 && count($array) > 1) {
+		$result[] = & $array[1];
+	}
+
+	return $result ? implode('.', array_reverse($result)) : '';
 }
 
 ?>

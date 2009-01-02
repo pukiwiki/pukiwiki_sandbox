@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamTest.php,v 1.24 2008/12/27 15:21:41 henoheno Exp $
+// $Id: SpamTest.php,v 1.25 2009/01/02 10:37:47 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -344,38 +344,6 @@ class SpamTest extends PHPUnit_TestCase
 		//$this->assertEquals('192\.168\.',       generate_host_regex('192.168.'));
 	}
 
-	function testFunc_is_ip()
-	{
-		// 1st argument: Null
-		foreach($this->setup_string_null() as $key => $value){
-			$this->assertEquals(FALSE, is_ip($value), $key);
-		}
-
-		// IPv4
-		foreach(array(
-				'192.168.1.1',
-			) as $value){
-			$this->assertEquals(4,	is_ip($value), $key, '[' . $value . ']');
-		}
-
-		// IPv6
-		foreach(array(
-				'::',				// 0:0:0:0:0:0:0:0
-				'::192.168.1.1',	// IPv4 within IPv6 network
-			) as $value){
-			$this->assertEquals(6,	is_ip($value), $key, '[' . $value . ']');
-		}
-
-		// Invalid
-		foreach(array(
-				'',
-				'.',
-			) as $value){
-			$this->assertEquals(FALSE,	is_ip($value), $key, '[' . $value . ']');
-		}
-
-	}
-
 	function testFunc_get_blocklist()
 	{
 		if (! defined('SPAM_INI_FILE') || ! file_exists(SPAM_INI_FILE)) {
@@ -414,40 +382,6 @@ class SpamTest extends PHPUnit_TestCase
 		$this->assertTrue(isset($array['IANA-examples']));
 	}
 
-	function testFunc_whois_responsibility()
-	{
-		// 1st argument: Null
-		foreach($this->setup_string_null() as $key => $value){
-			$this->assertEquals('',        whois_responsibility($value), $key);
-		}
-
-		// 'act.edu.au' is known as 3rd level domain
-		$this->AssertEquals('bar.act.edu.au', whois_responsibility('foo.bar.act.edu.au'));
-		$this->AssertEquals('bar.act.edu.au', whois_responsibility('bar.act.edu.au'));
-		$this->AssertEquals('act.edu.au',  whois_responsibility('act.edu.au'));
-		$this->AssertEquals('edu.au',      whois_responsibility('edu.au'));
-		$this->AssertEquals('au',          whois_responsibility('au'));
-
-		// 'co.uk' is known as 2nd level domain
-		$this->AssertEquals('bar.co.uk',   whois_responsibility('foo.bar.co.uk'));
-		$this->AssertEquals('bar.co.uk',   whois_responsibility('bar.co.uk'));
-		$this->AssertEquals('co.uk',       whois_responsibility('co.uk'));
-		$this->AssertEquals('uk',          whois_responsibility('uk'));
-
-		// 'bar.uk' is not 2nd level (implicit responsibility)
-		$this->AssertEquals('bar.uk',      whois_responsibility('foo.bar.uk'));
-		$this->AssertEquals('bar.uk',      whois_responsibility('bar.uk'));
-
-		// IPv4
-		$this->AssertEquals('192.168.0.1', whois_responsibility('192.168.0.1'));
-
-		// Invalid Top-Level Domain (With implicit)
-		$this->AssertEquals('bar.local',  whois_responsibility('foo.bar.local'));	// Implicit responsibility
-		$this->AssertEquals('bar.local',  whois_responsibility('bar.local'));
-		$this->AssertEquals('local',      whois_responsibility('local'));
-		$this->AssertEquals('localhost',  whois_responsibility('localhost'));
-		$this->AssertEquals('s',          whois_responsibility('s'));
-	}
 }
 
 ?>
