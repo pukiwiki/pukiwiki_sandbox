@@ -1,9 +1,11 @@
 <?php
-// $Id: spam_pickup.php,v 1.68 2009/01/02 10:37:47 henoheno Exp $
+// $Id: spam_pickup.php,v 1.69 2009/01/02 10:45:50 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
 // Functions for Concept-work of spam-uri metrics
+//
+// (PHP 4 >= 4.3.0): preg_match_all(PREG_OFFSET_CAPTURE): $method['uri_XXX'] related feature
 //
 
 if (! defined('DOMAIN_INI_FILE')) define('DOMAIN_INI_FILE', 'domain.ini.php');
