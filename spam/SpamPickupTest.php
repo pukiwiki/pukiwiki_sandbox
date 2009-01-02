@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.8 2009/01/02 09:30:50 henoheno Exp $
+// $Id: SpamPickupTest.php,v 1.9 2009/01/02 10:15:48 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -259,9 +259,10 @@ class SpamPickupTest extends PHPUnit_TestCase
 			sftp://foobar.example.org:80/dfsdfs#ftp_bat_port80
 			ftp://cnn.example.com&story=breaking_news@10.0.0.1/top_story.htm
 			http://192.168.1.4:443#IPv4
+			http://localhost/index.php?%2Fofficial&word=f
 EOF;
 		$results = uri_pickup_normalize(uri_pickup($test_string));
-		$this->assertEquals(5, count($results));
+		$this->assertEquals(6, count($results));
 
 		// ttp://wwW.Example.Org:80#TTP_and_www
 		$this->assertEquals('http',           $results[0]['scheme']);
@@ -302,6 +303,26 @@ EOF;
 		$this->assertEquals('top_story.htm',  $results[3]['file']);
 		$this->assertEquals('',               $results[3]['query']);
 		$this->assertEquals('',               $results[3]['fragment']);
+
+		// http://192.168.1.4:443#IPv4
+		$this->assertEquals('http',           $results[4]['scheme']);
+		$this->assertEquals('',               $results[4]['userinfo']);
+		$this->assertEquals('192.168.1.4',    $results[4]['host']);
+		$this->assertEquals('443',            $results[4]['port']);
+		$this->assertEquals('/',              $results[4]['path']);
+		$this->assertEquals('',               $results[4]['file']);
+		$this->assertEquals('',               $results[4]['query']);
+		$this->assertEquals('ipv4',           $results[4]['fragment']);
+
+		// http://localhost/index.php?%2Fofficial&word=f
+		$this->assertEquals('http',           $results[5]['scheme']);
+		$this->assertEquals('',               $results[5]['userinfo']);
+		$this->assertEquals('localhost',      $results[5]['host']);
+		$this->assertEquals('',               $results[5]['port']);
+		$this->assertEquals('/',              $results[5]['path']);
+		$this->assertEquals('',               $results[5]['file']);
+		$this->assertEquals('%2Fofficial&word=f', $results[5]['query']);
+		$this->assertEquals('',               $results[5]['fragment']);
 
 
 		// Specific tests ----
