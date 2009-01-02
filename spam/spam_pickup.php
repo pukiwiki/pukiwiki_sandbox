@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.65 2008/12/31 15:44:14 henoheno Exp $
+// $Id: spam_pickup.php,v 1.66 2009/01/02 09:30:50 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -34,7 +34,7 @@ function uri_pickup($string = '')
 			'[a-z0-9_-][a-z0-9_.-]+[a-z0-9_-]' . 	// hostname(FQDN) : foo.example.org
 		')' .
 		'(?::([0-9]*))?' .					// 4: Port
-		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path or path-info
+		'((?:/+[^\s<>"\'\[\]/\#]+)*/+)?' .	// 5: Directory path
 		'([^\s<>"\'\[\]\#?]+)?' .			// 6: File?
 		'(?:\?([^\s<>"\'\[\]\#]+))?' .		// 7: Query string
 		'(?:\#([a-z0-9._~%!$&\'()*+,;=:@-]*))?' .	// 8: Fragment
@@ -97,15 +97,11 @@ function uri_pickup_implode($uri = array())
 		$tmp[] = ':';
 		$tmp[] = & $uri['port'];
 	}
-	if (isset($uri['pathtofile']) && $uri['pathtofile'] !== '') {
-		$tmp[] = & $uri['pathtofile'];
-	} else {
-		if (isset($uri['path']) && $uri['path'] !== '') {
-			$tmp[] = & $uri['path'];
-		}
-		if (isset($uri['file']) && $uri['file'] !== '') {
-			$tmp[] = & $uri['file'];
-		}
+	if (isset($uri['path']) && $uri['path'] !== '') {
+		$tmp[] = & $uri['path'];
+	}
+	if (isset($uri['file']) && $uri['file'] !== '') {
+		$tmp[] = & $uri['file'];
 	}
 	if (isset($uri['query']) && $uri['query'] !== '') {
 		$tmp[] = '?';
@@ -124,7 +120,7 @@ function uri_pickup_implode($uri = array())
 
 // Normalize an array of URI arrays
 // NOTE: Give me the uri_pickup() results
-function uri_pickup_normalize(& $pickups, $destructive = TRUE, $pathtofile = FALSE)
+function uri_pickup_normalize(& $pickups, $destructive = TRUE, $pathfile = FALSE)
 {
 	if (! is_array($pickups)) return $pickups;
 
@@ -149,25 +145,25 @@ function uri_pickup_normalize(& $pickups, $destructive = TRUE, $pathtofile = FAL
 		}
 	}
 
-	if ($pathtofile) {
-		return uri_pickup_normalize_pathtofile($pickups, TRUE);
+	if ($pathfile) {
+		return uri_pickup_normalize_pathfile($pickups);
 	} else {
 		return $pickups;
 	}
 }
 
-// Normalize: 'path' + 'file' = 'pathtofile'
-// In some case, 'file' DOES NOT mean _filename_.
+// Normalize: 'path' + 'file' = 'path' (Similar structure using PHP's "parse_url()" function)
+// NOTE: In some case, 'file' DOES NOT mean _filename_.
 // [EXAMPLE] http://example.com/path/to/directory-accidentally-not-ended-with-slash
-function uri_pickup_normalize_pathtofile(& $pickups, $removeoriginal = TRUE)
+function uri_pickup_normalize_pathfile(& $pickups)
 {
 	if (! is_array($pickups)) return $pickups;
 
 	foreach (array_keys($pickups) as $key) {
 		$_key = & $pickups[$key];
-		if (! isset($_key['pathtofile']) && isset($_key['path'], $_key['file'])) {
-			$_key['pathtofile'] = $_key['path'] . $_key['file'];
-			if ($removeoriginal) unset($_key['path'], $_key['file']);
+		if (isset($_key['path'], $_key['file'])) {
+			$_key['path'] = $_key['path'] . $_key['file'];
+			unset($_key['file']);
 		}
 	}
 

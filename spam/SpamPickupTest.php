@@ -1,5 +1,5 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.7 2008/12/31 15:44:14 henoheno Exp $
+// $Id: SpamPickupTest.php,v 1.8 2009/01/02 09:30:50 henoheno Exp $
 // Copyright (C) 2007 heno
 //
 // Design test case for spam.php (called from runner.php)
@@ -369,13 +369,14 @@ EOF;
 		$this->assertEquals('sss',            $results[0]['host']);
 		$this->assertEquals('foo.html',       $results[0]['file']);
 
-		// uri_pickup_normalize_pathtofile()
+		// uri_pickup_normalize_pathfile()
 		$test_string = ' http://example.com/path/to/directory-accidentally-not-ended-with-slash ';
-		$results = uri_pickup_normalize_pathtofile(uri_pickup($test_string));
-		$this->assertEquals('/path/to/directory-accidentally-not-ended-with-slash',
-			$results[0]['pathtofile']);
-		$this->assertEquals(FALSE, isset($results[0]['path']));
+		$results = uri_pickup_normalize_pathfile(uri_pickup($test_string));
+		$this->assertEquals('/path/to/directory-accidentally-not-ended-with-slash', $results[0]['path']);
+		$this->assertEquals(TRUE,  isset($results[0]['path']));
 		$this->assertEquals(FALSE, isset($results[0]['file']));
+		$this->assertEquals('http://example.com/path/to/directory-accidentally-not-ended-with-slash',
+			uri_pickup_implode($results[0]));
 	}
 
 	function testFunc_spam_uri_pickup()
