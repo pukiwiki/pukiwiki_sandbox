@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.217 2009/01/02 11:55:45 henoheno Exp $
+// $Id: spam.php,v 1.218 2009/01/04 03:31:09 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -16,7 +16,7 @@ if (! defined('SPAM_INI_FILE'))   define('SPAM_INI_FILE',   'spam.ini.php');
 
 
 // ---------------------
-// Part One : Checker
+// Regex
 
 // Rough implementation of globbing
 //
@@ -86,6 +86,10 @@ function generate_host_regex($string = '', $divider = '/')
 
 	return implode('', $part);
 }
+
+
+// ---------------------
+// Load
 
 // Load SPAM_INI_FILE and return parsed one
 function get_blocklist($list = '')
