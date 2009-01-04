@@ -1,5 +1,5 @@
 <?php
-// $Id: checker.php,v 1.6 2009/01/02 11:55:45 henoheno Exp $
+// $Id: checker.php,v 1.7 2009/01/04 05:01:34 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -88,14 +88,15 @@ echo '<br/>';
 	// Any rules will lock contents that have NG things already.
 	$spam['method']['edit'] = array(
 		// Supposed_by_you(n) * Edit_form_spec(2) * Margin(1.5)
-		'_comment'     => 'edit',
-		//'quantity'     => 60 * 3,
-		//'non_uniquri'  =>  5 * 3,
-		//'non_uniqhost' => 50 * 3,
-		//'area_anchor'  => 30 * 3,
-		//'area_bbcode'  => 15 * 3,
-		'uniqhost'     => TRUE,
-		'badhost'      => TRUE,
+		'_comment'       => 'edit',
+		'quantity'       => 150 * 1.5,
+		'non_uniq'       =>   5 * 1.5,
+		//'non_uniquri'  =>   5 * 1.5,
+		//'non_uniqhost' =>  50 * 1.5,
+		'area_anchor'    =>   3 * 1.5,
+		'area_bbcode'    =>   1 * 1.5,
+		'uniqhost'       => TRUE,
+		'badhost'        => TRUE,
 		//'asap'         => TRUE,
 	);
 	
