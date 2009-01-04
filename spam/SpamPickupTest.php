@@ -1,6 +1,6 @@
 <?php
-// $Id: SpamPickupTest.php,v 1.10 2009/01/02 10:37:47 henoheno Exp $
-// Copyright (C) 2007 heno
+// $Id: SpamPickupTest.php,v 1.11 2009/01/04 08:56:07 henoheno Exp $
+// Copyright (C) 2007-2009 heno
 //
 // Design test case for spam.php (called from runner.php)
 
