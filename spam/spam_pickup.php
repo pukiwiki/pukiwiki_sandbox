@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_pickup.php,v 1.69 2009/01/02 10:45:50 henoheno Exp $
+// $Id: spam_pickup.php,v 1.70 2009/01/04 08:43:10 henoheno Exp $
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -29,7 +29,7 @@ function uri_pickup($string = '')
 		// Refer RFC3986 (Regex below is not strict)
 		'#(\b[a-z][a-z0-9.+-]{1,8}):[/\\\]+' .		// 1: Scheme
 		'(?:' .
-			'([^\s<>"\'\[\]/\#?@]*)' .		// 2: Userinfo (Username)
+			'([^\s<>"\'\[\]/\#?@]*)' .		// 2: Userinfo (Username and/or password)
 		'@)?' .
 		'(' .
 			// 3: Host
@@ -90,27 +90,43 @@ function uri_pickup_implode($uri = array())
 		$tmp[] = & $uri['scheme'];
 		$tmp[] = '://';
 	}
+
 	if (isset($uri['userinfo']) && $uri['userinfo'] !== '') {
 		$tmp[] = & $uri['userinfo'];
 		$tmp[] = '@';
+	} else if (isset($uri['user']) || isset($uri['pass'])) {
+		if (isset($uri['user']) && $uri['user'] !== '') {
+			$tmp[] = & $uri['user'];
+		}
+		$tmp[] = ':';
+		if (isset($uri['pass']) && $uri['pass'] !== '') {
+			$tmp[] = & $uri['pass'];
+		}
+		$tmp[] = '@';
 	}
+
 	if (isset($uri['host']) && $uri['host'] !== '') {
 		$tmp[] = & $uri['host'];
 	}
+
 	if (isset($uri['port']) && $uri['port'] !== '') {
 		$tmp[] = ':';
 		$tmp[] = & $uri['port'];
 	}
+
 	if (isset($uri['path']) && $uri['path'] !== '') {
 		$tmp[] = & $uri['path'];
 	}
+
 	if (isset($uri['file']) && $uri['file'] !== '') {
 		$tmp[] = & $uri['file'];
 	}
+
 	if (isset($uri['query']) && $uri['query'] !== '') {
 		$tmp[] = '?';
 		$tmp[] = & $uri['query'];
 	}
+
 	if (isset($uri['fragment']) && $uri['fragment'] !== '') {
 		$tmp[] = '#';
 		$tmp[] = & $uri['fragment'];
@@ -118,6 +134,7 @@ function uri_pickup_implode($uri = array())
 
 	return implode('', $tmp);
 }
+
 
 // ---------------------
 // URI normalization
