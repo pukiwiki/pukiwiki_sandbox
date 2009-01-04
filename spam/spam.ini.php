@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.193 2009/01/04 03:35:24 henoheno Exp $
+// $Id: spam.ini.php,v 1.194 2009/01/04 05:34:43 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -67,7 +67,6 @@ $blocklist['goodhost'] = array(
 $blocklist['official/dev'] = array(
 	// PukiWiki-official/dev specific
 	'pukiwiki.sourceforge.jp',
-	'pukiwiki.org',	// Temporary
 	'.nyaa.tk',	// (Paid *.tk domain, Expire on 2008-05-19)
 	'.wanwan.tk',	// (Paid *.tk domain, Expire on 2008-04-21) by nyaa.tk
 	'emasaka.blog65.fc2.com',	// Text-to-Impress converter
