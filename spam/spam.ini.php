@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.192 2008/07/19 01:04:26 henoheno Exp $
+// $Id: spam.ini.php,v 1.193 2009/01/04 03:35:24 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -41,6 +41,7 @@
 // 'pre': Before the other filters/checkers
 $blocklist['pre'] = array(
 	'goodhost'	=> FALSE,
+//	'official/dev'	=> FALSE,
 );
 
 // 'list': Normal list
@@ -57,28 +58,25 @@ $blocklist['list'] = array(
 
 
 // --------------------------------------------------
+// Ignorance list
 
 $blocklist['goodhost'] = array(
-	// Sample setting of ignorance list
-
 	'IANA-examples' => '#^(?:.*\.)?example\.(?:com|net|org)$#',
-
-	// PukiWiki-official/dev specific
-	//'pukiwiki.sourceforge.jp',
-	//'pukiwiki.org',	// Temporary
-	//'.logue.tk',	// Well-known PukiWiki heavy user, Logue (Paid *.tk domain, Expire on 2008-12-01)
-	//'.nyaa.tk',	// (Paid *.tk domain, Expire on 2008-05-19)
-	//'.wanwan.tk',	// (Paid *.tk domain, Expire on 2008-04-21) by nyaa.tk
-	//'emasaka.blog65.fc2.com',	// Text-to-Impress converter
-	//'ifastnet.com',				// Server hosting
-	//'threefortune.ifastnet.com',	// Server hosting
-	//'sirakaba.s21.xrea.com',		// Ratbeta, known as PukiWiki hacker
-	//'desperadoes.biz',			// YEAR OF THE CAT, PukiWiki skin designer
-	//''
-	//''
-	//''
-
 );
+
+$blocklist['official/dev'] = array(
+	// PukiWiki-official/dev specific
+	'pukiwiki.sourceforge.jp',
+	'pukiwiki.org',	// Temporary
+	'.nyaa.tk',	// (Paid *.tk domain, Expire on 2008-05-19)
+	'.wanwan.tk',	// (Paid *.tk domain, Expire on 2008-04-21) by nyaa.tk
+	'emasaka.blog65.fc2.com',	// Text-to-Impress converter
+	'ifastnet.com',				// Server hosting
+	'threefortune.ifastnet.com',	// Server hosting
+	'sirakaba.s21.xrea.com',		// Ratbeta, known as PukiWiki hacker
+	'desperadoes.biz',			// YEAR OF THE CAT, PukiWiki skin designer
+);
+
 
 // --------------------------------------------------
 // A: Sample setting of
