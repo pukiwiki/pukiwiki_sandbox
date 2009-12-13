@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.194 2009/01/04 05:34:43 henoheno Exp $
+// $Id: spam.ini.php,v 1.195 2009/12/13 14:27:07 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -3137,7 +3137,7 @@ $blocklist['B-1'] = array(
 	'*.wizhoo.com',			// by Comp U Door (sales at comp-u-door.com)
 	'*.wmjblogs.ru',
 	'*.wordpress.com',
-	'.wsboards.com',		// by Chris Breen (Cbween at gmail.com)
+	'.wsboards.com',		// Noticed this site had been removed due to spam
 	'xeboards.com',			// by Brian Shea (bshea at xeservers.com)
 	'*.xforum.se',
 	'xfreeforum.com',
