@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.197 2010/09/04 12:06:12 henoheno Exp $
+// $Id: spam.ini.php,v 1.198 2010/09/04 13:34:34 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -91,6 +91,9 @@ $blocklist['A-1'] = array(
 	// for spammers and affiliate users dazed by money.
 	//
 	//   Messages from forerunners:
+	//     idek.net
+	//       "..., idek will stop accepting requests to
+	//        create new urls. "
 	//     o-rly.net
 	//       "A URL REDIRECTION SERVICE GONE BAD"
 	//       "SORRY, TRULY"
@@ -104,6 +107,14 @@ $blocklist['A-1'] = array(
 	//     tinyclick.com
 	//       "...stop offering it's free services because
 	//        too many people were taking advantage of it"
+	//     tr.im
+	//       "The decision is based on waving the white
+	//        flag on a never ending battle with spammers
+	//        that relentlessly abuse tr.im."
+	//     u.nu
+	//        "Since the beginning, it has been plagued
+	//         with abuse from spammers and other
+	//         no-goodniks."
 	//     xjs.org
 	//       "We have been forced to close this facility
 	//        due to a minority of knuckle draggers who
@@ -130,6 +141,7 @@ $blocklist['A-1'] = array(
 	'1url.org',
 	'1url.in',
 	'1webspace.org',
+	'2am.jp',
 	'2Ch.net' => array(
 		'ime.nu',
 		'ime.st',
@@ -197,7 +209,10 @@ $blocklist['A-1'] = array(
 	'bhomiyo.com',		///en.xliterate/ 64.209.134.9(web137.discountasp.net) by piyush at arborindia.com
 	'biglnk.com',
 	'bingr.com',
-	'bit.ly',
+	'bit.ly' => array(
+		'bit.ly',
+		'j.mp',
+	),
 	'bittyurl.com',
 	'*.bizz.cc',
 	'*.blo.pl',
@@ -216,6 +231,7 @@ $blocklist['A-1'] = array(
 	),
 	'budgethosts.org',
 	'budu.com',				// by peter.eder at imcworld.com
+	'budurl.com',
 	'*.buzznet.com',
 	'*.bydl.com',
 	'C-O.IN' => array(
@@ -236,6 +252,7 @@ $blocklist['A-1'] = array(
 	'christopherleestreet.com',
 	'cintcm.com',
 	'*.cjb.net',
+	'cli.gs',
 	'clipurl.com',
 	'*.co.nr',
 	'Comtech Enterprises ' => array(	// comteche.com
@@ -441,9 +458,10 @@ $blocklist['A-1'] = array(
 	'*.globalredirect.com',
 	'gnu.vu',
 	'*.go.cc',
-	//'Google.com' => array(
+	'Google.com' => array(
 	//		google.com/translate_c\?u=(?:http://)?
-	//),
+		'goo.gl',	// by (dns-admin at google.com)
+	),
 	'goonlink.com',
 	'.gourl.org',
 	'.greatitem.com',
@@ -612,6 +630,7 @@ $blocklist['A-1'] = array(
 	'.iwebtool.com',
 	'j6.bz',
 	'jeeee.net',
+	'is.gd',
 	'Jaze Redirect Services' => array(
 		'*.arecool.net',
 		'*.iscool.net',
@@ -894,6 +913,7 @@ $blocklist['A-1'] = array(
 	),
 	'monster-submit.com',
 	'mooo.jp',
+	'moourl.com',
 	'murl.net',
 	'myactivesurf.net',
 	'mytinylink.com',
@@ -912,6 +932,7 @@ $blocklist['A-1'] = array(
 	'*.ontheinter.net',
 	'ourl.org',
 	'ov2.net',				// frame
+	'ow.ly',
 	'*.ozonez.com',
 	'pagebang.com',
 	'palurl.com',
@@ -1046,11 +1067,15 @@ $blocklist['A-1'] = array(
 	'slink.in',
 	'smallurl.eu',
 	'smurl.name',
+	'sn.im',
 	'snipurl.com',
 	'sp-nov.net',
 	'splashblog.com',
 	'spod.cx',
 	'*.spydar.com',
+	'StumbleUpon.com' => array(
+		'su.pr',	// by (hostmaster at stumbleupon.com) 
+	),
 	'Subdomain.gr' => array(
 		'*.p2p.gr',
 		'*.subdomain.gr',
@@ -1076,6 +1101,7 @@ $blocklist['A-1'] = array(
 	'titlien.com',
 	'*.tlg.pl',
 	'tlurl.com',
+	'twurl.nl',		// 2010-09 87.255.53.196 (redirects tweetburner.com 87.255.53.196)
 	'link.toolbot.com',
 	'tnij.org',
 	'Tokelau ccTLD' => array('.tk'),
@@ -1085,6 +1111,10 @@ $blocklist['A-1'] = array(
 	'trimurl.com',
 	//'ttu.cc',		// Seems closed
 	'turl.jp',
+	'Twitter' => array(
+		't.co',		// by (cofounders at cointernet.co)
+		'twt.tl',
+	),
 	'*.tz4.com',
 	'U.TO' => array(	// ns *.1004web.com, 1004web.com is owned by Moon Jae Bark (utomaster at gmail.com) = u.to master
 		'*.1.to',
@@ -1201,6 +1231,7 @@ $blocklist['A-1'] = array(
 	),
 	'*.urlproxy.com',
 	'urlser.com',
+	'urlshorteningservicefortwitter.com',
 	'urlsnip.com',
 	'urlzip.de',
 	'urlx.org',
@@ -1380,13 +1411,19 @@ $blocklist['A-1'] = array(
 	),
 	'*.xshorturl.com',		// by Markus Lee (soul_s at list.ru) 
 	'.y11.net',
+	'Yahoo.co.jp' => array(
+		'wrs.search.yahoo.co.jp',
+	),
+	'Yahoo.com' => array(
+		'rds.yahoo.com',
+	),
+	'yatuc.com',
+	'yep.it',
 	'YESNS.com' => array(	// by Jae-Hwan Kwon (kwonjhpd at kornet.net)
 		'*.yesns.com',
 		'*.srv4u.net',
 		//blogne.com
 	),
-	'yatuc.com',
-	'yep.it',
 	'yumlum.com',
 	'yurel.com',
 	'Z.la' => array(
