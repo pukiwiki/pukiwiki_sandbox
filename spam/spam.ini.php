@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.198 2010/09/04 13:34:34 henoheno Exp $
+// $Id: spam.ini.php,v 1.199 2010/09/04 13:51:58 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -1111,7 +1111,7 @@ $blocklist['A-1'] = array(
 	'trimurl.com',
 	//'ttu.cc',		// Seems closed
 	'turl.jp',
-	'Twitter' => array(
+	'Twitter.com' => array(
 		't.co',		// by (cofounders at cointernet.co)
 		'twt.tl',
 	),
@@ -7222,7 +7222,7 @@ $blocklist['C'] = array(
 		'.analsextube247.com',		// 2010/08 99.192.176.58
 		'.eroticandy.com',			// 2010/08 99.192.176.54
 	),
-	'nikiforov501@mail.ru' => array(
+	'nikiforov501 at mail.ru' => array(
 		// 2010/09 91.205.156.74
 		'.211park.com',
 		'.atlantajuniorthrashers.com',
