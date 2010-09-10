@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.199 2010/09/04 13:51:58 henoheno Exp $
+// $Id: spam.ini.php,v 1.200 2010/09/10 14:19:12 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -468,6 +468,9 @@ $blocklist['A-1'] = array(
 	'gzurl.com',
 	'url.grillsportverein.de',
 	'Harudake.net' => array('*.hyu.jp'),
+	'hatena.ne.jp related' => array(
+		'htn.to',	// 2010-09 59.106.108.106 (hatena.ne.jp is 59.106.108.106)
+	),
 	'Hattinger Linux User Group' => array('short.hatlug.de'),
 	'Hexten.net' => array('lyxus.net'),
 	'here.is',
@@ -1238,6 +1241,7 @@ $blocklist['A-1'] = array(
 	'useurl.us',		// by Edward Beauchamp (mail at ebvk.com)
 	'utun.jp',
 	'uxxy.com',
+	'uzo.in',			// 2010-09 redirects, and subdomain
 	'*.v27.net',
 	'V3.com by FortuneCity.com' => array(	// http://www.v3.com/sub-domain-list.shtml
 		'*.all.at',
@@ -7089,76 +7093,103 @@ $blocklist['C'] = array(
 	),
 	'.onlinecasinoinformation.com',	// 2010/08 66.96.147.105
 	'.onlinecasinoresources.com',	// 2010/08 74.220.215.62
+
+	'moshenhm at gmail.com' => array(	// by Nahum, Moshe (moshenhm at gmail.com)
+
+		// 2010/08 65.254.248.143
+		'.odinhosting.com',			// seems no link today
+		'.nycdivers.com',			// link to mainalpha.com
+		'.robertlhines.com',		// link to mainalpha.com, etc
+		'.shadowsonmyshift.com',	// link to mainalpha.com, etc
+
+		// 2010/08 69.89.31.187
+		'.bcsliding.com',			// 
+		'.msthirteen.com',			// link to mainalpha.com
+		// 2010/08 74.53.239.27
+		'.thetravelerscafe.com',	// cheap tickets
+
+		//  2010/08 74.81.92.55
+		'.sonicparthenon.com',		// link to mainalpha.com
+		'.staroftheevening.com',	// link to mainalpha.com
+		'.sanjosecosmeticdental.com',
+
+		// 2010/08 173.45.103.74
+		'.digitalexperts.com',
+
+		// 2010/08 173.236.48.82
+		'.sunshinetesting.com',			// link to mainalpha.com
+		'.sports-and-concert-tickets.com',	//  seems no link today
+
+		// 2010/08 174.120.82.124
+		'.blueysretreat.com',			// seems no link today
+		'.lamborghinidenveronline.com',	// seems no link today
+		'.buckandbb.net',				// link to kqzyfj.com
+
+		// 2010/08 174.132.149.98
+		'.2008-national-n-scale-convention.com',	// link to mainalpha.com
+		'.creativejuicecompetition.com',	// seems no link today
+
+		// 2010/08 216.119.132.2
+		'.kennybrown.net',
+
+		// 2010/08 no address today
+		'.bestblackdatingonline.com',
+	),
+	
+	'info at dvishnu.com' => array(	// by Vishnu Prasath (info at dvishnu.com)
+	
+		// 2010/08 69.89.31.187
+		'.dinuzzollc.com',			// link to mainalpha.com etc
+		'.laruesbackdoor.com',		// link to mainalpha.com etc
+		'.okrenters.com',			// link to mainalpha.co
+		'.pandaitaid.com',			// link to mainalpha.com, etc
+		'.vicariouscollection.com',	// by Vishnu Prasath (info at dvishnu.com)
+		'.middlefingerproductions.net',	// link to mainalpha.com
+
+		//  2010/08 74.81.92.55
+		'.ecoxfinancial.com',		// link to mainalpha.com etc
+		'.fightingspirit-comics.com',	// link to mainalpha.com etc
+		'.learntoplaythedobro.com',	// link to mainalpha.com etc
+		'.montcalm4hfair.com',		// link to mainalpha.com etc
+		'.oaads.com',				// link to mainalpha.com etc
+		'.pabloblum.com',			// link to mainalpha.com
+		'.renaissancequartet.com',	// link to mainalpha.com
+		'.sbi-limited.com',			// link to mainalpha.com
+		'.showeroffire.com',		// link to mainalpha.com
+		'.soccerfestcolumbus.com',	// link to mainalpha.com
+
+		// 2010/08 173.236.48.82
+		'.anniedguesthouse.com',		// link to mainalpha.com
+		'.finnfest2009.com',			// link to mainalpha.com
+		'.hietalasoldworldmeats.com',	// link to mainalpha.com etc
+		'.splendoreimport.com',			// link to mainalpha.com
+
+		// 2010/08 174.120.82.124
+		'.jenurbanandthebox.com',		// link to mainalpha.com
+
+		// 2010/08 174.132.149.98
+		'.segwaybykar.com',				// link to mainalpha.com
+	),
+	
 	'mainalpha.com related' => array(
 
 		// 2010/08 65.254.248.143
 		'.archivecdbooksus.com',	// by (offpista at gmail.com), "sports betting"
 		'.highrollersonlinecasinos.com',	// casios
 		'.onlinecasinocenter.com',			// casios
-		'.odinhosting.com',			// by Nahum, Moshe (moshenhm at gmail.com), seems no link today
-		'.nycdivers.com',			// by Nahum, Moshe (moshenhm at gmail.com), link to mainalpha.com
-		'.robertlhines.com',		// by Nahum, Moshe (moshenhm at gmail.com), link to mainalpha.com, etc
-		'.shadowsonmyshift.com',	// by Nahum, Moshe (moshenhm at gmail.com), link to mainalpha.com, etc
 
-		// 2010/08 69.89.31.187
-		'.bcsliding.com',			// by Nahum, Moshe (moshenhm at gmail.com)
-		'.dinuzzollc.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
-		'.laruesbackdoor.com',		// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
-		'.msthirteen.com',			// by Nahum, Moshe (moshenhm at gmail.com), link to mainalpha.com
-		'.okrenters.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.co
-		'.pandaitaid.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com, etc
-		'.vicariouscollection.com',	// by Vishnu Prasath (info at dvishnu.com)
-		'.middlefingerproductions.net',	// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		
-		// 2010/08 74.53.239.27
-		'.thetravelerscafe.com',	// by Nahum, Moshe (moshenhm at gmail.com), cheap tickets
 		
 		//  2010/08 74.81.92.55
 		'.2ndrose.com',				// by Victor Zrovanov (victor3239 at gmail.com), link to mainalpha.com
-		'.ecoxfinancial.com',		// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
 		'.edgewatertowers.com',		// by Victor Frankl (victor3239 at gmail.com), link to mainalpha.com
-		'.fightingspirit-comics.com',	// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
-		'.learntoplaythedobro.com',	// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
-		'.montcalm4hfair.com',		// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
-		'.oaads.com',				// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
-		'.pabloblum.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.renaissancequartet.com',	// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.sbi-limited.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.showeroffire.com',		// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.soccerfestcolumbus.com',	// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.sonicparthenon.com',		// by Nahum, Moshe (moshenhm at gmail.com), link to mainalpha.com
-		'.staroftheevening.com',	// by Nahum, Moshe (moshenhm at gmail.com), link to mainalpha.com
 
-		// 2010/08 173.45.103.74
-		'.digitalexperts.com',		// by Nahum, Moshe (moshenhm at gmail.com)
-		
 		// 2010/08 173.236.48.82
-		'.anniedguesthouse.com',		// by Vishnu Prasath (info dvishnu.com), link to mainalpha.com
 		'.ciprogram.com',				// link to mainalpha.com
-		'.finnfest2009.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.hietalasoldworldmeats.com',	// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com etc
-		'.splendoreimport.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.sunshinetesting.com',			// by Nahum, Moshe (moshenhm at gmail.com), link to mainalpha.com
-		'.sports-and-concert-tickets.com',	//  by Nahum, Moshe (moshenhm at gmail.com), seems no link today
-
-		// 2010/08 174.120.82.124
-		'.blueysretreat.com',			// by Nahum, Moshe (moshenhm at gmail.com), seems no link today
-		'.jenurbanandthebox.com',		// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.lamborghinidenveronline.com',	// by Nahum, Moshe (moshenhm at gmail.com), seems no link today
-		'.buckandbb.net',				// by Nahum, Moshe (moshenhm at gmail.com), link to kqzyfj.com
 
 		// 2010/08 174.132.149.98
-		'.2008-national-n-scale-convention.com',	// by Moshe Nahum (moshenhm at gmail.com), link to mainalpha.com
 		'.msgulfcoastbnbs.com',		// by Michael John (cpajourney at yahoo.com), link to mainalpha.com etc
-		'.segwaybykar.com',			// by Vishnu Prasath (info at dvishnu.com), link to mainalpha.com
-		'.creativejuicecompetition.com',	// by Nahum, Moshe (moshenhm at gmail.com), seems no link today
-		
-		// 2010/08 216.119.132.2
-		'.kennybrown.net',			// by Moshe Nahum (moshenhm at gmail.com), 
-
-		// 2010/08 no address today
-		'.bestblackdatingonline.com',	// by Nahum, Moshe (moshenhm at gmail.com)
 	),
+
 	'kouvald at gmail.com' => array(	// by Vlad Kouvaldin (kouvald at gmail.com)
 
 		// 2010/08 91.205.156.73
