@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.200 2010/09/10 14:19:12 henoheno Exp $
+// $Id: spam.ini.php,v 1.201 2010/12/15 15:49:20 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -7292,12 +7292,15 @@ $blocklist['D'] = array(
 
 $blocklist['E'] = array(
 	// E: Sample setting of
-	// Promoters
-	// (Affiliates, Hypes, Catalog retailers, Multi-level marketings, Resellers,
+	// Promotions
+	// (Phenomenons with Affiliates, Hypes, Catalog retailers, Multi-level marketings, Resellers,
 	//  Ads, Business promotions, SEO, etc)
 	//
-	// They often promotes near you using blog article, mail-magazines, tools(search engines, blogs, etc), etc.
+	// Promotions near you using blog article, mail-magazines, tools(search engines, blogs, etc), etc.
 	// Sometimes they may promote each other
+	//
+	// Please notify us about this list with reason:
+	// http://pukiwiki.sourceforge.jp/dev/?BugTrack2/342
 
 	'15-Mail.com related' => array(
 		'.15-mail.com',				// 202.218.109.45(*.netassist.jp) by yukiyo yamamoto (sunkusu5268 at m4.ktplan.ne.jp)
