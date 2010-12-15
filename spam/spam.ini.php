@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.ini.php,v 1.201 2010/12/15 15:49:20 henoheno Exp $
+// $Id: spam.ini.php,v 1.202 2010/12/15 16:07:38 henoheno Exp $
 // Spam-related setting
 
 // NOTE FOR ADMINISTRATORS:
@@ -83,7 +83,7 @@ $blocklist['official/dev'] = array(
 
 $blocklist['A-1'] = array(
 
-	// A-1: General redirection services -- by HTML meta, HTML frame, JavaScript,
+	// A-1: General redirection or masking services -- by HTML meta, HTML frame, JavaScript,
 	// web-based proxy, DNS subdomains, etc
 	// http://en.wikipedia.org/wiki/URL_redirection
 	//
