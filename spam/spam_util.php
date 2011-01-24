@@ -1,6 +1,6 @@
 <?php
-// $Id: spam_util.php,v 1.3 2011/01/24 14:46:45 henoheno Exp $
-// Copyright (C) 2006-2009 PukiWiki Developers Team
+// $Id: spam_util.php,v 1.4 2011/01/24 14:51:50 henoheno Exp $
+// Copyright (C) 2006-2009, 2011 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
 // Functions for Concept-work of spam-uri metrics
