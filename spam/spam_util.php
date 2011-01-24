@@ -1,5 +1,5 @@
 <?php
-// $Id: spam_util.php,v 1.2 2009/01/04 08:56:07 henoheno Exp $
+// $Id: spam_util.php,v 1.3 2011/01/24 14:46:45 henoheno Exp $
 // Copyright (C) 2006-2009 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -37,6 +37,18 @@ function preg_grep_invert($pattern = '//', $input = array())
 
 // ---------------------
 // Utilities
+
+
+if (! function_exists('htmlsc')) {
+	// Interface with PukiWiki
+	if (! defined('CONTENT_CHARSET')) define('CONTENT_CHARSET', 'ISO-8859-1');
+
+	// Sugar with default settings
+	function htmlsc($string = '', $flags = ENT_QUOTES, $charset = CONTENT_CHARSET)
+	{
+		return htmlspecialchars($string, $flags, $charset);     // htmlsc()
+	}
+}
 
 // Very roughly, shrink the lines of var_export()
 // NOTE: If the same data exists, it must be corrupted.

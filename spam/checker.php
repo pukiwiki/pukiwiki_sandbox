@@ -1,5 +1,5 @@
 <?php
-// $Id: checker.php,v 1.7 2009/01/04 05:01:34 henoheno Exp $
+// $Id: checker.php,v 1.8 2011/01/24 14:46:45 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
@@ -9,7 +9,7 @@ error_reporting(E_ALL); // Debug purpose
 require('spam.php');
 
 // Recursive array_map()
-// e.g. Sanitilze ALL values (Debug purpose): var_dump(recursive_map('htmlspecialchars', $array));
+// e.g. Sanitilze ALL values (Debug purpose): var_dump(recursive_map('htmlsc', $array));
 function recursive_map($func, $array)
 {
 	if (is_array($array)) {
@@ -25,7 +25,7 @@ function recursive_map($func, $array)
 
 function show_form($string, $asap = FALSE, $progress = TRUE, $pickup = TRUE)
 {
-	$string   = htmlspecialchars($string);
+	$string   = htmlsc($string);
 	$asap     = $asap     ? ' checked' : '';
 	$progress = $progress ? ' checked' : '';
 	$pickup   = $pickup   ? ' checked' : '';
@@ -135,20 +135,20 @@ if (! empty($progress)) {
 		$tmp = summarize_detail_badhost($progress);
 		if ($tmp != '') {
 			echo 'DETAIL_BADHOST: ' . 
-				str_replace('  ', '&nbsp; ', nl2br(htmlspecialchars($tmp). "\n"));
+				str_replace('  ', '&nbsp; ', nl2br(htmlsc($tmp). "\n"));
 		}
 	}
 
 	$tmp = summarize_detail_newtral($progress);
 	if (! $asap && $tmp != '') {
 		echo 'DETAIL_NEUTRAL_HOST: ' . 
-				str_replace('  ', '&nbsp; ', nl2br(htmlspecialchars($tmp). "\n"));
+				str_replace('  ', '&nbsp; ', nl2br(htmlsc($tmp). "\n"));
 	}
 	
 	if ($prog) {
 		echo '<pre>';
 		echo '$progress:' . "\n";
-		echo htmlspecialchars(var_export($progress, TRUE));
+		echo htmlsc(var_export($progress, TRUE));
 		echo '</pre>';
 	}
 }
@@ -159,7 +159,7 @@ if ($pickup) {
  	$results = uri_pickup_normalize($results);
  	$results = uri_pickup_normalize_pathfile($results);
 	echo '$results:' . "\n";
-	echo htmlspecialchars(var_export($results, TRUE));
+	echo htmlsc(var_export($results, TRUE));
 	echo '</pre>';
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-// $Id: spam.php,v 1.219 2009/01/04 08:56:07 henoheno Exp $
+// $Id: spam.php,v 1.220 2011/01/24 14:46:45 henoheno Exp $
 // Copyright (C) 2006-2009 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 //
@@ -664,7 +664,7 @@ function spam_exit($mode = '', $data = array())
 			break;
 		case 'dump':
 			echo('<pre>' . "\n");
-			echo htmlspecialchars(var_export($data, TRUE));
+			echo htmlsc(var_export($data, TRUE));
 			echo('</pre>' . "\n");
 			break;
 	};
