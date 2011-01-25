@@ -1,11 +1,12 @@
 <?php
-// $Id: checker.php,v 1.8 2011/01/24 14:46:45 henoheno Exp $
+// $Id: checker.php,v 1.9 2011/01/25 13:16:35 henoheno Exp $
 // Concept-work of spam-uri metrics
 // Copyright (C) 2006-2007 PukiWiki Developers Team
 // License: GPL v2 or (at your option) any later version
 
 error_reporting(E_ALL); // Debug purpose
 
+if (! defined('CONTENT_CHARSET')) define('CONTENT_CHARSET', 'ISO-8859-1');
 require('spam.php');
 
 // Recursive array_map()
